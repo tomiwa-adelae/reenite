@@ -5,6 +5,7 @@ import { useState } from "react";
 import { navLinks } from "@/constants";
 import { MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { usePathname, useRouter } from "next/navigation";
 import {
 	Sheet,
@@ -17,8 +18,10 @@ export function MobileNavbar() {
 	const [openMobile, setOpenMobile] = useState(false); // <-- add state
 	const pathname = usePathname();
 
+	const isMobile = useIsMobile();
+
 	const handleClick = () => {
-		if (isMobile && setOpenMobile) {
+		if (setOpenMobile) {
 			setOpenMobile(false);
 		}
 	};
