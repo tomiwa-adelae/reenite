@@ -4,6 +4,7 @@ import { ExploreSpaces } from "@/components/ExploreSpaces";
 import { Marquee } from "@/components/Marquee";
 import { Addons } from "@/components/Addons";
 import { RandomText } from "@/components/RandomText";
+import { Testimonials } from "@/components/Testimonials";
 import { ImageLibrary } from "@/components/shared/ImageLibrary";
 import { galleryImages } from "@/constants";
 
@@ -16,6 +17,7 @@ const page = () => {
 			<ExploreSpaces />
 			<Addons />
 			<RandomText />
+			<Testimonials />
 			<ImageLibrary />
 		</div>
 	);

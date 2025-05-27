@@ -47,7 +47,7 @@ export const ImageLibrary = () => {
 					<Lightbox
 						open={open}
 						close={() => setOpen(false)}
-						slides={space}
+						slides={spaces}
 						index={currentIndex}
 					/>
 				)}
