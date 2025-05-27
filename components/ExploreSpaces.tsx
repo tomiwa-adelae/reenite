@@ -27,7 +27,7 @@ export const ExploreSpaces = () => {
 									alt={`${name}'s picture`}
 									width={1000}
 									height={1000}
-									className="w-auto h-[300px] group-hover:scale-105 transition-all object-cover rounded-3xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+									className="w-auto h-[300px] group-hover:scale-105 transition-all object-cover rounded-4xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
 								/>
 								<div className="py-4">
 									<h3 className="font-medium group-hover:text-secondary text-xl transition-all">

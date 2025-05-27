@@ -25,7 +25,7 @@ export const ImageLibrary = () => {
 				>
 					{spaces?.map((image: any, index: number) => (
 						<div
-							className="relative group"
+							className="relative group overflow-hidden rounded-4xl"
 							key={index}
 							onClick={() => handleOpen(index)}
 						>
@@ -34,7 +34,7 @@ export const ImageLibrary = () => {
 								width={1000}
 								height={1000}
 								alt={`Image ${index + 1}`}
-								className="cursor-pointer rounded-lg aspect-square object-cover"
+								className="cursor-pointer rounded-lg aspect-square object-cover group-hover:scale-105 transition-all"
 							/>
 							<h3 className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] opacity-0 group-hover:opacity-100 transition-all z-20 font-medium text-xl text-center text-white">
 								{image.name}
