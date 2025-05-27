@@ -24,7 +24,7 @@ export const Header = () => {
 						className="hidden group-hover:block w-[150px] md:w-[160px] lg:w-[180px]"
 					/>
 				</Link>
-				<nav className="hidden flex-1 lg:flex uppercase items-center justify-center gap-2 lg:gap-8">
+				<nav className="hidden flex-1 lg:flex items-center justify-center gap-2 lg:gap-8">
 					{navLinks.map((link, idx) => (
 						<Link
 							key={idx}

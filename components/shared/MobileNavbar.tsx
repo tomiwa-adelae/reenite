@@ -76,15 +76,19 @@ export function MobileNavbar() {
                             `}
 										onClick={handleClick}
 									>
-										<span className="text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0 uppercase font-medium">
+										<span className="text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0 font-medium">
 											{link.label}
 										</span>
 									</Link>
 								);
 							})}
 						</div>
-						<div className="flex flex-col mt-8 w-full items-center justify-end gap-4">
-							<Button className="w-full" asChild size="md">
+						<div className="flex flex-col mt-4 w-full items-center justify-end gap-4">
+							<Button
+								asChild
+								size="md"
+								className="text-sm w-full"
+							>
 								<Link href="/book">Book a space</Link>
 							</Button>
 						</div>

@@ -55,14 +55,14 @@ export const Footer = () => {
 					</div>
 					{footerDetails.map(({ title, links }, index) => (
 						<div key={index} className="">
-							<h3 className="text-sm md:text-base font-semibold tracking-wider uppercase">
+							<h3 className="text-sm md:text-base font-semibold tracking-wider">
 								{title}
 							</h3>
 							<ul className="mt-4 space-y-4">
 								{links.map(({ slug, label }, idx) => (
 									<li key={idx}>
 										<Link
-											className="text-xs uppercase hover:text-secondary transition-all text-white/80"
+											className="text-sm hover:text-secondary transition-all text-white/80"
 											href={slug}
 										>
 											{label}
@@ -77,7 +77,7 @@ export const Footer = () => {
 			<div className="container">
 				<Separator className="text-red-400" />
 			</div>
-			<div className="transition-all py-8 text-center font-medium uppercase text-xs">
+			<div className="transition-all py-8 text-center font-medium text-sm">
 				<p className="container">
 					&copy; {year} Reenite. All rights reserved.
 				</p>

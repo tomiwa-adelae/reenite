@@ -6,7 +6,7 @@ export const OurServices = () => {
 	return (
 		<div className="bg-white py-12">
 			<div className="container">
-				<h4 className="font-semibold text-2xl lg:text-4xl text-center">
+				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Work in Peace,{" "}
 					<span className="text-muted-foreground">
 						Thrive in Comfort

@@ -16,8 +16,8 @@ export const navLinks = [
 		label: "Book Space",
 	},
 	{
-		slug: "/browse-spaces",
-		label: "Browse spaces",
+		slug: "/blogs",
+		label: "Blogs",
 	},
 	{
 		slug: "/about",
@@ -171,20 +171,34 @@ export const ourServices = [
 
 export const spaces = [
 	{
-		image: "/assets/images/space-one.jpg",
-		name: "Private Office",
+		src: "/assets/images/space-one.jpg",
+		name: "Shared Work Lounge",
+		description:
+			"A vibrant, open-plan area perfect for freelancers, remote workers, and casual creatives. Bring your laptop and plug into productivity.",
 	},
 	{
-		image: "/assets/images/space-one.jpg",
-		name: "Private Office",
+		src: "/assets/images/space-two.jpg",
+		name: "Private desk",
+		description:
+			"Need focus and zero distractions? Our private desk gives you a dedicated space to concentrate and get things done — all yours for the session.",
 	},
 	{
-		image: "/assets/images/space-one.jpg",
-		name: "Private Office",
+		src: "/assets/images/space-three.jpg",
+		name: "Mini meeting rooms",
+		description:
+			"Perfect for 2–4 people, this cozy meeting space is great for client catch-ups, interviews, or team brainstorming sessions.",
 	},
 	{
-		image: "/assets/images/space-one.jpg",
-		name: "Private Office",
+		src: "/assets/images/space-four.jpg",
+		name: "Call Booth",
+		description:
+			"Take private calls, virtual meetings, or online interviews in peace. Sound-insulated and comfy for short focused sessions.",
+	},
+	{
+		src: "/assets/images/space-five.jpg",
+		name: "Creative Corner",
+		description:
+			"A relaxed corner with armchairs and soft lighting — ideal for reading, journaling, or light laptop work over a cup of parfait or coffee.",
 	},
 ];
 
