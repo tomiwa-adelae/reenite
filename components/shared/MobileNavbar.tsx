@@ -6,7 +6,6 @@ import { navLinks } from "@/constants";
 import { MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import { SidebarContent } from "../../app/(admin)/components/SidebarContent";
 import {
 	Sheet,
 	SheetContent,
