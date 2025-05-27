@@ -10,7 +10,7 @@ export const Marquee = () => {
 					{firstMarquee.map((text, index) => (
 						<span
 							key={index}
-							className="inline-block text-lg font-semibold text-white mx-8 uppercase transition-all cursor-pointer marquee-text hover:text-secondary hover:scale-105"
+							className="inline-block text-base lg:text-lg font-semibold text-white mx-4 lg:mx-8 uppercase transition-all cursor-pointer marquee-text hover:text-secondary hover:scale-105"
 						>
 							{text}
 						</span>

@@ -16,7 +16,7 @@ export const ImageLibrary = () => {
 	return (
 		<div className="pb-16">
 			<div className="container">
-				<h4 className="font-semibold text-3xl lg:text-5xl text-center">
+				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Our photo{" "}
 					<span className="text-muted-foreground">Gallery</span>
 				</h4>

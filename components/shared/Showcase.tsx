@@ -22,7 +22,7 @@ export const Showcase = () => {
 					>
 						Your Productive Space Awaits
 					</h1>
-					<p className="text-base font-medium mb-4 md:w-7/12 mx-auto">
+					<p className="text-base leading-relaxed font-medium mb-4 md:w-7/12 mx-auto">
 						Book a serene, modern workspace to focus, meet, or
 						create. Join us at Reenite and be part of a community
 						driving innovation in Uyo and beyond.
