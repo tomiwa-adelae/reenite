@@ -212,3 +212,47 @@ export const firstMarquee = [
 	"🎯 Find your flow",
 	"⚡ Work anywhere",
 ];
+
+export const secondMarquee = [
+	"☕ Parfait",
+	"🌿 Calm environment",
+	"🎉 Creativity",
+	"📶 Super-fast Wi-Fi",
+	"🪑 Comfort & Clarity",
+	"📍	Best location",
+	"🧠 Think & Create",
+	"🕒 Flexible bookings",
+];
+
+export const testimonials = [
+	{
+		image: "/assets/images/user-one.jpeg",
+		name: "Tomiwa Adelae",
+		testimony:
+			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eius molestiae illo id, ab dolor modi, est aut atque iure facilis reiciendis ex exercitationem, perspiciatis fugiat consequuntur ? Dolor, itaque.",
+		borderColor: "border-white",
+		bgColor: "bg-[#EEE6FD]",
+		textColor: "text-purple-900",
+		rotate: "lg:-rotate-6",
+	},
+	{
+		image: "/assets/images/user-two.webp",
+		name: "Sandra Reddington",
+		testimony:
+			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eius molestiae illo id, ab dolor modi, est aut atque iure facilis reiciendis ex exercitationem, perspiciatis fugiat consequuntur ? Dolor, itaque.",
+		borderColor: "border-gray-200",
+		bgColor: "bg-[#FFFBFD]",
+		textColor: "text-primary",
+		rotate: "rotate-0",
+	},
+	{
+		image: "/assets/images/user-three.jpg",
+		name: "Israel Ibitoye",
+		testimony:
+			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eius molestiae illo id, ab dolor modi, est aut atque iure facilis reiciendis ex exercitationem, perspiciatis fugiat consequuntur ? Dolor, itaque.",
+		borderColor: "border-orange-400",
+		bgColor: "bg-[#FEF8E8]",
+		textColor: "text-orange-400",
+		rotate: "lg:rotate-6",
+	},
+];

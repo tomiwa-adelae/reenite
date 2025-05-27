@@ -6,17 +6,18 @@ import { Addons } from "@/components/Addons";
 import { RandomText } from "@/components/RandomText";
 import { Testimonials } from "@/components/Testimonials";
 import { ImageLibrary } from "@/components/shared/ImageLibrary";
-import { galleryImages } from "@/constants";
+import { firstMarquee, secondMarquee } from "@/constants";
 
 const page = () => {
 	return (
 		<div>
 			<Showcase />
-			<Marquee />
+			<Marquee texts={firstMarquee} />
 			<OurServices />
 			<ExploreSpaces />
 			<Addons />
 			<RandomText />
+			<Marquee texts={secondMarquee} />
 			<Testimonials />
 			<ImageLibrary />
 		</div>

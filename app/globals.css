@@ -138,21 +138,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-/* Marquee Section */
-.marquee-section {
-	/* background: linear-gradient(90deg, #1a202c 0%, #2d3748 50%, #1a202c 100%); */
-	/* padding: 2rem 0; */
-	/* overflow: hidden; */
-	/* position: relative; */
-	/* border-top: 3px solid #667eea; */
-	/* border-bottom: 3px solid #764ba2; */
-}
-
-/* .marquee-container {
-	white-space: nowrap;
-	overflow: hidden;
-} */
-
 .marquee-content {
 	animation: marqueeScroll 30s linear infinite;
 }
@@ -163,8 +148,6 @@ html {
 }
 
 .marquee-text:hover {
-	/* color: #667eea; */
-	/* transform: scale(1.1); */
 	text-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
 }
 
@@ -177,7 +160,6 @@ html {
 	}
 }
 
-/* Pause animation on hover */
 .marquee-section:hover .marquee-content {
 	animation-play-state: paused;
 }
