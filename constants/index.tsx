@@ -8,6 +8,10 @@ import {
 	FolderKanban,
 	Coffee,
 	QrCode,
+	CircleUser,
+	FolderClock,
+	Settings,
+	CircleHelp,
 } from "lucide-react";
 
 export const navLinks = [
@@ -254,5 +258,109 @@ export const testimonials = [
 		bgColor: "bg-[#FEF8E8]",
 		textColor: "text-orange-400",
 		rotate: "lg:rotate-6",
+	},
+];
+
+export const faqs = [
+	{
+		question: "How do I book a workspace at Reenite?",
+		answer: "You can browse available spaces on the Explore Spaces page and click “Book Now” to select your preferred date and time. Booking is instant and secure.",
+	},
+	{
+		question: "Can I walk in without booking online?",
+		answer: "Yes, walk-ins are welcome — but we recommend booking in advance to guarantee availability, especially during peak hours.",
+	},
+	{
+		question: "What amenities are included with each booking?",
+		answer: "All workspaces come with fast Wi-Fi, charging ports, air conditioning, and complimentary water. Some spaces include access to our Parfait bar, meeting boards, or phone booths.",
+	},
+	{
+		question: "Can I cancel or reschedule my booking?",
+		answer: "Yes! You can cancel or reschedule up to 2 hours before your booked time via your dashboard. Last-minute changes may be subject to a small fee.",
+	},
+	{
+		question: "Is there a minimum or maximum booking time?",
+		answer: "You can book a space for as little as 30 minutes or up to an entire day, depending on the space. Each listing shows its available booking durations.",
+	},
+	{
+		question: "Do you offer food or refreshments?",
+		answer: "Absolutely! We serve fresh Parfait, coffee, and light snacks onsite. You can pre-order during your booking or buy at the space.",
+	},
+	{
+		question: "Is Reenite open every day?",
+		answer: "Is Reenite open every day?",
+	},
+	{
+		question: "Can I host a small meeting or event here?",
+		answer: "Yes! Some of our spaces are perfect for team huddles, interviews, or private sessions. Be sure to check the capacity listed in each space before booking.",
+	},
+];
+
+export const spaceBookings = [
+	{
+		type: "hour",
+		price: "21,616",
+	},
+	{
+		type: "daily",
+		price: "21,616",
+	},
+	{
+		type: "week",
+		price: "21,616",
+	},
+	{
+		type: "month",
+		price: "21,616",
+	},
+];
+
+export const noOfHours = [
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"1",
+	"10",
+	"11",
+	"12",
+	"13",
+	"14",
+	"15",
+	"16",
+	"17",
+	"18",
+	"19",
+	"20",
+];
+
+export const userNavLinks = [
+	{
+		icon: CircleUser,
+		slug: "/profile",
+		label: "Profile",
+		image: "",
+	},
+	{
+		icon: FolderClock,
+		slug: "/bookings",
+		label: "Past bookings",
+		image: "/assets/icons/folder.svg",
+	},
+	{
+		icon: Settings,
+		slug: "/account-settings",
+		label: "Account settings",
+		image: "",
+	},
+	{
+		icon: CircleHelp,
+		slug: "/help-center",
+		label: "Help center",
+		image: "",
 	},
 ];

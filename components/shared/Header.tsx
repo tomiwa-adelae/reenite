@@ -3,27 +3,13 @@ import Image from "next/image";
 import { navLinks } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { MobileNavbar } from "@/components/shared/MobileNavbar";
+import { Logo } from "./Logo";
 
 export const Header = () => {
 	return (
 		<header className="z-50 bg-white dark:bg-black py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
 			<div className="container flex items-center justify-between gap-4">
-				<Link href="/" className="group">
-					<Image
-						src={"/assets/images/logo-full.svg"}
-						alt="Reenite full logo in it's blue color"
-						width={1000}
-						height={1000}
-						className="group-hover:hidden w-[150px] md:w-[160px] lg:w-[180px]"
-					/>
-					<Image
-						src={"/assets/images/logo-full-grey.svg"}
-						alt="Reenite full logo in it's grey color"
-						width={1000}
-						height={1000}
-						className="hidden group-hover:block w-[150px] md:w-[160px] lg:w-[180px]"
-					/>
-				</Link>
+				<Logo />
 				<nav className="hidden flex-1 lg:flex items-center justify-center gap-2 lg:gap-8">
 					{navLinks.map((link, idx) => (
 						<Link

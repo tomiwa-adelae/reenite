@@ -6,12 +6,12 @@ export const OurServices = () => {
 	return (
 		<div className="bg-white py-12">
 			<div className="container">
-				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
+				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Work in Peace,{" "}
 					<span className="text-muted-foreground">
 						Thrive in Comfort
 					</span>
-				</h4>
+				</h2>
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 					{ourServices.map(({ icon, title, description }, index) => {
 						const Icon = icon;

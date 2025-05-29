@@ -32,11 +32,9 @@ export const Testimonials = () => {
 									bgColor,
 									rotate
 								)}
+								key={index}
 							>
-								<div
-									key={index}
-									className="flex items-center justify-start gap-4"
-								>
+								<div className="flex items-center justify-start gap-4">
 									<Image
 										src={image}
 										alt={`${name}'s picture`}

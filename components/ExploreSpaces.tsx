@@ -10,10 +10,10 @@ export const ExploreSpaces = () => {
 	return (
 		<div className="bg-white pt-10 pb-16">
 			<div className="container">
-				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
+				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Explore our{" "}
 					<span className="text-muted-foreground">spaces</span>
-				</h4>
+				</h2>
 				<ScrollArea>
 					<div className="flex w-max space-x-4 pr-10 pb-4 mt-8">
 						{spaces?.map(({ name, src, description }, index) => (

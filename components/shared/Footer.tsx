@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { Button } from "@/components/ui/button";
 import { footerDetails, socialLinks } from "@/constants";
+import { WhiteLogo } from "./Logo";
 
 export const Footer = () => {
 	const year = new Date().getFullYear();
@@ -11,22 +12,7 @@ export const Footer = () => {
 			<div className="container">
 				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-16">
 					<div className="col-span-2 md:col-span-1 lg:col-span-2">
-						<Link href="/" className="group">
-							<Image
-								src={"/assets/images/logo-full-white.svg"}
-								alt="Reenite full logo in it's blue color"
-								width={1000}
-								height={1000}
-								className="group-hover:hidden w-[150px] md:w-[160px] lg:w-[180px]"
-							/>
-							<Image
-								src={"/assets/images/logo-full-grey.svg"}
-								alt="Reenite full logo in it's grey color"
-								width={1000}
-								height={1000}
-								className="hidden group-hover:block w-[150px] md:w-[160px] lg:w-[180px]"
-							/>
-						</Link>
+						<WhiteLogo />
 						<p className="text-white/80 dark:text-gray-200 text-base mt-4">
 							Connecting people with the perfect workspace for
 							productivity and collaboration.
