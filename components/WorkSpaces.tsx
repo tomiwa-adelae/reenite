@@ -1,7 +1,26 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 
-const workspaces = [
+type ButtonVariant =
+	| "default"
+	| "secondary"
+	| "link"
+	| "black"
+	| "white"
+	| "destructive"
+	| "outline"
+	| "ghost";
+
+type Workspace = {
+	title: string;
+	description: string;
+	amenities: string;
+	image: string;
+	bg: string;
+	buttonVariant: ButtonVariant;
+};
+
+const workspaces: Workspace[] = [
 	{
 		title: "Mini Conference Room",
 		description: "A distraction-free personal desk perfect for deep work.",

@@ -1,7 +1,5 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
 export const NoBookings = () => {
 	return (
@@ -17,9 +15,6 @@ export const NoBookings = () => {
 				You’ll find your past bookings here after you’ve had your first
 				booking on Reenite.
 			</p>
-			<Button asChild size="md" variant="secondary">
-				<Link href="/spaces">Book a space</Link>
-			</Button>
 		</div>
 	);
 };

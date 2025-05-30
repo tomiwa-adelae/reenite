@@ -39,7 +39,7 @@ export const Sidebar = () => {
 					<div className="container">
 						<div className="container">
 							<h2 className="font-bold text-3xl">Profile</h2>
-							<div className="mt-8 grid gap-2">
+							<div className="mt-8 grid gap-1">
 								{sidebarLinks.map(
 									({ slug, label, icon, exact }) => (
 										<Link

@@ -12,6 +12,20 @@ import {
 	FolderClock,
 	Settings,
 	CircleHelp,
+	Info,
+	LayoutDashboard,
+	HousePlus,
+	House,
+	Folder,
+	Users,
+	Car,
+	CookingPot,
+	Snowflake,
+	Printer,
+	Shield,
+	Phone,
+	Video,
+	Lightbulb,
 } from "lucide-react";
 
 export const navLinks = [
@@ -343,24 +357,214 @@ export const userNavLinks = [
 		icon: CircleUser,
 		slug: "/profile",
 		label: "Profile",
-		image: "",
+	},
+	{
+		icon: Info,
+		slug: "/about",
+		label: "About me",
 	},
 	{
 		icon: FolderClock,
 		slug: "/bookings",
 		label: "Past bookings",
-		image: "/assets/icons/folder.svg",
 	},
 	{
 		icon: Settings,
 		slug: "/account-settings",
 		label: "Account settings",
-		image: "",
 	},
 	{
 		icon: CircleHelp,
 		slug: "/help-center",
 		label: "Help center",
-		image: "",
+	},
+];
+
+export const adminNavLinks = [
+	{
+		slug: "/dashboard",
+		label: "Dashboard",
+	},
+	{
+		slug: "/all-spaces",
+		label: "Spaces",
+	},
+	{
+		slug: "/all-bookings",
+		label: "Bookings",
+	},
+	{
+		slug: "/all-users",
+		label: "Users",
+	},
+];
+
+export const adminMobileLinks = [
+	{
+		slug: "/dashboard",
+		label: "Dashboard",
+		icon: LayoutDashboard,
+	},
+	{
+		slug: "/all-spaces",
+		label: "Spaces",
+		icon: House,
+	},
+	{
+		slug: "/all-bookings",
+		label: "Bookings",
+		icon: Folder,
+	},
+	{
+		slug: "/all-spaces/new",
+		label: "Create a new space",
+		icon: HousePlus,
+	},
+	{
+		slug: "/all-users",
+		label: "Users",
+		icon: Users,
+	},
+	{
+		slug: "/account-settings",
+		label: "Account settings",
+		icon: Settings,
+	},
+	{
+		slug: "/profile",
+		label: "Your profile",
+		icon: CircleUser,
+	},
+];
+
+export const newSpaceOverview = [
+	{
+		icon: "/assets/icons/office.svg",
+		name: "Office",
+		title: "Tell us about your place",
+		description:
+			"Share some basic info, like where it is and how many guests can work there.",
+	},
+	{
+		icon: "/assets/icons/picture.svg",
+		name: "picture",
+		title: "Make it stand out",
+		description:
+			"Add 5 or more photos plus a title and description—we’ll help you out.",
+	},
+	{
+		icon: "/assets/icons/publish.svg",
+		name: "Check",
+		title: "Finish up and publish",
+		description:
+			"Choose a starting price, verify a few details, then publish your space.",
+	},
+];
+
+export const spaceCategories = [
+	{
+		icon: "/assets/icons/office.svg",
+		name: "Space Desk",
+	},
+	{
+		icon: "/assets/icons/building.svg",
+		name: "Private office",
+	},
+	{
+		icon: "/assets/icons/cafe.svg",
+		name: "Café Table",
+	},
+	{
+		icon: "/assets/icons/meeting-room.svg",
+		name: "Meeting Room",
+	},
+	{
+		icon: "/assets/icons/podcast.svg",
+		name: "Podcast Booth",
+	},
+	{
+		icon: "/assets/icons/training-room.svg",
+		name: "Training Room",
+	},
+];
+
+export const nigerianStates = [
+	"Abia",
+	"Adamawa",
+	"Akwa Ibom",
+	"Anambra",
+	"Bauchi",
+	"Bayelsa",
+	"Benue",
+	"Borno",
+	"Cross River",
+	"Delta",
+	"Ebonyi",
+	"Edo",
+	"Ekiti",
+	"Enugu",
+	"Gombe",
+	"Imo",
+	"Jigawa",
+	"Kaduna",
+	"Kano",
+	"Katsina",
+	"Kebbi",
+	"Kogi",
+	"Kwara",
+	"Lagos",
+	"Nasarawa",
+	"Niger",
+	"Ogun",
+	"Ondo",
+	"Osun",
+	"Oyo",
+	"Plateau",
+	"Rivers",
+	"Sokoto",
+	"Taraba",
+	"Yobe",
+	"Zamfara",
+	"FCT (Abuja)",
+] as const;
+
+export const nigerianCountries = ["Nigeria"] as const;
+
+export const availableAmenities = [
+	{
+		icon: Wifi,
+		name: "High speed wifi",
+	},
+	{
+		icon: Snowflake,
+		name: "Air conditioning",
+	},
+	{
+		icon: Car,
+		name: "Parking",
+	},
+	{
+		icon: CookingPot,
+		name: "Kitchen/Pantry",
+	},
+	{
+		icon: Lightbulb,
+		name: "Natural Light",
+	},
+	{
+		icon: Printer,
+		name: "Printer/Scanner",
+	},
+	{
+		icon: Shield,
+		name: "24/7 Security",
+	},
+	{
+		icon: Phone,
+		name: "Phone Booth",
+	},
+	{
+		icon: Video,
+		name: "Video Conferencing",
 	},
 ];

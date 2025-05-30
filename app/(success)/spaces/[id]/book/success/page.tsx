@@ -1,3 +1,4 @@
+import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,28 +9,10 @@ const page = () => {
 		<div className="bg-[#F5F4F7] py-16 flex items-center justify-center min-h-screen">
 			<div className="container grid grid-cols-1 md:grid-cols-5 gap-8">
 				<div className="text-center md:text-left col-span-3">
-					<Link
-						href="/"
-						className="group flex items-center justify-center md:justify-start"
-					>
-						<Image
-							src={"/assets/images/logo-full.svg"}
-							alt="Reenite full logo in it's blue color"
-							width={1000}
-							height={1000}
-							className="group-hover:hidden w-[150px] md:w-[160px] lg:w-[180px]"
-						/>
-						<Image
-							src={"/assets/images/logo-full-grey.svg"}
-							alt="Reenite full logo in it's grey color"
-							width={1000}
-							height={1000}
-							className="hidden group-hover:block w-[150px] md:w-[160px] lg:w-[180px]"
-						/>
-					</Link>
+					<Logo />
 					<h1
 						style={{ fontFamily: "ClashDisplay" }}
-						className="text-4xl lg:text-6xl mt-6 mb-4 font-bold"
+						className="text-4xl md:text-5xl lg:text-6xl mt-6 mb-4 font-bold"
 					>
 						Booking confirmed successfully!
 					</h1>

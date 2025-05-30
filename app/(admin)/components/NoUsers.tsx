@@ -1,9 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
-export const NoBookings = () => {
+export const NoUsers = () => {
 	return (
 		<div className="mt-4 flex flex-col items-center justify-center">
 			<Image
@@ -14,12 +12,8 @@ export const NoBookings = () => {
 				className="size-[250px] object-cover"
 			/>
 			<p className="text-muted-foreground text-center text-base mt-4 mb-6">
-				You’ll find your past bookings here after you’ve had your first
-				booking on Reenite.
+				You’ll find your users here once they sign up on Reenite.
 			</p>
-			<Button asChild size="md" variant="secondary">
-				<Link href="/spaces">Book a space</Link>
-			</Button>
 		</div>
 	);
 };
