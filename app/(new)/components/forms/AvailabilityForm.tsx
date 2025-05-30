@@ -99,6 +99,7 @@ export const AvailabilityForm = () => {
 			operatingHours: {
 				...prev.operatingHours,
 				[day]: {
+					// @ts-ignore
 					...prev.operatingHours[day],
 					[field]: value,
 				},
