@@ -17,20 +17,36 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
-	dailyDiscount: z
-		.string()
+	hourlyDiscount: z
+		.number()
 		.min(2, {
-			message: "Monthly price is required.",
+			message: "Discount is required.",
 		})
-		.max(32, { message: "The maximum number is 32" }),
+		.max(100, { message: "The maximum number is 100" }),
+	dailyDiscount: z
+		.number()
+		.min(2, {
+			message: "Discount is required.",
+		})
+		.max(100, { message: "The maximum number is 100" }),
+	weeklyDiscount: z
+		.number()
+		.min(2, {
+			message: "Discount is required.",
+		})
+		.max(100, { message: "The maximum number is 100" }),
+	monthlyDiscount: z
+		.number()
+		.min(2, {
+			message: "Discount is required.",
+		})
+		.max(100, { message: "The maximum number is 100" }),
 });
 
 export const DiscountForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
-		defaultValues: {
-			dailyDiscount: "",
-		},
+		defaultValues: {},
 	});
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -53,13 +69,13 @@ export const DiscountForm = () => {
 						<div className="rounded-xl bg-[#F7F7F7]  p-6 flex items-center justify-between gap-2 border">
 							<FormField
 								control={form.control}
-								name="dailyDiscount"
+								name="hourlyDiscount"
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>
 											<div className="border-2 rounded-xl flex items-center justify-center pr-2">
 												<Input
-													placeholder="20%"
+													placeholder="20"
 													className="text-base border-none md:text-xl max-w-[50px] lg:max-w-[60px] focus:outline-0"
 													{...field}
 												/>
@@ -90,7 +106,7 @@ export const DiscountForm = () => {
 										<FormControl>
 											<div className="border-2 rounded-xl flex items-center justify-center pr-2">
 												<Input
-													placeholder="20%"
+													placeholder="20"
 													className="text-base border-none md:text-xl max-w-[50px] lg:max-w-[60px] focus:outline-0"
 													{...field}
 												/>
@@ -115,13 +131,13 @@ export const DiscountForm = () => {
 						<div className="rounded-xl bg-[#F7F7F7]  p-6 flex items-center justify-between gap-2 border">
 							<FormField
 								control={form.control}
-								name="dailyDiscount"
+								name="weeklyDiscount"
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>
 											<div className="border-2 rounded-xl flex items-center justify-center pr-2">
 												<Input
-													placeholder="20%"
+													placeholder="20"
 													className="text-base border-none md:text-xl max-w-[50px] lg:max-w-[60px] focus:outline-0"
 													{...field}
 												/>
@@ -146,13 +162,13 @@ export const DiscountForm = () => {
 						<div className="rounded-xl bg-[#F7F7F7]  p-6 flex items-center justify-between gap-2 border">
 							<FormField
 								control={form.control}
-								name="dailyDiscount"
+								name="monthlyDiscount"
 								render={({ field }) => (
 									<FormItem>
 										<FormControl>
 											<div className="border-2 rounded-xl flex items-center justify-center pr-2">
 												<Input
-													placeholder="20%"
+													placeholder="20"
 													className="text-base border-none md:text-xl max-w-[50px] lg:max-w-[60px] focus:outline-0"
 													{...field}
 												/>

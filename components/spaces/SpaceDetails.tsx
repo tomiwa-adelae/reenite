@@ -46,39 +46,39 @@ export const SpaceDetails = ({ images }: Props) => {
 							</h4>
 							<div className="grid gap-4 mt-4">
 								<div className="flex items-center justify-start gap-4">
-									<Wifi className="size-8" />{" "}
+									<Wifi className="size-7" />{" "}
 									<p className="text-base">Wifi</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Car className="size-8" />{" "}
+									<Car className="size-7" />{" "}
 									<p className="text-base">Free parking</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Bike className="size-8" />{" "}
+									<Bike className="size-7" />{" "}
 									<p className="text-base">Bike parking</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Wifi className="size-8" />{" "}
+									<Wifi className="size-7" />{" "}
 									<p className="text-base">Wifi</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Car className="size-8" />{" "}
+									<Car className="size-7" />{" "}
 									<p className="text-base">Free parking</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Bike className="size-8" />{" "}
+									<Bike className="size-7" />{" "}
 									<p className="text-base">Bike parking</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Wifi className="size-8" />{" "}
+									<Wifi className="size-7" />{" "}
 									<p className="text-base">Wifi</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Car className="size-8" />{" "}
+									<Car className="size-7" />{" "}
 									<p className="text-base">Free parking</p>
 								</div>
 								<div className="flex items-center justify-start gap-4">
-									<Bike className="size-8" />{" "}
+									<Bike className="size-7" />{" "}
 									<p className="text-base">Bike parking</p>
 								</div>
 							</div>

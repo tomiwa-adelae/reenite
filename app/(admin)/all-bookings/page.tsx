@@ -1,5 +1,6 @@
-import React from "react";
 import { NoBookings } from "../components/NoBookings";
+import { BookingsListings } from "../components/BookingsListings";
+import { BookingsGrid } from "../components/grids/BookingsGrid";
 
 const page = () => {
 	return (
@@ -25,8 +26,9 @@ const page = () => {
                         </p>
                     </div>
                 </div> */}
-				<NoBookings />
-				{/* <SpacesListings /> */}
+				{/* <NoBookings /> */}
+				{/* <BookingsListings /> */}
+				<BookingsGrid />
 			</div>
 		</div>
 	);

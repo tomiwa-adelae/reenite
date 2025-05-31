@@ -10,7 +10,7 @@ export default function layout({
 		<div>
 			<AppNavbar />
 			<div className="pt-20 min-h-[90vh]">{children}</div>
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

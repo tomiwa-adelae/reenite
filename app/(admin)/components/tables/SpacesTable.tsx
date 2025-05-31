@@ -8,6 +8,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const invoices = [
 	{
@@ -89,7 +90,9 @@ export function SpacesTable() {
 							</TableCell>
 							<TableCell>
 								<div className="flex items-center justify-end">
-									<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
+									<Button variant={"ghost"} size="icon">
+										<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
+									</Button>
 								</div>
 							</TableCell>
 						</TableRow>

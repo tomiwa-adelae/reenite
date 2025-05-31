@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const SpacesLists = () => {
 	return (
@@ -22,7 +23,9 @@ export const SpacesLists = () => {
 							123 main street, Abuja
 						</p>
 					</div>
-					<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
+					<Button variant={"ghost"} size="icon">
+						<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
+					</Button>
 				</div>
 			</div>
 		</div>

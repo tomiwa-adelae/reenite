@@ -7,7 +7,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const invoices = [
@@ -55,35 +55,38 @@ const invoices = [
 	},
 ];
 
-export function UsersTable() {
+export function BookingsTable() {
 	return (
 		<div className="hidden md:block">
 			<Table>
 				<TableHeader>
 					<TableRow className="hover:bg-transparent">
-						<TableHead>Name</TableHead>
-						<TableHead>Email</TableHead>
-						<TableHead>Phone number</TableHead>
+						<TableHead>Booking ID</TableHead>
+						<TableHead>Customer</TableHead>
+						<TableHead>Space</TableHead>
+						<TableHead>Date</TableHead>
+						<TableHead>Status</TableHead>
+						<TableHead>Amount</TableHead>
 						<TableHead></TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{invoices.map((invoice) => (
-						<TableRow className="group" key={invoice.invoice}>
-							<TableCell className="flex items-center justify-start gap-4">
-								<Image
-									src={"/assets/images/user-one.jpeg"}
-									alt={"user"}
-									width={1000}
-									height={1000}
-									className="size-[70px] object-cover rounded-xl"
-								/>
-								<h5 className="font-medium text-base">
-									Tomiwa Adelae
-								</h5>
+						<TableRow
+							className="group h-[86px]"
+							key={invoice.invoice}
+						>
+							<TableCell>#BK12345</TableCell>
+							<TableCell>Adelae Tomiwa</TableCell>
+							<TableCell>Mini Conference Room</TableCell>
+							<TableCell>Dec 25, 2025 (3 hours)</TableCell>
+							<TableCell>
+								{/* <Badge>
+									<CreditCard className="size-4 inline-block mr-2" />
+									Paid
+								</Badge> */}
 							</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
+							<TableCell>₦158,000</TableCell>
 							<TableCell>
 								<div className="flex items-center justify-end">
 									<Button variant={"ghost"} size="icon">

@@ -1,5 +1,5 @@
 import { NoUsers } from "../components/NoUsers";
-import { UsersGrid } from "../components/UsersGrid";
+import { UsersGrid } from "../components/grids/UsersGrid";
 import { UsersListings } from "../components/UsersListings";
 
 const page = () => {
@@ -7,7 +7,7 @@ const page = () => {
 		<div className="py-8">
 			<div className="container">
 				<h2 className="font-semibold text-3xl lg:text-4xl">
-					Your users
+					Your customers
 				</h2>
 
 				{/* <NoUsers /> */}

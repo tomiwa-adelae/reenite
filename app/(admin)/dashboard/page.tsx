@@ -1,14 +1,83 @@
 import React from "react";
 import { NoAdminData } from "../components/NoAdminData";
+import { DashboardAnalytics } from "../components/DashboardAnalytics";
+import { BookingsListings } from "../components/BookingsListings";
+import { TopSpaces } from "../components/TopSpaces";
+import { UsersListings } from "../components/UsersListings";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Building, Plus, Users } from "lucide-react";
 
 const page = () => {
 	return (
 		<div className="py-8">
 			<div className="container">
-				{/* <h2 className="font-semibold text-3xl">
+				<h2 className="font-semibold text-3xl">
 					Welcome back, Tomiwa A.
-				</h2> */}
-				<NoAdminData />
+				</h2>
+				<DashboardAnalytics />
+				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-lg">Recent bookings</h3>
+					<BookingsListings />
+				</div>
+				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-lg">
+						Top performing spaces
+					</h3>
+					<TopSpaces />
+				</div>
+				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-lg">Recent users</h3>
+					<UsersListings />
+				</div>
+				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-lg">Quick actions</h3>
+					<div className="mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+						<Button
+							className="rounded-xl"
+							size="lg"
+							variant={"outline"}
+							asChild
+						>
+							<Link
+								href="/all-spaces/new"
+								className="flex items-center justify-center flex-col gap-2 py-16"
+							>
+								<Plus className="size-5" />
+								<span>Add new space</span>
+							</Link>
+						</Button>
+						<Button
+							className="rounded-xl"
+							size="lg"
+							variant={"outline"}
+							asChild
+						>
+							<Link
+								href="/all-users"
+								className="flex items-center justify-center flex-col gap-2 py-16"
+							>
+								<Users className="size-5" />
+								<span>Manage users</span>
+							</Link>
+						</Button>
+						<Button
+							className="rounded-xl"
+							size="lg"
+							variant={"outline"}
+							asChild
+						>
+							<Link
+								href="/all-bookings"
+								className="flex items-center justify-center flex-col gap-2 py-16"
+							>
+								<Building className="size-5" />
+								<span>Manage bookings</span>
+							</Link>
+						</Button>
+					</div>
+				</div>
+				{/* <NoAdminData /> */}
 			</div>
 		</div>
 	);
