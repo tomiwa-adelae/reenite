@@ -12,7 +12,7 @@ export const PhotosForm = () => {
 	return (
 		<div className="mt-8">
 			<div className="container max-w-3xl">
-				<div className="col-span-4 border-2 bg-[#F7F7F7] border-dashed rounded-xl p-8 flex flex-col items-center justify-center min-h-[400px] hover:border-black transition-all cursor-pointer">
+				<div className="col-span-4 border-2 bg-[#F7F7F7] border-dashed rounded-2xl p-8 flex flex-col items-center justify-center min-h-[400px] hover:border-black transition-all cursor-pointer">
 					<Image
 						src={"/assets/icons/camera.avif"}
 						alt={"camera icon"}
@@ -25,7 +25,7 @@ export const PhotosForm = () => {
 					</Button>
 				</div>
 				<div className="grid grid-cols-2 gap-4 mt-4">
-					<div className="border-2 border-dashed flex items-center justify-center col-span-1 p-8 min-h-[200px] rounded-xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer">
+					<div className="border-2 border-dashed flex items-center justify-center col-span-1 p-8 min-h-[200px] rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer">
 						<ImageIcon className="size-6" />
 					</div>
 					<div className="border-2 border-dashed flex items-center justify-center col-span-1 p-8 min-h-[200px] rounded-xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer">
@@ -41,9 +41,11 @@ export const PhotosForm = () => {
 						asChild
 						size="lg"
 					>
-						<Link href="/all-spaces/new/structure">Back</Link>
+						<Link href="/all-spaces/new/amenities">Back</Link>
 					</Button>
-					<Button size="lg">Next</Button>
+					<Button asChild size="lg">
+						<Link href="/all-spaces/new/title">Next</Link>
+					</Button>
 				</div>
 			</Footer>
 		</div>

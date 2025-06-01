@@ -28,7 +28,7 @@ export const Showcase = () => {
 						driving innovation in Uyo and beyond.
 					</p>
 					<Button size="lg" asChild variant="secondary">
-						<Link href="/book">Book a space</Link>
+						<Link href="/spaces">Book a space</Link>
 					</Button>
 				</div>
 			</div>

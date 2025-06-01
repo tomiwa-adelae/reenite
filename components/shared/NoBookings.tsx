@@ -11,9 +11,9 @@ export const NoBookings = () => {
 				alt="Folder icon"
 				width={1000}
 				height={1000}
-				className="size-[250px] object-cover"
+				className="size-[200px] lg:size-[250px] object-cover"
 			/>
-			<p className="text-muted-foreground text-center text-base mt-4 mb-6">
+			<p className="text-muted-foreground text-center text-sm lg:text-base mt-4 mb-6">
 				You’ll find your past bookings here after you’ve had your first
 				booking on Reenite.
 			</p>

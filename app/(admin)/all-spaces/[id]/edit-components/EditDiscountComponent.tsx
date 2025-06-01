@@ -82,14 +82,14 @@ export const EditDiscountComponent = () => {
 					<div className="h-[calc(100vh-80px)] pb-40 overflow-auto">
 						<ScrollArea>
 							<div className="container py-8 space-y-4">
-								<div className="rounded-xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
+								<div className="rounded-2xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
 									<FormField
 										control={form.control}
 										name="hourlyDiscount"
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
-													<div className="border-2 rounded-xl flex items-center justify-center pr-2">
+													<div className="border-2 rounded-2xl flex items-center justify-center pr-2">
 														<Input
 															placeholder="20"
 															className="text-base border-none md:text-base max-w-[50px] lg:max-w-[60px] focus:outline-0"
@@ -113,14 +113,14 @@ export const EditDiscountComponent = () => {
 										defaultChecked
 									/>
 								</div>
-								<div className="rounded-xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
+								<div className="rounded-2xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
 									<FormField
 										control={form.control}
 										name="dailyDiscount"
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
-													<div className="border-2 rounded-xl flex items-center justify-center pr-2">
+													<div className="border-2 rounded-2xl flex items-center justify-center pr-2">
 														<Input
 															placeholder="20"
 															className="text-base border-none md:text-base max-w-[50px] lg:max-w-[60px] focus:outline-0"
@@ -151,7 +151,7 @@ export const EditDiscountComponent = () => {
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
-													<div className="border-2 rounded-xl flex items-center justify-center pr-2">
+													<div className="border-2 rounded-2xl flex items-center justify-center pr-2">
 														<Input
 															placeholder="20"
 															className="text-base border-none md:text-base max-w-[50px] lg:max-w-[60px] focus:outline-0"
@@ -175,14 +175,14 @@ export const EditDiscountComponent = () => {
 										defaultChecked
 									/>
 								</div>
-								<div className="rounded-xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
+								<div className="rounded-2xl bg-[#F7F7F7]  p-4 flex items-center justify-between gap-2 border">
 									<FormField
 										control={form.control}
 										name="monthlyDiscount"
 										render={({ field }) => (
 											<FormItem>
 												<FormControl>
-													<div className="border-2 rounded-xl flex items-center justify-center pr-2">
+													<div className="border-2 rounded-2xl flex items-center justify-center pr-2">
 														<Input
 															placeholder="20"
 															className="text-base border-none md:text-base max-w-[50px] lg:max-w-[60px] focus:outline-0"

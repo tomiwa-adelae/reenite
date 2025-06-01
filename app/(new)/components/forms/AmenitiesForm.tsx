@@ -17,10 +17,12 @@ export const AmenitiesForm = () => {
 						return (
 							<div
 								key={index}
-								className="border-2 rounded-xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
+								className="border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
 							>
-								<Icon className="size-7" />
-								<h5 className="font-medium text-lg">{name}</h5>
+								<Icon className="size-6 lg:size-7" />
+								<h5 className="font-medium text-base lg:text-lg">
+									{name}
+								</h5>
 							</div>
 						);
 					})}
@@ -34,9 +36,11 @@ export const AmenitiesForm = () => {
 						asChild
 						size="lg"
 					>
-						<Link href="/all-spaces/new/structure">Back</Link>
+						<Link href="/all-spaces/new/location">Back</Link>
 					</Button>
-					<Button size="lg">Next</Button>
+					<Button asChild size="lg">
+						<Link href="/all-spaces/new/photos">Next</Link>
+					</Button>
 				</div>
 			</Footer>
 		</div>

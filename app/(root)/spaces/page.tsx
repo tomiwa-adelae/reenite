@@ -2,6 +2,9 @@ import React from "react";
 import { SpacesShowcase } from "@/components/spaces/SpacesShowcase";
 import { FAQs } from "@/components/shared/FAQs";
 import { WorkSpaces } from "@/components/WorkSpaces";
+import { firstMarquee, secondMarquee } from "@/constants";
+import { Marquee } from "@/components/Marquee";
+import { Testimonials } from "@/components/Testimonials";
 
 const page = () => {
 	const images = [
@@ -21,7 +24,10 @@ const page = () => {
 				}
 			/>
 			<WorkSpaces />
+			<Marquee texts={firstMarquee} />
 			<FAQs />
+			<Marquee texts={secondMarquee} />
+			<Testimonials />
 		</div>
 	);
 };

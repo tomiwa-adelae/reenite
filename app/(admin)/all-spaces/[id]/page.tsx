@@ -15,21 +15,25 @@ import { EditAvailabilityComponent } from "./edit-components/EditAvailabilityCom
 import { EditPricingComponent } from "./edit-components/EditPricingComponent";
 import { EditDiscountComponent } from "./edit-components/EditDiscountComponent";
 import { ResponsiveModal } from "@/components/modals/ResponsiveModal";
+import Link from "next/link";
 
 const page = () => {
 	return (
 		<div className="h-[calc(100vh-80px)] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 			<div className="lg:border-r py-8">
-				<div className="container">
+				<div className="lg:container">
 					<div className="container flex items-center justify-start gap-4">
 						<Button
 							size="icon"
-							className="size-12 bg-[#F7F7F7]"
+							className="size-10 lg:size-12 bg-[#F7F7F7]"
 							variant="ghost"
+							asChild
 						>
-							<ArrowLeft className="size-6" />
+							<Link href="/all-spaces">
+								<ArrowLeft className="size-4 lg:size-6" />
+							</Link>
 						</Button>
-						<h2 className="font-semibold text-3xl lg:text-4xl">
+						<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 							Mini Conference Room
 						</h2>
 					</div>
@@ -41,12 +45,12 @@ const page = () => {
 										<PhotosCard />
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Title">
-										<h2 className="font-semibold text-muted-foreground text-2xl mt-2">
+										<h2 className="font-semibold text-muted-foreground text-xl lg:text-2xl mt-2">
 											Mini Conference Room
 										</h2>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Description">
-										<h2 className="font-semibold text-muted-foreground text-base mt-2">
+										<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
 											Lorem ipsum dolor sit amet,
 											consectetur adipisicing elit. Nam
 											libero ducimus tempore iure iusto
@@ -55,7 +59,7 @@ const page = () => {
 										</h2>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Pricing">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold">
+										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
 											<p>₦8,900 daily</p>
 											<p>₦18,900 monthly</p>
 											<p>₦28,900 weekly</p>
@@ -64,52 +68,46 @@ const page = () => {
 										</div>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Discount">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold">
+										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
 											<p>40% daily discount</p>
 										</div>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Location">
-										<h2 className="font-semibold text-muted-foreground text-base mt-2">
+										<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
 											123 Main Street, Magodo GRA, Ikeja,
 											Lagos state
 										</h2>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Amenities">
 										<div className="mt-2 grid gap-4 text-muted-foreground font-semibold">
-											<div className="flex items-center justify-start gap-3">
-												<Wifi className="size-6" />{" "}
-												<p className="text-base">
-													Wifi
-												</p>
+											<div className="flex items-center justify-start gap-3 text-sm lg:text-base">
+												<Wifi className="size-5 lg:size-6" />{" "}
+												<p>Wifi</p>
 											</div>
 											<div className="flex items-center justify-start gap-3">
-												<Wifi className="size-6" />{" "}
-												<p className="text-base">
-													Wifi
-												</p>
+												<Wifi className="size-5 lg:size-6" />{" "}
+												<p>Wifi</p>
 											</div>
 											<div className="flex items-center justify-start gap-3">
-												<Wifi className="size-6" />{" "}
-												<p className="text-base">
-													Wifi
-												</p>
+												<Wifi className="size-5 lg:size-6" />{" "}
+												<p>Wifi</p>
 											</div>
 										</div>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Category">
-										<div className="flex items-center justify-start gap-4 mt-2 text-muted-foreground font-semibold">
+										<div className="flex items-center justify-start gap-4 mt-2 text-muted-foreground font-semibold text-sm lg:text-base">
 											<Image
 												src={"/assets/icons/office.svg"}
 												alt={`icon`}
 												width={1000}
 												height={1000}
-												className="size-[60px] object-cover"
+												className="size-[50px] lg:size-[60px] object-cover"
 											/>
 											<h5>Space desk</h5>
 										</div>
 									</SpaceDetailsBox>
 									<SpaceDetailsBox name="Availability">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold">
+										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
 											<p>Monday 08:00 AM to 06:00PM</p>
 											<p>Wednesday 08:00 AM to 06:00PM</p>
 											<p>Thursday 08:00 AM to 06:00PM</p>
@@ -117,23 +115,23 @@ const page = () => {
 										</div>
 									</SpaceDetailsBox>
 								</div>
-								<ResponsiveModal />
+								{/* <ResponsiveModal /> */}
 							</ScrollArea>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* <div className="hidden lg:block"> */}
-			{/* <Photos /> */}
-			{/* <EditTitleComponent /> */}
-			{/* <EditDescriptionComponent /> */}
-			{/* <EditLocationComponent /> */}
-			{/* <Amenities /> */}
-			{/* <EditCategoryComponent /> */}
-			{/* <EditAvailabilityComponent /> */}
-			{/* <EditPricingComponent /> */}
-			{/* <EditDiscountComponent /> */}
-			{/* </div> */}
+			<div className="hidden lg:block">
+				<Photos />
+				{/* <EditTitleComponent /> */}
+				{/* <EditDescriptionComponent /> */}
+				{/* <EditLocationComponent /> */}
+				{/* <Amenities /> */}
+				{/* <EditCategoryComponent /> */}
+				{/* <EditAvailabilityComponent /> */}
+				{/* <EditPricingComponent /> */}
+				{/* <EditDiscountComponent /> */}
+			</div>
 		</div>
 	);
 };

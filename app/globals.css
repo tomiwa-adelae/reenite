@@ -131,7 +131,11 @@
 
 @utility container {
 	margin-inline: auto;
-	width: 90%;
+	width: 87%;
+
+	@media (min-width: 1024px) {
+		width: 89%;
+	}
 }
 
 html {

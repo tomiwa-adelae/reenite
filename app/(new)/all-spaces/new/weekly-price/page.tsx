@@ -1,4 +1,4 @@
-import { HourlyPriceForm } from "@/app/(new)/components/forms/HourlyPriceForm";
+import { WeeklyPriceForm } from "@/app/(new)/components/forms/WeeklyPriceForm";
 import React from "react";
 
 const page = () => {
@@ -6,13 +6,13 @@ const page = () => {
 		<div className="py-8">
 			<div className="container max-w-3xl">
 				<h2 className="font-semibold text-2xl lg:text-3xl">
-					Now, set a hourly price
+					Now, set a weekly price
 				</h2>
 				<p className="text-base text-muted-foreground mt-2">
-					Tip: ₦5,000. You’ll set a daily price next.
+					Tip: ₦15,000. You’ll set a monthly price next.
 				</p>
 			</div>
-			<HourlyPriceForm />
+			<WeeklyPriceForm />
 		</div>
 	);
 };

@@ -4,7 +4,7 @@ import { SpacesTable } from "./tables/SpacesTable";
 
 export const SpacesListings = () => {
 	return (
-		<div className="mt-8">
+		<div>
 			<SpacesLists />
 			<SpacesTable />
 		</div>

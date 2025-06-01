@@ -18,7 +18,7 @@ export const OurServices = () => {
 						return (
 							<div
 								key={index}
-								className="rounded-4xl px-8 py-12 items-start flex flex-col relative justify-start shadow-[0_3px_10px_rgb(0,0,0,0.2)] group hover:bg-primary hover:text-white transition-all"
+								className="rounded-2xl px-8 py-12 items-start flex flex-col relative justify-start shadow-[0_3px_10px_rgb(0,0,0,0.2)] group hover:bg-primary hover:text-white transition-all"
 							>
 								{/* <GlowingEffect
 							blur={0}

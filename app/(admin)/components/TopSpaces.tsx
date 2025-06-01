@@ -5,14 +5,14 @@ import React from "react";
 
 export const TopSpaces = () => {
 	return (
-		<div className="mt-4">
-			<div className="hover:bg-[#F7F7F7] transition-all p-2 rounded-xl flex items-center justify-start gap-4 group cursor-pointer">
+		<div>
+			<div className="hover:bg-[#F7F7F7] transition-all p-2 rounded-2xl flex items-center justify-start gap-4 group cursor-pointer">
 				<Image
 					src={"/assets/images/space-one.jpg"}
 					alt={"Space"}
 					width={1000}
 					height={1000}
-					className="size-[70px] object-cover rounded-xl"
+					className="size-[70px] object-cover rounded-2xl"
 				/>
 				<div className="flex-1 flex items-center justify-between gap-2">
 					<div className="flex-1">

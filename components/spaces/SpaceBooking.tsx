@@ -10,7 +10,7 @@ export const SpaceBooking = () => {
 			<ScrollArea className="mt-2">
 				<div className="flex w-max pb-8 items-center justify-start gap-4">
 					{spaceBookings.map(({ type, price }, index) => (
-						<div key={index} className="border rounded-xl p-4">
+						<div key={index} className="border rounded-2xl p-4">
 							<div className="flex items-center justify-start gap-4">
 								<Image
 									src={"/assets/icons/office.svg"}

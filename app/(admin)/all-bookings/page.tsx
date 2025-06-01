@@ -6,7 +6,7 @@ const page = () => {
 	return (
 		<div className="py-8">
 			<div className="container">
-				<h2 className="font-semibold text-3xl lg:text-4xl">
+				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 					Your bookings
 				</h2>
 				{/* <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -27,8 +27,10 @@ const page = () => {
                     </div>
                 </div> */}
 				{/* <NoBookings /> */}
-				{/* <BookingsListings /> */}
-				<BookingsGrid />
+				<div className="mt-2">
+					<BookingsListings />
+					{/* <BookingsGrid /> */}
+				</div>
 			</div>
 		</div>
 	);

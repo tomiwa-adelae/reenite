@@ -13,7 +13,7 @@ export const StructureForm = () => {
 					{spaceCategories.map(({ icon, name }, index) => (
 						<div
 							key={index}
-							className="border-2 rounded-xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
+							className="border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
 						>
 							<Image
 								src={icon}
@@ -22,7 +22,9 @@ export const StructureForm = () => {
 								height={1000}
 								className="size-[60px] object-cover"
 							/>
-							<h5 className="font-medium text-lg">{name}</h5>
+							<h5 className="font-medium text-base lg:text-lg">
+								{name}
+							</h5>
 						</div>
 					))}
 				</div>
@@ -35,9 +37,11 @@ export const StructureForm = () => {
 						asChild
 						size="lg"
 					>
-						<Link href="/all-spaces/new/structure">Back</Link>
+						<Link href="/all-spaces/new">Back</Link>
 					</Button>
-					<Button size="lg">Next</Button>
+					<Button asChild size="lg">
+						<Link href="/all-spaces/new/location">Next</Link>
+					</Button>
 				</div>
 			</Footer>
 		</div>

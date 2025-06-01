@@ -199,12 +199,12 @@ export const DiscountForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/structure">
-									Back
-								</Link>
+								<Link href="/all-spaces/new/monthly">Back</Link>
 							</Button>
-							<Button size="lg" type="submit">
-								Create space
+							<Button asChild size="lg" type="submit">
+								<Link href="/all-spaces/12345?success=true">
+									Create space
+								</Link>
 							</Button>
 						</div>
 					</Footer>

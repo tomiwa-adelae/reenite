@@ -74,12 +74,14 @@ export const MonthlyPriceForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/structure">
+								<Link href="/all-spaces/new/weekly-price">
 									Back
 								</Link>
 							</Button>
-							<Button size="lg" type="submit">
-								Submit
+							<Button asChild size="lg" type="submit">
+								<Link href="/all-spaces/new/discount">
+									Next
+								</Link>
 							</Button>
 						</div>
 					</Footer>

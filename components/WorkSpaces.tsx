@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { spaces } from "@/constants";
+import Link from "next/link";
 
 type ButtonVariant =
 	| "default"
@@ -58,15 +60,40 @@ const workspaces: Workspace[] = [
 
 export const WorkSpaces = () => {
 	return (
-		<section className="bg-white pt-16">
+		<section className="bg-white py-16">
 			<div className="container">
 				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Redefining the Future{" "}
 					<span className="text-muted-foreground">of Workspaces</span>
 				</h2>
+
+				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+					{spaces?.map(({ name, src, description }, index) => (
+						<Link
+							href="/spaces/12345"
+							key={index}
+							className="relative group overflow-hidden rounded-2xl"
+						>
+							<Image
+								src={src}
+								alt={"SPace one"}
+								width={1000}
+								height={1000}
+								className="aspect-square object-cover rounded-xl"
+							/>
+							<h4 className="text-xl font-medium mt-4">{name}</h4>
+							<p className="text-base text-muted-foreground mt-1 truncate mb-4">
+								{description}
+							</p>
+							<Button asChild size="md">
+								<Link href="/spaces/12345">Book space</Link>
+							</Button>
+						</Link>
+					))}
+				</div>
 			</div>
 
-			<div className="mt-8">
+			{/* <div className="mt-8">
 				{workspaces.map((space, index) => (
 					<div
 						key={index}
@@ -109,7 +136,7 @@ export const WorkSpaces = () => {
 						/>
 					</div>
 				))}
-			</div>
+			</div> */}
 		</section>
 	);
 };

@@ -9,11 +9,11 @@ import { faqs } from "@/constants";
 
 export const FAQs = () => {
 	return (
-		<div className="text-white bg-gradient-to-r from-[#1B1D37] via-[#2d3748] to-[#1a202c] py-16">
+		<div className="text-black bg-white py-16">
 			<div className="container">
 				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl">
 					Frequently Asked{" "}
-					<span className="text-secondary">Questions</span>
+					<span className="text-muted-foreground">Questions</span>
 				</h4>
 				<div className="mt-8">
 					<Accordion

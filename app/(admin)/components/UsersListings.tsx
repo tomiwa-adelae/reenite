@@ -3,7 +3,7 @@ import { UsersLists } from "./UsersLists";
 
 export const UsersListings = () => {
 	return (
-		<div className="mt-8">
+		<div>
 			<UsersLists />
 			<UsersTable />
 		</div>

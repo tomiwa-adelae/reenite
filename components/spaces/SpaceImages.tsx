@@ -19,7 +19,7 @@ export const SpaceImages = ({ images }: { images: any }) => {
 			<div className="grid grid-cols-1 md:grid-cols-5 grid-rows-4 gap-2 rounded-2xl overflow-hidden">
 				{/* Large main image */}
 				<div
-					className="relative col-span-3 row-span-4"
+					className="relative col-span-3 row-span-4 group overflow-hidden"
 					onClick={() => handleOpen(0)}
 				>
 					<Image
@@ -27,14 +27,14 @@ export const SpaceImages = ({ images }: { images: any }) => {
 						alt="Main space image"
 						width={1000}
 						height={1000}
-						className="aspect-video size-full object-cover"
+						className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 					/>
-					<div className="absolute inset-0 transition-all hover:bg-black/20 cursor-pointer rounded-lg" />
+					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>
 
 				{/* Side images — use optional chaining to avoid crashes */}
 				<div
-					className="relative hidden md:block row-span-2 col-start-4"
+					className="relative hidden md:block row-span-2 col-start-4 group"
 					onClick={() => handleOpen(1)}
 				>
 					{images[1] && (
@@ -43,13 +43,13 @@ export const SpaceImages = ({ images }: { images: any }) => {
 							alt="Secondary image"
 							width={1000}
 							height={1000}
-							className="aspect-video size-full object-cover"
+							className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 						/>
 					)}
-					<div className="absolute inset-0 transition-all hover:bg-black/20 cursor-pointer rounded-lg" />
+					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>
 				<div
-					className="relative hidden md:block row-span-2 col-start-4 row-start-3"
+					className="relative hidden md:block row-span-2 col-start-4 row-start-3 group"
 					onClick={() => handleOpen(2)}
 				>
 					{images[2] && (
@@ -58,13 +58,13 @@ export const SpaceImages = ({ images }: { images: any }) => {
 							alt="Secondary image"
 							width={1000}
 							height={1000}
-							className="aspect-video size-full object-cover"
+							className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 						/>
 					)}
-					<div className="absolute inset-0 transition-all hover:bg-black/20 cursor-pointer rounded-lg" />
+					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>
 				<div
-					className="relative hidden md:block row-span-2 col-start-5 row-start-1"
+					className="relative hidden md:block row-span-2 col-start-5 row-start-1 group"
 					onClick={() => handleOpen(3)}
 				>
 					{images[3] && (
@@ -73,13 +73,13 @@ export const SpaceImages = ({ images }: { images: any }) => {
 							alt="Secondary image"
 							width={1000}
 							height={1000}
-							className="aspect-video size-full object-cover"
+							className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 						/>
 					)}
-					<div className="absolute inset-0 transition-all hover:bg-black/20 cursor-pointer rounded-lg" />
+					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>
 				<div
-					className="hidden relative md:block row-span-2 col-start-5 row-start-3"
+					className="hidden relative md:block row-span-2 col-start-5 row-start-3 group"
 					onClick={() => handleOpen(4)}
 				>
 					{images[4] && (
@@ -88,10 +88,10 @@ export const SpaceImages = ({ images }: { images: any }) => {
 							alt="Secondary image"
 							width={1000}
 							height={1000}
-							className="aspect-video size-full object-cover"
+							className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 						/>
 					)}
-					<div className="absolute inset-0 transition-all hover:bg-black/20 cursor-pointer rounded-lg" />
+					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>
 			</div>
 			{images.length > 5 && (

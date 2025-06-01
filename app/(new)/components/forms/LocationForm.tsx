@@ -72,7 +72,7 @@ export const LocationForm = () => {
 	}
 
 	return (
-		<div>
+		<div className="mt-4">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className="container max-w-3xl space-y-4">
@@ -210,8 +210,10 @@ export const LocationForm = () => {
 									Back
 								</Link>
 							</Button>
-							<Button size="lg" type="submit">
-								Submit
+							<Button asChild size="lg" type="submit">
+								<Link href="/all-spaces/new/amenities">
+									Next
+								</Link>
 							</Button>
 						</div>
 					</Footer>

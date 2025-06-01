@@ -12,29 +12,41 @@ const page = () => {
 	return (
 		<div className="py-8">
 			<div className="container">
-				<h2 className="font-semibold text-3xl">
+				<h2 className="font-semibold text-2xl lg:text-3xl">
 					Welcome back, Tomiwa A.
 				</h2>
 				<DashboardAnalytics />
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-					<h3 className="font-medium text-lg">Recent bookings</h3>
-					<BookingsListings />
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-base md:text-lg">
+						Recent bookings
+					</h3>
+					<div className="mt-2">
+						<BookingsListings />
+					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-					<h3 className="font-medium text-lg">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-base md:text-lg">
 						Top performing spaces
 					</h3>
-					<TopSpaces />
+					<div className="mt-2">
+						<TopSpaces />
+					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-					<h3 className="font-medium text-lg">Recent users</h3>
-					<UsersListings />
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-base md:text-lg">
+						Recent users
+					</h3>
+					<div className="mt-2">
+						<UsersListings />
+					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-					<h3 className="font-medium text-lg">Quick actions</h3>
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-base md:text-lg">
+						Quick actions
+					</h3>
 					<div className="mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 						<Button
-							className="rounded-xl"
+							className="rounded-2xl"
 							size="lg"
 							variant={"outline"}
 							asChild
@@ -48,7 +60,7 @@ const page = () => {
 							</Link>
 						</Button>
 						<Button
-							className="rounded-xl"
+							className="rounded-2xl"
 							size="lg"
 							variant={"outline"}
 							asChild
@@ -62,7 +74,7 @@ const page = () => {
 							</Link>
 						</Button>
 						<Button
-							className="rounded-xl"
+							className="rounded-2xl"
 							size="lg"
 							variant={"outline"}
 							asChild

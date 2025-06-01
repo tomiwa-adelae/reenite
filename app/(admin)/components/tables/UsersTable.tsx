@@ -76,7 +76,7 @@ export function UsersTable() {
 									alt={"user"}
 									width={1000}
 									height={1000}
-									className="size-[70px] object-cover rounded-xl"
+									className="size-[70px] object-cover rounded-2xl"
 								/>
 								<h5 className="font-medium text-base">
 									Tomiwa Adelae

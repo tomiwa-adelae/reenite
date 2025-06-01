@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
 	Table,
@@ -9,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { ChevronRight, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const invoices = [
 	{
@@ -56,6 +58,7 @@ const invoices = [
 ];
 
 export function BookingsTable() {
+	const router = useRouter();
 	return (
 		<div className="hidden md:block">
 			<Table>
@@ -75,6 +78,7 @@ export function BookingsTable() {
 						<TableRow
 							className="group h-[86px]"
 							key={invoice.invoice}
+							onClick={() => router.push("/all-bookings/12345")}
 						>
 							<TableCell>#BK12345</TableCell>
 							<TableCell>Adelae Tomiwa</TableCell>

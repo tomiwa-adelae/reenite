@@ -30,7 +30,7 @@ export const Amenities = () => {
 							return (
 								<div
 									key={index}
-									className="rounded-xl p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
+									className="rounded-2xl p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
 								>
 									<div className="flex items-start justify-center gap-2">
 										<Icon className="size-6" />

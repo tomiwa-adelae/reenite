@@ -60,7 +60,7 @@ const page = () => {
 						</Button>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex flex-col md:flex-row items-center justify-start gap-4">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex flex-col md:flex-row items-center justify-start gap-4">
 					<Image
 						src={"/assets/images/user-one.jpeg"}
 						alt={"User"}
@@ -86,11 +86,11 @@ const page = () => {
 						</p>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking history</h3>
 					<Bookings />
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">
 						Customer Information
 					</h3>
@@ -119,7 +119,7 @@ const page = () => {
 						</Button>
 					</div>
 				</div>
-				<div className="border border-destructive p-4 md:p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="border border-destructive p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg text-destructive">
 						Danger Zone
 					</h3>

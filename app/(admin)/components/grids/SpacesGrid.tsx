@@ -9,7 +9,7 @@ export const SpacesGrid = () => {
 					alt={"SPace one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">
 					Mini conference room

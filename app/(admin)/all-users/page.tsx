@@ -6,13 +6,15 @@ const page = () => {
 	return (
 		<div className="py-8">
 			<div className="container">
-				<h2 className="font-semibold text-3xl lg:text-4xl">
+				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 					Your customers
 				</h2>
 
 				{/* <NoUsers /> */}
 				{/* <UsersGrid /> */}
-				<UsersListings />
+				<div className="mt-2">
+					<UsersListings />
+				</div>
 			</div>
 		</div>
 	);

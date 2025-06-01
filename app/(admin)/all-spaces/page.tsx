@@ -37,7 +37,9 @@ const page = () => {
 				</div>
 
 				{/* <NoSpaces /> */}
-				<SpacesListings />
+				<div className="mt-4">
+					<SpacesListings />
+				</div>
 			</div>
 		</div>
 	);

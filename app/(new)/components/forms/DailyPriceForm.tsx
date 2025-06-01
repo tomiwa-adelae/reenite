@@ -75,12 +75,14 @@ export const DailyPriceForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/structure">
+								<Link href="/all-spaces/new/hourly-price">
 									Back
 								</Link>
 							</Button>
-							<Button size="lg" type="submit">
-								Submit
+							<Button asChild size="lg" type="submit">
+								<Link href="/all-spaces/new/weekly-price">
+									Next
+								</Link>
 							</Button>
 						</div>
 					</Footer>

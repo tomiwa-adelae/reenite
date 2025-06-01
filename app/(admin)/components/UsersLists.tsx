@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 export const UsersLists = () => {
 	return (
 		<div className="md:hidden">
-			<div className="hover:bg-[#F7F7F7] transition-all p-2 rounded-xl flex items-center justify-start gap-4 group cursor-pointer">
+			<div className="hover:bg-[#F7F7F7] transition-all p-2 rounded-2xl flex items-center justify-start gap-4 group cursor-pointer">
 				<Image
 					src={"/assets/images/user-one.jpeg"}
 					alt={"User"}
 					width={1000}
 					height={1000}
-					className="size-[70px] object-cover rounded-xl"
+					className="size-[70px] object-cover rounded-2xl"
 				/>
 				<div className="flex-1 flex items-center justify-between gap-2">
 					<div className="flex-1">

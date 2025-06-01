@@ -11,7 +11,7 @@ export const BookingsGrid = () => {
 					alt={"Space one"}
 					width={1000}
 					height={1000}
-					className="aspect-video object-cover rounded-xl"
+					className="aspect-video object-cover rounded-2xl"
 				/>
 				<h4 className="text-lg font-medium mt-4">
 					Mini conference room

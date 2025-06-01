@@ -24,7 +24,7 @@ export const Header = () => {
 				<div className="flex items-center justify-end gap-4">
 					<div className="hidden md:block">
 						<Button variant="secondary" asChild size="md">
-							<Link href="/book">Book a space</Link>
+							<Link href="/spaces">Book a space</Link>
 						</Button>
 					</div>
 					<div className="lg:hidden">

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
 	Table,
@@ -9,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const invoices = [
 	{
@@ -56,6 +58,7 @@ const invoices = [
 ];
 
 export function SpacesTable() {
+	const router = useRouter();
 	return (
 		<div className="hidden md:block">
 			<Table>
@@ -70,14 +73,18 @@ export function SpacesTable() {
 				</TableHeader>
 				<TableBody>
 					{invoices.map((invoice) => (
-						<TableRow className="group" key={invoice.invoice}>
+						<TableRow
+							onClick={() => router.push("/all-spaces/12345")}
+							className="group"
+							key={invoice.invoice}
+						>
 							<TableCell className="flex items-center justify-start gap-4">
 								<Image
 									src={"/assets/images/space-one.jpg"}
 									alt={"Space"}
 									width={1000}
 									height={1000}
-									className="size-[70px] object-cover rounded-xl"
+									className="size-[70px] object-cover rounded-2xl"
 								/>
 								<h5 className="font-medium text-base">
 									Mini conference room

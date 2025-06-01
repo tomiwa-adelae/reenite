@@ -4,7 +4,7 @@ import React from "react";
 
 export const Overview = () => {
 	return (
-		<div className="flex items-center justify-center">
+		<div className="flex items-center justify-center py-8">
 			<div className="container grid grid-cols-1 md:grid-cols-2 md:gap-4">
 				<div className="flex items-center justify-center">
 					<h1
@@ -25,14 +25,14 @@ export const Overview = () => {
 								} py-8`}
 							>
 								<div className="flex items-start justify-start gap-4 ">
-									<h5 className="text-xl lg:text-2xl font-semibold">
+									<h5 className="text-lg md:text-xl lg:text-2xl font-semibold">
 										{index + 1}
 									</h5>
 									<div>
-										<h5 className="text-xl lg:text-2xl font-semibold">
+										<h5 className="text-lg md:text-xl lg:text-2xl font-semibold">
 											{title}
 										</h5>
-										<p className="text-base lg:text-lg text-muted-foreground">
+										<p className="text-sm md:text-base lg:text-lg text-muted-foreground">
 											{description}
 										</p>
 									</div>
@@ -42,7 +42,7 @@ export const Overview = () => {
 									alt={`${icon} icon`}
 									width={1000}
 									height={1000}
-									className="size-[70px] lg:size-[100px] object-cover"
+									className="size-[50px] md:size-[70px] lg:size-[100px] object-cover"
 								/>
 							</div>
 						)

@@ -17,7 +17,7 @@ export const EditCategoryComponent = () => {
 					{spaceCategories.map(({ icon, name }, index) => (
 						<div
 							key={index}
-							className="border-2 rounded-xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
+							className="border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:border-black hover:border-2 transition-all"
 						>
 							<Image
 								src={icon}

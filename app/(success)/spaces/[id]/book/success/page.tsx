@@ -7,9 +7,11 @@ import React from "react";
 const page = () => {
 	return (
 		<div className="bg-[#F5F4F7] py-16 flex items-center justify-center min-h-screen">
-			<div className="container grid grid-cols-1 md:grid-cols-5 gap-8">
+			<div className="container grid grid-cols-1 lg:grid-cols-5 gap-8">
 				<div className="text-center md:text-left col-span-3">
-					<Logo />
+					<div className="flex items-center md:justify-start justify-center">
+						<Logo />
+					</div>
 					<h1
 						style={{ fontFamily: "ClashDisplay" }}
 						className="text-4xl md:text-5xl lg:text-6xl mt-6 mb-4 font-bold"
@@ -45,11 +47,11 @@ const page = () => {
 							>
 								₦21,393
 							</h2>
-							<p className="text-base text-muted-foreground">
+							<p className="text-sm md:text-base text-muted-foreground">
 								Payment success!
 							</p>
 						</div>
-						<div className="bg-secondary rounded-full p-4">
+						<div className="bg-primary rounded-full p-4">
 							<Image
 								src={"/assets/icons/check.svg"}
 								alt={"Check icon"}
@@ -60,7 +62,7 @@ const page = () => {
 						</div>
 					</div>
 					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-8">
-						<h2 className="font-medium text-2xl md:text-2xl">
+						<h2 className="font-medium text-xl md:text-2xl">
 							Booking summary
 						</h2>
 						<div className="space-y-6 mt-4 text-sm text-muted-foreground">

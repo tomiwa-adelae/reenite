@@ -22,229 +22,229 @@ export const Photos = () => {
 			<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
 				<ScrollArea>
 					<div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
-						<div className="group overflow-hidden rounded-xl">
+						<div className="group overflow-hidden rounded-2xl">
 							<Image
 								src={"/assets/images/space-one.jpg"}
 								alt={"Space"}
 								width={1000}
 								height={1000}
-								className="rounded-xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
+								className="rounded-2xl object-cover aspect-auto hover:scale-[102%] transition-all cursor-pointer"
 							/>
 						</div>
 					</div>

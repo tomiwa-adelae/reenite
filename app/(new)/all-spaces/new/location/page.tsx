@@ -4,8 +4,8 @@ import React from "react";
 const page = () => {
 	return (
 		<div className="py-8">
-			<div className="container">
-				<h2 className="font-semibold text-3xl text-center">
+			<div className="container max-w-3xl">
+				<h2 className="font-semibold text-2xl lg:text-3xl">
 					Where's your space located?
 				</h2>
 			</div>

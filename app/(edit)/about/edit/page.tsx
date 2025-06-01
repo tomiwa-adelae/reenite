@@ -35,7 +35,7 @@ const page = () => {
 					</div>
 				</div>
 				<div className="col-span-3 mt-8 lg:mt-0">
-					<h2 className="font-semibold text-3xl lg:text-4xl flex items-center justify-start">
+					<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
 						My profile
 					</h2>
 					<div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-x-4">
@@ -53,12 +53,14 @@ const page = () => {
 						<AboutBox icon={Building2} placeHolder="My company" />
 					</div>
 					<div className="mt-6">
-						<h2 className="font-semibold text-3xl">About me</h2>
-						<div className="mt-4 border-2 border-dashed rounded-xl px-4 py-6">
-							<p className="text-base text-muted-foreground">
+						<h2 className="font-semibold text-2xl lg:text-3xl">
+							About me
+						</h2>
+						<div className="mt-2 border-2 border-dashed rounded-2xl px-4 py-6">
+							<p className="text-sm lg:text-base text-muted-foreground">
 								Write something short and fun about yourself.
 							</p>
-							<p className="mt-1 cursor-pointer underline font-semibold hover:text-secondary text-lg">
+							<p className="mt-1 cursor-pointer underline font-semibold hover:text-secondary text-base lg:text-lg">
 								Add intro
 							</p>
 						</div>

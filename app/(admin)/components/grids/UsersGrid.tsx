@@ -10,7 +10,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -23,7 +23,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -36,7 +36,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -49,7 +49,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -62,7 +62,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -75,7 +75,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -88,7 +88,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -101,7 +101,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">
@@ -114,7 +114,7 @@ export const UsersGrid = () => {
 					alt={"User one"}
 					width={1000}
 					height={1000}
-					className="aspect-square object-cover rounded-xl"
+					className="aspect-square object-cover rounded-2xl"
 				/>
 				<h4 className="text-xl font-medium mt-4">Adelae Tomiwa</h4>
 				<p className="text-base text-muted-foreground mt-1">

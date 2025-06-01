@@ -14,6 +14,7 @@ import {
 	Wifi,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -24,13 +25,16 @@ const page = () => {
 					<div className=" flex items-start justify-start gap-4">
 						<Button
 							size="icon"
-							className="size-12 bg-[#F7F7F7]"
+							className="size-10 lg:size-12 bg-[#F7F7F7]"
 							variant="ghost"
+							asChild
 						>
-							<ArrowLeft className="size-6" />
+							<Link href="/all-bookings">
+								<ArrowLeft className="size-4 lg:size-6" />
+							</Link>
 						</Button>
 						<div className="flex flex-col items-start justify-start gap-1">
-							<h2 className="font-semibold text-3xl lg:text-4xl">
+							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 								Booking #BK001
 							</h2>
 							<Badge variant="success">Confirmed</Badge>
@@ -45,14 +49,14 @@ const page = () => {
 					</Button>
 				</div>
 				<div
-					className="bg-blend-overlay bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-xl mt-4"
+					className="bg-blend-overlay bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-2xl mt-4"
 					style={{
 						backgroundImage: `url(/assets/images/space-one.jpg)`,
 					}}
 				>
 					<div className="absolute bottom-0 left-0 w-full py-4 text-white ">
 						<div className="container">
-							<h1 className="font-semibold text-2xl lg:text-3xl">
+							<h1 className="font-semibold text-xl md:text-2xl lg:text-3xl">
 								Mini Conference Room
 							</h1>
 							<p className="text-sm md:text-base mt-1">
@@ -62,7 +66,7 @@ const page = () => {
 						</div>
 					</div>
 				</div>
-				<div className="p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Space amenities</h3>
 					<div className="flex flex-wrap gap-4 mt-4">
 						<div className="flex items-center justify-start gap-2">
@@ -91,7 +95,7 @@ const page = () => {
 						</div>
 					</div>
 				</div>
-				<div className="p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking Details</h3>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-4 gap-4">
 						<div className="flex items-center justify-start gap-2">
@@ -114,7 +118,7 @@ const page = () => {
 						</div>
 					</div>
 				</div>
-				<div className="p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">
 						Customer Information
 					</h3>
@@ -125,9 +129,9 @@ const page = () => {
 								alt="User"
 								width={1000}
 								height={1000}
-								className="size-[50px] object-cover rounded-full"
+								className="size-[40px] lg:size-[50px] object-cover rounded-full"
 							/>
-							<h4 className="font-medium text-lg">
+							<h4 className="font-medium text-base lg:text-lg">
 								Tomiwa Adelae
 							</h4>
 						</div>
@@ -149,7 +153,7 @@ const page = () => {
 						</Button>
 					</div>
 				</div>
-				<div className="p-8 mt-4 rounded-xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Payment Information</h3>
 					<div className="grid gap-4 mt-4">
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
@@ -171,7 +175,7 @@ const page = () => {
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Status</p>
 							<p className="text-green-400">
-								<CircleCheckBig className="size-5 inline-block mr-2" />
+								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
 								Paid
 							</p>
 						</div>

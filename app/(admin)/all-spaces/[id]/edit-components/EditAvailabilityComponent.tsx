@@ -147,7 +147,7 @@ export const EditAvailabilityComponent = () => {
 									).map(([day, hours]) => (
 										<div
 											key={day}
-											className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-6 border"
+											className="flex flex-col items-center space-x-4 rounded-2xl bg-[#F7F7F7] p-6 border"
 										>
 											<div className="flex items-center justify-between gap-4 w-full">
 												<div className="text-base lg:text-lg font-medium capitalize">
@@ -166,7 +166,7 @@ export const EditAvailabilityComponent = () => {
 																	.checked
 															)
 														}
-														className="rounded border-gray-300 text-primary"
+														className="rounded-2xl border-gray-300 text-primary"
 													/>
 													<label
 														htmlFor={day}

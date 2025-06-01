@@ -33,23 +33,31 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 import { noOfHours } from "@/constants";
+import { useRouter } from "next/navigation";
+import { Separator } from "../ui/separator";
 
 const FormSchema = z.object({
-	dob: z.date({
-		required_error: "A date of birth is required.",
-	}),
-	noOfHours: z.string({
-		required_error: "Please select the number of hours.",
-	}),
+	dob: z
+		.date({
+			required_error: "A date of birth is required.",
+		})
+		.optional(),
+	noOfHours: z
+		.string({
+			required_error: "Please select the number of hours.",
+		})
+		.optional(),
 });
 
 export function ReservationForm() {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 	});
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
 		toast("Event has been created.");
+		router.push("/spaces/12345/book");
 	}
 
 	const [date, setDate] = useState<DateRange | undefined>({
@@ -73,7 +81,7 @@ export function ReservationForm() {
 								>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue placeholder="Select a verified email to display" />
+											<SelectValue placeholder="Select hours" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
@@ -141,7 +149,7 @@ export function ReservationForm() {
 											id="date"
 											variant={"outline"}
 											className={cn(
-												"w-full justify-start text-left font-normal rounded-xl",
+												"w-full justify-start text-left font-normal rounded-md",
 												!date && "text-muted-foreground"
 											)}
 										>
@@ -190,11 +198,12 @@ export function ReservationForm() {
 					/>
 				</div>
 				<div className="mt-2 mb-4">
-					<div className="text-lg flex items-center justify-between gap-2 mt-4 font-semibold">
+					<div className="py-2 text-base lg:text-lg flex items-center justify-between gap-2 mt-4 font-semibold">
 						<p>Discount:</p>
 						<p>0%</p>
 					</div>
-					<div className="ext-lg flex items-center justify-between gap-2 mt-4 font-semibold">
+					<Separator className="my-2" />
+					<div className="py-2 text-base lg:text-lg flex items-center justify-between gap-2 font-semibold">
 						<p>Total:</p>
 						<p>₦158,000</p>
 					</div>

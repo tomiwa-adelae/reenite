@@ -17,19 +17,19 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 const FormSchema = z.object({
-	title: z
+	weeklyPrice: z
 		.string()
 		.min(2, {
-			message: "Title is required.",
+			message: "Weekly price is required.",
 		})
 		.max(32, { message: "The maximum number is 32" }),
 });
 
-export const TitleForm = () => {
+export const WeeklyPriceForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			title: "",
+			weeklyPrice: "",
 		},
 	});
 
@@ -52,17 +52,16 @@ export const TitleForm = () => {
 					<div className="container max-w-3xl space-y-4">
 						<FormField
 							control={form.control}
-							name="title"
+							name="weeklyPrice"
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
 										<Textarea
-											placeholder=""
-											className="resize-none min-h-40 text-lg md:text-2xl"
+											placeholder="₦0"
+											className="resize-none min-h-40 text-3xl md:text-4xl lg:text-5xl"
 											{...field}
 										/>
 									</FormControl>
-
 									<FormMessage />
 								</FormItem>
 							)}
@@ -76,10 +75,12 @@ export const TitleForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/photos">Back</Link>
+								<Link href="/all-spaces/new/daily-price">
+									Back
+								</Link>
 							</Button>
 							<Button asChild size="lg" type="submit">
-								<Link href="/all-spaces/new/description">
+								<Link href="/all-spaces/new/monthly-price">
 									Next
 								</Link>
 							</Button>

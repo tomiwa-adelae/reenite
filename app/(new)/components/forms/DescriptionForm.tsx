@@ -76,12 +76,12 @@ export const DescriptionForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/structure">
-									Back
-								</Link>
+								<Link href="/all-spaces/new/title">Back</Link>
 							</Button>
-							<Button size="lg" type="submit">
-								Submit
+							<Button asChild size="lg" type="submit">
+								<Link href="/all-spaces/new/hourly-price">
+									Next
+								</Link>
 							</Button>
 						</div>
 					</Footer>

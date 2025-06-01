@@ -4,7 +4,7 @@ import { BookingsTable } from "./tables/BookingsTable";
 
 export const BookingsListings = () => {
 	return (
-		<div className="mt-8">
+		<div>
 			<BookingsLists />
 			<BookingsTable />
 		</div>

@@ -6,7 +6,7 @@ import { testimonials } from "@/constants";
 
 export const Testimonials = () => {
 	return (
-		<div className="bg-white pt-10 pb-16">
+		<div className="bg-white pt-12 pb-16">
 			<div className="container">
 				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl">
 					Real stories by{" "}
@@ -28,7 +28,7 @@ export const Testimonials = () => {
 						) => (
 							<div
 								className={cn(
-									"rounded-[40px] p-8 hover:rotate-0 transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
+									"rounded-2xl p-8 hover:rotate-0 transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
 									bgColor,
 									rotate
 								)}

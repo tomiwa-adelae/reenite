@@ -142,7 +142,7 @@ export const SpaceContactDetails = () => {
 								>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue placeholder="Select a verified email to display" />
+											<SelectValue placeholder="Select hours" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>

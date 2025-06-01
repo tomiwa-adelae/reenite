@@ -18,16 +18,16 @@ export const ExploreSpaces = () => {
 					<div className="flex w-max space-x-4 pr-10 pb-4 mt-8">
 						{spaces?.map(({ name, src, description }, index) => (
 							<Link
-								href="/"
+								href="/spaces/12345"
 								key={index}
-								className="relative group overflow-hidden rounded-3xl max-w-[300px]"
+								className="relative group overflow-hidden rounded-2xl max-w-[300px]"
 							>
 								<Image
 									src={src}
 									alt={`${name}'s picture`}
 									width={1000}
 									height={1000}
-									className="w-auto h-[300px] group-hover:scale-105 transition-all object-cover rounded-4xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+									className="w-auto h-[300px] group-hover:scale-105 transition-all object-cover rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
 								/>
 								<div className="py-4">
 									<h3 className="font-medium group-hover:text-secondary text-xl transition-all">
@@ -37,7 +37,9 @@ export const ExploreSpaces = () => {
 										{description}
 									</p>
 									<Button asChild size="md">
-										<Link href="/book">Book space</Link>
+										<Link href="/spaces/12345">
+											Book space
+										</Link>
 									</Button>
 								</div>
 							</Link>
@@ -47,12 +49,7 @@ export const ExploreSpaces = () => {
 				</ScrollArea>
 				<div className="flex items-center justify-center mt-4">
 					<Button asChild size="lg" variant="secondary">
-						<Link href="/book">
-							Book a space today{" "}
-							<Button variant="black" size="icon">
-								<MoveRight />
-							</Button>
-						</Link>
+						<Link href="/spaces">Book a space today</Link>
 					</Button>
 				</div>
 			</div>
