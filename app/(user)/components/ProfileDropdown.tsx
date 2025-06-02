@@ -52,9 +52,7 @@ export function ProfileDropdown({ user }: { user?: any }) {
 					className="cursor-pointer"
 				>
 					<LogOut className="size-5" />
-					<span className="uppercase text-xs font-medium">
-						Logout
-					</span>
+					<span className="text-base font-medium">Logout</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

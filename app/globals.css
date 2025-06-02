@@ -167,3 +167,53 @@ html {
 .marquee-section:hover .marquee-content {
 	animation-play-state: paused;
 }
+
+.cl-internal-1pr5xvn,
+.cl-internal-4x6jej {
+	display: none !important;
+}
+
+.cl-internal-phfxlr {
+	width: auto !important;
+}
+
+.cl-internal-7hb1uf {
+	width: auto !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.cl-internal-1p733cp {
+	padding: 0rem 2rem !important;
+	background-color: transparent !important;
+}
+
+.cl-internal-yj31gg {
+	padding: 0.9rem 0.75rem !important;
+	border: 1px solid #e4e4e7 !important;
+}
+.cl-internal-15di0mo {
+	font-size: 0.9rem !important;
+}
+.cl-internal-172wsa5,
+.cl-internal-1toq7sq,
+.cl-internal-1gh8c2t,
+.cl-internal-9boobq {
+	padding: 1.5rem 0.75rem !important;
+}
+
+.cl-internal-1odp14a {
+	padding: 0.9rem 0.75rem !important;
+	background-color: #1a2142 !important;
+}
+
+@media (max-width: 770px) {
+	.cl-internal-1p733cp {
+		padding: 0rem 0.1rem !important;
+	}
+
+	.cl-internal-hsfmxg {
+		flex-direction: column !important;
+		gap: 1.5rem !important;
+	}
+}

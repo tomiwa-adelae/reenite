@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const dmsans = DM_Sans({
 	subsets: ["latin"],
@@ -20,11 +21,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${dmsans.className} antialiased`}>
-				{children}
-				<Toaster />
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en">
+				<body className={`${dmsans.className} antialiased`}>
+					{children}
+					<Toaster />
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
