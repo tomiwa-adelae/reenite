@@ -30,7 +30,7 @@ import {
 
 export const navLinks = [
 	{
-		slug: "/book",
+		slug: "/spaces",
 		label: "Book Space",
 	},
 	{
@@ -568,3 +568,9 @@ export const availableAmenities = [
 		name: "Video Conferencing",
 	},
 ];
+
+export const DEFAULT_PROFILE_PICTURE =
+	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+
+export const DEFAULT_SPACE_IMAGE =
+	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";

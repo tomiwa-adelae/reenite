@@ -1,7 +1,15 @@
 import { StructureForm } from "@/app/(new)/components/forms/StructureForm";
+import { getCategories } from "@/lib/actions/admin/category.actions";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+	const clerkUser = await currentUser();
+	const user = await getUserInfo(clerkUser?.id!);
+
+	const categories = await getCategories({ userId: user?.user?._id });
+
 	return (
 		<div className="py-8">
 			<div className="container max-w-3xl">
@@ -9,7 +17,10 @@ const page = () => {
 					Which of these best describes your space?
 				</h2>
 			</div>
-			<StructureForm />
+			<StructureForm
+				userId={user?.user?._id}
+				categories={categories?.categories}
+			/>
 		</div>
 	);
 };

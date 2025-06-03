@@ -15,6 +15,8 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { addSpaceTitle } from "@/lib/actions/admin/space.actions";
+import { Loader } from "@/components/shared/Loader";
 
 const FormSchema = z.object({
 	title: z
@@ -25,24 +27,33 @@ const FormSchema = z.object({
 		.max(32, { message: "The maximum number is 32" }),
 });
 
-export const EditTitleComponent = () => {
+interface Props {
+	userId: string;
+	spaceId: string;
+	title: string;
+}
+
+export const EditTitleComponent = ({ title, userId, spaceId }: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			title: "Mini Conference Room",
+			title: title || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const res = await addSpaceTitle({
+				userId,
+				spaceId,
+				...data,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success("Title successfully updated!");
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 	return (
 		<div className="relative pt-8">
@@ -61,8 +72,8 @@ export const EditTitleComponent = () => {
 								<FormItem>
 									<FormControl>
 										<Textarea
-											placeholder=""
-											className="resize-none min-h-40 text-lg md:text-2xl"
+											placeholder="A short and catchy title works best"
+											className="resize-none min-h-40 max-h-60 text-lg md:text-2xl"
 											{...field}
 										/>
 									</FormControl>
@@ -74,7 +85,17 @@ export const EditTitleComponent = () => {
 					</div>
 					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
 						<div className="container flex items-center justify-end">
-							<Button size="lg">Save</Button>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size={"lg"}
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Save"
+								)}
+							</Button>
 						</div>
 					</footer>
 				</form>

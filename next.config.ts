@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: "https",
+				hostname: "img.clerk.com",
+				port: "",
+			},
+			{
+				protocol: "https",
 				hostname: "previews.123rf.com",
 				port: "",
 			},

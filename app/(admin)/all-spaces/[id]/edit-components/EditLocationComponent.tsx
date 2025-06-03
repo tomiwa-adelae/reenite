@@ -24,6 +24,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { nigerianCountries, nigerianStates } from "@/constants";
 import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
 import { Input } from "@/components/ui/input";
+import { Loader } from "@/components/shared/Loader";
+import { addSpaceLocation } from "@/lib/actions/admin/space.actions";
 
 const FormSchema = z.object({
 	country: z.string().min(2, {
@@ -43,28 +45,49 @@ const FormSchema = z.object({
 	}),
 });
 
-export const EditLocationComponent = () => {
+interface Props {
+	userId: string;
+	spaceId: string;
+	address: string;
+	state: string;
+	city: string;
+	country: string;
+	zipCode: string;
+}
+
+export const EditLocationComponent = ({
+	address,
+	city,
+	state,
+	country,
+	zipCode,
+	userId,
+	spaceId,
+}: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			country: "",
-			city: "",
-			state: "",
-			address: "",
-			zipCode: "",
+			country: country || "",
+			city: city || "",
+			state: state || "",
+			address: address || "",
+			zipCode: zipCode || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const res = await addSpaceLocation({
+				userId,
+				spaceId,
+				...data,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success("Location successfully updated!");
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 	return (
 		<div className="relative pt-8">
@@ -207,7 +230,17 @@ export const EditLocationComponent = () => {
 					</div>
 					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
 						<div className="container flex items-center justify-end">
-							<Button size="lg">Save</Button>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size={"lg"}
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Save"
+								)}
+							</Button>
 						</div>
 					</footer>
 				</form>

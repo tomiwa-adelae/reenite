@@ -14,6 +14,12 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader } from "@/components/shared/Loader";
+import { addSpaceMonthlyPrice } from "@/lib/actions/admin/space.actions";
+import { formatMoneyInput, handleKeyDown, removeCommas } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
 	monthlyPrice: z
@@ -24,24 +30,74 @@ const FormSchema = z.object({
 		.max(32, { message: "The maximum number is 32" }),
 });
 
-export const MonthlyPriceForm = () => {
+interface Props {
+	spaceId: string;
+	userId: string;
+	monthlyPrice: string;
+}
+
+export const MonthlyPriceForm = ({ spaceId, userId, monthlyPrice }: Props) => {
+	const router = useRouter();
+	const [price, setPrice] = useState(formatMoneyInput(monthlyPrice) || "");
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			monthlyPrice: "",
+			monthlyPrice: formatMoneyInput(monthlyPrice) || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement>,
+		field: any
+	) => {
+		let inputValue = e.target.value;
+
+		// If the input starts with a "0" and is followed by another number, remove the "0"
+		if (
+			inputValue.startsWith("0") &&
+			inputValue.length > 1 &&
+			inputValue[1] !== "."
+		) {
+			inputValue = inputValue.slice(1);
+		}
+
+		// Prevent the input from starting with a period
+		if (inputValue.startsWith(".")) {
+			return;
+		}
+
+		inputValue = inputValue.replace(/[^0-9.]/g, "");
+		const parts = inputValue.split(".");
+		if (parts.length > 2) {
+			inputValue = parts.shift() + "." + parts.join("");
+		}
+		if (parts[1]) {
+			parts[1] = parts[1].substring(0, 2);
+			inputValue = parts.join(".");
+		}
+
+		if (/^[0-9,]*\.?[0-9]*$/.test(inputValue)) {
+			const formattedValue = formatMoneyInput(inputValue);
+			setPrice(formattedValue);
+			field.onChange(formattedValue);
+		}
+	};
+
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const formattedPrice = removeCommas(data.monthlyPrice);
+			const res = await addSpaceMonthlyPrice({
+				userId,
+				spaceId,
+				monthlyPrice: formattedPrice,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success(res.message);
+			return router.push(`/all-spaces/new/${res?.space?._id}/discount`);
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 
 	return (
@@ -55,11 +111,22 @@ export const MonthlyPriceForm = () => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Textarea
-											placeholder="₦0"
-											className="resize-none min-h-40 text-3xl md:text-4xl lg:text-5xl"
-											{...field}
-										/>
+										<div className="relative">
+											<Input
+												onKeyDown={handleKeyDown}
+												id="decimalInput"
+												inputMode="decimal"
+												value={price}
+												onChange={(e) =>
+													handleChange(e, field)
+												}
+												placeholder="0.00"
+												className="resize-none min-h-40 text-3xl md:text-4xl lg:text-5xl pl-10"
+											/>
+											<p className="text-3xl md:text-4xl lg:text-5xl text-muted-foreground absolute top-[50%] translate-y-[-50%] left-[2%] ">
+												₦
+											</p>
+										</div>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -74,14 +141,22 @@ export const MonthlyPriceForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/weekly-price">
+								<Link
+									href={`/all-spaces/new/${spaceId}/weekly-price`}
+								>
 									Back
 								</Link>
 							</Button>
-							<Button asChild size="lg" type="submit">
-								<Link href="/all-spaces/new/discount">
-									Next
-								</Link>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size="lg"
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Next"
+								)}
 							</Button>
 						</div>
 					</Footer>

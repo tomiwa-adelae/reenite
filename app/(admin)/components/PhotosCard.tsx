@@ -1,34 +1,28 @@
-import React from "react";
-import {
-	DraggableCardBody,
-	DraggableCardContainer,
-} from "@/components/ui/draggable-card";
 import Image from "next/image";
+import { IPhoto } from "@/lib/database/models/space.model";
+import { cn } from "@/lib/utils";
+import { DEFAULT_SPACE_IMAGE } from "@/constants";
 
-export function PhotosCard() {
+export function PhotosCard({ photos }: { photos: IPhoto[] }) {
 	return (
 		<div className="grid grid-cols-3 pt-10 pb-8">
-			<Image
-				src={"/assets/images/space-one.jpg"}
-				alt={"Space"}
-				width={1000}
-				height={1000}
-				className="rounded-2xl aspect-square object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)] translate-x-10 -rotate-6"
-			/>
-			<Image
-				src={"/assets/images/space-two.jpg"}
-				alt={"Space"}
-				width={1000}
-				height={1000}
-				className="rounded-2xl scale-125 aspect-square object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20"
-			/>
-			<Image
-				src={"/assets/images/space-three.jpg"}
-				alt={"Space"}
-				width={1000}
-				height={1000}
-				className="rounded-2xl aspect-square object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)] -translate-x-10 rotate-6"
-			/>
+			{photos.slice(0, 3).map((photo, index) => (
+				<Image
+					key={index}
+					src={photo.src || DEFAULT_SPACE_IMAGE}
+					alt={"Space"}
+					width={1000}
+					height={1000}
+					className={cn(
+						"rounded-2xl aspect-square transition-all object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
+						index === 0 &&
+							"translate-x-10 -rotate-6 hover:scale-105",
+						index === 1 && "z-20 scale-125 hover:scale-[120%]",
+						index === 2 &&
+							"-translate-x-10 rotate-6 hover:scale-105"
+					)}
+				/>
+			))}
 		</div>
 	);
 }

@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import { useDropzone } from "react-dropzone";
 import React, { useRef, useState } from "react";
 import { IconUpload } from "@tabler/icons-react";
+import Image from "next/image";
+import { Button } from "./button";
 
 const mainVariant = {
 	initial: {
@@ -71,14 +73,8 @@ export const FileUpload = ({
 					<GridPattern />
 				</div>
 				<div className="flex flex-col items-center justify-center">
-					<p className="relative z-20 font-sans font-bold text-neutral-700 dark:text-neutral-300 text-base">
-						Upload file
-					</p>
-					<p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
-						Drag or drop your files here or click to upload
-					</p>
 					<div className="relative w-full mt-10 max-w-xl mx-auto">
-						{files.length > 0 &&
+						{/* {files.length > 0 &&
 							files.map((file, idx) => (
 								<motion.div
 									key={"file" + idx}
@@ -88,7 +84,7 @@ export const FileUpload = ({
 											: "file-upload-" + idx
 									}
 									className={cn(
-										"relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
+										"relative overflow-hidden z-40 dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
 										"shadow-sm"
 									)}
 								>
@@ -137,35 +133,48 @@ export const FileUpload = ({
 										</motion.p>
 									</div>
 								</motion.div>
-							))}
-						{!files.length && (
-							<motion.div
-								layoutId="file-upload"
-								variants={mainVariant}
-								transition={{
-									type: "spring",
-									stiffness: 300,
-									damping: 20,
-								}}
-								className={cn(
-									"relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-neutral-900 flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
-									"shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
-								)}
-							>
-								{isDragActive ? (
-									<motion.p
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										className="text-neutral-600 flex flex-col items-center"
-									>
-										Drop it
-										<IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-									</motion.p>
-								) : (
-									<IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
-								)}
-							</motion.div>
-						)}
+							))} */}
+						<motion.div
+							layoutId="file-upload"
+							variants={mainVariant}
+							transition={{
+								type: "spring",
+								stiffness: 300,
+								damping: 20,
+							}}
+							className={cn(
+								"relative group-hover/file:shadow-2xl z-40 dark:bg-neutral-900 flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
+								"shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
+							)}
+						>
+							{isDragActive ? (
+								<motion.p
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									className="text-neutral-600 flex flex-col items-center"
+								>
+									Drop it
+									<IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+								</motion.p>
+							) : (
+								// <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+								<Image
+									src={"/assets/icons/images.svg"}
+									alt={"Image icon"}
+									width={100}
+									height={100}
+								/>
+							)}
+						</motion.div>
+						<div className="mt-4 flex flex-col items-center justify-center">
+							<h4 className="font-medium text-2xl mb-2">
+								Drag and drop
+							</h4>
+							<p className="text sm text-center mb-3">
+								or browse for photos
+							</p>
+							<Button size="md">Browse</Button>
+						</div>
 
 						{!files.length && (
 							<motion.div

@@ -15,6 +15,9 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { addSpaceTitle } from "@/lib/actions/admin/space.actions";
+import { useRouter } from "next/navigation";
+import { Loader } from "@/components/shared/Loader";
 
 const FormSchema = z.object({
 	title: z
@@ -25,24 +28,37 @@ const FormSchema = z.object({
 		.max(32, { message: "The maximum number is 32" }),
 });
 
-export const TitleForm = () => {
+interface Props {
+	spaceId: string;
+	userId: string;
+	title: string;
+}
+
+export const TitleForm = ({ spaceId, userId, title }: Props) => {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			title: "",
+			title: title || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const res = await addSpaceTitle({
+				userId,
+				spaceId,
+				...data,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success(res.message);
+			return router.push(
+				`/all-spaces/new/${res?.space?._id}/description`
+			);
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 
 	return (
@@ -78,10 +94,18 @@ export const TitleForm = () => {
 							>
 								<Link href="/all-spaces/new/photos">Back</Link>
 							</Button>
-							<Button asChild size="lg" type="submit">
-								<Link href="/all-spaces/new/description">
-									Next
-								</Link>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size={
+									form.formState.isSubmitting ? "icon" : "lg"
+								}
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Next"
+								)}
 							</Button>
 						</div>
 					</Footer>

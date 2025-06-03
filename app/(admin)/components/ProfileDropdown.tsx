@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogOut, Menu, Settings } from "lucide-react";
-import { userNavLinks } from "@/constants";
+import { DEFAULT_PROFILE_PICTURE, userNavLinks } from "@/constants";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -15,8 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { IUser } from "@/lib/database/models/user.model";
 
-export function ProfileDropdown({ user }: { user?: any }) {
+interface Props {
+	user: IUser;
+}
+
+export function ProfileDropdown({ user }: Props) {
 	const router = useRouter();
 
 	const handleLogout = async () => {
@@ -32,8 +37,8 @@ export function ProfileDropdown({ user }: { user?: any }) {
 					variant={"ghost"}
 				>
 					<Image
-						src={"/assets/images/user-one.jpeg"}
-						alt={`User picture`}
+						src={user?.picture || DEFAULT_PROFILE_PICTURE}
+						alt={`${user?.firstName}'s profile picture`}
 						width={1000}
 						height={1000}
 						className="size-10 rounded-full cursor-pointer object-cover"

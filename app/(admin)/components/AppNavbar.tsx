@@ -9,8 +9,13 @@ import { adminNavLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "./Sidebar";
+import { IUser } from "@/lib/database/models/user.model";
 
-export const AppNavbar = () => {
+interface Props {
+	user: IUser;
+}
+
+export const AppNavbar = ({ user }: Props) => {
 	const pathname = usePathname();
 
 	const isActive = (slug: string) =>
@@ -35,7 +40,7 @@ export const AppNavbar = () => {
 					))}
 				</nav>
 				<div className="flex items-center justify-end gap-4">
-					<ProfileDropdown user={null} />
+					<ProfileDropdown user={user} />
 					<div className="md:hidden">
 						<Sidebar />
 					</div>

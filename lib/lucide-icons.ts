@@ -5,3 +5,23 @@ export const lucideIcons = Object.entries(Icons).filter(
 	([, Component]) =>
 		typeof Component === "function" && "displayName" in Component
 ) as [string, LucideIcon][];
+
+import {
+	Car,
+	Snowflake,
+	Printer,
+	Wifi,
+	Lightbulb,
+	CookingPot,
+	Video,
+} from "lucide-react";
+
+export const iconMap: Record<string, React.ElementType> = {
+	Car,
+	Snowflake,
+	Printer,
+	Wifi,
+	Lightbulb,
+	CookingPot,
+	Video,
+};

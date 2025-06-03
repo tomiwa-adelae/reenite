@@ -15,17 +15,24 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { addSpaceDescription } from "@/lib/actions/admin/space.actions";
+import { useRouter } from "next/navigation";
+import { Loader } from "@/components/shared/Loader";
 
 const FormSchema = z.object({
-	description: z
-		.string()
-		.min(2, {
-			message: "Description is required.",
-		})
-		.max(32, { message: "The maximum number is 32" }),
+	description: z.string().min(2, {
+		message: "Description is required.",
+	}),
 });
 
-export const DescriptionForm = () => {
+interface Props {
+	spaceId: string;
+	userId: string;
+	description: string;
+}
+
+export const DescriptionForm = ({ spaceId, userId, description }: Props) => {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
@@ -33,16 +40,22 @@ export const DescriptionForm = () => {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const res = await addSpaceDescription({
+				userId,
+				spaceId,
+				...data,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success(res.message);
+			return router.push(
+				`/all-spaces/new/${res?.space?._id}/availability`
+			);
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 
 	return (
@@ -76,12 +89,20 @@ export const DescriptionForm = () => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/title">Back</Link>
-							</Button>
-							<Button asChild size="lg" type="submit">
-								<Link href="/all-spaces/new/hourly-price">
-									Next
+								<Link href="/all-spaces/new/description">
+									Back
 								</Link>
+							</Button>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size="lg"
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Next"
+								)}
 							</Button>
 						</div>
 					</Footer>

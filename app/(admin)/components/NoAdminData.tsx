@@ -5,7 +5,7 @@ import React from "react";
 
 export const NoAdminData = () => {
 	return (
-		<div className="flex flex-col items-center justify-center">
+		<div className="flex flex-col items-center text-center justify-center">
 			<h2 className="font-semibold text-3xl">
 				Welcome to your Reenite Dashboard
 			</h2>
@@ -22,7 +22,7 @@ export const NoAdminData = () => {
 				Let’s get started by adding your first workspace!
 			</p>
 			<Button asChild size="md" variant="secondary">
-				<Link href="/all-bookings/new">Create a space</Link>
+				<Link href="/all-spaces/new">Create a space</Link>
 			</Button>
 		</div>
 	);

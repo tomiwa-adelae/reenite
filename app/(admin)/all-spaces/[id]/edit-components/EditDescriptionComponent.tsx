@@ -15,35 +15,47 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { addSpaceDescription } from "@/lib/actions/admin/space.actions";
+import { Loader } from "@/components/shared/Loader";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const FormSchema = z.object({
-	description: z
-		.string()
-		.min(2, {
-			message: "Description is required.",
-		})
-		.max(32, { message: "The maximum number is 32" }),
+	description: z.string().min(2, {
+		message: "Description is required.",
+	}),
 });
 
-export const EditDescriptionComponent = () => {
+interface Props {
+	userId: string;
+	spaceId: string;
+	description: string;
+}
+
+export const EditDescriptionComponent = ({
+	description,
+	userId,
+	spaceId,
+}: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			description:
-				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam libero ducimus tempore iure iusto rerum reprehenderit, quas praesentium eveniet quidem!",
+			description: description || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("You submitted the following values", {
-			description: (
-				<pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		try {
+			const res = await addSpaceDescription({
+				userId,
+				spaceId,
+				...data,
+			});
+
+			if (res.status === 400) return toast.error(res.message);
+			toast.success("Description successfully updated!");
+		} catch (error) {
+			toast.error("An error occurred! Try again later.");
+		}
 	}
 	return (
 		<div className="relative pt-8">
@@ -63,11 +75,10 @@ export const EditDescriptionComponent = () => {
 									<FormControl>
 										<Textarea
 											placeholder=""
-											className="resize-none min-h-40 text-lg md:text-2xl"
+											className="resize-none min-h-40 max-h-60 text-lg md:text-2xl"
 											{...field}
 										/>
 									</FormControl>
-
 									<FormMessage />
 								</FormItem>
 							)}
@@ -75,7 +86,17 @@ export const EditDescriptionComponent = () => {
 					</div>
 					<footer className="bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
 						<div className="container flex items-center justify-end">
-							<Button size="lg">Save</Button>
+							<Button
+								type="submit"
+								disabled={form.formState.isSubmitting}
+								size={"lg"}
+							>
+								{form.formState.isSubmitting ? (
+									<Loader />
+								) : (
+									"Save"
+								)}
+							</Button>
 						</div>
 					</footer>
 				</form>

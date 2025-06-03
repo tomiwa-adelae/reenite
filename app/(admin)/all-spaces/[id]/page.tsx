@@ -1,138 +1,39 @@
-import React from "react";
-import { PhotosCard } from "../../components/PhotosCard";
-import { ArrowLeft, Wifi } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SpaceDetailsBox } from "../../components/SpaceDetailsBox";
-import Image from "next/image";
-import { Photos } from "./edit-components/Photos";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { EditTitleComponent } from "./edit-components/EditTitleComponent";
-import { EditDescriptionComponent } from "./edit-components/EditDescriptionComponent";
-import { EditLocationComponent } from "./edit-components/EditLocationComponent";
-import { Amenities } from "./edit-components/Amenities";
-import { EditCategoryComponent } from "./edit-components/EditCategoryComponent";
-import { EditAvailabilityComponent } from "./edit-components/EditAvailabilityComponent";
-import { EditPricingComponent } from "./edit-components/EditPricingComponent";
-import { EditDiscountComponent } from "./edit-components/EditDiscountComponent";
-import { ResponsiveModal } from "@/components/modals/ResponsiveModal";
-import Link from "next/link";
+import { currentUser } from "@clerk/nextjs/server";
+import { SpaceDetails } from "./edit-components/SpaceDetails";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import { getSpaceDetails } from "@/lib/actions/admin/space.actions";
+import SpaceNotFound from "@/components/shared/SpaceNotFound";
+import { getCategories } from "@/lib/actions/admin/category.actions";
 
-const page = () => {
+const page = async ({ params }: { params: any }) => {
+	const { id } = await params;
+	const clerkUser = await currentUser();
+	const user = await getUserInfo(clerkUser?.id!);
+
+	const spaceDetails = await getSpaceDetails({
+		userId: user?.user?._id,
+		spaceId: id,
+	});
+
+	const categories = await getCategories({ userId: user?.user?._id });
+
+	if (spaceDetails?.status === 400) return <SpaceNotFound />;
 	return (
-		<div className="h-[calc(100vh-80px)] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
-			<div className="lg:border-r py-8">
-				<div className="lg:container">
-					<div className="container flex items-center justify-start gap-4">
-						<Button
-							size="icon"
-							className="size-10 lg:size-12 bg-[#F7F7F7]"
-							variant="ghost"
-							asChild
-						>
-							<Link href="/all-spaces">
-								<ArrowLeft className="size-4 lg:size-6" />
-							</Link>
-						</Button>
-						<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
-							Mini Conference Room
-						</h2>
-					</div>
-					<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
-						<div className="container">
-							<ScrollArea>
-								<div className="mt-8 grid gap-4">
-									<SpaceDetailsBox name="Photos">
-										<PhotosCard />
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Title">
-										<h2 className="font-semibold text-muted-foreground text-xl lg:text-2xl mt-2">
-											Mini Conference Room
-										</h2>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Description">
-										<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
-											Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit. Nam
-											libero ducimus tempore iure iusto
-											rerum reprehenderit, quas
-											praesentium eveniet quidem!
-										</h2>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Pricing">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>₦8,900 daily</p>
-											<p>₦18,900 monthly</p>
-											<p>₦28,900 weekly</p>
-											<p>₦38,900 monthly</p>
-											<p>40% daily discount</p>
-										</div>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Discount">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>40% daily discount</p>
-										</div>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Location">
-										<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
-											123 Main Street, Magodo GRA, Ikeja,
-											Lagos state
-										</h2>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Amenities">
-										<div className="mt-2 grid gap-4 text-muted-foreground font-semibold">
-											<div className="flex items-center justify-start gap-3 text-sm lg:text-base">
-												<Wifi className="size-5 lg:size-6" />{" "}
-												<p>Wifi</p>
-											</div>
-											<div className="flex items-center justify-start gap-3">
-												<Wifi className="size-5 lg:size-6" />{" "}
-												<p>Wifi</p>
-											</div>
-											<div className="flex items-center justify-start gap-3">
-												<Wifi className="size-5 lg:size-6" />{" "}
-												<p>Wifi</p>
-											</div>
-										</div>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Category">
-										<div className="flex items-center justify-start gap-4 mt-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<Image
-												src={"/assets/icons/office.svg"}
-												alt={`icon`}
-												width={1000}
-												height={1000}
-												className="size-[50px] lg:size-[60px] object-cover"
-											/>
-											<h5>Space desk</h5>
-										</div>
-									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Availability">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>Monday 08:00 AM to 06:00PM</p>
-											<p>Wednesday 08:00 AM to 06:00PM</p>
-											<p>Thursday 08:00 AM to 06:00PM</p>
-											<p>Sunday 08:00 AM to 06:00PM</p>
-										</div>
-									</SpaceDetailsBox>
-								</div>
-								{/* <ResponsiveModal /> */}
-							</ScrollArea>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="hidden lg:block">
-				<Photos />
-				{/* <EditTitleComponent /> */}
-				{/* <EditDescriptionComponent /> */}
-				{/* <EditLocationComponent /> */}
-				{/* <Amenities /> */}
-				{/* <EditCategoryComponent /> */}
-				{/* <EditAvailabilityComponent /> */}
-				{/* <EditPricingComponent /> */}
-				{/* <EditDiscountComponent /> */}
-			</div>
-		</div>
+		<SpaceDetails
+			title={spaceDetails?.space?.title}
+			photos={spaceDetails?.space?.photos}
+			description={spaceDetails?.space?.description}
+			city={spaceDetails?.space?.city}
+			state={spaceDetails?.space?.state}
+			country={spaceDetails?.space?.country}
+			address={spaceDetails?.space?.address}
+			zipCode={spaceDetails?.space?.zipCode}
+			category={spaceDetails?.space?.category}
+			amenities={spaceDetails?.space?.amenities}
+			spaceId={spaceDetails?.space?._id}
+			userId={user?.user?._id}
+			categories={categories?.categories}
+		/>
 	);
 };
 

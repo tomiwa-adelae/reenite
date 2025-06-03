@@ -4,8 +4,15 @@ import { navLinks } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { MobileNavbar } from "@/components/shared/MobileNavbar";
 import { Logo } from "./Logo";
+import { SignedIn } from "@clerk/nextjs";
+import { ProfileDropdown } from "@/app/(user)/components/ProfileDropdown";
+import { IUser } from "@/lib/database/models/user.model";
 
-export const Header = () => {
+interface Props {
+	user: IUser;
+}
+
+export const Header = ({ user }: Props) => {
 	return (
 		<header className="z-50 bg-white dark:bg-black py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
 			<div className="container flex items-center justify-between gap-4">
@@ -27,6 +34,9 @@ export const Header = () => {
 							<Link href="/spaces">Book a space</Link>
 						</Button>
 					</div>
+					<SignedIn>
+						<ProfileDropdown user={user} />
+					</SignedIn>
 					<div className="lg:hidden">
 						<MobileNavbar />
 					</div>
