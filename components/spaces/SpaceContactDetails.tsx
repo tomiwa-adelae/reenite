@@ -24,7 +24,10 @@ import {
 } from "@/components/ui/select";
 // import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
-import { noOfHours } from "@/constants";
+import {
+	noOfHours as numberOfHours,
+	noOfUsers as numberOfUsers,
+} from "@/constants";
 
 const FormSchema = z.object({
 	firstName: z.string().min(2, {
@@ -46,17 +49,41 @@ const FormSchema = z.object({
 	// 		message: "Invalid phone number",
 	// 	}),
 	noOfHours: z.string().optional(),
+	noOfUsers: z.string().optional(),
 });
 
-export const SpaceContactDetails = () => {
+interface Props {
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+	noOfHours: string;
+	noOfUsers: string;
+	booking: string;
+	onChangeHours: (hours: string) => void;
+	onChangeUsers: (hours: string) => void;
+}
+
+export const SpaceContactDetails = ({
+	firstName,
+	lastName,
+	email,
+	phoneNumber,
+	noOfUsers,
+	noOfHours,
+	booking,
+	onChangeHours,
+	onChangeUsers,
+}: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			firstName: "",
-			lastName: "",
-			email: "",
+			firstName: firstName || "",
+			lastName: lastName || "",
+			email: email || "",
 			// phoneNumber: "",
-			noOfHours: "",
+			noOfHours: noOfHours || "",
+			noOfUsers: noOfUsers || "",
 		},
 	});
 
@@ -71,7 +98,7 @@ export const SpaceContactDetails = () => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-6"
+					className="space-y-6 mt-4"
 				>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<FormField
@@ -130,30 +157,72 @@ export const SpaceContactDetails = () => {
 							</FormItem>
 						)}
 					/>
+					{booking === "hourly" && (
+						<FormField
+							control={form.control}
+							name="noOfHours"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Number of hours</FormLabel>
+									<Select
+										onValueChange={(value) => {
+											field.onChange(value); // Update react-hook-form state
+											onChangeHours(value); // Notify parent component
+										}}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Select hours" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{numberOfHours.map(
+												(hour, index) => (
+													<SelectItem
+														key={index}
+														value={hour}
+													>
+														{hour}
+													</SelectItem>
+												)
+											)}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					)}
 					<FormField
 						control={form.control}
-						name="noOfHours"
+						name="noOfUsers"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Number of hours</FormLabel>
+								<FormLabel>Number of users</FormLabel>
 								<Select
-									onValueChange={field.onChange}
+									onValueChange={(value) => {
+										field.onChange(value); // Update react-hook-form state
+										onChangeUsers(value); // Notify parent component
+									}}
 									defaultValue={field.value}
 								>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue placeholder="Select hours" />
+											<SelectValue placeholder="Select users" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										{noOfHours.map((hour, index) => (
-											<SelectItem
-												key={index}
-												value={hour}
-											>
-												{hour}
-											</SelectItem>
-										))}
+										{numberOfUsers.map(
+											({ user, label }, index) => (
+												<SelectItem
+													key={index}
+													value={user}
+												>
+													{label}
+												</SelectItem>
+											)
+										)}
 									</SelectContent>
 								</Select>
 								<FormMessage />

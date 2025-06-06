@@ -5,8 +5,9 @@ import { WorkSpaces } from "@/components/WorkSpaces";
 import { firstMarquee, secondMarquee } from "@/constants";
 import { Marquee } from "@/components/Marquee";
 import { Testimonials } from "@/components/Testimonials";
+import { getSpaces } from "@/lib/actions/customer/space.actions";
 
-const page = () => {
+const page = async () => {
 	const images = [
 		"/assets/images/space-one.jpg",
 		"/assets/images/space-two.jpg",
@@ -14,6 +15,9 @@ const page = () => {
 		"/assets/images/space-four.jpg",
 		"/assets/images/space-five.jpg",
 	];
+
+	const spaces = await getSpaces();
+
 	return (
 		<div>
 			<SpacesShowcase
@@ -23,7 +27,7 @@ const page = () => {
 					"Discover inspiring co-working spaces, private offices, and meeting rooms in your city. Book by the hour, day, or month."
 				}
 			/>
-			<WorkSpaces />
+			<WorkSpaces spaces={spaces?.spaces} />
 			<Marquee texts={firstMarquee} />
 			<FAQs />
 			<Marquee texts={secondMarquee} />

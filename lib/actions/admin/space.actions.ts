@@ -7,15 +7,15 @@ import { handleError } from "@/lib/utils";
 import {
 	AddSpaceAmenitiesParams,
 	AddSpaceAvailabilityParams,
-	AddSpaceDailyPriceParams,
+	AddSpaceDailyPricingParams,
 	AddSpaceDescriptionParams,
 	AddSpaceDiscountsParams,
-	AddSpaceHourlyPriceParams,
+	AddSpaceHourlyPricingParams,
 	AddSpaceLocationParams,
-	AddSpaceMonthlyPriceParams,
+	AddSpaceMonthlyPricingParams,
 	AddSpacePhotosParams,
 	AddSpaceTitleParams,
-	AddSpaceWeeklyPriceParams,
+	AddSpaceWeeklyPricingParams,
 	CreateNewSpaceParams,
 	DeleteSpaceAmenityParams,
 	DeleteSpacePhotoParams,
@@ -23,6 +23,7 @@ import {
 	GetSpacesParams,
 	UpdateSpaceCategoryParams,
 	UpdateSpaceCoverPhotoParams,
+	UpdateSpacePricingParams,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
@@ -68,7 +69,8 @@ export const getSpaces = async ({
 
 		const spaces = await Space.find({ user: userId })
 			.sort({ createdAt: -1 })
-			.skip(skipAmount);
+			.skip(skipAmount)
+			.populate("category");
 
 		return {
 			status: 200,
@@ -686,15 +688,20 @@ export const addSpaceAvailability = async ({
 };
 
 // Update space hourly price
-export const addSpaceHourlyPrice = async ({
+export const addSpaceHourlyPricing = async ({
 	userId,
 	spaceId,
-	hourlyPrice,
-}: AddSpaceHourlyPriceParams) => {
+	hourlyPricing,
+}: AddSpaceHourlyPricingParams) => {
 	try {
 		await connectToDatabase();
 
-		if (!spaceId || !userId || !hourlyPrice)
+		if (
+			!spaceId ||
+			!userId ||
+			!hourlyPricing ||
+			typeof hourlyPricing !== "object"
+		)
 			return {
 				status: 400,
 				message: "Oops! An error occurred. Try again later",
@@ -716,7 +723,48 @@ export const addSpaceHourlyPrice = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		space.hourlyPrice = hourlyPrice || space.hourlyPrice;
+		// Convert string values to numbers
+		const parsedHourlyPricing: Record<string, number> = {};
+
+		for (const key in hourlyPricing) {
+			const rawValue = hourlyPricing[key];
+
+			if (rawValue === null || rawValue === undefined) {
+				return {
+					status: 400,
+					message: `Price for ${key} user(s) is missing.`,
+				};
+			}
+
+			const cleaned =
+				typeof rawValue === "string"
+					? rawValue.replace(/,/g, "")
+					: String(rawValue); // fallback if it's already a number
+
+			const value = Number(cleaned);
+
+			if (isNaN(value)) {
+				return {
+					status: 400,
+					message: `Invalid price for ${key} user(s).`,
+				};
+			}
+
+			parsedHourlyPricing[key] = value;
+		}
+
+		// Ensure `pricing` exists on the space document
+		if (!space.pricing) {
+			space.pricing = {
+				hourly: new Map<string, number>(),
+				daily: new Map<string, number>(),
+				weekly: new Map<string, number>(),
+				monthly: new Map<string, number>(),
+			};
+		}
+
+		// Replace or set hourly pricing
+		space.pricing.hourly = parsedHourlyPricing;
 
 		const updatedSpace = await space.save();
 
@@ -740,16 +788,21 @@ export const addSpaceHourlyPrice = async ({
 	}
 };
 
-// Update space daily price
-export const addSpaceDailyPrice = async ({
+// Update space hourly price
+export const addSpaceDailyPricing = async ({
 	userId,
 	spaceId,
-	dailyPrice,
-}: AddSpaceDailyPriceParams) => {
+	dailyPricing,
+}: AddSpaceDailyPricingParams) => {
 	try {
 		await connectToDatabase();
 
-		if (!spaceId || !userId || !dailyPrice)
+		if (
+			!spaceId ||
+			!userId ||
+			!dailyPricing ||
+			typeof dailyPricing !== "object"
+		)
 			return {
 				status: 400,
 				message: "Oops! An error occurred. Try again later",
@@ -771,7 +824,48 @@ export const addSpaceDailyPrice = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		space.dailyPrice = dailyPrice || space.dailyPrice;
+		// Convert string values to numbers
+		const parsedDailyPricing: Record<string, number> = {};
+
+		for (const key in dailyPricing) {
+			const rawValue = dailyPricing[key];
+
+			if (rawValue === null || rawValue === undefined) {
+				return {
+					status: 400,
+					message: `Price for ${key} user(s) is missing.`,
+				};
+			}
+
+			const cleaned =
+				typeof rawValue === "string"
+					? rawValue.replace(/,/g, "")
+					: String(rawValue); // fallback if it's already a number
+
+			const value = Number(cleaned);
+
+			if (isNaN(value)) {
+				return {
+					status: 400,
+					message: `Invalid price for ${key} user(s).`,
+				};
+			}
+
+			parsedDailyPricing[key] = value;
+		}
+
+		// Ensure `pricing` exists on the space document
+		if (!space.pricing) {
+			space.pricing = {
+				hourly: new Map<string, number>(),
+				daily: new Map<string, number>(),
+				weekly: new Map<string, number>(),
+				monthly: new Map<string, number>(),
+			};
+		}
+
+		// Replace or set hourly pricing
+		space.pricing.daily = parsedDailyPricing;
 
 		const updatedSpace = await space.save();
 
@@ -783,7 +877,7 @@ export const addSpaceDailyPrice = async ({
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
 			status: 201,
-			message: "Daily price successfully added.",
+			message: "Daily pricing successfully added.",
 			space: JSON.parse(JSON.stringify(updatedSpace)),
 		};
 	} catch (error) {
@@ -796,15 +890,20 @@ export const addSpaceDailyPrice = async ({
 };
 
 // Update space weekly price
-export const addSpaceWeeklyPrice = async ({
+export const addSpaceWeeklyPricing = async ({
 	userId,
 	spaceId,
-	weeklyPrice,
-}: AddSpaceWeeklyPriceParams) => {
+	weeklyPricing,
+}: AddSpaceWeeklyPricingParams) => {
 	try {
 		await connectToDatabase();
 
-		if (!spaceId || !userId || !weeklyPrice)
+		if (
+			!spaceId ||
+			!userId ||
+			!weeklyPricing ||
+			typeof weeklyPricing !== "object"
+		)
 			return {
 				status: 400,
 				message: "Oops! An error occurred. Try again later",
@@ -826,7 +925,48 @@ export const addSpaceWeeklyPrice = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		space.weeklyPrice = weeklyPrice || space.weeklyPrice;
+		// Convert string values to numbers
+		const parsedWeeklyPricing: Record<string, number> = {};
+
+		for (const key in weeklyPricing) {
+			const rawValue = weeklyPricing[key];
+
+			if (rawValue === null || rawValue === undefined) {
+				return {
+					status: 400,
+					message: `Price for ${key} user(s) is missing.`,
+				};
+			}
+
+			const cleaned =
+				typeof rawValue === "string"
+					? rawValue.replace(/,/g, "")
+					: String(rawValue); // fallback if it's already a number
+
+			const value = Number(cleaned);
+
+			if (isNaN(value)) {
+				return {
+					status: 400,
+					message: `Invalid price for ${key} user(s).`,
+				};
+			}
+
+			parsedWeeklyPricing[key] = value;
+		}
+
+		// Ensure `pricing` exists on the space document
+		if (!space.pricing) {
+			space.pricing = {
+				hourly: new Map<string, number>(),
+				daily: new Map<string, number>(),
+				weekly: new Map<string, number>(),
+				monthly: new Map<string, number>(),
+			};
+		}
+
+		// Replace or set hourly pricing
+		space.pricing.weekly = parsedWeeklyPricing;
 
 		const updatedSpace = await space.save();
 
@@ -838,7 +978,108 @@ export const addSpaceWeeklyPrice = async ({
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
 			status: 201,
-			message: "Weekly price successfully added.",
+			message: "Weekly pricing successfully added.",
+			space: JSON.parse(JSON.stringify(updatedSpace)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+// Update space weekly price
+export const addSpaceMonthlyPricing = async ({
+	userId,
+	spaceId,
+	monthlyPricing,
+}: AddSpaceMonthlyPricingParams) => {
+	try {
+		await connectToDatabase();
+
+		if (
+			!spaceId ||
+			!userId ||
+			!monthlyPricing ||
+			typeof monthlyPricing !== "object"
+		)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user?.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		const space = await Space.findById(spaceId);
+
+		if (!space)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		// Convert string values to numbers
+		const parsedMonthlyPricing: Record<string, number> = {};
+
+		for (const key in monthlyPricing) {
+			const rawValue = monthlyPricing[key];
+
+			if (rawValue === null || rawValue === undefined) {
+				return {
+					status: 400,
+					message: `Price for ${key} user(s) is missing.`,
+				};
+			}
+
+			const cleaned =
+				typeof rawValue === "string"
+					? rawValue.replace(/,/g, "")
+					: String(rawValue); // fallback if it's already a number
+
+			const value = Number(cleaned);
+
+			if (isNaN(value)) {
+				return {
+					status: 400,
+					message: `Invalid price for ${key} user(s).`,
+				};
+			}
+
+			parsedMonthlyPricing[key] = value;
+		}
+
+		// Ensure `pricing` exists on the space document
+		if (!space.pricing) {
+			space.pricing = {
+				hourly: new Map<string, number>(),
+				daily: new Map<string, number>(),
+				weekly: new Map<string, number>(),
+				monthly: new Map<string, number>(),
+			};
+		}
+
+		// Replace or set hourly pricing
+		space.pricing.monthly = parsedMonthlyPricing;
+
+		const updatedSpace = await space.save();
+
+		if (!updatedSpace)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+		revalidatePath(`/all-spaces/${space._id}`);
+		return {
+			status: 201,
+			message: "Monthly pricing successfully added.",
 			space: JSON.parse(JSON.stringify(updatedSpace)),
 		};
 	} catch (error) {
@@ -851,15 +1092,25 @@ export const addSpaceWeeklyPrice = async ({
 };
 
 // Update space monthly price
-export const addSpaceMonthlyPrice = async ({
+export const updateSpacePricing = async ({
 	userId,
 	spaceId,
+	hourlyPrice,
+	weeklyPrice,
+	dailyPrice,
 	monthlyPrice,
-}: AddSpaceMonthlyPriceParams) => {
+}: UpdateSpacePricingParams) => {
 	try {
 		await connectToDatabase();
 
-		if (!spaceId || !userId || !monthlyPrice)
+		if (
+			!spaceId ||
+			!userId ||
+			!hourlyPrice ||
+			!dailyPrice ||
+			!weeklyPrice ||
+			!monthlyPrice
+		)
 			return {
 				status: 400,
 				message: "Oops! An error occurred. Try again later",
@@ -881,6 +1132,9 @@ export const addSpaceMonthlyPrice = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
+		space.hourlyPrice = hourlyPrice || space.hourlyPrice;
+		space.weeklyPrice = weeklyPrice || space.weeklyPrice;
+		space.dailyPrice = dailyPrice || space.dailyPrice;
 		space.monthlyPrice = monthlyPrice || space.monthlyPrice;
 
 		const updatedSpace = await space.save();
@@ -893,7 +1147,7 @@ export const addSpaceMonthlyPrice = async ({
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
 			status: 201,
-			message: "Monthly price successfully added.",
+			message: "Space pricing successfully updated.",
 			space: JSON.parse(JSON.stringify(updatedSpace)),
 		};
 	} catch (error) {

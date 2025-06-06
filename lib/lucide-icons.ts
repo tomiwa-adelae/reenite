@@ -14,6 +14,8 @@ import {
 	Lightbulb,
 	CookingPot,
 	Video,
+	Shield,
+	Phone,
 } from "lucide-react";
 
 export const iconMap: Record<string, React.ElementType> = {
@@ -24,4 +26,6 @@ export const iconMap: Record<string, React.ElementType> = {
 	Lightbulb,
 	CookingPot,
 	Video,
+	Shield,
+	Phone,
 };

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { spaces } from "@/constants";
+// import { spaces } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 import { MoveRight } from "lucide-react";
+import { ISpace } from "@/lib/database/models/space.model";
+import { DEFAULT_SPACE_IMAGE } from "@/constants";
 
-export const ExploreSpaces = () => {
+export const ExploreSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 	return (
 		<div className="bg-white pt-10 pb-16">
 			<div className="container">
@@ -16,34 +18,43 @@ export const ExploreSpaces = () => {
 				</h2>
 				<ScrollArea>
 					<div className="flex w-max space-x-4 pr-10 pb-4 mt-8">
-						{spaces?.map(({ name, src, description }, index) => (
-							<Link
-								href="/spaces/12345"
-								key={index}
-								className="relative group overflow-hidden rounded-2xl max-w-[300px]"
-							>
-								<Image
-									src={src}
-									alt={`${name}'s picture`}
-									width={1000}
-									height={1000}
-									className="w-auto h-[300px] group-hover:scale-105 transition-all object-cover rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
-								/>
-								<div className="py-4">
-									<h3 className="font-medium group-hover:text-secondary text-xl transition-all">
-										{name}
-									</h3>
-									<p className="text-sm text-muted-foreground mt-1.5 truncate pr-4 mb-4">
-										{description}
+						{spaces?.map((space, index) => {
+							const coverPhoto =
+								// @ts-ignore
+								space?.photos.find((photo) => photo.cover) ||
+								// @ts-ignore
+								space?.photos[0];
+							return (
+								<Link
+									href={`/spaces/${space?._id}`}
+									key={index}
+									className="relative group overflow-hidden rounded-2xl"
+								>
+									<Image
+										src={
+											coverPhoto?.src ||
+											DEFAULT_SPACE_IMAGE
+										}
+										alt={space.title || "Space image"}
+										width={1000}
+										height={1000}
+										className="w-auto h-[300px] object-cover rounded-xl"
+									/>
+									<h4 className="text-xl font-medium mt-4">
+										{space?.title}
+									</h4>
+									<p className="text-base text-muted-foreground mt-1 truncate mb-4">
+										{space?.description ||
+											`${space.city}, ${space?.state}`}
 									</p>
 									<Button asChild size="md">
-										<Link href="/spaces/12345">
+										<Link href={`/spaces/${space?._id}`}>
 											Book space
 										</Link>
 									</Button>
-								</div>
-							</Link>
-						))}
+								</Link>
+							);
+						})}
 					</div>
 					<ScrollBar orientation="horizontal" />
 				</ScrollArea>

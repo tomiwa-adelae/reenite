@@ -1,0 +1,223 @@
+"use server";
+
+import { connectToDatabase } from "@/lib/database";
+import Booking from "@/lib/database/models/booking.model";
+import Space from "@/lib/database/models/space.model";
+import User from "@/lib/database/models/user.model";
+import { handleError } from "@/lib/utils";
+import {
+	CreateBookingParams,
+	GetAllBookingsParams,
+	GetBookingDetailsParams,
+} from "@/types";
+
+export const createBooking = async ({
+	spaceId,
+	userId,
+	trxref,
+	transactionId,
+	bookingStartDate,
+	noOfHours,
+	noOfDays,
+	noOfWeeks,
+	noOfMonths,
+	noOfUsers,
+	totalAmount,
+	paymentStatus,
+	bookingStatus,
+	bookingType,
+}: CreateBookingParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !spaceId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const space = await Space.findById(spaceId);
+
+		if (!space)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		function generateSuffix(length = 4): string {
+			const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			let result = "";
+			for (let i = 0; i < length; i++) {
+				result += chars.charAt(
+					Math.floor(Math.random() * chars.length)
+				);
+			}
+			return result;
+		}
+
+		const year = new Date().getFullYear();
+		let suffix = generateSuffix();
+		let bookingId = `BK-${year}-${suffix}`;
+
+		// Ensure uniqueness
+		let existing = await Booking.findOne({ bookingId });
+		while (existing) {
+			suffix = generateSuffix();
+			bookingId = `BK-${year}-${suffix}`;
+			existing = await Booking.findOne({ bookingId });
+		}
+
+		const details = {
+			user: userId,
+			space: spaceId,
+			startDate: bookingStartDate,
+			noOfHours,
+			noOfDays,
+			noOfWeeks,
+			noOfMonths,
+			noOfUsers,
+			totalAmount,
+			paymentStatus,
+			bookingStatus,
+			trxref,
+			transactionId,
+			bookingType,
+			bookingId,
+		};
+
+		const booking = await Booking.create({ ...details });
+
+		console.log(booking);
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Booking not created.",
+			};
+
+		return {
+			status: 201,
+			message: "Success",
+			booking: JSON.parse(JSON.stringify(booking)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+// Get booking details
+export const getBookingDetails = async ({
+	userId,
+	bookingId,
+}: GetBookingDetailsParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !bookingId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const booking = await Booking.findOne({ user: userId, _id: bookingId })
+			.populate("user")
+			.populate({
+				path: "space",
+				populate: { path: "category" },
+			});
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		return {
+			status: 200,
+			message: "Successful",
+			booking: JSON.parse(JSON.stringify(booking)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+export const getBookings = async ({
+	query,
+	limit = 0,
+	page,
+	userId,
+}: GetAllBookingsParams) => {
+	try {
+		await connectToDatabase();
+
+		// Safely parse page and limit
+		const parsedPage = Number(page);
+		const validPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+
+		const validLimit = typeof limit === "number" && limit > 0 ? limit : 0;
+
+		const skipAmount = validLimit > 0 ? (validPage - 1) * validLimit : 0;
+
+		if (!userId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const bookings = await Booking.find()
+			.sort({
+				createdAt: -1,
+			})
+			.skip(skipAmount)
+			.populate("user")
+			.populate({
+				path: "space",
+				populate: { path: "category" },
+			});
+
+		return {
+			status: 200,
+			message: "Success",
+			bookings: JSON.parse(JSON.stringify(bookings)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};

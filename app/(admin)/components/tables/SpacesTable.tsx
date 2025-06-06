@@ -11,6 +11,9 @@ import {
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { IPhoto, ISpace } from "@/lib/database/models/space.model";
+import { DEFAULT_SPACE_IMAGE } from "@/constants";
+import { formatMoneyInput } from "@/lib/utils";
 
 const invoices = [
 	{
@@ -57,7 +60,7 @@ const invoices = [
 	},
 ];
 
-export function SpacesTable() {
+export function SpacesTable({ spaces }: { spaces: ISpace[] }) {
 	const router = useRouter();
 	return (
 		<div className="hidden md:block">
@@ -72,38 +75,55 @@ export function SpacesTable() {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{invoices.map((invoice) => (
-						<TableRow
-							onClick={() => router.push("/all-spaces/12345")}
-							className="group"
-							key={invoice.invoice}
-						>
-							<TableCell className="flex items-center justify-start gap-4">
-								<Image
-									src={"/assets/images/space-one.jpg"}
-									alt={"Space"}
-									width={1000}
-									height={1000}
-									className="size-[70px] object-cover rounded-2xl"
-								/>
-								<h5 className="font-medium text-base">
-									Mini conference room
-								</h5>
-							</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
-							<TableCell className="text-right">
-								{invoice.totalAmount}
-							</TableCell>
-							<TableCell>
-								<div className="flex items-center justify-end">
-									<Button variant={"ghost"} size="icon">
-										<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
-									</Button>
-								</div>
-							</TableCell>
-						</TableRow>
-					))}
+					{spaces.map((space, index) => {
+						const coverPhoto =
+							// @ts-ignore
+							space?.photos.find((photo) => photo.cover) ||
+							// @ts-ignore
+							space?.photos[0];
+						return (
+							<TableRow
+								onClick={() =>
+									router.push(`/all-spaces/${space._id}`)
+								}
+								className="group"
+								key={index}
+							>
+								<TableCell className="flex items-center justify-start gap-4">
+									<Image
+										src={
+											coverPhoto.src ||
+											DEFAULT_SPACE_IMAGE
+										}
+										alt={"Space"}
+										width={1000}
+										height={1000}
+										className="size-[70px] object-cover rounded-2xl"
+									/>
+									<h5 className="font-medium text-base">
+										{space?.title}
+									</h5>
+								</TableCell>
+								<TableCell>
+									{/* @ts-ignore */}
+									{space?.category?.name || "Uncategorized"}
+								</TableCell>
+								<TableCell>
+									{space?.city}, {space?.state}
+								</TableCell>
+								<TableCell className="text-right">
+									₦{formatMoneyInput(space.hourlyPrice)}
+								</TableCell>
+								<TableCell>
+									<div className="flex items-center justify-end">
+										<Button variant={"ghost"} size="icon">
+											<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
+										</Button>
+									</div>
+								</TableCell>
+							</TableRow>
+						);
+					})}
 				</TableBody>
 			</Table>
 		</div>

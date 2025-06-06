@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/lib/database/models/user.model";
+import { useClerk } from "@clerk/nextjs";
 
 interface Props {
 	user: IUser;
@@ -23,8 +24,10 @@ interface Props {
 
 export function ProfileDropdown({ user }: Props) {
 	const router = useRouter();
+	const { signOut } = useClerk();
 
 	const handleLogout = async () => {
+		await signOut();
 		router.push("/sign-in"); // Redirect to sign-in page after logout
 	};
 	return (

@@ -34,6 +34,7 @@ export const StructureForm = ({ categories, userId }: Props) => {
 			});
 
 			if (res.status === 400) return toast.error(res.message);
+			toast.success("Structure successfully added!");
 
 			return router.push(`/all-spaces/new/${res?.space?._id}/location`);
 		} catch (error) {
@@ -48,7 +49,7 @@ export const StructureForm = ({ categories, userId }: Props) => {
 		<div>
 			<div className="container max-w-3xl">
 				<div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
-					{categories.map(({ image, name, _id }, index) => (
+					{categories?.map(({ image, name, _id }, index) => (
 						<div
 							key={index}
 							className={cn(

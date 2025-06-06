@@ -7,7 +7,14 @@ import { PhotosCard } from "@/app/(admin)/components/PhotosCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { IAmenity, IPhoto } from "@/lib/database/models/space.model";
+import { format, parse } from "date-fns";
+
+import {
+	IAmenity,
+	IAvailability,
+	IPhoto,
+	IPriceTier,
+} from "@/lib/database/models/space.model";
 import { useState } from "react";
 import { EditTitleComponent } from "./EditTitleComponent";
 import { EditDescriptionComponent } from "./EditDescriptionComponent";
@@ -16,6 +23,13 @@ import { ICategory } from "@/lib/database/models/category.model";
 import { EditCategoryComponent } from "./EditCategoryComponent";
 import { Amenities } from "./Amenities";
 import { AmenityBox } from "@/components/shared/AmenityBox";
+import { EditAvailabilityComponent } from "./EditAvailabilityComponent";
+import { EditDiscountComponent } from "./EditDiscountComponent";
+import { EditHourlyPricingComponent } from "./EditHourlyPricingComponent";
+import { formatMoneyInput } from "@/lib/utils";
+import { EditDailyPricingComponent } from "./EditDailyPricingComponent ";
+import { EditMonthlyPricingComponent } from "./EditMonthlyPricingComponent";
+import { EditWeeklyPricingComponent } from "./EditWeeklyPricingComponent";
 
 interface Props {
 	title: string;
@@ -28,9 +42,18 @@ interface Props {
 	userId: string;
 	spaceId: string;
 	zipCode: string;
+	monthlyDiscount: string;
+	hourlyDiscount: string;
+	weeklyDiscount: string;
+	dailyDiscount: string;
+	hourlyPricing: IPriceTier;
+	dailyPricing: IPriceTier;
+	monthlyPricing: IPriceTier;
+	weeklyPricing: IPriceTier;
 	categories: ICategory[];
 	photos: IPhoto[];
 	amenities: IAmenity[];
+	availability: IAvailability[];
 }
 
 export const SpaceDetails = ({
@@ -45,11 +68,33 @@ export const SpaceDetails = ({
 	spaceId,
 	userId,
 	zipCode,
+	dailyDiscount,
+	hourlyDiscount,
+	weeklyDiscount,
+	monthlyDiscount,
+	hourlyPricing,
+	weeklyPricing,
+	monthlyPricing,
+	dailyPricing,
 	amenities,
 	categories,
+	availability,
 }: Props) => {
 	const [activeSection, setActiveSection] = useState("photos"); // default is photos
-	console.log(amenities);
+	const formattedAvailability = availability
+		.filter((item: any) => item.isOpen)
+		.map((item: any) => {
+			const day = item.day.charAt(0).toUpperCase() + item.day.slice(1);
+			const openTime = format(
+				parse(item.openingHour, "HH:mm", new Date()),
+				"hh:mm a"
+			);
+			const closeTime = format(
+				parse(item.closingHour, "HH:mm", new Date()),
+				"hh:mm a"
+			);
+			return `${day}: ${openTime} to ${closeTime}`;
+		});
 	return (
 		<div className="h-[calc(100vh-80px)] overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 			<div className="lg:border-r py-8">
@@ -115,20 +160,115 @@ export const SpaceDetails = ({
 											</h2>
 										</SpaceDetailsBox>
 									</div>
-									<SpaceDetailsBox name="Pricing">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>₦8,900 daily</p>
-											<p>₦18,900 monthly</p>
-											<p>₦28,900 weekly</p>
-											<p>₦38,900 monthly</p>
-											<p>40% daily discount</p>
+									<SpaceDetailsBox
+										active={
+											activeSection === "hourlyPricing" ||
+											activeSection === "weeklyPricing" ||
+											activeSection ===
+												"monthlyPricing" ||
+											activeSection === "dailyPricing"
+										}
+										name="Pricing"
+									>
+										<div
+											onClick={() =>
+												setActiveSection(
+													"hourlyPricing"
+												)
+											}
+											className="border-b hover:border-white py-2 transition-all hover:bg-white hover:rounded-lg px-2"
+										>
+											<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
+												Hourly pricing starts at ₦
+												{formatMoneyInput(
+													hourlyPricing[1]
+												)}
+											</h2>
+										</div>
+										<div
+											onClick={() =>
+												setActiveSection("dailyPricing")
+											}
+											className="border-b hover:border-white py-2 transition-all hover:bg-white hover:rounded-lg px-2"
+										>
+											<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
+												Daily pricing starts at ₦
+												{formatMoneyInput(
+													dailyPricing[1]
+												)}
+											</h2>
+										</div>
+										<div
+											onClick={() =>
+												setActiveSection(
+													"weeklyPricing"
+												)
+											}
+											className="border-b hover:border-white py-2 transition-all hover:bg-white hover:rounded-lg px-2"
+										>
+											<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
+												Weekly pricing starts at ₦
+												{formatMoneyInput(
+													weeklyPricing[1]
+												)}
+											</h2>
+										</div>
+										<div
+											onClick={() =>
+												setActiveSection(
+													"monthlyPricing"
+												)
+											}
+											className="py-2 transition-all hover:bg-white hover:rounded-lg px-2"
+										>
+											<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
+												Monthly pricing starts at ₦
+												{formatMoneyInput(
+													monthlyPricing[1]
+												)}
+											</h2>
 										</div>
 									</SpaceDetailsBox>
-									<SpaceDetailsBox name="Discount">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>40% daily discount</p>
-										</div>
-									</SpaceDetailsBox>
+
+									<div
+										onClick={() =>
+											setActiveSection("discount")
+										}
+									>
+										<SpaceDetailsBox
+											active={
+												activeSection === "discount"
+											}
+											name="Discount"
+										>
+											<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
+												<p>
+													{!hourlyDiscount
+														? 0
+														: hourlyDiscount}
+													% hourly discount
+												</p>
+												<p>
+													{!dailyDiscount
+														? 0
+														: dailyDiscount}
+													% daily discount
+												</p>
+												<p>
+													{!weeklyDiscount
+														? 0
+														: weeklyDiscount}
+													% weekly discount
+												</p>
+												<p>
+													{!monthlyDiscount
+														? 0
+														: monthlyDiscount}
+													% monthly discount
+												</p>
+											</div>
+										</SpaceDetailsBox>
+									</div>
 									<div
 										onClick={() =>
 											setActiveSection("location")
@@ -198,14 +338,26 @@ export const SpaceDetails = ({
 											</div>
 										</SpaceDetailsBox>
 									</div>
-									<SpaceDetailsBox name="Availability">
-										<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-											<p>Monday 08:00 AM to 06:00PM</p>
-											<p>Wednesday 08:00 AM to 06:00PM</p>
-											<p>Thursday 08:00 AM to 06:00PM</p>
-											<p>Sunday 08:00 AM to 06:00PM</p>
-										</div>
-									</SpaceDetailsBox>
+									<div
+										onClick={() =>
+											setActiveSection("availability")
+										}
+									>
+										<SpaceDetailsBox
+											active={
+												activeSection === "availability"
+											}
+											name="Availability"
+										>
+											<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
+												{formattedAvailability.map(
+													(entry, idx) => (
+														<p key={idx}>{entry}</p>
+													)
+												)}
+											</div>
+										</SpaceDetailsBox>
+									</div>
 								</div>
 								{/* <ResponsiveModal /> */}
 							</ScrollArea>
@@ -255,6 +407,51 @@ export const SpaceDetails = ({
 						userId={userId}
 						spaceId={spaceId}
 						amenities={amenities}
+					/>
+				)}
+				{activeSection === "availability" && (
+					<EditAvailabilityComponent
+						userId={userId}
+						spaceId={spaceId}
+						availability={availability}
+					/>
+				)}
+				{activeSection === "discount" && (
+					<EditDiscountComponent
+						userId={userId}
+						spaceId={spaceId}
+						hourlyDiscount={hourlyDiscount}
+						dailyDiscount={dailyDiscount}
+						weeklyDiscount={weeklyDiscount}
+						monthlyDiscount={monthlyDiscount}
+					/>
+				)}
+				{activeSection === "hourlyPricing" && (
+					<EditHourlyPricingComponent
+						userId={userId}
+						spaceId={spaceId}
+						initialPricing={hourlyPricing}
+					/>
+				)}
+				{activeSection === "dailyPricing" && (
+					<EditDailyPricingComponent
+						userId={userId}
+						spaceId={spaceId}
+						initialPricing={dailyPricing}
+					/>
+				)}
+				{activeSection === "weeklyPricing" && (
+					<EditWeeklyPricingComponent
+						userId={userId}
+						spaceId={spaceId}
+						initialPricing={weeklyPricing}
+					/>
+				)}
+				{activeSection === "monthlyPricing" && (
+					<EditMonthlyPricingComponent
+						userId={userId}
+						spaceId={spaceId}
+						initialPricing={monthlyPricing}
 					/>
 				)}
 				{/* <EditDescriptionComponent /> */}

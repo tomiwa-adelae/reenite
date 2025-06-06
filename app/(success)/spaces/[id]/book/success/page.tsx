@@ -1,12 +1,30 @@
 import { Logo } from "@/components/shared/Logo";
+import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { Button } from "@/components/ui/button";
+import { getBookingDetails } from "@/lib/actions/customer/booking.actions";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const page = async ({ searchParams }: { searchParams: any }) => {
+	const { id } = await searchParams;
+	const clerkUser = await currentUser();
+	const user = await getUserInfo(clerkUser?.id!);
+
+	const bookingDetails = await getBookingDetails({
+		bookingId: id,
+		userId: user?.user?._id,
+	});
+
+	if (bookingDetails?.status === 400) return <SpaceNotFound />;
+
+	const year = new Date().getFullYear();
+
 	return (
-		<div className="bg-[#F5F4F7] py-16 flex items-center justify-center min-h-screen">
+		<div className="bg-[#F5F4F7] py-16 flex flex-col items-center justify-center min-h-screen">
 			<div className="container grid grid-cols-1 lg:grid-cols-5 gap-8">
 				<div className="text-center md:text-left col-span-3">
 					<div className="flex items-center md:justify-start justify-center">
@@ -26,7 +44,11 @@ const page = () => {
 					</p>
 					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-8">
 						<Button className="w-full md:w-auto" asChild size="lg">
-							<Link href="/">View booking details</Link>
+							<Link
+								href={`/bookings/${bookingDetails?.booking?._id}`}
+							>
+								View booking details
+							</Link>
 						</Button>
 						<Button
 							asChild
@@ -45,7 +67,10 @@ const page = () => {
 								style={{ fontFamily: "ClashDisplay" }}
 								className="font-bold text-3xl"
 							>
-								₦21,393
+								₦
+								{formatMoneyInput(
+									bookingDetails?.booking.totalAmount
+								)}
 							</h2>
 							<p className="text-sm md:text-base text-muted-foreground">
 								Payment success!
@@ -69,30 +94,96 @@ const page = () => {
 							<p className="flex items-center justify-between gap-4">
 								Space:{" "}
 								<span className="text-black font-semibold">
-									Mini Conference room
+									{bookingDetails?.booking.space.title}
 								</span>
 							</p>
 							<p className="flex items-center justify-between gap-4">
-								Date:{" "}
-								<span className="text-black font-semibold">
-									Wednesday, May 29, 2025
+								Booking type:{" "}
+								<span className="text-black font-semibold capitalize">
+									{bookingDetails?.booking?.bookingType}{" "}
 								</span>
 							</p>
 							<p className="flex items-center justify-between gap-4">
-								Time:{" "}
+								Booking start date:{" "}
 								<span className="text-black font-semibold">
-									10:00 AM – 2:00 PM
+									{formatDate(
+										bookingDetails?.booking.startDate
+									)}
+								</span>
+							</p>
+							{bookingDetails?.booking?.bookingType ===
+								"hourly" && (
+								<p className="flex items-center justify-between gap-4">
+									Number of hours:{" "}
+									<span className="text-black font-semibold">
+										{bookingDetails?.booking?.noOfHours}{" "}
+										{bookingDetails?.booking?.noOfHours ===
+										"1"
+											? "hour"
+											: "hours"}
+									</span>
+								</p>
+							)}
+							{bookingDetails?.booking?.bookingType ===
+								"daily" && (
+								<p className="flex items-center justify-between gap-4">
+									Number of days:{" "}
+									<span className="text-black font-semibold">
+										{bookingDetails?.booking?.noOfDays}{" "}
+										{bookingDetails?.booking?.noOfDays ===
+										"1"
+											? "day"
+											: "days"}
+									</span>
+								</p>
+							)}
+							{bookingDetails?.booking?.bookingType ===
+								"weekly" && (
+								<p className="flex items-center justify-between gap-4">
+									Number of weeks:{" "}
+									<span className="text-black font-semibold">
+										{bookingDetails?.booking?.noOfWeeks}{" "}
+										{bookingDetails?.booking?.noOfWeeks ===
+										"1"
+											? "week"
+											: "weeks"}
+									</span>
+								</p>
+							)}
+							{bookingDetails?.booking?.bookingType ===
+								"monthly" && (
+								<p className="flex items-center justify-between gap-4">
+									Number of months:{" "}
+									<span className="text-black font-semibold">
+										{bookingDetails?.booking?.noOfMonths}{" "}
+										{bookingDetails?.booking?.noOfMonths ===
+										"1"
+											? "month"
+											: "months"}
+									</span>
+								</p>
+							)}
+							<p className="flex items-center justify-between gap-4">
+								Number of users:{" "}
+								<span className="text-black font-semibold">
+									{bookingDetails?.booking?.noOfUsers}{" "}
+									{bookingDetails?.booking?.noOfUsers === 1
+										? "user"
+										: "users"}
 								</span>
 							</p>
 							<p className="flex items-center justify-between gap-4">
 								Booking ID:{" "}
 								<span className="text-black font-semibold">
-									#REN-348928
+									{bookingDetails?.booking.bookingId}
 								</span>
 							</p>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className="container text-center text-sm md:text-base w-full mt-8">
+				&copy; {year} Reenite. All rights reserved.
 			</div>
 		</div>
 	);

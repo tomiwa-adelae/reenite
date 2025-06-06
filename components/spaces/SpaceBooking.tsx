@@ -1,41 +1,112 @@
+"use client";
 import { spaceBookings } from "@/constants";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ICategory } from "@/lib/database/models/category.model";
+import { cn, formatMoneyInput } from "@/lib/utils";
 
-export const SpaceBooking = () => {
+interface PricingObject {
+	[key: string]: number;
+}
+
+interface Props {
+	dailyPricing: PricingObject;
+	hourlyPricing: PricingObject;
+	weeklyPricing: PricingObject;
+	monthlyPricing: PricingObject;
+	category: ICategory;
+	onBookingChange: (bookingType: string) => void;
+}
+
+const bookingOptions = [
+	{
+		label: "hourly",
+		description: "Book a space for an hour",
+		priceKey: "hourlyPricing",
+	},
+	{
+		label: "daily",
+		description: "Book a space for a day",
+		priceKey: "dailyPricing",
+	},
+	{
+		label: "weekly",
+		description: "Book a space for a week",
+		priceKey: "weeklyPricing",
+	},
+	{
+		label: "monthly",
+		description: "Book a space for a month",
+		priceKey: "monthlyPricing",
+	},
+];
+
+export const SpaceBooking = ({
+	hourlyPricing,
+	weeklyPricing,
+	dailyPricing,
+	monthlyPricing,
+	category,
+	onBookingChange,
+}: Props) => {
+	const prices: Record<string, PricingObject> = {
+		hourlyPricing,
+		dailyPricing,
+		weeklyPricing,
+		monthlyPricing,
+	};
+
+	const [selectBooking, setSelectBooking] = useState("");
+
 	return (
 		<div>
 			<h4 className="text-xl md:text-2xl font-medium">Select booking</h4>
 			<ScrollArea className="mt-2">
 				<div className="flex w-max pb-8 items-center justify-start gap-4">
-					{spaceBookings.map(({ type, price }, index) => (
-						<div key={index} className="border rounded-2xl p-4">
-							<div className="flex items-center justify-start gap-4">
-								<Image
-									src={"/assets/icons/office.svg"}
-									alt="Office icon"
-									width={1000}
-									height={1000}
-									className="size-[65px]"
-								/>
-								<div className="flex flex-col items-start justify-start">
-									<h4 className="font-medium text-base capitalize">
-										{type}
-									</h4>
-									<p className="text-sm text-muted-foreground">
-										Book a space for a {type}
-									</p>
+					{bookingOptions.map(
+						({ label, description, priceKey }, index) => (
+							<div
+								onClick={() => {
+									setSelectBooking(label);
+									onBookingChange(label);
+								}}
+								key={index}
+								className={cn(
+									"border-2 rounded-2xl cursor-pointer hover:bg-[#F7F7F7] transition-all p-4 hover:border-black",
+									selectBooking === label &&
+										"border-black bg-[#F7F7F7]"
+								)}
+							>
+								<div className="flex items-center justify-start gap-4">
+									<Image
+										src={
+											category.image ||
+											"/assets/icons/office.svg"
+										}
+										alt={`${label} icon`}
+										width={1000}
+										height={1000}
+										className="size-[65px]"
+									/>
+									<div className="flex flex-col items-start justify-start">
+										<h4 className="Capitalize font-medium text-base capitalize">
+											{label}
+										</h4>
+										<p className="text-sm text-muted-foreground">
+											{description}
+										</p>
+									</div>
 								</div>
+								<p className="mt-2 text-center rounded-full border py-2 px-4 font-medium text-sm">
+									₦{formatMoneyInput(prices[priceKey]["1"])}
+									<span className="text-muted-foreground text-xs">
+										/ per user
+									</span>
+								</p>
 							</div>
-							<p className="mt-2 text-center rounded-full border py-2 px-4 font-medium text-sm">
-								₦{price}
-								<span className="text-muted-foreground text-xs">
-									/per {type}
-								</span>
-							</p>
-						</div>
-					))}
+						)
+					)}
 				</div>
 				<ScrollBar orientation="horizontal" />
 			</ScrollArea>

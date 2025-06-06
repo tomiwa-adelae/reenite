@@ -90,7 +90,7 @@ export const LocationForm = ({
 			});
 
 			if (res.status === 400) return toast.error(res.message);
-
+			toast.success("Location successfully added!");
 			return router.push(`/all-spaces/new/${res?.space?._id}/amenities`);
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");

@@ -30,7 +30,16 @@ const page = async ({ params }: { params: any }) => {
 			zipCode={spaceDetails?.space?.zipCode}
 			category={spaceDetails?.space?.category}
 			amenities={spaceDetails?.space?.amenities}
+			hourlyDiscount={spaceDetails?.space?.hourlyDiscount}
+			dailyDiscount={spaceDetails?.space?.dailyDiscount}
+			weeklyDiscount={spaceDetails?.space?.weeklyDiscount}
+			monthlyDiscount={spaceDetails?.space?.monthlyDiscount}
+			hourlyPricing={spaceDetails?.space?.pricing.hourly}
+			weeklyPricing={spaceDetails?.space?.pricing.weekly}
+			dailyPricing={spaceDetails?.space?.pricing.daily}
+			monthlyPricing={spaceDetails?.space?.pricing.monthly}
 			spaceId={spaceDetails?.space?._id}
+			availability={spaceDetails?.space?.availability}
 			userId={user?.user?._id}
 			categories={categories?.categories}
 		/>

@@ -1,3 +1,4 @@
+// import { HourlyPriceForm } from "@/app/(new)/components/forms/HourlyPriceForm";
 import { HourlyPriceForm } from "@/app/(new)/components/forms/HourlyPriceForm";
 import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { getSpaceDetails } from "@/lib/actions/admin/space.actions";
@@ -29,7 +30,7 @@ const page = async ({ params }: { params: any }) => {
 			<HourlyPriceForm
 				spaceId={spaceDetails?.space._id}
 				userId={user?.user?._id}
-				hourlyPrice={spaceDetails?.space?.hourlyPrice}
+				initialPricing={spaceDetails?.space?.hourlyPricing}
 			/>
 		</div>
 	);

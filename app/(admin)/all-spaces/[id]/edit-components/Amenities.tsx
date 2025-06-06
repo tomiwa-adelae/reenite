@@ -10,6 +10,7 @@ import { IAmenity } from "@/lib/database/models/space.model";
 import { iconMap } from "@/lib/lucide-icons";
 import { cn } from "@/lib/utils";
 import { Plus, Trash2, X } from "lucide-react";
+import Image from "next/image";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -151,6 +152,25 @@ export const Amenities = ({ userId, spaceId, amenities }: Props) => {
 						<p className="font-semibold text-lg">Add amenities</p>
 					</div>
 					<div>
+						{availableAmenities.filter(
+							(a) =>
+								!amenities.some(
+									(existing) => existing.name === a.name
+								)
+						).length === 0 && (
+							<div className="mt-8 px-6 flex flex-col items-center justify-center">
+								<Image
+									src={"/assets/icons/folder.svg"}
+									alt="Folder icon"
+									width={1000}
+									height={1000}
+									className="size-[170px] object-cover"
+								/>
+								<p className="text-muted-foreground text-center text-sm lg:text-base mt-4">
+									No more amenities to select from.
+								</p>
+							</div>
+						)}
 						<div className="mt-8 mb-32 grid grid-cols-2 px-6 gap-4">
 							{availableAmenities
 								.filter(
@@ -191,25 +211,63 @@ export const Amenities = ({ userId, spaceId, amenities }: Props) => {
 						</div>
 					</div>
 					<div className="fixed bg-white min-h-16 py-4 bottom-0 w-full border-t">
-						<div className="px-6 flex items-center justify-between gap-4 ">
-							<Button
-								onClick={() => {
-									setOpenAmenitiesModal(false);
-									setNewAmenities([]);
-								}}
-								size="md"
-								variant={"ghost"}
-								disabled={loading}
-							>
-								Cancel
-							</Button>
-							<Button
-								disabled={loading || newAmenities.length === 0}
-								onClick={handleSubmit}
-								size="md"
-							>
-								{loading ? <Loader /> : "Done"}
-							</Button>
+						<div
+							className={cn(
+								"px-6 flex items-center justify-between gap-4",
+								availableAmenities.filter(
+									(a) =>
+										!amenities.some(
+											(existing) =>
+												existing.name === a.name
+										)
+								).length === 0 && "justify-end"
+							)}
+						>
+							{availableAmenities.filter(
+								(a) =>
+									!amenities.some(
+										(existing) => existing.name === a.name
+									)
+							).length !== 0 && (
+								<Button
+									onClick={() => {
+										setOpenAmenitiesModal(false);
+										setNewAmenities([]);
+									}}
+									size="md"
+									variant={"ghost"}
+									disabled={loading}
+								>
+									Cancel
+								</Button>
+							)}
+							{availableAmenities.filter(
+								(a) =>
+									!amenities.some(
+										(existing) => existing.name === a.name
+									)
+							).length === 0 ? (
+								<Button
+									onClick={() => {
+										setOpenAmenitiesModal(false);
+										setNewAmenities([]);
+									}}
+									size="md"
+									disabled={loading}
+								>
+									Close
+								</Button>
+							) : (
+								<Button
+									disabled={
+										loading || newAmenities.length === 0
+									}
+									onClick={handleSubmit}
+									size="md"
+								>
+									{loading ? <Loader /> : "Done"}
+								</Button>
+							)}
 						</div>
 					</div>
 				</ResponsiveModal>

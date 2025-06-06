@@ -1,23 +1,56 @@
+import { AmenityBox } from "@/components/shared/AmenityBox";
+import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { getBookingDetails } from "@/lib/actions/customer/booking.actions";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import { IAmenity } from "@/lib/database/models/space.model";
+import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs/server";
 import {
 	ArrowLeft,
 	Ban,
+	Building,
+	CalendarCheck,
 	CalendarDays,
 	Car,
+	Check,
 	CircleCheckBig,
 	Clock,
+	CreditCard,
+	Eye,
+	Hash,
+	Hourglass,
 	Mail,
 	MapPin,
 	Phone,
 	Repeat2,
+	Users,
 	Wifi,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const page = async ({ params }: { params: any }) => {
+	const { id } = await params;
+	const clerkUser = await currentUser();
+	const user = await getUserInfo(clerkUser?.id!);
+
+	const booking = await getBookingDetails({
+		userId: user?.user?._id,
+		bookingId: id,
+	});
+
+	if (booking?.status === 400) return <SpaceNotFound />;
+
+	const coverPhoto =
+		// @ts-ignore
+		booking.booking.space?.photos.find((photo) => photo.cover) ||
+		// @ts-ignore
+		booking.booking.space?.photos[0];
+
 	return (
 		<div className="py-8">
 			<div className="container">
@@ -35,9 +68,16 @@ const page = () => {
 						</Button>
 						<div className="flex flex-col items-start justify-start gap-1">
 							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
-								Booking #BK001
+								BK-{booking.booking.bookingId}
 							</h2>
-							<Badge variant="success">Confirmed</Badge>
+							<div className="flex items-center justify-start gap-2 capitalize">
+								<Badge variant="success">
+									{booking.booking.paymentStatus}
+								</Badge>
+								<Badge variant="success">
+									{booking.booking.bookingStatus}
+								</Badge>
+							</div>
 						</div>
 					</div>
 					<Button
@@ -51,17 +91,23 @@ const page = () => {
 				<div
 					className="bg-blend-overlay bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-2xl mt-4"
 					style={{
-						backgroundImage: `url(/assets/images/space-one.jpg)`,
+						backgroundImage: `url(${coverPhoto.src})`,
 					}}
 				>
 					<div className="absolute bottom-0 left-0 w-full py-4 text-white ">
 						<div className="container">
-							<h1 className="font-semibold text-xl md:text-2xl lg:text-3xl">
-								Mini Conference Room
-							</h1>
+							<Link
+								href={`/all-spaces/${booking.booking.space._id}`}
+								className="font-semibold text-xl md:text-2xl lg:text-3xl"
+							>
+								{booking.booking.space.title}
+							</Link>
 							<p className="text-sm md:text-base mt-1">
 								<MapPin className="size-4 inline-block mr-2" />
-								<span>123 Main Street, Ikeja, Lagos State</span>
+								<span>
+									{booking.booking.space.city},{" "}
+									{booking.booking.space.state}
+								</span>
 							</p>
 						</div>
 					</div>
@@ -69,51 +115,79 @@ const page = () => {
 				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Space amenities</h3>
 					<div className="flex flex-wrap gap-4 mt-4">
-						<div className="flex items-center justify-start gap-2">
-							<Wifi className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Wifi</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Car className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Free parking</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Wifi className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Wifi</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Car className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Free parking</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Wifi className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Wifi</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Car className="size-5 md:size-7" />{" "}
-							<p className="text-sm md:text-base">Free parking</p>
-						</div>
+						{booking.booking.space.amenities.map(
+							(amenity: IAmenity, index: string) => (
+								<AmenityBox
+									key={index}
+									name={amenity.name!}
+									icon={amenity.icon}
+								/>
+							)
+						)}
 					</div>
+					<Button asChild size="md" className="w-full">
+						<Link href={`/all-spaces/${booking.booking.space._id}`}>
+							<Eye className="size-5 mr-2" />
+							View space
+						</Link>
+					</Button>
 				</div>
 				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking Details</h3>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-4 gap-4">
+					<div className="flex flex-col gap-4 mt-4">
+						<div className="flex items-center justify-start gap-2">
+							<Hash className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground">
+								Booking ID: {booking.booking.bookingId}
+							</p>
+						</div>
+						<div className="flex items-center justify-start gap-2">
+							<Building className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground capitalize">
+								Booking status: {booking.booking.bookingStatus}
+							</p>
+						</div>
+						<div className="flex items-center justify-start gap-2">
+							<CreditCard className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground capitalize">
+								Payment status: {booking.booking.paymentStatus}
+							</p>
+						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Date: 2025-05-15
+								Date booked:{" "}
+								{formatDate(booking.booking.createdAt)}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<Clock className="size-5 text-muted-foreground" />
+							<CalendarCheck className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Time: 09:00 - 12:00
+								Booking type: {booking.booking.bookingType}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<Repeat2 className="size-5 text-muted-foreground" />
+							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Duration: 4 days
+								Start date:{" "}
+								{formatDate(booking.booking.startDate)}
+							</p>
+						</div>
+						{booking.booking.bookingType === "hourly" && (
+							<div className="flex items-center justify-start gap-2">
+								<Hourglass className="size-5 text-muted-foreground" />
+								<p className="text-sm md:text-base text-muted-foreground">
+									Hours: {booking.booking.noOfHours}{" "}
+									{booking.booking.noOfHours === "1"
+										? "hour"
+										: "hours"}
+								</p>
+							</div>
+						)}
+						<div className="flex items-center justify-start gap-2">
+							<Users className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground">
+								Users: {booking.booking.noOfUsers} users
 							</p>
 						</div>
 					</div>
@@ -125,31 +199,52 @@ const page = () => {
 					<div className="grid mt-4 gap-4">
 						<div className="flex items-center justify-start gap-2">
 							<Image
-								src={"/assets/images/user-one.jpeg"}
-								alt="User"
+								src={
+									booking?.booking.user.picture ||
+									DEFAULT_PROFILE_PICTURE
+								}
+								alt={
+									`${booking.booking.user.firstName}'s` ||
+									"User profile picture"
+								}
 								width={1000}
 								height={1000}
 								className="size-[40px] lg:size-[50px] object-cover rounded-full"
 							/>
 							<h4 className="font-medium text-base lg:text-lg">
-								Tomiwa Adelae
+								{booking.booking.user.firstName}{" "}
+								{booking.booking.user.lastName}
 							</h4>
 						</div>
-						<div className="text-sm md:text-base">
+						<Link
+							href={`mailto:${booking.booking.user.email}`}
+							className="text-sm md:text-base hover:text-secondary hover:underline transition-all"
+						>
 							<p>
 								<Mail className="size-4 md:size-5 inline-block mr-2" />
-								<span>adelaetomiwa6@gmail.com</span>
+								<span>{booking.booking.user.email}</span>
 							</p>
-						</div>
-						<div className="text-sm md:text-base">
-							<p>
-								<Phone className="size-4 md:size-5 inline-block mr-2" />
-								<span>+234 801 234 5678</span>
-							</p>
-						</div>
-						<Button size="md" className="w-full">
-							<Phone className="size-5 mr-2" />
-							Contact customer
+						</Link>
+						{booking.booking.user.phoneNumber && (
+							<Link
+								href={`tel:${booking.booking.user.phoneNumber}`}
+								className="text-sm md:text-base"
+							>
+								<p>
+									<Phone className="size-4 md:size-5 inline-block mr-2" />
+									<span>
+										{booking.booking.user.phoneNumber}
+									</span>
+								</p>
+							</Link>
+						)}
+						<Button asChild size="md" className="w-full">
+							<Link
+								href={`/all-users/${booking.booking.user._id}`}
+							>
+								<Eye className="size-5 mr-2" />
+								View customer
+							</Link>
 						</Button>
 					</div>
 				</div>
@@ -158,27 +253,56 @@ const page = () => {
 					<div className="grid gap-4 mt-4">
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Amount</p>
-							<p>₦158,000</p>
+							<p>
+								₦{formatMoneyInput(booking.booking.totalAmount)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
-								Transaction ID
+								Transaction Reference
 							</p>
-							<p>TXN_202512374744</p>
+							<p>TXN_{booking.booking.transactionId}</p>
+						</div>
+						<div className="flex text-sm md:text-base items-center justify-between gap-4">
+							<p className="text-muted-foreground">
+								Internal Ref
+							</p>
+							<p>TRX_{booking.booking.trxref}</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Payment date
 							</p>
-							<p>2025-05-20</p>
+							<p>{formatDate(booking.booking.createdAt)}</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Status</p>
-							<p className="text-green-400">
+							<p className="text-green-400 capitalize">
 								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
-								Paid
+								{booking.booking.paymentStatus}
 							</p>
 						</div>
+					</div>
+				</div>
+				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+					<h3 className="font-medium text-lg">Actions</h3>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<Button
+							className="rounded-2xl flex items-center justify-center flex-col gap-2 py-16"
+							size="lg"
+							asChild
+						>
+							<Check className="size-5" />
+							<span>Mark as completed</span>
+						</Button>
+						<Button
+							className="rounded-2xl flex items-center justify-center flex-col gap-2 py-16"
+							size="lg"
+							variant={"destructive"}
+						>
+							<Ban className="size-5" />
+							<span>Cancel booking</span>
+						</Button>
 					</div>
 				</div>
 			</div>

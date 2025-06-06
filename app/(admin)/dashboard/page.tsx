@@ -12,6 +12,7 @@ import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { getCustomers } from "@/lib/actions/admin/customer.actions";
 import { NoCustomers } from "../components/NoCustomers";
 import { getSpaces } from "@/lib/actions/admin/space.actions";
+import { getBookings } from "@/lib/actions/admin/booking.actions";
 
 const page = async () => {
 	const clerkUser = await currentUser();
@@ -19,6 +20,7 @@ const page = async () => {
 
 	const customers = await getCustomers({ userId: user?.user?._id });
 	const spaces = await getSpaces({ userId: user?.user?._id });
+	const bookings = await getBookings({ userId: user?.user?._id });
 
 	return (
 		<div className="py-8">
@@ -29,13 +31,18 @@ const page = async () => {
 						<h2 className="font-semibold text-2xl lg:text-3xl">
 							Welcome back, {user?.user?.firstName}
 						</h2>
-						<DashboardAnalytics />
+						<DashboardAnalytics
+							spaces={spaces.spaces}
+							customers={customers?.customers}
+						/>
 						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Recent bookings
 							</h3>
 							<div className="mt-2">
-								<BookingsListings />
+								<BookingsListings
+									bookings={bookings.bookings}
+								/>
 							</div>
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -43,7 +50,7 @@ const page = async () => {
 								Top performing spaces
 							</h3>
 							<div className="mt-2">
-								<TopSpaces />
+								<TopSpaces spaces={spaces.spaces} />
 							</div>
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -55,7 +62,9 @@ const page = async () => {
 							)}
 							{customers?.customers.length !== 0 && (
 								<div className="mt-2">
-									<UsersListings />
+									<UsersListings
+										customers={customers.customers}
+									/>
 								</div>
 							)}
 						</div>

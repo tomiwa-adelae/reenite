@@ -1,64 +1,10 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { spaces } from "@/constants";
+import { DEFAULT_SPACE_IMAGE, spaces } from "@/constants";
 import Link from "next/link";
+import { ISpace } from "@/lib/database/models/space.model";
 
-type ButtonVariant =
-	| "default"
-	| "secondary"
-	| "link"
-	| "black"
-	| "white"
-	| "destructive"
-	| "outline"
-	| "ghost";
-
-type Workspace = {
-	title: string;
-	description: string;
-	amenities: string;
-	image: string;
-	bg: string;
-	buttonVariant: ButtonVariant;
-};
-
-const workspaces: Workspace[] = [
-	{
-		title: "Mini Conference Room",
-		description: "A distraction-free personal desk perfect for deep work.",
-		amenities: "Wifi, Parking, Coffee, TV Screen, Privacy, AC",
-		image: "/assets/images/space-one.jpg",
-		bg: "bg-primary",
-		buttonVariant: "secondary",
-	},
-	{
-		title: "Executive Office Suite",
-		description: "Ideal for focused tasks or one-on-one meetings.",
-		amenities: "Wifi, Coffee, Whiteboard, Ergonomic Chair, AC",
-		image: "/assets/images/space-two.jpg",
-		bg: "bg-secondary",
-		buttonVariant: "default",
-	},
-	{
-		title: "Mini Conference Room",
-		description: "A distraction-free personal desk perfect for deep work.",
-		amenities: "Wifi, Parking, Coffee, TV Screen, Privacy, AC",
-		image: "/assets/images/space-one.jpg",
-		bg: "bg-primary",
-		buttonVariant: "secondary",
-	},
-	{
-		title: "Executive Office Suite",
-		description: "Ideal for focused tasks or one-on-one meetings.",
-		amenities: "Wifi, Coffee, Whiteboard, Ergonomic Chair, AC",
-		image: "/assets/images/space-two.jpg",
-		bg: "bg-secondary",
-		buttonVariant: "default",
-	},
-	// Add more items here as needed
-];
-
-export const WorkSpaces = () => {
+export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 	return (
 		<section className="bg-white py-16">
 			<div className="container">
@@ -68,28 +14,40 @@ export const WorkSpaces = () => {
 				</h2>
 
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
-					{spaces?.map(({ name, src, description }, index) => (
-						<Link
-							href="/spaces/12345"
-							key={index}
-							className="relative group overflow-hidden rounded-2xl"
-						>
-							<Image
-								src={src}
-								alt={"SPace one"}
-								width={1000}
-								height={1000}
-								className="aspect-square object-cover rounded-xl"
-							/>
-							<h4 className="text-xl font-medium mt-4">{name}</h4>
-							<p className="text-base text-muted-foreground mt-1 truncate mb-4">
-								{description}
-							</p>
-							<Button asChild size="md">
-								<Link href="/spaces/12345">Book space</Link>
-							</Button>
-						</Link>
-					))}
+					{spaces?.map((space, index) => {
+						const coverPhoto =
+							// @ts-ignore
+							space?.photos.find((photo) => photo.cover) ||
+							// @ts-ignore
+							space?.photos[0];
+						return (
+							<Link
+								href={`/spaces/${space?._id}`}
+								key={index}
+								className="relative group overflow-hidden rounded-2xl"
+							>
+								<Image
+									src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
+									alt={space.title || "Space image"}
+									width={1000}
+									height={1000}
+									className="aspect-square object-cover rounded-xl"
+								/>
+								<h4 className="text-xl font-medium mt-4">
+									{space?.title}
+								</h4>
+								<p className="text-base text-muted-foreground mt-1 truncate mb-4">
+									{space?.description ||
+										`${space.city}, ${space?.state}`}
+								</p>
+								<Button asChild size="md">
+									<Link href={`/spaces/${space?._id}`}>
+										Book space
+									</Link>
+								</Button>
+							</Link>
+						);
+					})}
 				</div>
 			</div>
 

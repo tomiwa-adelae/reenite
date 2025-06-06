@@ -3,6 +3,7 @@
 import { connectToDatabase } from "@/lib/database";
 import User from "@/lib/database/models/user.model";
 import { handleError } from "@/lib/utils";
+import { GetCustomersParams } from "@/types";
 
 export const getCustomers = async ({
 	query,

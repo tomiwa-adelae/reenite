@@ -9,6 +9,7 @@ import { handleError } from "@/lib/utils";
 export const getCategories = async ({ userId }: { userId: string }) => {
 	try {
 		await connectToDatabase();
+		// await Category.insertMany(sampleCategories);
 
 		if (!userId)
 			return {
@@ -31,10 +32,6 @@ export const getCategories = async ({ userId }: { userId: string }) => {
 			message: "Success",
 			categories: JSON.parse(JSON.stringify(categories)),
 		};
-
-		// await Category.insertMany(sampleCategories);
-
-		// console.log("Yes");
 	} catch (error) {
 		handleError(error);
 		return {

@@ -29,7 +29,7 @@ const page = async ({ params }: { params: any }) => {
 			<MonthlyPriceForm
 				spaceId={spaceDetails?.space._id}
 				userId={user?.user?._id}
-				monthlyPrice={spaceDetails?.space?.monthlyPrice}
+				initialPricing={spaceDetails?.space?.monthlyPricing}
 			/>
 		</div>
 	);

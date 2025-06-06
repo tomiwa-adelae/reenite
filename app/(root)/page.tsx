@@ -7,14 +7,16 @@ import { RandomText } from "@/components/RandomText";
 import { Testimonials } from "@/components/Testimonials";
 import { ImageLibrary } from "@/components/shared/ImageLibrary";
 import { firstMarquee, secondMarquee } from "@/constants";
+import { getSpaces } from "@/lib/actions/customer/space.actions";
 
-const page = () => {
+const page = async () => {
+	const spaces = await getSpaces();
 	return (
 		<div>
 			<Showcase />
 			<Marquee texts={firstMarquee} />
 			<OurServices />
-			<ExploreSpaces />
+			<ExploreSpaces spaces={spaces?.spaces} />
 			<Addons />
 			<RandomText />
 			<Marquee texts={secondMarquee} />

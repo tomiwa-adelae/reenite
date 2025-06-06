@@ -18,6 +18,17 @@ export interface IAvailability {
 	isOpen?: boolean;
 }
 
+export interface IPriceTier {
+	[numberOfUsers: string]: number; // e.g., "1": 100, "2": 180, "3": 250
+}
+
+export interface IPricing {
+	hourly?: IPriceTier;
+	daily?: IPriceTier;
+	weekly?: IPriceTier;
+	monthly?: IPriceTier;
+}
+
 export interface ISpace {
 	_id?: Types.ObjectId;
 	user: Types.ObjectId;
@@ -31,10 +42,12 @@ export interface ISpace {
 	photos?: IPhoto[];
 	title?: string;
 	description?: string;
-	hourlyPrice?: string;
-	dailyPrice?: string;
-	weeklyPrice?: string;
-	monthlyPrice?: string;
+	// hourlyPrice?: string;
+	// dailyPrice?: string;
+	// weeklyPrice?: string;
+	// monthlyPrice?: string;
+	pricing?: IPricing;
+
 	hourlyDiscount?: string;
 	dailyDiscount?: string;
 	weeklyDiscount?: string;
@@ -81,6 +94,21 @@ const AvailabilitySchema = new Schema<IAvailability>({
 	},
 });
 
+const PriceTierSchema = new Schema<Record<string, number>>(
+	{ type: Map, of: Number },
+	{ _id: false }
+);
+
+const PricingSchema = new Schema<IPricing>(
+	{
+		hourly: { type: Map, of: Number, default: {} },
+		daily: { type: Map, of: Number, default: {} },
+		weekly: { type: Map, of: Number, default: {} },
+		monthly: { type: Map, of: Number, default: {} },
+	},
+	{ _id: false }
+);
+
 const SpaceSchema = new Schema<ISpace>(
 	{
 		user: {
@@ -122,18 +150,7 @@ const SpaceSchema = new Schema<ISpace>(
 		description: {
 			type: String,
 		},
-		hourlyPrice: {
-			type: String,
-		},
-		dailyPrice: {
-			type: String,
-		},
-		weeklyPrice: {
-			type: String,
-		},
-		monthlyPrice: {
-			type: String,
-		},
+		pricing: PricingSchema,
 		hourlyDiscount: {
 			type: String,
 		},

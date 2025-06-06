@@ -1,47 +1,16 @@
+import { IAmenity } from "@/lib/database/models/space.model";
 import { Bike, Car, Wifi } from "lucide-react";
 import React from "react";
+import { AmenityBox } from "../shared/AmenityBox";
 
-export const SpaceAmenities = () => {
+export const SpaceAmenities = ({ amenities }: { amenities: IAmenity[] }) => {
 	return (
 		<div>
 			<h4 className="text-xl md:text-2xl font-medium">Space Amenities</h4>
 			<div className="grid gap-4 mt-4">
-				<div className="flex items-center justify-start gap-4">
-					<Wifi className="size-7" />{" "}
-					<p className="text-base">Wifi</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Car className="size-7" />{" "}
-					<p className="text-base">Free parking</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Bike className="size-7" />{" "}
-					<p className="text-base">Bike parking</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Wifi className="size-7" />{" "}
-					<p className="text-base">Wifi</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Car className="size-7" />{" "}
-					<p className="text-base">Free parking</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Bike className="size-7" />{" "}
-					<p className="text-base">Bike parking</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Wifi className="size-7" />{" "}
-					<p className="text-base">Wifi</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Car className="size-7" />{" "}
-					<p className="text-base">Free parking</p>
-				</div>
-				<div className="flex items-center justify-start gap-4">
-					<Bike className="size-7" />{" "}
-					<p className="text-base">Bike parking</p>
-				</div>
+				{amenities?.map(({ icon, name }, index) => {
+					return <AmenityBox key={index} name={name!} icon={icon} />;
+				})}
 			</div>
 		</div>
 	);

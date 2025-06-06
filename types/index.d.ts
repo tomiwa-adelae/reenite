@@ -15,6 +15,13 @@ declare interface GetCustomersParams {
 	userId: string;
 }
 
+declare interface GetAllBookingsParams {
+	query?: string;
+	limit?: number;
+	page?: string;
+	userId: string;
+}
+
 declare interface GetSpacesParams {
 	query?: string;
 	limit?: number;
@@ -89,27 +96,36 @@ declare interface AddSpaceAvailabilityParams {
 	availability: any;
 }
 
-declare interface AddSpaceHourlyPriceParams {
+declare interface AddSpaceHourlyPricingParams {
+	userId: string;
+	spaceId: string;
+	hourlyPricing: any;
+}
+
+declare interface AddSpaceDailyPricingParams {
+	userId: string;
+	spaceId: string;
+	dailyPricing: any;
+}
+
+declare interface AddSpaceWeeklyPricingParams {
+	userId: string;
+	spaceId: string;
+	weeklyPricing: any;
+}
+
+declare interface AddSpaceMonthlyPricingParams {
+	userId: string;
+	spaceId: string;
+	monthlyPricing: any;
+}
+
+declare interface UpdateSpacePricingParams {
 	userId: string;
 	spaceId: string;
 	hourlyPrice: string;
-}
-
-declare interface AddSpaceDailyPriceParams {
-	userId: string;
-	spaceId: string;
 	dailyPrice: string;
-}
-
-declare interface AddSpaceWeeklyPriceParams {
-	userId: string;
-	spaceId: string;
 	weeklyPrice: string;
-}
-
-declare interface AddSpaceMonthlyPriceParams {
-	userId: string;
-	spaceId: string;
 	monthlyPrice: string;
 }
 
@@ -132,4 +148,26 @@ declare interface DeleteSpaceAmenityParams {
 	userId: string;
 	spaceId: string;
 	amenityId: string;
+}
+
+declare interface CreateBookingParams {
+	userId: string;
+	spaceId: string;
+	trxref: string;
+	transactionId: string;
+	totalAmount: string;
+	noOfUsers: string;
+	noOfHours: string;
+	noOfDays: string;
+	noOfWeeks: string;
+	noOfMonths: string;
+	paymentStatus: string;
+	bookingStatus: string;
+	bookingStartDate: string;
+	bookingType: string;
+}
+
+declare interface GetBookingDetailsParams {
+	userId: string;
+	bookingId: string;
 }

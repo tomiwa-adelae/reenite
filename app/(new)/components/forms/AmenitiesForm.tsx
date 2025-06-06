@@ -59,7 +59,7 @@ export const AmenitiesForm = ({ spaceId, userId }: Props) => {
 			});
 
 			if (res.status === 400) return toast.error(res.message);
-
+			toast.success("Amenities successfully added!");
 			return router.push(`/all-spaces/new/${res?.space?._id}/photos`);
 		} catch (error) {
 			setLoading(false);

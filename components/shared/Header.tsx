@@ -9,7 +9,7 @@ import { ProfileDropdown } from "@/app/(user)/components/ProfileDropdown";
 import { IUser } from "@/lib/database/models/user.model";
 
 interface Props {
-	user: IUser;
+	user?: IUser;
 }
 
 export const Header = ({ user }: Props) => {

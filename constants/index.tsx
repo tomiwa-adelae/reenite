@@ -329,7 +329,10 @@ export const spaceBookings = [
 	},
 ];
 
-export const noOfHours = [
+export const noOfHours = ["1", "2", "3", "4", "5", "6", "7"];
+export const noOfDays = ["1", "2", "3", "4", "5", "6", "7"];
+export const noOfWeeks = ["1", "2", "3", "4"];
+export const noOfMonths = [
 	"1",
 	"2",
 	"3",
@@ -338,18 +341,19 @@ export const noOfHours = [
 	"6",
 	"7",
 	"8",
-	"1",
+	"9",
 	"10",
 	"11",
 	"12",
-	"13",
-	"14",
-	"15",
-	"16",
-	"17",
-	"18",
-	"19",
-	"20",
+];
+export const noOfUsers = [
+	{ user: "1", label: "1 user" },
+	{ user: "2", label: "2 users" },
+	{ user: "3", label: "3 users" },
+	{ user: "4", label: "4 users" },
+	{ user: "5", label: "5 users" },
+	{ user: "6", label: "6 users" },
+	{ user: "7+", label: "7+ users" },
 ];
 
 export const userNavLinks = [
@@ -574,3 +578,5 @@ export const DEFAULT_PROFILE_PICTURE =
 
 export const DEFAULT_SPACE_IMAGE =
 	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+
+export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";

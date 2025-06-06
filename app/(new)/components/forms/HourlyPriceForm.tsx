@@ -17,57 +17,60 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Loader } from "@/components/shared/Loader";
 import { useRouter } from "next/navigation";
-import { addSpaceHourlyPrice } from "@/lib/actions/admin/space.actions";
+import { addSpaceHourlyPricing } from "@/lib/actions/admin/space.actions";
 import { formatMoneyInput, handleKeyDown, removeCommas } from "@/lib/utils";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
-	hourlyPrice: z
-		.string()
-		.min(2, {
-			message: "Hourly price is required.",
-		})
-		.max(32, { message: "The maximum number is 32" }),
+	pricing: z.record(
+		z
+			.string()
+			.refine((val) =>
+				["1", "2", "3", "4", "5", "6", "7+"].includes(val)
+			),
+		z
+			.string()
+			.min(1, "Price is required")
+			.regex(/^\d{1,3}(,\d{3})*(\.\d{1,2})?$/, "Invalid price format")
+	),
 });
 
 interface Props {
 	spaceId: string;
 	userId: string;
-	hourlyPrice: string;
+	initialPricing?: Record<string, number> | null; // might come as null
 }
 
-export const HourlyPriceForm = ({ spaceId, userId, hourlyPrice }: Props) => {
+export const HourlyPriceForm = ({
+	spaceId,
+	userId,
+	initialPricing = {},
+}: Props) => {
 	const router = useRouter();
-	const [price, setPrice] = useState(formatMoneyInput(hourlyPrice) || "");
+	const [loading, setLoading] = useState(false);
+
+	const defaultValues = {
+		pricing: Object.fromEntries(
+			["1", "2", "3", "4", "5", "6", "7+"].map((key) => [
+				key,
+				initialPricing?.[key]
+					? formatMoneyInput(initialPricing[key].toString())
+					: "",
+			])
+		),
+	};
+
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
-		defaultValues: {
-			hourlyPrice: formatMoneyInput(hourlyPrice) || "",
-		},
+		defaultValues,
 	});
 
-	const handleChange = (
+	const handlePriceChange = (
 		e: React.ChangeEvent<HTMLInputElement>,
 		field: any
 	) => {
-		let inputValue = e.target.value;
-
-		// If the input starts with a "0" and is followed by another number, remove the "0"
-		if (
-			inputValue.startsWith("0") &&
-			inputValue.length > 1 &&
-			inputValue[1] !== "."
-		) {
-			inputValue = inputValue.slice(1);
-		}
-
-		// Prevent the input from starting with a period
-		if (inputValue.startsWith(".")) {
-			return;
-		}
-
-		inputValue = inputValue.replace(/[^0-9.]/g, "");
+		let inputValue = e.target.value.replace(/[^0-9.]/g, "");
 		const parts = inputValue.split(".");
 		if (parts.length > 2) {
 			inputValue = parts.shift() + "." + parts.join("");
@@ -76,21 +79,27 @@ export const HourlyPriceForm = ({ spaceId, userId, hourlyPrice }: Props) => {
 			parts[1] = parts[1].substring(0, 2);
 			inputValue = parts.join(".");
 		}
-
-		if (/^[0-9,]*\.?[0-9]*$/.test(inputValue)) {
-			const formattedValue = formatMoneyInput(inputValue);
-			setPrice(formattedValue);
-			field.onChange(formattedValue);
+		if (/^[0-9]*\.?[0-9]*$/.test(inputValue)) {
+			const formatted = formatMoneyInput(inputValue);
+			field.onChange(formatted);
 		}
 	};
 
-	async function onSubmit(data: z.infer<typeof FormSchema>) {
+	const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+		setLoading(true);
 		try {
-			const formattedPrice = removeCommas(data.hourlyPrice);
-			const res = await addSpaceHourlyPrice({
+			const cleanedPricing = Object.entries(data.pricing).reduce(
+				(acc, [key, val]) => {
+					acc[key] = Number(removeCommas(val));
+					return acc;
+				},
+				{} as Record<string, number>
+			);
+
+			const res = await addSpaceHourlyPricing({
+				hourlyPricing: cleanedPricing,
 				userId,
 				spaceId,
-				hourlyPrice: formattedPrice,
 			});
 
 			if (res.status === 400) return toast.error(res.message);
@@ -99,43 +108,53 @@ export const HourlyPriceForm = ({ spaceId, userId, hourlyPrice }: Props) => {
 				`/all-spaces/new/${res?.space?._id}/daily-price`
 			);
 		} catch (error) {
-			toast.error("An error occurred! Try again later.");
+			toast.error("Something went wrong.");
+		} finally {
+			setLoading(false);
 		}
-	}
+	};
 
 	return (
 		<div className="mt-8">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className="container max-w-3xl space-y-4">
-						<FormField
-							control={form.control}
-							name="hourlyPrice"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<div className="relative">
-											<Input
-												onKeyDown={handleKeyDown}
-												id="decimalInput"
-												inputMode="decimal"
-												value={price}
-												onChange={(e) =>
-													handleChange(e, field)
-												}
-												placeholder="₦0.00"
-												className="resize-none min-h-40 text-3xl md:text-4xl lg:text-5xl"
-											/>
-											<p className="text-3xl md:text-4xl lg:text-5xl text-muted-foreground absolute top-[50%] translate-y-[-50%] left-[2%] ">
-												₦
-											</p>
-										</div>
-									</FormControl>
-
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+						{["1", "2", "3", "4", "5", "6", "7+"].map((count) => (
+							<FormField
+								key={count}
+								control={form.control}
+								name={`pricing.${count}`}
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>
+											Price for {count} user
+											{count !== "1" ? "s" : ""}
+										</FormLabel>
+										<FormControl>
+											<div className="relative">
+												<span className="text-3xl md:text-4xl lg:text-5xl text-muted-foreground absolute top-[50%] translate-y-[-50%] left-[1%]">
+													₦
+												</span>
+												<Input
+													className=" min-h-20 text-3xl md:text-4xl lg:text-5xl pl-11"
+													inputMode="decimal"
+													value={field.value}
+													onChange={(e) =>
+														handlePriceChange(
+															e,
+															field
+														)
+													}
+													onKeyDown={handleKeyDown}
+													placeholder="0.00"
+												/>
+											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						))}
 					</div>
 					<Footer>
 						<div className="container flex items-center justify-between gap-4">
@@ -169,3 +188,76 @@ export const HourlyPriceForm = ({ spaceId, userId, hourlyPrice }: Props) => {
 		</div>
 	);
 };
+
+// "use client";
+
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+
+// interface Props {
+// 	spaceId: string;
+// 	initialPricing?: Record<string, number>; // e.g., { "1": 100, "2": 180 }
+// }
+
+// export function HourlyPriceForm({ spaceId, initialPricing = {} }: Props) {
+// 	const router = useRouter();
+// 	const [pricing, setPricing] =
+// 		useState<Record<string, number>>(initialPricing);
+// 	const [loading, setLoading] = useState(false);
+
+// 	const handleChange = (userCount: string, value: string) => {
+// 		setPricing((prev) => ({
+// 			...prev,
+// 			[userCount]: Number(value),
+// 		}));
+// 	};
+
+// 	const handleSubmit = async () => {
+// 		setLoading(true);
+// 		try {
+// 			await fetch(`/api/spaces/${spaceId}/pricing/hourly`, {
+// 				method: "PUT",
+// 				headers: {
+// 					"Content-Type": "application/json",
+// 				},
+// 				body: JSON.stringify({ hourlyPricing: pricing }),
+// 			});
+// 			router.push(`/admin/pricing/daily/${spaceId}`);
+// 		} catch (err) {
+// 			console.error("Failed to save pricing", err);
+// 		} finally {
+// 			setLoading(false);
+// 		}
+// 	};
+
+// 	return (
+// 		<div className="max-w-xl mx-auto space-y-4 p-4">
+// 			<h2 className="text-xl font-semibold">Set Hourly Pricing</h2>
+// 			{["1", "2", "3", "4", "5"].map((count) => (
+// 				<div key={count} className="flex items-center justify-between">
+// 					<label
+// 						htmlFor={`user-${count}`}
+// 						className="text-sm font-medium"
+// 					>
+// 						Price for {count} user{Number(count) > 1 ? "s" : ""}
+// 					</label>
+// 					<input
+// 						id={`user-${count}`}
+// 						type="number"
+// 						min={0}
+// 						value={pricing[count] ?? ""}
+// 						onChange={(e) => handleChange(count, e.target.value)}
+// 						className="border p-1 rounded w-24"
+// 					/>
+// 				</div>
+// 			))}
+// 			<button
+// 				onClick={handleSubmit}
+// 				disabled={loading}
+// 				className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+// 			>
+// 				{loading ? "Saving..." : "Next: Set Daily Pricing"}
+// 			</button>
+// 		</div>
+// 	);
+// }

@@ -9,53 +9,10 @@ import {
 } from "@/components/ui/table";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { IUser } from "@/lib/database/models/user.model";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 
-const invoices = [
-	{
-		invoice: "INV001",
-		paymentStatus: "Paid",
-		totalAmount: "$250.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV002",
-		paymentStatus: "Pending",
-		totalAmount: "$150.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV003",
-		paymentStatus: "Unpaid",
-		totalAmount: "$350.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV004",
-		paymentStatus: "Paid",
-		totalAmount: "$450.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV005",
-		paymentStatus: "Paid",
-		totalAmount: "$550.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV006",
-		paymentStatus: "Pending",
-		totalAmount: "$200.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV007",
-		paymentStatus: "Unpaid",
-		totalAmount: "$300.00",
-		paymentMethod: "Credit Card",
-	},
-];
-
-export function UsersTable() {
+export function UsersTable({ customers }: { customers: IUser[] }) {
 	return (
 		<div className="hidden md:block">
 			<Table>
@@ -68,22 +25,31 @@ export function UsersTable() {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{invoices.map((invoice) => (
-						<TableRow className="group" key={invoice.invoice}>
+					{customers.map((customer, index) => (
+						<TableRow className="group" key={index}>
 							<TableCell className="flex items-center justify-start gap-4">
 								<Image
-									src={"/assets/images/user-one.jpeg"}
-									alt={"user"}
+									src={
+										customer.picture ||
+										DEFAULT_PROFILE_PICTURE
+									}
+									alt={`${customer.firstName}'s picture`}
 									width={1000}
 									height={1000}
 									className="size-[70px] object-cover rounded-2xl"
 								/>
 								<h5 className="font-medium text-base">
-									Tomiwa Adelae
+									{customer.firstName} {customer.lastName}
 								</h5>
 							</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
+							<TableCell>{customer.email}</TableCell>
+							<TableCell>
+								{customer.phoneNumber ? (
+									customer.phoneNumber
+								) : (
+									<p className="italic">No phone number</p>
+								)}
+							</TableCell>
 							<TableCell>
 								<div className="flex items-center justify-end">
 									<Button variant={"ghost"} size="icon">

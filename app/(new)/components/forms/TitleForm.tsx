@@ -97,9 +97,7 @@ export const TitleForm = ({ spaceId, userId, title }: Props) => {
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}
-								size={
-									form.formState.isSubmitting ? "icon" : "lg"
-								}
+								size={"lg"}
 							>
 								{form.formState.isSubmitting ? (
 									<Loader />

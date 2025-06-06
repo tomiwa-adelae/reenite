@@ -8,9 +8,17 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { ChevronRight, CreditCard } from "lucide-react";
+import {
+	CheckCheckIcon,
+	CheckCircleIcon,
+	ChevronRight,
+	CreditCard,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { IBooking } from "@/lib/database/models/booking.model";
+import { Badge } from "@/components/ui/badge";
+import { formatDate, formatMoneyInput } from "@/lib/utils";
 
 const invoices = [
 	{
@@ -57,7 +65,7 @@ const invoices = [
 	},
 ];
 
-export function BookingsTable() {
+export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 	const router = useRouter();
 	return (
 		<div className="hidden md:block">
@@ -74,23 +82,43 @@ export function BookingsTable() {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{invoices.map((invoice) => (
+					{bookings.map((booking: any, index) => (
 						<TableRow
 							className="group h-[86px]"
-							key={invoice.invoice}
-							onClick={() => router.push("/all-bookings/12345")}
+							key={index}
+							onClick={() =>
+								router.push(`/all-bookings/${booking._id}`)
+							}
 						>
-							<TableCell>#BK12345</TableCell>
-							<TableCell>Adelae Tomiwa</TableCell>
-							<TableCell>Mini Conference Room</TableCell>
-							<TableCell>Dec 25, 2025 (3 hours)</TableCell>
+							<TableCell>{booking.bookingId}</TableCell>
 							<TableCell>
-								{/* <Badge>
-									<CreditCard className="size-4 inline-block mr-2" />
-									Paid
-								</Badge> */}
+								{booking.user.firstName} {booking.user.lastName}
 							</TableCell>
-							<TableCell>₦158,000</TableCell>
+							<TableCell>{booking.space.title}</TableCell>
+							<TableCell>
+								{formatDate(booking.startDate)}{" "}
+								{booking.bookingType === "hourly" &&
+									`(${booking.noOfHours} ${
+										booking.noOfHours === 1
+											? "hour"
+											: "hours"
+									})`}
+							</TableCell>
+							<TableCell>
+								<div className="flex items-center capitalize justify-start h-full gap-2">
+									<Badge>
+										<CreditCard className="size-4 inline-block mr-2" />
+										{booking.paymentStatus}
+									</Badge>
+									<Badge>
+										<CheckCircleIcon className="size-4 inline-block mr-2" />
+										{booking.bookingStatus}
+									</Badge>
+								</div>
+							</TableCell>
+							<TableCell>
+								₦{formatMoneyInput(booking.totalAmount)}
+							</TableCell>
 							<TableCell>
 								<div className="flex items-center justify-end">
 									<Button variant={"ghost"} size="icon">
