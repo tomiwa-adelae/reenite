@@ -204,7 +204,7 @@ export const DiscountForm = ({
 						{DISCOUNT_TYPES.map(({ key, label }) => (
 							<div
 								key={key}
-								className="rounded-xl bg-[#F7F7F7] p-6 flex items-center justify-between gap-2 border"
+								className="rounded-xl bg-[#F7F7F7] p-4 lg:p-6 flex items-center justify-between gap-2 border"
 							>
 								<FormField
 									control={form.control}
@@ -233,7 +233,7 @@ export const DiscountForm = ({
 															]
 														}
 														placeholder="20"
-														className="text-base md:text-xl max-w-[70px] focus:outline-0"
+														className="text-base md:text-xl max-w-[60px] lg:max-w-[70px] focus:outline-0"
 													/>
 													<p className="absolute top-[50%] translate-y-[-50%] right-[8%] text-lg text-muted-foreground">
 														%
@@ -250,7 +250,7 @@ export const DiscountForm = ({
 								<Checkbox
 									checked={enabledDiscounts[key]}
 									onCheckedChange={() => toggleDiscount(key)}
-									className="size-6"
+									className="size-4 lg:size-6"
 								/>
 							</div>
 						))}

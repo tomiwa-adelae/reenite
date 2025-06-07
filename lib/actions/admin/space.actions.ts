@@ -1224,7 +1224,7 @@ export const addSpaceDiscounts = async ({
 		space.hourlyDiscount = hourlyDiscount || space.dailyDiscount;
 		space.weeklyDiscount = weeklyDiscount || space.weeklyDiscount;
 		space.monthlyDiscount = monthlyDiscount || space.monthlyDiscount;
-		space.status = "success";
+		space.status = "active";
 
 		const updatedSpace = await space.save();
 

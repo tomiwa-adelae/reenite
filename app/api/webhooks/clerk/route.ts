@@ -48,7 +48,6 @@ export async function POST(request: Request) {
 
 		// Handle the webhook
 		if (evt.type === "user.created") {
-			console.log("user.created webhook triggered:", evt.data);
 			const { id, email_addresses, image_url, first_name, last_name } =
 				evt.data;
 

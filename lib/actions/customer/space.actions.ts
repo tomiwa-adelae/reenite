@@ -9,7 +9,7 @@ export const getSpaces = async () => {
 	try {
 		await connectToDatabase();
 
-		const spaces = await Space.find()
+		const spaces = await Space.find({ status: "active" })
 			.sort({ createdAt: -1 })
 			.populate("category");
 

@@ -169,6 +169,7 @@ const SpaceSchema = new Schema<ISpace>(
 		},
 		status: {
 			type: String,
+			default: "pending",
 		},
 	},
 	{ timestamps: true }

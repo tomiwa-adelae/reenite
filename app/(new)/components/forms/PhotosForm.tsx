@@ -107,7 +107,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 									<div
 										key={index}
 										onClick={() => setOpenUploadModal(true)}
-										className="border-2 border-dashed flex items-center justify-center p-8 min-h-[200px] rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
+										className="border-2 border-dashed flex items-center justify-center p-8 aspect-video rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
 									>
 										<ImageIcon className="size-6" />
 									</div>
@@ -115,7 +115,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 							{spacePhotos.length >= 5 && (
 								<div
 									onClick={() => setOpenUploadModal(true)}
-									className="border-2 border-dashed flex flex-col items-center justify-center p-8 min-h-[200px] rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
+									className="border-2 border-dashed flex flex-col items-center justify-center p-8 aspect-video rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
 								>
 									<ImageIcon className="size-6" />
 									<p className="text-sm text-center mt-2 font-semibold">

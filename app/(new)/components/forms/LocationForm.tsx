@@ -202,7 +202,7 @@ export const LocationForm = ({
 										defaultValue={field.value}
 									>
 										<FormControl>
-											<SelectTrigger>
+											<SelectTrigger className="capitalize">
 												<SelectValue placeholder="Nigeria" />
 											</SelectTrigger>
 										</FormControl>
@@ -210,6 +210,7 @@ export const LocationForm = ({
 											{nigerianCountries.map(
 												(country, index) => (
 													<SelectItem
+														className="capitalize"
 														key={index}
 														value={country}
 													>

@@ -13,7 +13,7 @@ const page = async () => {
 	return (
 		<div className="py-8">
 			<div className="container max-w-3xl">
-				<h2 className="font-semibold text-2xl lg:text-3xl">
+				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 					Which of these best describes your space?
 				</h2>
 			</div>

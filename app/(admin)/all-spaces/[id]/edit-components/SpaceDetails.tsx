@@ -310,7 +310,9 @@ export const SpaceDetails = ({
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
 													{address}, {city}, {state},{" "}
-													{country}
+													<span className="capitalize">
+														{country}
+													</span>
 												</h2>
 											</SpaceDetailsBox>
 										</div>

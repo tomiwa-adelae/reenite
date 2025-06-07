@@ -28,7 +28,7 @@ export const UploadModal = ({
 			<div className="border-b pb-4 text-center md:block">
 				<p className="font-semibold text-lg">Upload photos</p>
 			</div>
-			<div className="pb-16 mb-20 px-6 flex flex-col items-center justify-center">
+			<div className="pb-16 mb-24 md:mb-20 px-6 flex flex-col items-center justify-center">
 				<FileUpload
 					onChange={(files) => {
 						const reader = new FileReader();

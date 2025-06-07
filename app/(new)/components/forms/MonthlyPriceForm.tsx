@@ -130,11 +130,11 @@ export const MonthlyPriceForm = ({
 										</FormLabel>
 										<FormControl>
 											<div className="relative">
-												<span className="text-3xl md:text-4xl lg:text-5xl text-muted-foreground absolute top-[50%] translate-y-[-50%] left-[1%]">
+												<span className="text-3xl md:text-4xl lg:text-5xl text-muted-foreground absolute top-[50%] translate-y-[-50%] left-[2%]">
 													₦
 												</span>
 												<Input
-													className=" min-h-20 text-3xl md:text-4xl lg:text-5xl pl-11"
+													className=" min-h-20 text-3xl md:text-4xl lg:text-5xl pl-9 lg:pl-13"
 													inputMode="decimal"
 													value={field.value}
 													onChange={(e) =>

@@ -127,7 +127,7 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 						([day, hours]) => (
 							<div
 								key={day}
-								className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-6 border"
+								className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-4 lg:p-6 border"
 							>
 								<div className="flex items-center justify-between gap-4 w-full">
 									<div className="text-base lg:text-lg font-medium capitalize">
@@ -145,11 +145,11 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 													!e.target.checked
 												)
 											}
-											className="rounded border-gray-300 text-primary"
+											className="rounded border-gray-300 text-primary text-sm lg:text-base"
 										/>
 										<label
 											htmlFor={day}
-											className="text-base font-medium text-muted-foreground"
+											className="text-sm lg:text-base font-medium text-muted-foreground"
 										>
 											Open
 										</label>
@@ -170,7 +170,7 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 											}
 											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
 										/>
-										<span className="text-base text-muted-foreground">
+										<span className="text-sm lg:text-base text-muted-foreground">
 											to
 										</span>
 										<Input
@@ -183,7 +183,7 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 													e.target.value
 												)
 											}
-											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
 										/>
 									</div>
 								)}

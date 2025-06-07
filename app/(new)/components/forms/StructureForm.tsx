@@ -64,7 +64,7 @@ export const StructureForm = ({ categories, userId }: Props) => {
 								alt={`${name}'s image`}
 								width={1000}
 								height={1000}
-								className="size-[60px] object-cover"
+								className="size-[45px] lg:size-[60px] object-cover"
 							/>
 							<h5 className="font-medium text-base lg:text-lg">
 								{name}

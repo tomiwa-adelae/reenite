@@ -426,7 +426,7 @@ export const adminMobileLinks = [
 	},
 	{
 		slug: "/all-users",
-		label: "Users",
+		label: "Customers",
 		icon: Users,
 	},
 	{
