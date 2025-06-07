@@ -15,7 +15,9 @@ export interface IUser extends Document {
 	state?: string;
 	country?: string;
 	occupation?: string;
+	userId?: string;
 	company?: string;
+	status?: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 	isAdmin?: boolean;
@@ -60,14 +62,22 @@ const UserSchema = new Schema<IUser>(
 		state: {
 			type: String,
 		},
+		userId: {
+			type: String,
+		},
 		city: {
 			type: String,
 		},
 		country: {
 			type: String,
+			default: "nigeria",
 		},
 		occupation: {
 			type: String,
+		},
+		status: {
+			type: String,
+			default: "active",
 		},
 		company: {
 			type: String,

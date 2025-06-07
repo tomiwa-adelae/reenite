@@ -1,4 +1,5 @@
 import { AmenityBox } from "@/components/shared/AmenityBox";
+import { BackButton } from "@/components/shared/BackButton";
 import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -56,16 +57,7 @@ const page = async ({ params }: { params: any }) => {
 			<div className="container">
 				<div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
 					<div className=" flex items-start justify-start gap-4">
-						<Button
-							size="icon"
-							className="size-10 lg:size-12 bg-[#F7F7F7]"
-							variant="ghost"
-							asChild
-						>
-							<Link href="/all-bookings">
-								<ArrowLeft className="size-4 lg:size-6" />
-							</Link>
-						</Button>
+						<BackButton slug={"/all-bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
 							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
 								BK-{booking.booking.bookingId}

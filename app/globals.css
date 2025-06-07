@@ -138,6 +138,10 @@
 	}
 }
 
+.PhoneInput input {
+	outline: none;
+}
+
 html {
 	scroll-behavior: smooth;
 }

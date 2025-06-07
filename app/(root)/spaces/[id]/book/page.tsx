@@ -25,6 +25,8 @@ const page = async ({
 	const user = await getUserInfo(clerkUser?.id!);
 	const spaceDetails = await getSpaceDetails(id);
 
+	console.log(bookingStartDate);
+
 	if (spaceDetails?.status === 400) return <SpaceNotFound />;
 
 	// Determine the correct discount based on booking type

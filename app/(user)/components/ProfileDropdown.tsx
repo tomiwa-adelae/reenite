@@ -41,7 +41,10 @@ export function ProfileDropdown({ user }: Props) {
 					{user ? (
 						<Image
 							src={user?.picture || DEFAULT_PROFILE_PICTURE}
-							alt={`User picture`}
+							alt={
+								`${user?.firstName}'s picture` ||
+								"User profile picture"
+							}
 							width={1000}
 							height={1000}
 							className="size-10 rounded-full cursor-pointer object-cover"

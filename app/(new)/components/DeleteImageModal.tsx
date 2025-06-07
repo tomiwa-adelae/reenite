@@ -83,6 +83,7 @@ export function DeleteImageModal({
 							disabled={loading}
 							onClick={deletePhoto}
 							size="md"
+							variant="destructive"
 						>
 							{loading ? <Loader /> : "Delete it"}
 						</Button>

@@ -23,7 +23,7 @@ export const SpacesGrid = ({ spaces }: { spaces: ISpace[] }) => {
 							alt={space.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="aspect-square object-cover rounded-2xl transition-all group-hover:scale-[105%]"
+							className="aspect-video lg:aspect-square object-cover rounded-2xl transition-all group-hover:scale-[105%]"
 						/>
 						<h4 className="text-xl font-medium mt-4">
 							{space?.title}

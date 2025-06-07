@@ -8,10 +8,50 @@ declare interface CreateUserParams {
 	picture: string;
 }
 
+declare interface UpdateProfilePictureParams {
+	picture: string;
+	pictureId: string;
+	userId: string;
+}
+
+declare interface UpdateProfileParams {
+	userId: string;
+	firstName?: string;
+	lastName?: string;
+	address?: string;
+	city?: string;
+	state?: string;
+	country?: string;
+	occupation?: string;
+	company?: string;
+	phoneNumber?: string;
+	bio?: string;
+}
+
 declare interface GetCustomersParams {
 	query?: string;
 	limit?: number;
 	page?: string;
+	userId: string;
+}
+
+declare interface GetCustomerDetailsParams {
+	customerId: string;
+	userId: string;
+}
+
+declare interface SuspendCustomerAccountParams {
+	customerId: string;
+	userId: string;
+}
+
+declare interface UnsuspendCustomerAccountParams {
+	customerId: string;
+	userId: string;
+}
+
+declare interface DeleteCustomerAccountParams {
+	customerId: string;
 	userId: string;
 }
 
@@ -170,4 +210,15 @@ declare interface CreateBookingParams {
 declare interface GetBookingDetailsParams {
 	userId: string;
 	bookingId: string;
+}
+
+declare interface UrlQueryParams {
+	params: string;
+	key: string;
+	value: string | null;
+}
+
+declare interface RemoveUrlQueryParams {
+	params: string;
+	keysToRemove: string[];
 }

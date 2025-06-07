@@ -6,7 +6,7 @@ import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { cn, formatMoneyInput } from "@/lib/utils";
+import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { DateRange } from "react-day-picker";
@@ -167,8 +167,13 @@ export function ReservationForm({
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
 		toast("Event has been created.");
+
 		router.push(
-			`/spaces/${spaceId}/book?booking=${booking}&bookingStartDate=${data.bookingStartDate}&users=${data.noOfUsers}&hours=${data.noOfHours}&days=${data.noOfDays}&weeks=${data.noOfWeeks}&months=${data.noOfMonths}`
+			`/spaces/${spaceId}/book?booking=${booking}&bookingStartDate=${formatDate(
+				data.bookingStartDate
+			)}&users=${data.noOfUsers}&hours=${data.noOfHours}&days=${
+				data.noOfDays
+			}&weeks=${data.noOfWeeks}&months=${data.noOfMonths}`
 		);
 	}
 
@@ -198,7 +203,7 @@ export function ReservationForm({
 													key={hour}
 													value={hour}
 												>
-													{hour}
+													{hour} hours
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -230,7 +235,7 @@ export function ReservationForm({
 													key={day}
 													value={day}
 												>
-													{day}
+													{day} days
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -262,7 +267,7 @@ export function ReservationForm({
 													key={week}
 													value={week}
 												>
-													{week}
+													{week} weeks
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -294,7 +299,7 @@ export function ReservationForm({
 													key={month}
 													value={month}
 												>
-													{month}
+													{month} months
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -313,6 +318,7 @@ export function ReservationForm({
 								<Select
 									onValueChange={field.onChange}
 									defaultValue={field.value}
+									disabled={!booking}
 								>
 									<FormControl>
 										<SelectTrigger>

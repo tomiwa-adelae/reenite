@@ -28,6 +28,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import "../../database/models";
+import mongoose from "mongoose";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -53,6 +54,27 @@ export const getSpaces = async ({
 
 		const skipAmount = validLimit > 0 ? (validPage - 1) * validLimit : 0;
 
+		const keyword = query
+			? {
+					$or: [
+						{ title: { $regex: query, $options: "i" } },
+						{ hourlyDiscount: { $regex: query, $options: "i" } },
+						{ dailyDiscount: { $regex: query, $options: "i" } },
+						{ weeklyDiscount: { $regex: query, $options: "i" } },
+						{ hourlyDiscount: { $regex: query, $options: "i" } },
+						{ monthlyDiscount: { $regex: query, $options: "i" } },
+						{ status: { $regex: query, $options: "i" } },
+						{ description: { $regex: query, $options: "i" } },
+						{ price: { $regex: query, $options: "i" } },
+						{ address: { $regex: query, $options: "i" } },
+						{ city: { $regex: query, $options: "i" } },
+						{ zipCode: { $regex: query, $options: "i" } },
+						{ state: { $regex: query, $options: "i" } },
+						{ country: { $regex: query, $options: "i" } },
+					],
+			  }
+			: {};
+
 		if (!userId)
 			return {
 				status: 400,
@@ -67,15 +89,19 @@ export const getSpaces = async ({
 				message: "Oops! You are not authorized to make this request.",
 			};
 
-		const spaces = await Space.find({ user: userId })
+		const spaces = await Space.find({ user: userId, ...keyword })
 			.sort({ createdAt: -1 })
 			.skip(skipAmount)
+			.limit(limit)
 			.populate("category");
+
+		const spacesCount = await Space.countDocuments({ ...keyword });
 
 		return {
 			status: 200,
 			message: "Success",
 			spaces: JSON.parse(JSON.stringify(spaces)),
+			totalPages: Math.ceil(spacesCount / limit),
 		};
 	} catch (error) {
 		handleError(error);

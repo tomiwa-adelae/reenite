@@ -10,12 +10,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Header } from "./Header";
 
 interface Props {
 	categories: ICategory[];
 	userId: string;
 	spaceId: string;
 	category: ICategory;
+	closeSmallModal?: () => void;
 }
 
 export const EditCategoryComponent = ({
@@ -23,6 +25,7 @@ export const EditCategoryComponent = ({
 	category,
 	userId,
 	spaceId,
+	closeSmallModal,
 }: Props) => {
 	const [selectCategory, setSelectCategory] = useState(category._id);
 	const [loading, setLoading] = useState(false);
@@ -41,6 +44,8 @@ export const EditCategoryComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Category successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
@@ -51,12 +56,8 @@ export const EditCategoryComponent = ({
 
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Category
-				</h2>
-			</div>
-			<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
+			<Header title={"Category"} />
+			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
 				<ScrollArea>
 					<div className="py-8 container">
 						<div className="grid grid-cols-2 gap-4">
@@ -75,9 +76,9 @@ export const EditCategoryComponent = ({
 										alt={`${name}'s icon`}
 										width={1000}
 										height={1000}
-										className="size-[60px] object-cover"
+										className="size-[45px] lg:size-[60px] object-cover"
 									/>
-									<h5 className="font-medium text-lg">
+									<h5 className="font-medium text-base lg:text-lg">
 										{name}
 									</h5>
 								</div>
@@ -86,14 +87,23 @@ export const EditCategoryComponent = ({
 					</div>
 				</ScrollArea>
 			</div>
-			<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-				<div className="container flex items-center justify-end">
+			<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+				<div className="container flex items-center justify-between lg:justify-end">
+					<Button
+						onClick={closeSmallModal}
+						type="submit"
+						size={"lg"}
+						variant={"ghost"}
+						className="lg:hidden"
+					>
+						Close
+					</Button>
 					<Button
 						disabled={!selectCategory || loading}
 						onClick={handleSubmit}
 						size="lg"
 					>
-						{loading ? <Loader /> : "Next"}
+						{loading ? <Loader /> : "Save"}
 					</Button>
 				</div>
 			</footer>

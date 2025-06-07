@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
-export const NoUsers = () => {
+export const NoUsers = ({
+	description = "You’ll find your users here once they sign up on Reenite.",
+}: {
+	description?: string;
+}) => {
 	return (
 		<div className="mt-4 flex flex-col items-center justify-center">
 			<Image
@@ -12,7 +16,7 @@ export const NoUsers = () => {
 				className="size-[250px] object-cover"
 			/>
 			<p className="text-muted-foreground text-center text-base mt-4 mb-6">
-				You’ll find your users here once they sign up on Reenite.
+				{description}
 			</p>
 		</div>
 	);

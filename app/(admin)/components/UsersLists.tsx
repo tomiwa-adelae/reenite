@@ -9,8 +9,9 @@ import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 export const UsersLists = ({ customers }: { customers: IUser[] }) => {
 	return (
 		<div className="md:hidden">
-			{customers.map((customer) => (
+			{customers.map((customer, index) => (
 				<Link
+					key={index}
 					href={`/all-users/${customer._id}`}
 					className="hover:bg-[#F7F7F7] transition-all p-2 rounded-2xl flex items-center justify-start gap-4 group cursor-pointer"
 				>

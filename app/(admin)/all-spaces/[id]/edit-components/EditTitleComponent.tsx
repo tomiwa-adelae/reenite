@@ -17,6 +17,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { addSpaceTitle } from "@/lib/actions/admin/space.actions";
 import { Loader } from "@/components/shared/Loader";
+import { Header } from "./Header";
 
 const FormSchema = z.object({
 	title: z
@@ -31,9 +32,15 @@ interface Props {
 	userId: string;
 	spaceId: string;
 	title: string;
+	closeSmallModal?: () => void;
 }
 
-export const EditTitleComponent = ({ title, userId, spaceId }: Props) => {
+export const EditTitleComponent = ({
+	title,
+	userId,
+	spaceId,
+	closeSmallModal,
+}: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
@@ -51,17 +58,15 @@ export const EditTitleComponent = ({ title, userId, spaceId }: Props) => {
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Title successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}
 	}
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Title
-				</h2>
-			</div>
+			<Header title={"Title"} />
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className="py-8 container">
@@ -83,8 +88,17 @@ export const EditTitleComponent = ({ title, userId, spaceId }: Props) => {
 							)}
 						/>
 					</div>
-					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-						<div className="container flex items-center justify-end">
+					<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-between lg:justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+								variant={"ghost"}
+								className="lg:hidden"
+							>
+								Close
+							</Button>
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}

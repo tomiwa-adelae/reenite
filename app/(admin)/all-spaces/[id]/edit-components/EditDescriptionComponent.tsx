@@ -6,6 +6,7 @@ import { z } from "zod";
 import { Footer } from "@/app/(new)/components/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Header } from "./Header";
 import {
 	Form,
 	FormControl,
@@ -29,12 +30,14 @@ interface Props {
 	userId: string;
 	spaceId: string;
 	description: string;
+	closeSmallModal?: () => void;
 }
 
 export const EditDescriptionComponent = ({
 	description,
 	userId,
 	spaceId,
+	closeSmallModal,
 }: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -53,17 +56,15 @@ export const EditDescriptionComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Description successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}
 	}
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Description
-				</h2>
-			</div>
+			<Header title={"Description"} />
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className="py-8 container">
@@ -84,8 +85,17 @@ export const EditDescriptionComponent = ({
 							)}
 						/>
 					</div>
-					<footer className="bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-						<div className="container flex items-center justify-end">
+					<footer className="bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-between lg:justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+								variant={"ghost"}
+								className="lg:hidden"
+							>
+								Close
+							</Button>
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}

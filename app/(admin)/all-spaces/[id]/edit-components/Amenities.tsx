@@ -13,11 +13,13 @@ import { Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { Header } from "./Header";
 
 interface Props {
 	userId: string;
 	spaceId: string;
 	amenities: IAmenity[];
+	closeSmallModal?: () => void;
 }
 
 export interface AmenitiesOption {
@@ -25,7 +27,12 @@ export interface AmenitiesOption {
 	icon: any;
 }
 
-export const Amenities = ({ userId, spaceId, amenities }: Props) => {
+export const Amenities = ({
+	userId,
+	spaceId,
+	amenities,
+	closeSmallModal,
+}: Props) => {
 	const [openAmenitiesModal, setOpenAmenitiesModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [newAmenities, setNewAmenities] = useState<any>([]);
@@ -85,54 +92,67 @@ export const Amenities = ({ userId, spaceId, amenities }: Props) => {
 	};
 
 	return (
-		<div className="py-8 container">
-			<div className="flex items-center justify-between gap-4">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Amenities
-				</h2>
+		<div className="py-8">
+			<Header title={"Amenities"}>
 				<Button
 					size="icon"
-					className="size-12 bg-[#F7F7F7]"
+					className="size-10 lg:size-12 bg-[#F7F7F7]"
 					variant="ghost"
 					onClick={() => setOpenAmenitiesModal(true)}
 				>
-					<Plus className="size-6" />
+					<Plus className="size-4 lg:size-6" />
 				</Button>
-			</div>
-			<p className="text-base mt-2 text-muted-foreground">
-				You’ve added these to your listing so far.
-			</p>
-			<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
-				<ScrollArea>
-					<div className="mt-8 grid grid-cols-1 gap-1">
-						{amenities.map((amenity: any, index) => {
-							const Icon = iconMap[amenity.icon!];
-							return (
-								<div
-									key={index}
-									className="rounded-2xl p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
-								>
-									<div className="flex items-start justify-center gap-2">
-										<Icon className="size-6" />
-										<h5 className="font-medium text-BASE">
-											{amenity.name}
-										</h5>
-									</div>
-									<Button
-										size="icon"
-										// className="size-12"
-										variant={"destructive"}
-										onClick={(e) =>
-											handleDeleteClick(e, amenity._id!)
-										}
+			</Header>
+			<div className="container">
+				<p className="text-sm lg:text-base mt-2 text-muted-foreground">
+					You’ve added these to your listing so far.
+				</p>
+				<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
+					<ScrollArea>
+						<div className="mt-8 grid grid-cols-1 gap-1">
+							{amenities.map((amenity: any, index) => {
+								const Icon = iconMap[amenity.icon!];
+								return (
+									<div
+										key={index}
+										className="rounded-2xl p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
 									>
-										<Trash2 />
-									</Button>
-								</div>
-							);
-						})}
-					</div>
-				</ScrollArea>
+										<div className="flex items-start justify-center gap-2">
+											<Icon className="size-4 lg:size-6" />
+											<h5 className="font-medium text-sm lg:text-base">
+												{amenity.name}
+											</h5>
+										</div>
+										<Button
+											size="icon"
+											// className="size-12"
+											variant={"destructive"}
+											onClick={(e) =>
+												handleDeleteClick(
+													e,
+													amenity._id!
+												)
+											}
+										>
+											<Trash2 />
+										</Button>
+									</div>
+								);
+							})}
+						</div>
+					</ScrollArea>
+					<footer className="lg:hidden bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+							>
+								Done
+							</Button>
+						</div>
+					</footer>
+				</div>
 			</div>
 			{openDeleteModal && selectedAmenityId && (
 				<DeleteAmenityModal

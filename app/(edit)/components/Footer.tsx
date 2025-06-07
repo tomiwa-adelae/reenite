@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React from "react";
 
 export const Footer = () => {
@@ -9,7 +10,9 @@ export const Footer = () => {
 				<p className="text-sm lg:text-base text-muted-foreground">
 					&copy; {year} Reenite. All rights reserved.
 				</p>
-				<Button size="lg">Done</Button>
+				<Button asChild size="lg">
+					<Link href="/about">Done</Link>
+				</Button>
 			</div>
 		</footer>
 	);

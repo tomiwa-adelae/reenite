@@ -75,6 +75,8 @@ export const BookingDetails = ({
 	const [totalPrice, setTotalPrice] = useState<any>(0);
 	const [loading, setLoading] = useState<boolean>(false);
 
+	console.log(bookingStartDate);
+
 	useEffect(() => {
 		console.log(pricing, discount);
 
@@ -89,7 +91,9 @@ export const BookingDetails = ({
 
 		console.log(numbers);
 
-		let basePrice = (pricing[newUsers] || 0) * Number(numbers);
+		let basePrice =
+			(pricing[newUsers] || 0) * Number(numbers) * Number(newUsers);
+		console.log(basePrice);
 		const discountAmount = (basePrice * Number(discount)) / 100;
 
 		setTotalPrice(basePrice - discountAmount);
@@ -217,7 +221,7 @@ export const BookingDetails = ({
 								<SelectContent>
 									{numberOfHours.map((hour, index) => (
 										<SelectItem key={index} value={hour}>
-											{hour}
+											{hour} hours
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -237,7 +241,7 @@ export const BookingDetails = ({
 								<SelectContent>
 									{numberOfDays.map((day, index) => (
 										<SelectItem key={index} value={day}>
-											{day}
+											{day} days
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -257,7 +261,7 @@ export const BookingDetails = ({
 								<SelectContent>
 									{numberOfWeeks.map((week, index) => (
 										<SelectItem key={index} value={week}>
-											{week}
+											{week} weeks
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -277,7 +281,7 @@ export const BookingDetails = ({
 								<SelectContent>
 									{numberOfMonths.map((month, index) => (
 										<SelectItem key={index} value={month}>
-											{month}
+											{month} months
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -312,7 +316,7 @@ export const BookingDetails = ({
 					</h4>
 					<div className="py-2 text-sm lg:text-base mt-4 flex items-center justify-between gap-2">
 						<p>Starting date:</p>
-						<p>{formatDate(bookingStartDate)}</p>
+						<p>{bookingStartDate}</p>
 					</div>
 					<Separator className="my-2" />
 					<div className="py-2 text-sm lg:text-base flex items-center justify-between gap-2">

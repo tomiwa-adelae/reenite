@@ -167,10 +167,10 @@ export const FileUpload = ({
 							)}
 						</motion.div>
 						<div className="mt-4 flex flex-col items-center justify-center">
-							<h4 className="font-medium text-2xl mb-2">
+							<h4 className="font-medium text-xl lg:text-2xl mb-2">
 								Drag and drop
 							</h4>
-							<p className="text sm text-center mb-3">
+							<p className="text-xs lg:text sm text-center mb-3">
 								or browse for photos
 							</p>
 							<Button size="md">Browse</Button>

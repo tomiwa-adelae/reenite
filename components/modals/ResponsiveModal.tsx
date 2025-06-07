@@ -23,20 +23,18 @@ import { ScrollArea } from "../ui/scroll-area";
 
 interface Props {
 	open: boolean;
+	closeModal?: () => void;
 	children: React.ReactNode;
 }
 
-export const ResponsiveModal = ({ open, children }: Props) => {
+export const ResponsiveModal = ({ open, children, closeModal }: Props) => {
 	return (
 		<div className="relative">
 			<div className="hidden md:block">
-				<Dialog open={open}>
+				<Dialog open={open} onOpenChange={closeModal}>
 					<form>
-						{/* <DialogTrigger asChild>
-							<Button variant="outline">Open Dialog</Button>
-						</DialogTrigger> */}
-						<DialogContent className="sm:max-w-xl h-[550px] overflow-hidden">
-							<ScrollArea className="h-[550px]">
+						<DialogContent className="sm:max-w-xl max-h-[550px] overflow-hidden hidden md:block">
+							<ScrollArea className="max-h-[550px]">
 								{children}
 							</ScrollArea>
 						</DialogContent>
@@ -44,12 +42,11 @@ export const ResponsiveModal = ({ open, children }: Props) => {
 				</Dialog>
 			</div>
 			<div className="md:hidden">
-				<Drawer>
-					<DrawerTrigger asChild>
-						<Button variant="outline">Open Drawer</Button>
-					</DrawerTrigger>
-					<DrawerContent>
-						<ScrollArea>{children}</ScrollArea>
+				<Drawer open={open} onOpenChange={closeModal}>
+					<DrawerContent className="md:hidden h-[550px]">
+						<ScrollArea className="h-[550px]">
+							{children}
+						</ScrollArea>
 					</DrawerContent>
 				</Drawer>
 			</div>

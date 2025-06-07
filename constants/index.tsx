@@ -532,7 +532,7 @@ export const nigerianStates = [
 	"FCT (Abuja)",
 ] as const;
 
-export const nigerianCountries = ["Nigeria"] as const;
+export const nigerianCountries = ["nigeria"] as const;
 
 export const availableAmenities = [
 	{
@@ -580,3 +580,5 @@ export const DEFAULT_SPACE_IMAGE =
 	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
+
+export const DEFAULT_LIMIT = 10;

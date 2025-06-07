@@ -1,15 +1,28 @@
 import React from "react";
-import { NoBookings } from "@/components/shared/NoBookings";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { NoAboutDetails } from "../components/NoAboutDetails";
-import { BriefcaseBusiness, Pen } from "lucide-react";
+import {
+	BriefcaseBusiness,
+	Building2,
+	CircleUser,
+	Mail,
+	MapPinHouse,
+	Pen,
+	Phone,
+} from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import Image from "next/image";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 
-const page = () => {
+const page = async () => {
+	const clerkUser = await currentUser();
+	const user = await getUserInfo(clerkUser?.id!);
 	return (
 		<div>
 			<div className="container">
-				<h2 className="font-semibold text-2xl lg:text-3xl flex items-center justify-start">
+				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
 					<span>About me </span>
 					<Button
 						size="sm"
@@ -24,27 +37,72 @@ const page = () => {
 				</h2>
 				<div className="mt-4 lg:mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
 					<div className="bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]  rounded-xl p-8 text-center flex flex-col items-center justify-center gap-4">
-						<div className="bg-primary rounded-full text-white size-[120px] p-8 flex items-center justify-center">
-							<h2 className="text-6xl font-bold">A</h2>
-						</div>
+						{user?.user?.picture && (
+							<Image
+								src={
+									user?.user?.picture ||
+									DEFAULT_PROFILE_PICTURE
+								}
+								alt={
+									`${user?.user?.firstName}'s picture` ||
+									"User profile picture"
+								}
+								width={1000}
+								height={1000}
+								className="size-[150px] object-cover rounded-full"
+							/>
+						)}
+						{!user?.user?.picture && (
+							<div className="bg-primary rounded-full text-white size-[120px] p-8 flex items-center justify-center">
+								<h2 className="text-6xl font-bold">
+									{user?.user?.firstName.slice(0, 1)}
+								</h2>
+							</div>
+						)}
 						<h2 className="font-semibold text-3xl">
-							Adelae Tomiwa
+							{user?.user?.firstName} {user?.user?.lastName}
 						</h2>
 					</div>
-					<NoAboutDetails />
+					{!user?.user?.occupation && !user?.user?.bio && (
+						<NoAboutDetails />
+					)}
 				</div>
-				<div className="mt-10 space-y-4">
-					<p className="text-base lg:text-lg">
-						<BriefcaseBusiness className="size-6 inline-block mr-3" />
-						<span>My work: Website developer</span>
+				<div className="mt-10 space-y-6 text-base">
+					<p>
+						<CircleUser className="size-6 inline-block mr-3" />
+						<span>
+							My name: {user?.user?.firstName}{" "}
+							{user?.user?.lastName}
+						</span>
 					</p>
-					<p className="text-base lg:text-lg">
+					<p>
+						<Mail className="size-6 inline-block mr-3" />
+						<span>My email: {user?.user?.email}</span>
+					</p>
+					<p>
+						<Phone className="size-6 inline-block mr-3" />
+						<span>My phone number: {user?.user?.phoneNumber}</span>
+					</p>
+					<p>
+						<MapPinHouse className="size-6 inline-block mr-3" />
+						<span>
+							My location: {user?.user?.address},{" "}
+							{user?.user?.city}, {user?.user?.state},{" "}
+							<span className="capitalize">
+								{user?.user?.country}
+							</span>
+						</span>
+					</p>
+					<p>
 						<BriefcaseBusiness className="size-6 inline-block mr-3" />
-						<span>Website developer</span>
+						<span>My work: {user?.user?.occupation}</span>
+					</p>
+					<p>
+						<Building2 className="size-6 inline-block mr-3" />
+						<span>My work:{user?.user?.company}</span>
 					</p>
 					<p className="text-base lg:text-lg mt-6">
-						I am the funniest guy in the entire planet. Trust me,
-						you would have a nice time with me
+						{user?.user?.bio}
 					</p>
 				</div>
 			</div>

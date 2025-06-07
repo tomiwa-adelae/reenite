@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
-export const NoBookings = () => {
+export const NoBookings = ({
+	description = "You’ll find your bookings here after your customer have had their first booking on Reenite.",
+}: {
+	description?: string;
+}) => {
 	return (
 		<div className="mt-4 flex flex-col items-center justify-center">
 			<Image
@@ -12,8 +16,7 @@ export const NoBookings = () => {
 				className="size-[250px] object-cover"
 			/>
 			<p className="text-muted-foreground text-center text-base mt-4 mb-6">
-				You’ll find your past bookings here after you’ve had your first
-				booking on Reenite.
+				{description}
 			</p>
 		</div>
 	);

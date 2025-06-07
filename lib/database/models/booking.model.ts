@@ -6,8 +6,8 @@ export interface IBooking {
 	bookingId: string;
 	user: Types.ObjectId;
 	space: Types.ObjectId;
-	startDate: Date;
-	endDate?: Date;
+	startDate: string;
+	endDate?: string;
 	noOfHours?: string;
 	noOfDays?: string;
 	noOfWeeks?: string;
@@ -36,7 +36,7 @@ const BookingSchema = new Schema<IBooking>(
 			required: true,
 		},
 		startDate: {
-			type: Date,
+			type: String,
 			required: true,
 		},
 		endDate: {
@@ -89,37 +89,6 @@ const BookingSchema = new Schema<IBooking>(
 	},
 	{ timestamps: true }
 );
-
-// // Helper to generate a unique 4-char alphanumeric string
-// function generateSuffix(length = 4): string {
-// 	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-// 	let result = "";
-// 	for (let i = 0; i < length; i++) {
-// 		result += chars.charAt(Math.floor(Math.random() * chars.length));
-// 	}
-// 	return result;
-// }
-
-// // Pre-save hook to generate the bookingId
-// BookingSchema.pre<IBooking>("save", async function (next) {
-// 	if (!this.bookingId) {
-// 		const year = new Date().getFullYear();
-// 		let suffix = generateSuffix();
-// 		let bookingId = `BK-${year}-${suffix}`;
-
-// 		// Ensure uniqueness
-// 		let existing = await Booking.findOne({ bookingId });
-// 		while (existing) {
-// 			suffix = generateSuffix();
-// 			bookingId = `BK-${year}-${suffix}`;
-// 			existing = await Booking.findOne({ bookingId });
-// 		}
-
-// 		this.bookingId = bookingId;
-// 	}
-
-// 	next();
-// });
 
 const Booking = models.Booking || model<IBooking>("Booking", BookingSchema);
 

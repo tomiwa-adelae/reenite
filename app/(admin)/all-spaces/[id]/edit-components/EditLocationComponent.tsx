@@ -26,6 +26,7 @@ import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
 import { Input } from "@/components/ui/input";
 import { Loader } from "@/components/shared/Loader";
 import { addSpaceLocation } from "@/lib/actions/admin/space.actions";
+import { Header } from "./Header";
 
 const FormSchema = z.object({
 	country: z.string().min(2, {
@@ -53,6 +54,7 @@ interface Props {
 	city: string;
 	country: string;
 	zipCode: string;
+	closeSmallModal?: () => void;
 }
 
 export const EditLocationComponent = ({
@@ -63,6 +65,7 @@ export const EditLocationComponent = ({
 	zipCode,
 	userId,
 	spaceId,
+	closeSmallModal,
 }: Props) => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -85,20 +88,18 @@ export const EditLocationComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Location successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}
 	}
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Location
-				</h2>
-			</div>
+			<Header title={"Location"} />
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="h-[calc(100vh-80px)] pb-40 overflow-auto">
+					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
 						<ScrollArea>
 							<div className="container py-8 space-y-4">
 								<FormField
@@ -204,8 +205,8 @@ export const EditLocationComponent = ({
 												defaultValue={field.value}
 											>
 												<FormControl>
-													<SelectTrigger>
-														<SelectValue placeholder="Nigeria" />
+													<SelectTrigger className="capitalize">
+														<SelectValue placeholder="nigeria" />
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
@@ -228,8 +229,17 @@ export const EditLocationComponent = ({
 							</div>
 						</ScrollArea>
 					</div>
-					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-						<div className="container flex items-center justify-end">
+					<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-between lg:justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+								variant={"ghost"}
+								className="lg:hidden"
+							>
+								Close
+							</Button>
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}

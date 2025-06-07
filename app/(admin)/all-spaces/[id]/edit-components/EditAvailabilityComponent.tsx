@@ -29,6 +29,7 @@ import { IAvailability } from "@/lib/database/models/space.model";
 import { addSpaceAvailability } from "@/lib/actions/admin/space.actions";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/components/shared/Loader";
+import { Header } from "./Header";
 
 type Day =
 	| "monday"
@@ -51,12 +52,14 @@ interface Props {
 	userId: string;
 	spaceId: string;
 	availability: IAvailability[];
+	closeSmallModal?: () => void;
 }
 
 export const EditAvailabilityComponent = ({
 	userId,
 	spaceId,
 	availability,
+	closeSmallModal,
 }: Props) => {
 	const mapAvailabilityToFormData = (
 		availability: IAvailability[]
@@ -151,6 +154,8 @@ export const EditAvailabilityComponent = ({
 			// toast.success(res.message);
 			setLoading(false);
 			toast.success("Space availability successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
@@ -161,23 +166,18 @@ export const EditAvailabilityComponent = ({
 
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Space availability
-				</h2>
-			</div>
-
-			<div className="h-[calc(100vh-80px)] pb-40 overflow-auto">
+			<Header title={"Space availability"} />
+			<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
 				<ScrollArea>
 					<div className="space-y-3 container mt-4">
 						{Object.entries(formData.operatingHours).map(
 							([day, hours]) => (
 								<div
 									key={day}
-									className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-6 border"
+									className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-4 lg:p-6 border"
 								>
 									<div className="flex items-center justify-between gap-4 w-full">
-										<div className="text-base font-medium capitalize">
+										<div className="text-sm lg:text-base font-medium capitalize">
 											{day}
 										</div>
 										<div className="flex items-center space-x-1">
@@ -196,7 +196,7 @@ export const EditAvailabilityComponent = ({
 											/>
 											<label
 												htmlFor={day}
-												className="text-sm font-medium text-muted-foreground"
+												className="text-xs lg:text-sm font-medium text-muted-foreground"
 											>
 												Open
 											</label>
@@ -215,9 +215,9 @@ export const EditAvailabilityComponent = ({
 														e.target.value
 													)
 												}
-												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
 											/>
-											<span className="text-sm text-muted-foreground">
+											<span className="text-xs lg:text-sm text-muted-foreground">
 												to
 											</span>
 											<Input
@@ -230,7 +230,7 @@ export const EditAvailabilityComponent = ({
 														e.target.value
 													)
 												}
-												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
 											/>
 										</div>
 									)}
@@ -240,8 +240,17 @@ export const EditAvailabilityComponent = ({
 					</div>
 				</ScrollArea>
 			</div>
-			<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-				<div className="container flex items-center justify-end">
+			<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+				<div className="container flex items-center justify-between lg:justify-end">
+					<Button
+						onClick={closeSmallModal}
+						type="submit"
+						size={"lg"}
+						variant={"ghost"}
+						className="lg:hidden"
+					>
+						Close
+					</Button>
 					<Button
 						onClick={handleSubmit}
 						disabled={

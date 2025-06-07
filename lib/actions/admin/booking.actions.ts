@@ -24,6 +24,26 @@ export const getBookings = async ({
 
 		const skipAmount = validLimit > 0 ? (validPage - 1) * validLimit : 0;
 
+		const keyword = query
+			? {
+					$or: [
+						{ startDate: { $regex: query, $options: "i" } },
+						{ noOfHours: { $regex: query, $options: "i" } },
+						{ noOfDays: { $regex: query, $options: "i" } },
+						{ noOfWeeks: { $regex: query, $options: "i" } },
+						{ noOfMonths: { $regex: query, $options: "i" } },
+						{ noOfUsers: { $regex: query, $options: "i" } },
+						{ totalAmount: { $regex: query, $options: "i" } },
+						{ paymentStatus: { $regex: query, $options: "i" } },
+						{ bookingStatus: { $regex: query, $options: "i" } },
+						{ trxref: { $regex: query, $options: "i" } },
+						{ transactionId: { $regex: query, $options: "i" } },
+						{ bookingType: { $regex: query, $options: "i" } },
+						{ bookingId: { $regex: query, $options: "i" } },
+					],
+			  }
+			: {};
+
 		if (!userId)
 			return {
 				status: 400,
@@ -38,7 +58,7 @@ export const getBookings = async ({
 				message: "Oops! You are not authorized to make this request.",
 			};
 
-		const bookings = await Booking.find()
+		const bookings = await Booking.find({ ...keyword })
 			.sort({
 				createdAt: -1,
 			})
@@ -49,10 +69,13 @@ export const getBookings = async ({
 				populate: { path: "category" },
 			});
 
+		const bookingsCount = await Booking.countDocuments({ ...keyword });
+
 		return {
 			status: 200,
 			message: "Success",
 			bookings: JSON.parse(JSON.stringify(bookings)),
+			totalPages: Math.ceil(bookingsCount / limit),
 		};
 	} catch (error) {
 		handleError(error);

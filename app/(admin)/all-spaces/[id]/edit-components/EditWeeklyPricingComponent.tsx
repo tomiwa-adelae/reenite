@@ -17,6 +17,7 @@ import {
 	FormControl,
 } from "@/components/ui/form";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Header } from "./Header";
 import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
 
 import { formatMoneyInput, handleKeyDown, removeCommas } from "@/lib/utils";
@@ -45,12 +46,14 @@ interface Props {
 	userId: string;
 	spaceId: string;
 	initialPricing?: Record<string, number> | null; // might come as null
+	closeSmallModal?: () => void;
 }
 
 export const EditWeeklyPricingComponent = ({
 	userId,
 	spaceId,
 	initialPricing = {},
+	closeSmallModal,
 }: Props) => {
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
@@ -109,6 +112,8 @@ export const EditWeeklyPricingComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Weekly pricing successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			toast.error("Something went wrong.");
 		} finally {
@@ -118,15 +123,11 @@ export const EditWeeklyPricingComponent = ({
 
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl">
-					Weekly pricing
-				</h2>
-			</div>
+			<Header title={"Weekly pricing"} />
 
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="h-[calc(100vh-80px)] pb-40 overflow-auto">
+					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
 						<ScrollArea>
 							<div className="container py-8 space-y-4">
 								{["1", "2", "3", "4", "5", "6", "7+"].map(
@@ -177,8 +178,17 @@ export const EditWeeklyPricingComponent = ({
 						</ScrollArea>
 					</div>
 
-					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-						<div className="container flex items-center justify-end">
+					<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-between lg:justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+								variant={"ghost"}
+								className="lg:hidden"
+							>
+								Close
+							</Button>
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}

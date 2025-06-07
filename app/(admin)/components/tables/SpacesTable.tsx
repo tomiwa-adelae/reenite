@@ -112,7 +112,11 @@ export function SpacesTable({ spaces }: { spaces: ISpace[] }) {
 									{space?.city}, {space?.state}
 								</TableCell>
 								<TableCell className="text-right">
-									₦{formatMoneyInput(space.hourlyPrice)}
+									₦
+									{formatMoneyInput(
+										// @ts-ignore
+										space.pricing?.hourly["1"]
+									)}
 								</TableCell>
 								<TableCell>
 									<div className="flex items-center justify-end">

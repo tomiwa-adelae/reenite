@@ -77,6 +77,7 @@ export const UploadModal = ({
 							onClose();
 							setPhotos([]);
 						}}
+						type="button"
 						size="md"
 						variant={"ghost"}
 						disabled={loading}

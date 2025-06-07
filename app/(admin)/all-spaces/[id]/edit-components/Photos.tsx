@@ -13,15 +13,18 @@ import { addSpacePhotos } from "@/lib/actions/admin/space.actions";
 import { toast } from "sonner";
 import { DeleteImageModal } from "@/app/(new)/components/DeleteImageModal";
 import { Button } from "@/components/ui/button";
+import { Header } from "./Header";
 
 export const Photos = ({
 	photos,
 	userId,
 	spaceId,
+	closeSmallModal,
 }: {
 	photos: any;
 	userId: string;
 	spaceId: string;
+	closeSmallModal?: () => void;
 }) => {
 	const [openDeleteModal, setOpenDeleteModal] = useState(false);
 	const [openUploadModal, setOpenUploadModal] = useState(false);
@@ -31,7 +34,11 @@ export const Photos = ({
 	const [loading, setLoading] = useState(false);
 	const [newPhotos, setNewPhotos] = useState<string[]>([]);
 
-	const handleOpen = (index: number) => {
+	const handleOpen = (
+		e: React.MouseEvent<HTMLButtonElement>,
+		index: number
+	) => {
+		e.stopPropagation();
 		setCurrentIndex(index);
 		setOpen(true);
 	};
@@ -78,26 +85,24 @@ export const Photos = ({
 
 	return (
 		<div className="py-8 container">
-			<div className="flex items-center justify-between gap-4">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Space photos
-				</h2>
+			<Header title={"Space photos"}>
 				<Button
 					size="icon"
-					className="size-12 bg-[#F7F7F7]"
+					className="size-10 lg:size-12  bg-[#F7F7F7]"
 					variant="ghost"
 					onClick={() => setOpenUploadModal(true)}
 				>
-					<Plus className="size-6" />
+					<Plus className="size-4 lg:size-6" />
 				</Button>
-			</div>
-			<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
+			</Header>
+
+			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
 				<ScrollArea>
-					<div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+					<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 						{photos.map((photo: any, index: any) => (
 							<div
 								key={index}
-								onClick={() => handleOpen(index)}
+								onClick={(e: any) => handleOpen(e, index)}
 								className="group overflow-hidden rounded-2xl relative"
 							>
 								<Image
@@ -120,6 +125,17 @@ export const Photos = ({
 						))}
 					</div>
 				</ScrollArea>
+				<footer className="lg:hidden bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+					<div className="container flex items-center justify-end">
+						<Button
+							onClick={closeSmallModal}
+							type="submit"
+							size={"lg"}
+						>
+							Done
+						</Button>
+					</div>
+				</footer>
 			</div>
 			{open && (
 				<Lightbox

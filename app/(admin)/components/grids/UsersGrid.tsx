@@ -1,13 +1,14 @@
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { IUser } from "@/lib/database/models/user.model";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export const UsersGrid = ({ customers }: { customers: any }) => {
 	return (
 		<div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-			{customers?.map((customer: IUser) => (
-				<div>
+			{customers?.map((customer: IUser, index: string) => (
+				<Link href={`/all-users/${customer?._id}`} key={index}>
 					<Image
 						src={customer.picture || DEFAULT_PROFILE_PICTURE}
 						alt={`${customer.firstName}'s picture`}
@@ -21,7 +22,7 @@ export const UsersGrid = ({ customers }: { customers: any }) => {
 					<p className="text-base text-muted-foreground mt-1">
 						{customer?.email}
 					</p>
-				</div>
+				</Link>
 			))}
 		</div>
 	);

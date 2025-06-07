@@ -29,6 +29,7 @@ import { useState } from "react";
 import { handleKeyDown } from "@/lib/utils";
 import { addSpaceDiscounts } from "@/lib/actions/admin/space.actions";
 import { Loader } from "@/components/shared/Loader";
+import { Header } from "./Header";
 
 const FormSchema = z.object({
 	hourlyDiscount: z.number().min(0).max(100),
@@ -54,6 +55,7 @@ interface Props {
 	monthlyDiscount: string;
 	userId: string;
 	spaceId: string;
+	closeSmallModal?: () => void;
 }
 
 export const EditDiscountComponent = ({
@@ -63,6 +65,7 @@ export const EditDiscountComponent = ({
 	weeklyDiscount,
 	hourlyDiscount,
 	monthlyDiscount,
+	closeSmallModal,
 }: Props) => {
 	const [enabledDiscounts, setEnabledDiscounts] = useState<
 		Record<DiscountKey, boolean>
@@ -127,26 +130,24 @@ export const EditDiscountComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Discount successfully updated!");
+			// @ts-ignore
+			closeSmallModal();
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}
 	};
 	return (
 		<div className="relative pt-8">
-			<div className="container">
-				<h2 className="font-semibold text-muted-foreground text-3xl lg:text-3xl">
-					Discount
-				</h2>
-			</div>
+			<Header title={"Discount"} />
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="h-[calc(100vh-80px)] pb-40 overflow-auto">
+					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
 						<ScrollArea>
 							<div className="container max-w-3xl space-y-6 mt-4">
 								{DISCOUNT_TYPES.map(({ key, label }) => (
 									<div
 										key={key}
-										className="rounded-xl bg-[#F7F7F7] p-6 flex items-center justify-between gap-2 border"
+										className="rounded-xl bg-[#F7F7F7] p-4 lg:p-6 flex items-center justify-between gap-2 border"
 									>
 										<FormField
 											control={form.control}
@@ -177,7 +178,7 @@ export const EditDiscountComponent = ({
 																	]
 																}
 																placeholder="20"
-																className="text-base md:text-xl max-w-[70px] focus:outline-0"
+																className="text-base md:text-xl max-w-[60px] lg:max-w-[70px] focus:outline-0"
 															/>
 															<p className="absolute top-[50%] translate-y-[-50%] right-[8%] text-lg text-muted-foreground">
 																%
@@ -196,15 +197,24 @@ export const EditDiscountComponent = ({
 											onCheckedChange={() =>
 												toggleDiscount(key)
 											}
-											className="size-6"
+											className="size-4 lg:size-6"
 										/>
 									</div>
 								))}
 							</div>
 						</ScrollArea>
 					</div>
-					<footer className=" bg-white fixed flex items-center justify-center w-1/2 bottom-0  border-t h-20 py-4">
-						<div className="container flex items-center justify-end">
+					<footer className=" bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
+						<div className="container flex items-center justify-between lg:justify-end">
+							<Button
+								onClick={closeSmallModal}
+								type="submit"
+								size={"lg"}
+								variant={"ghost"}
+								className="lg:hidden"
+							>
+								Close
+							</Button>
 							<Button
 								type="submit"
 								disabled={form.formState.isSubmitting}

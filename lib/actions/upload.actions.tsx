@@ -48,3 +48,31 @@ export const uploadImages = async ({
 		};
 	}
 };
+
+export const uploadProfilePicture = async (image: any) => {
+	try {
+		const isImage =
+			image.startsWith("data:image/jpeg") ||
+			image.startsWith("data:image/png") ||
+			image.startsWith("data:image/jpg") ||
+			image.startsWith("data:image/gif") ||
+			image.startsWith("data:image/webp");
+
+		const isPDF = image.startsWith("data:application/pdf");
+
+		const result = await cloudinary.uploader.upload(image, {
+			folder: "reenite",
+			resource_type: isImage || isPDF ? "image" : "raw",
+		});
+
+		return { picture: result.secure_url, pictureId: result.public_id };
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't upload the image! Try again later.",
+		};
+	}
+};

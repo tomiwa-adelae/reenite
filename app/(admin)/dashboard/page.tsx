@@ -13,6 +13,7 @@ import { getCustomers } from "@/lib/actions/admin/customer.actions";
 import { NoCustomers } from "../components/NoCustomers";
 import { getSpaces } from "@/lib/actions/admin/space.actions";
 import { getBookings } from "@/lib/actions/admin/booking.actions";
+import { NoBookings } from "../components/NoBookings";
 
 const page = async () => {
 	const clerkUser = await currentUser();
@@ -34,16 +35,20 @@ const page = async () => {
 						<DashboardAnalytics
 							spaces={spaces.spaces}
 							customers={customers?.customers}
+							bookings={bookings?.bookings}
 						/>
 						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Recent bookings
 							</h3>
-							<div className="mt-2">
-								<BookingsListings
-									bookings={bookings.bookings}
-								/>
-							</div>
+							{bookings?.bookings.length === 0 && <NoBookings />}
+							{bookings?.bookings.length !== 0 && (
+								<div className="mt-2">
+									<BookingsListings
+										bookings={bookings.bookings}
+									/>
+								</div>
+							)}
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">

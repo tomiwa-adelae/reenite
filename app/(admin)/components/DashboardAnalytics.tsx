@@ -2,13 +2,15 @@ import { Building, CalendarDays, TrendingUp, Users } from "lucide-react";
 import { DashboardBox } from "./DashboardBox";
 import { ISpace } from "@/lib/database/models/space.model";
 import { IUser } from "@/lib/database/models/user.model";
+import { IBooking } from "@/lib/database/models/booking.model";
 
 interface Props {
 	customers: IUser[];
 	spaces: ISpace[];
+	bookings: IBooking[];
 }
 
-export const DashboardAnalytics = ({ spaces, customers }: Props) => {
+export const DashboardAnalytics = ({ spaces, customers, bookings }: Props) => {
 	return (
 		<div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 			<DashboardBox
@@ -21,7 +23,7 @@ export const DashboardAnalytics = ({ spaces, customers }: Props) => {
 			<DashboardBox
 				title={"Total bookings"}
 				titleIcon={CalendarDays}
-				number={"89"}
+				number={bookings.length}
 				icon={TrendingUp}
 				slug="/all-bookings"
 			/>
