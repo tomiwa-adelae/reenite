@@ -51,6 +51,13 @@ export const createUser = async (user: CreateUserParams) => {
 			existing = await User.findOne({ userId });
 		}
 
+		if (existing) {
+			console.log("User already exists, skipping creation.");
+			return existing;
+		}
+
+		console.log("USERID", userId);
+
 		const details = {
 			...user,
 			userId,

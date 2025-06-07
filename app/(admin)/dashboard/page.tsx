@@ -41,8 +41,8 @@ const page = async () => {
 							<h3 className="font-medium text-base md:text-lg">
 								Recent bookings
 							</h3>
-							{bookings?.bookings.length === 0 && <NoBookings />}
-							{bookings?.bookings.length !== 0 && (
+							{bookings?.bookings?.length === 0 && <NoBookings />}
+							{bookings?.bookings?.length !== 0 && (
 								<div className="mt-2">
 									<BookingsListings
 										bookings={bookings.bookings}
