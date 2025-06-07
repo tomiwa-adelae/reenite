@@ -19,7 +19,7 @@ import { IUser } from "@/lib/database/models/user.model";
 import { useClerk } from "@clerk/nextjs";
 
 interface Props {
-	user: IUser;
+	user: any;
 }
 
 export function ProfileDropdown({ user }: Props) {
