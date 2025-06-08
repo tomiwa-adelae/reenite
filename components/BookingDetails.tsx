@@ -67,6 +67,7 @@ export const BookingDetails = ({
 }: Props) => {
 	const router = useRouter();
 
+	const [bookingEndDate, setBookingEndDate] = useState<any>(null);
 	const [newHours, setNewHours] = useState(noOfHours || "");
 	const [newDays, setNewDays] = useState(noOfDays || "");
 	const [newWeeks, setNewWeeks] = useState(noOfWeeks || "");
@@ -75,11 +76,7 @@ export const BookingDetails = ({
 	const [totalPrice, setTotalPrice] = useState<any>(0);
 	const [loading, setLoading] = useState<boolean>(false);
 
-	console.log(bookingStartDate);
-
 	useEffect(() => {
-		console.log(pricing, discount);
-
 		const numbers =
 			booking === "hourly"
 				? newHours
@@ -89,15 +86,58 @@ export const BookingDetails = ({
 				? newWeeks
 				: newMonths;
 
-		console.log(numbers);
-
 		let basePrice =
 			(pricing[newUsers] || 0) * Number(numbers) * Number(newUsers);
-		console.log(basePrice);
-		const discountAmount = (basePrice * Number(discount)) / 100;
+		const discountAmount = (basePrice * Number(discount || 0)) / 100;
 
 		setTotalPrice(basePrice - discountAmount);
 	}, [booking, discount, newUsers, newWeeks, newDays, newMonths, newHours]);
+
+	useEffect(() => {
+		if (!bookingStartDate) return;
+
+		// Remove ordinal suffix (st, nd, rd, th) from the date string
+		const sanitizedDateStr = bookingStartDate.replace(
+			/(\d+)(st|nd|rd|th)/,
+			"$1"
+		);
+		const startDate = new Date(sanitizedDateStr);
+
+		if (isNaN(startDate.getTime())) {
+			console.error("Invalid start date format:", bookingStartDate);
+			setBookingEndDate(null);
+			return;
+		}
+
+		let endDate = new Date(startDate);
+
+		switch (booking) {
+			case "hourly":
+				endDate = startDate;
+				break;
+			case "daily": {
+				const days = Number(newDays || 0);
+				if (days > 1) {
+					endDate.setDate(endDate.getDate() + days - 1);
+				}
+				// If days === 1, endDate remains same as startDate
+				break;
+			}
+			case "weekly":
+				endDate.setDate(
+					endDate.getDate() + Number(newWeeks || 0) * 7 - 1
+				);
+				break;
+			case "monthly":
+				endDate.setMonth(endDate.getMonth() + Number(newMonths || 0));
+				endDate.setDate(endDate.getDate() - 1); // end on same day previous month
+				break;
+			default:
+				break;
+		}
+
+		setBookingEndDate(formatDate(endDate));
+	}, [booking, bookingStartDate, newDays, newWeeks, newMonths]);
 
 	// Move this hook out of the handleSubmit function
 	const config = {
@@ -140,6 +180,7 @@ export const BookingDetails = ({
 				noOfUsers,
 				totalAmount: totalPrice,
 				bookingStartDate,
+				bookingEndDate,
 				bookingType: booking,
 			};
 
@@ -176,7 +217,7 @@ export const BookingDetails = ({
 	};
 
 	return (
-		<div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
+		<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-4">
 			<div className="col-span-4">
 				<h4 className="text-xl md:text-2xl font-medium mb-2">
 					Contact details
@@ -314,26 +355,32 @@ export const BookingDetails = ({
 					<h4 className="text-xl md:text-2xl font-medium">
 						Booking details
 					</h4>
-					<div className="py-2 text-sm lg:text-base mt-4 flex items-center justify-between gap-2">
+					<div className="py-2 text-sm lg:text-base text-muted-foreground mt-4 flex items-center justify-between gap-2">
 						<p>Starting date:</p>
-						<p>{bookingStartDate}</p>
+						<p className="text-black">{bookingStartDate}</p>
+					</div>
+					<div className="py-2 text-sm lg:text-base text-muted-foreground mt-4 flex items-center justify-between gap-2">
+						<p>End date:</p>
+						<p className="text-black">{bookingEndDate}</p>
 					</div>
 					<Separator className="my-2" />
-					<div className="py-2 text-sm lg:text-base flex items-center justify-between gap-2">
+					<div className="py-2 text-sm lg:text-base text-muted-foreground flex items-center justify-between gap-2">
 						<p className="capitalize">{booking} Price:</p>
-						<p className="capitalize">
+						<p className="capitalize text-black">
 							₦{formatMoneyInput(pricing["1"])}
 						</p>
 					</div>
 					<Separator className="my-2" />
-					<div className="py-2 text-sm lg:text-base flex items-center justify-between gap-2">
+					<div className="py-2 text-sm lg:text-base text-muted-foreground flex items-center justify-between gap-2">
 						<p>Discount:</p>
-						<p>{discount}%</p>
+						<p className="text-black">{discount ? discount : 0}%</p>
 					</div>
 					<Separator className="my-2" />
 					<div className="py-2 text-lg flex items-center justify-between gap-2 font-semibold">
 						<p>Total:</p>
-						<p>₦{formatMoneyInput(totalPrice)}</p>
+						<p className="text-black">
+							₦{formatMoneyInput(totalPrice)}
+						</p>
 					</div>
 					<Button
 						onClick={handleSubmit}

@@ -87,18 +87,18 @@ export const SpaceBooking = ({
 										alt={`${label} icon`}
 										width={1000}
 										height={1000}
-										className="size-[65px]"
+										className="size-[45px] md:size-[65px]"
 									/>
 									<div className="flex flex-col items-start justify-start">
-										<h4 className="Capitalize font-medium text-base capitalize">
+										<h4 className="Capitalize font-medium text-sm md:text-base capitalize">
 											{label}
 										</h4>
-										<p className="text-sm text-muted-foreground">
+										<p className="text-xs md:text-sm text-muted-foreground">
 											{description}
 										</p>
 									</div>
 								</div>
-								<p className="mt-2 text-center rounded-full border py-2 px-4 font-medium text-sm">
+								<p className="mt-2 text-center rounded-full border py-2 px-4 font-medium text-xs md:text-sm">
 									₦{formatMoneyInput(prices[priceKey]["1"])}
 									<span className="text-muted-foreground text-xs">
 										/ per user

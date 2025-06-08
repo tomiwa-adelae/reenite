@@ -47,12 +47,30 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 							<TableCell>{booking.bookingId}</TableCell>
 							<TableCell>{booking.space.title}</TableCell>
 							<TableCell>
-								{formatDate(booking.startDate)}{" "}
+								{booking.startDate}{" "}
 								{booking.bookingType === "hourly" &&
 									`(${booking.noOfHours} ${
 										booking.noOfHours === 1
 											? "hour"
 											: "hours"
+									})`}
+								{booking.bookingType === "daily" &&
+									`(${booking.noOfDays} ${
+										booking.noOfDays === 1
+											? "day"
+											: "days"
+									})`}
+								{booking.bookingType === "weekly" &&
+									`(${booking.noOfWeeks} ${
+										booking.noOfWeeks === 1
+											? "week"
+											: "weeks"
+									})`}
+								{booking.bookingType === "monthly" &&
+									`(${booking.noOfMonths} ${
+										booking.noOfMonths === 1
+											? "month"
+											: "months"
 									})`}
 							</TableCell>
 							<TableCell>

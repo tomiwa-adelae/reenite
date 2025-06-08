@@ -4,7 +4,7 @@ import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { getBookingDetails } from "@/lib/actions/customer/booking.actions";
+import { getBookingDetails } from "@/lib/actions/admin/booking.actions";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { IAmenity } from "@/lib/database/models/space.model";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
@@ -51,7 +51,6 @@ const page = async ({ params }: { params: any }) => {
 		booking.booking.space?.photos.find((photo) => photo.cover) ||
 		// @ts-ignore
 		booking.booking.space?.photos[0];
-
 	return (
 		<div className="py-8">
 			<div className="container">
@@ -60,7 +59,7 @@ const page = async ({ params }: { params: any }) => {
 						<BackButton slug={"/all-bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
 							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
-								BK-{booking.booking.bookingId}
+								{booking.booking.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">
 								<Badge variant="success">
@@ -117,7 +116,7 @@ const page = async ({ params }: { params: any }) => {
 							)
 						)}
 					</div>
-					<Button asChild size="md" className="w-full">
+					<Button asChild size="md" className="w-full mt-4">
 						<Link href={`/all-spaces/${booking.booking.space._id}`}>
 							<Eye className="size-5 mr-2" />
 							View space
@@ -155,14 +154,22 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex items-center justify-start gap-2">
 							<CalendarCheck className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Booking type: {booking.booking.bookingType}
+								Booking type:{" "}
+								<span className="capitalize">
+									{booking.booking.bookingType}
+								</span>
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Start date:{" "}
-								{formatDate(booking.booking.startDate)}
+								Start date: {booking.booking.startDate}
+							</p>
+						</div>
+						<div className="flex items-center justify-start gap-2">
+							<CalendarDays className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground">
+								End date: {booking.booking.endDate}
 							</p>
 						</div>
 						{booking.booking.bookingType === "hourly" && (
@@ -173,6 +180,39 @@ const page = async ({ params }: { params: any }) => {
 									{booking.booking.noOfHours === "1"
 										? "hour"
 										: "hours"}
+								</p>
+							</div>
+						)}
+						{booking.booking.bookingType === "daily" && (
+							<div className="flex items-center justify-start gap-2">
+								<Hourglass className="size-5 text-muted-foreground" />
+								<p className="text-sm md:text-base text-muted-foreground">
+									Days: {booking.booking.noOfDays}{" "}
+									{booking.booking.noOfDays === "1"
+										? "day"
+										: "days"}
+								</p>
+							</div>
+						)}
+						{booking.booking.bookingType === "weekly" && (
+							<div className="flex items-center justify-start gap-2">
+								<Hourglass className="size-5 text-muted-foreground" />
+								<p className="text-sm md:text-base text-muted-foreground">
+									Days: {booking.booking.noOfWeeks}{" "}
+									{booking.booking.noOfWeeks === "1"
+										? "week"
+										: "weeks"}
+								</p>
+							</div>
+						)}
+						{booking.booking.bookingType === "monthly" && (
+							<div className="flex items-center justify-start gap-2">
+								<Hourglass className="size-5 text-muted-foreground" />
+								<p className="text-sm md:text-base text-muted-foreground">
+									Days: {booking.booking.noOfMonths}{" "}
+									{booking.booking.noOfMonths === "1"
+										? "month"
+										: "months"}
 								</p>
 							</div>
 						)}
@@ -279,21 +319,13 @@ const page = async ({ params }: { params: any }) => {
 				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Actions</h3>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-						<Button
-							className="rounded-2xl flex items-center justify-center flex-col gap-2 py-16"
-							size="lg"
-							asChild
-						>
+						<Button className="" size="lg">
 							<Check className="size-5" />
-							<span>Mark as completed</span>
+							Mark as completed
 						</Button>
-						<Button
-							className="rounded-2xl flex items-center justify-center flex-col gap-2 py-16"
-							size="lg"
-							variant={"destructive"}
-						>
+						<Button className="" size="lg" variant={"destructive"}>
 							<Ban className="size-5" />
-							<span>Cancel booking</span>
+							Cancel booking
 						</Button>
 					</div>
 				</div>

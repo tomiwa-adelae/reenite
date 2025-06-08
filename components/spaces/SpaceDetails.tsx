@@ -44,10 +44,10 @@ export const SpaceDetails = ({
 	const [booking, setBooking] = useState("");
 
 	return (
-		<div className="grid grid-cols-1 lg:grid-cols-6 gap-4 mt-4">
+		<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-4 mt-4">
 			<div className="col-span-4">
 				<AboutSpace description={description} />
-				<Separator className="my-8" />
+				<Separator className="my-4 md:my-6" />
 				<SpaceBooking
 					category={category}
 					hourlyPricing={hourlyPricing}
@@ -58,11 +58,11 @@ export const SpaceDetails = ({
 						setBooking(booking);
 					}}
 				/>
-				<Separator className="mt-4 mb-8" />
+				<Separator className="mb-4 md:mb-6" />
 				<SpaceAmenities amenities={amenities} />
-				<Separator className="mt-4 mb-8" />
+				<Separator className="my-4 md:my-6" />
 				<SpaceAvailability availability={availability} />
-				<Separator className="my-8" />
+				<Separator className="my-4 md:my-6" />
 				<SpaceContactInfo />
 			</div>
 			<div className="col-span-6 lg:col-span-2">
@@ -71,7 +71,7 @@ export const SpaceDetails = ({
 						Booking details
 					</h4>
 					{booking && (
-						<p className="text-sm lg:text-base text-muted-foreground">
+						<p className="text-sm lg:text-base text-muted-foreground mt-2">
 							You selected our {booking} plan
 						</p>
 					)}

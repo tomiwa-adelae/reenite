@@ -56,7 +56,7 @@ const page = async ({ params }: { params: any }) => {
 							variant="ghost"
 							asChild
 						>
-							<Link href="/profile">
+							<Link href="/bookings">
 								<ArrowLeft className="size-4 lg:size-6" />
 							</Link>
 						</Button>
@@ -118,9 +118,9 @@ const page = async ({ params }: { params: any }) => {
 								alt={`${booking.booking.space.title} category icon`}
 								width={1000}
 								height={1000}
-								className="size-[65px]"
+								className="size-[50px] md:size-[65px]"
 							/>
-							<h3 className="font-medium text-lg">
+							<h3 className="font-medium text-base md:text-lg">
 								{booking.booking.space.category.name}
 							</h3>
 						</div>
@@ -150,7 +150,9 @@ const page = async ({ params }: { params: any }) => {
 								{booking.booking.space.city},{" "}
 								{booking.booking.space.city},{" "}
 								{booking.booking.space.state},{" "}
-								{booking.booking.space.country}
+								<span className="capitalize">
+									{booking.booking.space.country}
+								</span>
 							</p>
 						</div>
 					</div>
@@ -198,8 +200,13 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Start date:{" "}
-								{formatDate(booking.booking.startDate)}
+								Start date: {booking.booking.startDate}
+							</p>
+						</div>
+						<div className="flex items-center justify-start gap-2">
+							<CalendarDays className="size-5 text-muted-foreground" />
+							<p className="text-sm md:text-base text-muted-foreground">
+								End date: {booking.booking.endDate}
 							</p>
 						</div>
 						{booking.booking.bookingType === "hourly" && (
@@ -297,7 +304,7 @@ const page = async ({ params }: { params: any }) => {
 					<h3 className="font-medium text-lg">
 						Having issues with this booking?
 					</h3>
-					<div className="grid gap-4 mt-4">
+					<div className="grid gap-4 mt-2">
 						<p className="text-sm md:text-base items-center justify-between gap-4">
 							Contact our support team{" "}
 							<Link

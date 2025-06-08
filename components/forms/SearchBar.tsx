@@ -54,7 +54,14 @@ export function SearchBar({
 				size="icon"
 				className="bg-[#F7F7F7] absolute top-[50%] right-2 translate-y-[-50%]"
 				variant="ghost"
-				onClick={onClose}
+				onClick={() => {
+					const params = new URLSearchParams(searchParams.toString());
+					params.delete("query");
+					// Build a clean URL with pathname + query string
+					const newUrl = `${pathname}?${params.toString()}`;
+					router.push(newUrl, { scroll: false });
+					onClose();
+				}}
 			>
 				<CircleX className="text-muted-foreground size-5" />
 			</Button>

@@ -15,7 +15,7 @@ export const SpaceImages = ({ images }: { images: any }) => {
 		setOpen(true);
 	};
 	return (
-		<div className="mt-8 relative">
+		<div className="mt-4 relative">
 			<div className="grid grid-cols-1 md:grid-cols-5 grid-rows-4 gap-2 rounded-2xl overflow-hidden">
 				{/* Large main image */}
 				<div
@@ -27,7 +27,7 @@ export const SpaceImages = ({ images }: { images: any }) => {
 						alt="Main space image"
 						width={1000}
 						height={1000}
-						className="aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
+						className="aspect-square md:aspect-video size-full object-cover transition-all group-hover:scale-[101%]"
 					/>
 					<div className="absolute opacity-0 group-hover:opacity-100 inset-0 transition-all group-hover:bg-black/20 cursor-pointer" />
 				</div>

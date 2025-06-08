@@ -68,7 +68,7 @@ export function ProfileDropdown({ user }: Props) {
 				{userNavLinks.map(({ label, icon, slug }, index) => {
 					const Icon = icon;
 					return (
-						<Link href={slug}>
+						<Link key={index} href={slug}>
 							<DropdownMenuItem className="cursor-pointer">
 								<Icon className="size-5" />
 								<span className="text-base font-medium">

@@ -32,11 +32,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					</div>
 					<h1
 						style={{ fontFamily: "ClashDisplay" }}
-						className="text-4xl md:text-5xl lg:text-6xl mt-6 mb-4 font-bold"
+						className="text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold"
 					>
 						Booking confirmed successfully!
 					</h1>
-					<p className="text-sm text-muted-foreground lg:text-base leading-relaxed font-medium">
+					<p className="text-xs md:text-sm text-muted-foreground lg:text-base leading-relaxed font-medium">
 						Thank you for choosing to book with Reenite! Your
 						reservation is confirmed. If there is anything you need
 						before your arrival, please don't hesitate to reach out
@@ -61,11 +61,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					</div>
 				</div>
 				<div className="col-span-3 lg:col-span-2 grid gap-6">
-					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white px-8 flex items-center justify-between gap-4 py-6">
+					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-4 md:px-8 flex items-center justify-between gap-4 py-4 md:py-6">
 						<div>
 							<h2
 								style={{ fontFamily: "ClashDisplay" }}
-								className="font-bold text-3xl"
+								className="font-bold text-2xl md:text-3xl"
 							>
 								₦
 								{formatMoneyInput(
@@ -82,11 +82,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 								alt={"Check icon"}
 								width={1000}
 								height={1000}
-								className="size-[40px] object-cover invert"
+								className="size-[20px] md:size-[30px] lg:size-[40px] object-cover invert"
 							/>
 						</div>
 					</div>
-					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-8">
+					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-4 md:p-8">
 						<h2 className="font-medium text-xl md:text-2xl">
 							Booking summary
 						</h2>
@@ -104,11 +104,9 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 								</span>
 							</p>
 							<p className="flex items-center justify-between gap-4">
-								Booking start date:{" "}
+								Start date:{" "}
 								<span className="text-black font-semibold">
-									{formatDate(
-										bookingDetails?.booking.startDate
-									)}
+										{bookingDetails?.booking.startDate}
 								</span>
 							</p>
 							{bookingDetails?.booking?.bookingType ===

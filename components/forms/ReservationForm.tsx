@@ -92,6 +92,7 @@ export function ReservationForm({
 			noOfHours: "1",
 			noOfUsers: "1",
 			noOfWeeks: "1",
+			noOfDays: "1",
 			noOfMonths: "1",
 			bookingStartDate: new Date(),
 		},
@@ -394,7 +395,7 @@ export function ReservationForm({
 					/>
 				</div>
 				<div className="mt-2 mb-4">
-					<div className="py-2 text-base lg:text-lg flex items-center justify-between gap-2 mt-4 font-semibold">
+					<div className="py-2 text-sm lg:text-base flex items-center justify-between gap-2 mt-4 font-semibold">
 						<p>Discount:</p>
 						<p>{appliedDiscount}%</p>
 					</div>

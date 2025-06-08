@@ -33,7 +33,10 @@ const page = async ({ params }: { params: any }) => {
 				</h2>
 				<p className="text-sm lg:text-base text-muted-foreground mt-2">
 					{spaceDetails?.space.address}, {spaceDetails?.space.city},{" "}
-					{spaceDetails?.space?.state}, {spaceDetails?.space?.country}
+					{spaceDetails?.space?.state},{" "}
+					<span className="capitalize">
+						{spaceDetails?.space?.country}
+					</span>
 				</p>
 				<SpaceImages images={spaceDetails?.space.photos} />
 				<SpaceDetails

@@ -79,28 +79,38 @@ const page = async () => {
 						<Mail className="size-6 inline-block mr-3" />
 						<span>My email: {user?.user?.email}</span>
 					</p>
-					<p>
-						<Phone className="size-6 inline-block mr-3" />
-						<span>My phone number: {user?.user?.phoneNumber}</span>
-					</p>
-					<p>
-						<MapPinHouse className="size-6 inline-block mr-3" />
-						<span>
-							My location: {user?.user?.address},{" "}
-							{user?.user?.city}, {user?.user?.state},{" "}
-							<span className="capitalize">
-								{user?.user?.country}
+					{user?.user?.phoneNumber && (
+						<p>
+							<Phone className="size-6 inline-block mr-3" />
+							<span>
+								My phone number: {user?.user?.phoneNumber}
 							</span>
-						</span>
-					</p>
-					<p>
-						<BriefcaseBusiness className="size-6 inline-block mr-3" />
-						<span>My work: {user?.user?.occupation}</span>
-					</p>
-					<p>
-						<Building2 className="size-6 inline-block mr-3" />
-						<span>My work:{user?.user?.company}</span>
-					</p>
+						</p>
+					)}
+					{user?.user?.address && (
+						<p>
+							<MapPinHouse className="size-6 inline-block mr-3" />
+							<span>
+								My location: {user?.user?.address},{" "}
+								{user?.user?.city}, {user?.user?.state},{" "}
+								<span className="capitalize">
+									{user?.user?.country}
+								</span>
+							</span>
+						</p>
+					)}
+					{user?.user?.occupation && (
+						<p>
+							<BriefcaseBusiness className="size-6 inline-block mr-3" />
+							<span>My work: {user?.user?.occupation}</span>
+						</p>
+					)}
+					{user?.user?.company && (
+						<p>
+							<Building2 className="size-6 inline-block mr-3" />
+							<span>My company:{user?.user?.company}</span>
+						</p>
+					)}
 					<p className="text-base lg:text-lg mt-6">
 						{user?.user?.bio}
 					</p>

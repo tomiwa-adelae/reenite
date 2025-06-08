@@ -22,8 +22,6 @@ export const EditProfilePicture = ({ userId }: { userId: string }) => {
 
 			const uploadedProfilePicture = await uploadProfilePicture(picture);
 
-			console.log(uploadedProfilePicture);
-
 			if (
 				!uploadedProfilePicture.picture ||
 				!uploadedProfilePicture.pictureId

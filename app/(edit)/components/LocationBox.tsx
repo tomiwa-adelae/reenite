@@ -71,8 +71,6 @@ export const LocationBox = ({
 
 	async function onSubmit(data: z.infer<typeof FormSchema>) {
 		try {
-			console.log({ ...data });
-
 			const res = await updateUserProfile({ userId, ...data });
 
 			if (res.status === 400) return toast.error(res.message);

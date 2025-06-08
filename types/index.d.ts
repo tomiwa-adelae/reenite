@@ -204,6 +204,7 @@ declare interface CreateBookingParams {
 	paymentStatus: string;
 	bookingStatus: string;
 	bookingStartDate: string;
+	bookingEndDate: string;
 	bookingType: string;
 }
 

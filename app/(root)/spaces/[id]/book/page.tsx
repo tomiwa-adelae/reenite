@@ -25,8 +25,6 @@ const page = async ({
 	const user = await getUserInfo(clerkUser?.id!);
 	const spaceDetails = await getSpaceDetails(id);
 
-	console.log(bookingStartDate);
-
 	if (spaceDetails?.status === 400) return <SpaceNotFound />;
 
 	// Determine the correct discount based on booking type
@@ -72,14 +70,19 @@ const page = async ({
 							className="rounded-2xl object-cover size-[100px]"
 						/>
 						<div>
-							<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl">
+							<Link
+								href={`/spaces/${spaceDetails?.space?._id}`}
+								className="hover:text-secondary transition-all font-medium text-lg md:text-2xl lg:text-3xl"
+							>
 								{spaceDetails?.space.title}
-							</h2>
-							<p className="text-sm lg:text-base text-muted-foreground mt-1">
+							</Link>
+							<p className="text-xs md:text-sm lg:text-base text-muted-foreground mt-1">
 								{spaceDetails?.space.address},{" "}
 								{spaceDetails?.space.city},{" "}
 								{spaceDetails?.space?.state},{" "}
-								{spaceDetails?.space?.country}
+								<span className="capitalize">
+									{spaceDetails?.space?.country}
+								</span>
 							</p>
 						</div>
 					</div>
