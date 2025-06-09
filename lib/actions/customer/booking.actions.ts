@@ -6,10 +6,12 @@ import Space from "@/lib/database/models/space.model";
 import User from "@/lib/database/models/user.model";
 import { handleError } from "@/lib/utils";
 import {
+	CancelBookingParams,
 	CreateBookingParams,
 	GetAllBookingsParams,
 	GetBookingDetailsParams,
 } from "@/types";
+import { revalidatePath } from "next/cache";
 
 export const createBooking = async ({
 	spaceId,
@@ -217,7 +219,7 @@ export const getBookings = async ({
 				message: "Oops! An error occurred. Try again later",
 			};
 
-		const bookings = await Booking.find({ ...keyword })
+		const bookings = await Booking.find({ user: userId, ...keyword })
 			.sort({
 				createdAt: -1,
 			})
@@ -235,6 +237,62 @@ export const getBookings = async ({
 			message: "Success",
 			bookings: JSON.parse(JSON.stringify(bookings)),
 			totalPages: Math.ceil(bookingsCount / limit),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+// Cancel booking
+export const cancelBooking = async ({
+	userId,
+	bookingId,
+}: CancelBookingParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !bookingId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const booking = await Booking.findOne({ user: userId, _id: bookingId });
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		booking.bookingStatus = "cancelled";
+
+		const updatedBooking = await booking.save();
+
+		if (!updatedBooking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		revalidatePath(`/bookings`);
+		revalidatePath(`/bookings/${bookingId}`);
+
+		return {
+			status: 200,
+			message: "Booking successfully cancelled.",
 		};
 	} catch (error) {
 		handleError(error);

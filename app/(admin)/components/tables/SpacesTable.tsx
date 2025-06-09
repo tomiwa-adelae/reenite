@@ -14,54 +14,21 @@ import { useRouter } from "next/navigation";
 import { IPhoto, ISpace } from "@/lib/database/models/space.model";
 import { DEFAULT_SPACE_IMAGE } from "@/constants";
 import { formatMoneyInput } from "@/lib/utils";
+import { useState } from "react";
+import { DeleteCustomerModal } from "../DeleteCustomerModal";
+import { SpaceActionModal } from "../SpaceActionModal";
 
-const invoices = [
-	{
-		invoice: "INV001",
-		paymentStatus: "Paid",
-		totalAmount: "$250.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV002",
-		paymentStatus: "Pending",
-		totalAmount: "$150.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV003",
-		paymentStatus: "Unpaid",
-		totalAmount: "$350.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV004",
-		paymentStatus: "Paid",
-		totalAmount: "$450.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV005",
-		paymentStatus: "Paid",
-		totalAmount: "$550.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV006",
-		paymentStatus: "Pending",
-		totalAmount: "$200.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV007",
-		paymentStatus: "Unpaid",
-		totalAmount: "$300.00",
-		paymentMethod: "Credit Card",
-	},
-];
-
-export function SpacesTable({ spaces }: { spaces: ISpace[] }) {
+export function SpacesTable({
+	spaces,
+	userId,
+}: {
+	spaces: ISpace[];
+	userId: string;
+}) {
 	const router = useRouter();
+	const [openModal, setOpenModal] = useState(false);
+	const [selectedSpace, setSelectedSpace] = useState<ISpace | null>(null);
+
 	return (
 		<div className="hidden md:block">
 			<Table>
@@ -83,25 +50,38 @@ export function SpacesTable({ spaces }: { spaces: ISpace[] }) {
 							space?.photos[0];
 						return (
 							<TableRow
-								onClick={() =>
-									router.push(`/all-spaces/${space._id}`)
-								}
+								onClick={() => {
+									if (space?.status === "active") {
+										router.push(`/all-spaces/${space._id}`);
+									} else {
+										// Pop up to choose to continue working on the space or delete the space
+										setOpenModal(true);
+										setSelectedSpace(space);
+									}
+								}}
 								className="group"
 								key={index}
 							>
 								<TableCell className="flex items-center justify-start gap-4">
 									<Image
 										src={
-											coverPhoto.src ||
+											coverPhoto?.src ||
 											DEFAULT_SPACE_IMAGE
 										}
-										alt={"Space"}
+										alt={
+											`${space?.title}'s picture` ||
+											"Space picture"
+										}
 										width={1000}
 										height={1000}
-										className="size-[70px] object-cover rounded-2xl"
+										className="size-[70px] object-cover rounded-lg"
 									/>
 									<h5 className="font-medium text-base">
-										{space?.title}
+										{space.title ? (
+											space?.title
+										) : (
+											<p className="italic">No title</p>
+										)}
 									</h5>
 								</TableCell>
 								<TableCell>
@@ -130,6 +110,14 @@ export function SpacesTable({ spaces }: { spaces: ISpace[] }) {
 					})}
 				</TableBody>
 			</Table>
+			{openModal && selectedSpace && (
+				<SpaceActionModal
+					open={openModal}
+					closeModal={() => setOpenModal(false)}
+					userId={userId}
+					space={selectedSpace}
+				/>
+			)}
 		</div>
 	);
 }

@@ -141,9 +141,9 @@ export const EditDiscountComponent = ({
 			<Header title={"Discount"} />
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
+					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 pb-20 overflow-auto">
 						<ScrollArea>
-							<div className="container max-w-3xl space-y-6 mt-4">
+							<div className="container max-w-3xl space-y-2 mt-4">
 								{DISCOUNT_TYPES.map(({ key, label }) => (
 									<div
 										key={key}

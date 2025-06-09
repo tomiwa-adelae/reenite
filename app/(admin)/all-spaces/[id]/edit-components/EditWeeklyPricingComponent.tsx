@@ -127,7 +127,7 @@ export const EditWeeklyPricingComponent = ({
 
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
+					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 pb-12 overflow-auto">
 						<ScrollArea>
 							<div className="container py-8 space-y-4">
 								{["1", "2", "3", "4", "5", "6", "7+"].map(

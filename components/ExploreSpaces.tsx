@@ -28,7 +28,7 @@ export const ExploreSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 								<Link
 									href={`/spaces/${space?._id}`}
 									key={index}
-									className="relative group overflow-hidden rounded-2xl"
+									className="relative group overflow-hidden rounded-lg"
 								>
 									<Image
 										src={

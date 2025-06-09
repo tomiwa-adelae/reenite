@@ -8,8 +8,8 @@ export const Overview = () => {
 			<div className="container grid grid-cols-1 md:grid-cols-2 md:gap-4">
 				<div className="flex items-center justify-center">
 					<h1
-						style={{ fontFamily: "ClashDisplay" }}
-						className="text-4xl md:text-5xl lg:text-6xl mt-6 mb-4 font-bold"
+						// style={{ fontFamily: "ClashDisplay" }}
+						className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-6 mb-4 font-bold"
 					>
 						It's easy to get started on Reenite
 					</h1>
@@ -25,11 +25,11 @@ export const Overview = () => {
 								} py-8`}
 							>
 								<div className="flex items-start justify-start gap-4 ">
-									<h5 className="text-lg md:text-xl lg:text-2xl font-semibold">
+									<h5 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
 										{index + 1}
 									</h5>
 									<div>
-										<h5 className="text-lg md:text-xl lg:text-2xl font-semibold">
+										<h5 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
 											{title}
 										</h5>
 										<p className="text-sm md:text-base lg:text-lg text-muted-foreground">

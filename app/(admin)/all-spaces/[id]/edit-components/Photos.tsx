@@ -84,7 +84,7 @@ export const Photos = ({
 	};
 
 	return (
-		<div className="py-8 container">
+		<div className="py-8">
 			<Header title={"Space photos"}>
 				<Button
 					size="icon"
@@ -96,21 +96,21 @@ export const Photos = ({
 				</Button>
 			</Header>
 
-			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
+			<div className="container lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 				<ScrollArea>
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 						{photos.map((photo: any, index: any) => (
 							<div
 								key={index}
 								onClick={(e: any) => handleOpen(e, index)}
-								className="group overflow-hidden rounded-2xl relative"
+								className="group overflow-hidden rounded-lg relative"
 							>
 								<Image
 									src={photo.src || DEFAULT_SPACE_IMAGE}
 									alt={photo.imageId || "Space image"}
 									width={1000}
 									height={1000}
-									className="rounded-2xl object-cover aspect-square hover:scale-[102%] transition-all cursor-pointer"
+									className="rounded-lg object-cover aspect-square hover:scale-[102%] transition-all cursor-pointer"
 								/>
 								<Button
 									className="text-white hover:text-destructive absolute top-1 right-1"

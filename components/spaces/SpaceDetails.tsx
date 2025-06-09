@@ -66,7 +66,7 @@ export const SpaceDetails = ({
 				<SpaceContactInfo />
 			</div>
 			<div className="col-span-6 lg:col-span-2">
-				<div className="sticky top-25 rounded-2xl p-4 lg:p-8 border shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+				<div className="sticky top-25 rounded-lg p-4 lg:p-8 border shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
 					<h4 className="text-xl md:text-2xl font-medium">
 						Booking details
 					</h4>

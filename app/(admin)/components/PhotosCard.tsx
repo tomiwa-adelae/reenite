@@ -14,7 +14,7 @@ export function PhotosCard({ photos }: { photos: IPhoto[] }) {
 					width={1000}
 					height={1000}
 					className={cn(
-						"rounded-2xl aspect-square transition-all object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
+						"rounded-lg aspect-square transition-all object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
 						index === 0 &&
 							"translate-x-10 -rotate-6 hover:scale-105",
 						index === 1 && "z-20 scale-125 hover:scale-[120%]",

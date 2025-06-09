@@ -67,7 +67,7 @@ const page = async ({
 							alt={spaceDetails?.space?.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="rounded-2xl object-cover size-[100px]"
+							className="rounded-lg object-cover size-[100px]"
 						/>
 						<div>
 							<Link
@@ -90,7 +90,7 @@ const page = async ({
 						<Link href="/spaces">Change space</Link>
 					</Button>
 				</div>
-				<Separator className="my-8" />
+				<Separator className="my-4 md:my-6" />
 				<BookingDetails
 					firstName={user?.user?.firstName}
 					lastName={user?.user?.lastName}

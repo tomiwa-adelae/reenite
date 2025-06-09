@@ -16,14 +16,13 @@ const page = async () => {
 	return (
 		<div>
 			<div className="container">
-				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
-					Welcome back, {user?.user?.firstName}{" "}
-					{user?.user?.firstName.slice(0, 1)}.
+				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl line-clamp-1">
+					Welcome back, {user?.user?.firstName}
 				</h2>
 				<div className="mt-4">
 					<Link
 						href="/about"
-						className="bg-white hover:bg-[#F7F7F7] transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]  rounded-2xl p-8 text-center flex flex-col items-center justify-center gap-4"
+						className="bg-white hover:bg-[#F7F7F7] transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]  rounded-lg p-8 text-center flex flex-col items-center justify-center gap-4"
 					>
 						{user?.user?.picture && (
 							<Image
@@ -47,11 +46,11 @@ const page = async () => {
 								</h2>
 							</div>
 						)}
-						<h2 className="font-semibold text-3xl">
+						<h2 className="font-semibold text-xl md:text-2xl lg:text-3xl">
 							{user?.user?.firstName} {user?.user?.lastName}
 						</h2>
 					</Link>
-					<div className="bg-white rounded-2xl p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] mt-4 hidden lg:grid">
+					<div className="bg-white rounded-lg p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] mt-4 hidden lg:grid">
 						<h2 className="font-semibold text-2xl">
 							Recent bookings
 						</h2>
@@ -62,10 +61,10 @@ const page = async () => {
 							</div>
 						)}
 					</div>
-					<div className="lg:hidden grid grid-cols-2 gap-4 mt-4">
+					<div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<Link
 							href="/bookings"
-							className="bg-white hover:bg-[#F7F7F7] transition-all rounded-2xl p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col items-center justify-center gap-4"
+							className="bg-white hover:bg-[#F7F7F7] transition-all rounded-lg p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col items-center justify-center gap-4"
 						>
 							<Image
 								src={"/assets/icons/folder.svg"}
@@ -80,7 +79,7 @@ const page = async () => {
 						</Link>
 						<Link
 							href="/spaces"
-							className="bg-white hover:bg-[#F7F7F7] transition-all rounded-2xl p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col items-center justify-center gap-4"
+							className="bg-white hover:bg-[#F7F7F7] transition-all rounded-lg p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)] flex flex-col items-center justify-center gap-4"
 						>
 							<Image
 								src={"/assets/icons/explore.svg"}

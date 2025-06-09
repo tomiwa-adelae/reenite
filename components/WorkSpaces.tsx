@@ -24,16 +24,16 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 							<Link
 								href={`/spaces/${space?._id}`}
 								key={index}
-								className="relative group overflow-hidden rounded-2xl"
+								className="relative group overflow-hidden rounded-lg"
 							>
 								<Image
 									src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
 									alt={space.title || "Space image"}
 									width={1000}
 									height={1000}
-									className="aspect-square object-cover rounded-xl"
+									className="aspect-video md:aspect-square object-cover rounded-xl"
 								/>
-								<h4 className="text-xl font-medium mt-4">
+								<h4 className="text-xl font-medium mt-4 group-hover:text-secondary transition-all">
 									{space?.title}
 								</h4>
 								<p className="text-base text-muted-foreground mt-1 truncate mb-4">

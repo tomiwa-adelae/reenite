@@ -1,33 +1,34 @@
 "use client";
 import React from "react";
-import { userNavLinks } from "@/constants";
+import { DEFAULT_PROFILE_PICTURE, userNavLinks } from "@/constants";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { IUser } from "@/lib/database/models/user.model";
 
-const sidebarLinks = [
-	{
-		slug: "/about",
-		label: "About me",
-		icon: "/assets/images/user-one.jpeg",
-		exact: "/about",
-	},
-	{
-		slug: "/bookings",
-		label: "Past bookings",
-		icon: "/assets/icons/folder.svg",
-		exact: "/bookings",
-	},
-	{
-		slug: "/spaces",
-		label: "Explore spaces",
-		icon: "/assets/icons/explore.svg",
-	},
-];
-
-export const Sidebar = () => {
+export const Sidebar = ({ user }: { user: IUser }) => {
 	const pathname = usePathname();
+
+	const sidebarLinks = [
+		{
+			slug: "/about",
+			label: "About me",
+			icon: user.picture || DEFAULT_PROFILE_PICTURE,
+			exact: "/about",
+		},
+		{
+			slug: "/bookings",
+			label: "Past bookings",
+			icon: "/assets/icons/folder.svg",
+			exact: "/bookings",
+		},
+		{
+			slug: "/spaces",
+			label: "Explore spaces",
+			icon: "/assets/icons/explore.svg",
+		},
+	];
 
 	const isActive = (slug: string) =>
 		pathname === slug || pathname.startsWith(`${slug}/`);
@@ -46,7 +47,7 @@ export const Sidebar = () => {
 											key={slug}
 											href={slug}
 											className={cn(
-												"p-4 rounded-2xl flex items-center gap-4 transition-all hover:bg-[#F2F2F2]",
+												"p-4 rounded-lg flex items-center gap-4 transition-all hover:bg-[#F2F2F2]",
 												isActive(exact || slug) &&
 													"bg-[#F2F2F2]"
 											)}
@@ -54,8 +55,8 @@ export const Sidebar = () => {
 											<Image
 												src={icon}
 												alt={`${label} icon`}
-												width={40}
-												height={40}
+												width={1000}
+												height={1000}
 												className="size-10 rounded-full object-cover"
 											/>
 											<h5 className="text-lg font-medium">

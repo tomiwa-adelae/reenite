@@ -21,6 +21,8 @@ import {
 	DeleteSpacePhotoParams,
 	GetSpaceDetailsParams,
 	GetSpacesParams,
+	GetTopSpaces,
+	RemoveSpaceParams,
 	UpdateSpaceCategoryParams,
 	UpdateSpaceCoverPhotoParams,
 	UpdateSpacePricingParams,
@@ -29,6 +31,7 @@ import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import "../../database/models";
 import mongoose from "mongoose";
+import Booking from "@/lib/database/models/booking.model";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -1351,6 +1354,116 @@ export const deleteSpaceAmenity = async ({
 			message: "Amenity successfully removed.",
 			space: JSON.parse(JSON.stringify(updatedSpace)),
 		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+export const getTopSpaces = async ({ userId }: GetTopSpaces) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user?.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		// Aggregate bookings to find top booked spaces
+		const topBooked = await Booking.aggregate([
+			{
+				$group: {
+					_id: "$space",
+					bookingsCount: { $sum: 1 },
+				},
+			},
+			{
+				$sort: { bookingsCount: -1 }, // descending
+			},
+			{
+				$limit: 5, // top 10
+			},
+			{
+				$lookup: {
+					from: "spaces",
+					localField: "_id",
+					foreignField: "_id",
+					as: "spaceDetails",
+				},
+			},
+			{
+				$unwind: "$spaceDetails",
+			},
+			{
+				$project: {
+					_id: 0,
+					spaceId: "$_id",
+					bookingsCount: 1,
+					title: "$spaceDetails.title",
+					address: "$spaceDetails.address",
+					photos: "$spaceDetails.photos",
+					city: "$spaceDetails.city",
+					country: "$spaceDetails.country",
+				},
+			},
+		]);
+
+		return {
+			status: 200,
+			message: "Success",
+			spaces: JSON.parse(JSON.stringify(topBooked)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+export const removeSpace = async ({ userId, spaceId }: RemoveSpaceParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !spaceId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user?.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		const deletedSpace = await Space.findByIdAndDelete(spaceId);
+
+		if (!deletedSpace)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		revalidatePath("/all-spaces");
+		revalidatePath("/dashboard");
+
+		return { status: 200, message: "Successfully deleted space" };
 	} catch (error) {
 		handleError(error);
 		return {

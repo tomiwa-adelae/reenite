@@ -107,7 +107,7 @@ export const Amenities = ({
 				<p className="text-sm lg:text-base mt-2 text-muted-foreground">
 					You’ve added these to your listing so far.
 				</p>
-				<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
+				<div className="lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 					<ScrollArea>
 						<div className="mt-8 grid grid-cols-1 gap-1">
 							{amenities.map((amenity: any, index) => {
@@ -115,7 +115,7 @@ export const Amenities = ({
 								return (
 									<div
 										key={index}
-										className="rounded-2xl p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
+										className="rounded-lg p-4 flex items-center justify-between gap-2 cursor-pointer hover:border-black hover:bg-[#F7F7F7] transition-all"
 									>
 										<div className="flex items-start justify-center gap-2">
 											<Icon className="size-4 lg:size-6" />
@@ -191,7 +191,7 @@ export const Amenities = ({
 								</p>
 							</div>
 						)}
-						<div className="mt-8 mb-32 grid grid-cols-2 px-6 gap-4">
+						<div className="mt-8 mb-32 pb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-6 gap-4">
 							{availableAmenities
 								.filter(
 									(a) =>
@@ -211,7 +211,7 @@ export const Amenities = ({
 										<div
 											key={index}
 											className={cn(
-												"border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
+												"border-2 rounded-lg p-6 flex flex-row md:flex-col items-center md:items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
 												isSelected &&
 													"border-black bg-[#F7F7F7] hover:bg-white"
 											)}

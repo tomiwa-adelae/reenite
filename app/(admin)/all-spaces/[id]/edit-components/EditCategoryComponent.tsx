@@ -57,15 +57,15 @@ export const EditCategoryComponent = ({
 	return (
 		<div className="relative pt-8">
 			<Header title={"Category"} />
-			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 overflow-auto">
+			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 				<ScrollArea>
 					<div className="py-8 container">
-						<div className="grid grid-cols-2 gap-4">
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 							{categories.map(({ image, name, _id }, index) => (
 								<div
 									key={index}
 									className={cn(
-										"border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
+										"border-2 rounded-lg p-6 flex flex-row md:flex-col items-center md:items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
 										_id === selectCategory &&
 											"border-black bg-[#F7F7F7]"
 									)}

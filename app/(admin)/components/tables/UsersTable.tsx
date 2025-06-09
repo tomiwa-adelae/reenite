@@ -36,7 +36,7 @@ export function UsersTable({ customers }: { customers: IUser[] }) {
 									alt={`${customer.firstName}'s picture`}
 									width={1000}
 									height={1000}
-									className="size-[70px] object-cover rounded-2xl"
+									className="size-[70px] object-cover rounded-lg"
 								/>
 								<h5 className="font-medium text-base">
 									{customer.firstName} {customer.lastName}

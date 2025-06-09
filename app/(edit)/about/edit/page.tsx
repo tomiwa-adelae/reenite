@@ -43,7 +43,7 @@ const page = async () => {
 							firstName={user?.user?.firstName}
 							lastName={user?.user?.lastName}
 						/>
-						<div className="flex items-center justify-start gap-4 border-b py-6 hover:rounded-2xl hover:bg-muted px-4 cursor-not-allowed transition-all text-muted-foreground">
+						<div className="flex items-center justify-start gap-4 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-not-allowed transition-all text-muted-foreground">
 							<Mail className="size-6 lg:size-7" />{" "}
 							<p className="text-sm lg:text-base line-clamp-1">
 								My email:{" "}

@@ -26,6 +26,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { CancelBookingButton } from "../../components/CancelBookingButton";
 
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
@@ -65,25 +66,47 @@ const page = async ({ params }: { params: any }) => {
 								{booking.booking.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">
-								<Badge variant="success">
+								<Badge
+									variant={
+										booking?.booking?.paymentStatus ===
+										"paid"
+											? "success"
+											: booking?.booking
+													?.paymentStatus === "failed"
+											? "destructive"
+											: "default"
+									}
+								>
 									{booking.booking.paymentStatus}
 								</Badge>
-								<Badge variant="success">
+								<Badge
+									variant={
+										booking?.booking?.bookingStatus ===
+										"confirmed"
+											? "success"
+											: booking?.booking
+													?.bookingStatus ===
+											  "cancelled"
+											? "destructive"
+											: "default"
+									}
+								>
 									{booking.booking.bookingStatus}
 								</Badge>
 							</div>
 						</div>
 					</div>
-					<Button
-						className="w-full md:w-auto"
-						size="md"
-						variant="destructive"
-					>
-						<Ban /> Cancel booking
-					</Button>
+					{booking?.booking?.bookingStatus !== "completed" &&
+						booking?.booking.bookingStatus !== "cancelled" && (
+							<CancelBookingButton
+								userId={user?.user?._id}
+								bookingId={booking?.booking._id}
+								bookingStatus={booking?.booking?.bookingStatus}
+							/>
+						)}
 				</div>
 				<div
-					className="bg-blend-overlay bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-2xl mt-4"
+					className="bg-blend-darken bg-black/60 bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-lg mt-4"
 					style={{
 						backgroundImage: `url(${coverPhoto.src})`,
 					}}
@@ -106,7 +129,7 @@ const page = async ({ params }: { params: any }) => {
 						</div>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<div className="div">
 						<h3 className="font-medium text-lg">Category</h3>
 						<div className="mt-4 flex items-center justify-start gap-4">
@@ -163,7 +186,7 @@ const page = async ({ params }: { params: any }) => {
 						</Link>
 					</Button>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking Details</h3>
 					<div className="flex flex-col gap-4 mt-4">
 						<div className="flex items-center justify-start gap-2">
@@ -264,7 +287,7 @@ const page = async ({ params }: { params: any }) => {
 						</div>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Payment Information</h3>
 					<div className="grid gap-4 mt-4">
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
@@ -300,7 +323,7 @@ const page = async ({ params }: { params: any }) => {
 						</div>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-yellow-100 border-yellow-200 border-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-yellow-100 border-yellow-200 border-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">
 						Having issues with this booking?
 					</h3>

@@ -9,7 +9,7 @@ export const AppNavbar = () => {
 			<div className="container flex items-center justify-between">
 				<Logo />
 				<Button asChild size={"md"} variant={"outline"}>
-					<Link href="/all-spaces">Exit</Link>
+					<Link href="/all-spaces">Save & Exit</Link>
 				</Button>
 			</div>
 		</div>

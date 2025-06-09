@@ -90,14 +90,15 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 								router.push(`/all-bookings/${booking._id}`)
 							}
 						>
-							<TableCell>{booking.bookingId}</TableCell>
+							<TableCell>{booking?.bookingId}</TableCell>
 							<TableCell>
-								{booking.user.firstName} {booking.user.lastName}
+								{booking?.user?.firstName}{" "}
+								{booking?.user?.lastName}
 							</TableCell>
-							<TableCell>{booking.space.title}</TableCell>
+							<TableCell>{booking?.space?.title}</TableCell>
 							<TableCell>
-								{booking.startDate}{" "}
-								{booking.bookingType === "hourly" &&
+								{booking?.startDate} - {booking?.endDate}{" "}
+								{booking?.bookingType === "hourly" &&
 									`(${booking.noOfHours} ${
 										booking.noOfHours === 1
 											? "hour"
@@ -105,37 +106,54 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 									})`}
 								{booking.bookingType === "daily" &&
 									`(${booking.noOfDays} ${
-										booking.noOfDays === 1
-											? "day"
-											: "days"
+										booking.noOfDays === 1 ? "day" : "days"
 									})`}
 								{booking.bookingType === "weekly" &&
-									`(${booking.noOfWeeks} ${
-										booking.noOfWeeks === 1
+									`(${booking?.noOfWeeks} ${
+										booking?.noOfWeeks === 1
 											? "week"
 											: "weeks"
 									})`}
 								{booking.bookingType === "monthly" &&
-									`(${booking.noOfMonths} ${
-										booking.noOfMonths === 1
+									`(${booking?.noOfMonths} ${
+										booking?.noOfMonths === 1
 											? "month"
 											: "months"
 									})`}
 							</TableCell>
 							<TableCell>
 								<div className="flex items-center capitalize justify-start h-full gap-2">
-									<Badge>
+									<Badge
+										variant={
+											booking?.paymentStatus === "paid"
+												? "success"
+												: booking.paymentStatus ===
+												  "failed"
+												? "destructive"
+												: "default"
+										}
+									>
 										<CreditCard className="size-4 inline-block mr-2" />
-										{booking.paymentStatus}
+										{booking?.paymentStatus}
 									</Badge>
-									<Badge>
+									<Badge
+										variant={
+											booking?.bookingStatus ===
+											"confirmed"
+												? "success"
+												: booking?.bookingStatus ===
+												  "cancelled"
+												? "destructive"
+												: "default"
+										}
+									>
 										<CheckCircleIcon className="size-4 inline-block mr-2" />
-										{booking.bookingStatus}
+										{booking?.bookingStatus}
 									</Badge>
 								</div>
 							</TableCell>
 							<TableCell>
-								₦{formatMoneyInput(booking.totalAmount)}
+								₦{formatMoneyInput(booking?.totalAmount)}
 							</TableCell>
 							<TableCell>
 								<div className="flex items-center justify-end">

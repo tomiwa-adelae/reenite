@@ -56,9 +56,7 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 									})`}
 								{booking.bookingType === "daily" &&
 									`(${booking.noOfDays} ${
-										booking.noOfDays === 1
-											? "day"
-											: "days"
+										booking.noOfDays === 1 ? "day" : "days"
 									})`}
 								{booking.bookingType === "weekly" &&
 									`(${booking.noOfWeeks} ${
@@ -75,11 +73,30 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 							</TableCell>
 							<TableCell>
 								<div className="flex items-center capitalize justify-start h-full gap-2">
-									<Badge>
+									<Badge
+										variant={
+											booking?.paymentStatus === "paid"
+												? "success"
+												: booking.paymentStatus ===
+												  "failed"
+												? "destructive"
+												: "default"
+										}
+									>
 										<CreditCard className="size-4 inline-block mr-2" />
 										{booking.paymentStatus}
 									</Badge>
-									<Badge>
+									<Badge
+										variant={
+											booking?.bookingStatus ===
+											"confirmed"
+												? "success"
+												: booking?.bookingStatus ===
+												  "cancelled"
+												? "destructive"
+												: "default"
+										}
+									>
 										<CheckCircleIcon className="size-4 inline-block mr-2" />
 										{booking.bookingStatus}
 									</Badge>

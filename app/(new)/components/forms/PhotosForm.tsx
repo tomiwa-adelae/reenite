@@ -61,7 +61,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 		spacePhotos.find((photo: IPhoto) => photo.cover) || spacePhotos[0];
 
 	return (
-		<div className="mt-8">
+		<div className="mt-4">
 			<div className="container max-w-3xl">
 				{spacePhotos.length !== 0 && (
 					<div>
@@ -107,7 +107,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 									<div
 										key={index}
 										onClick={() => setOpenUploadModal(true)}
-										className="border-2 border-dashed flex items-center justify-center p-8 aspect-video rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
+										className="border-2 border-dashed flex items-center justify-center p-8 aspect-video rounded-lg bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
 									>
 										<ImageIcon className="size-6" />
 									</div>
@@ -115,7 +115,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 							{spacePhotos.length >= 5 && (
 								<div
 									onClick={() => setOpenUploadModal(true)}
-									className="border-2 border-dashed flex flex-col items-center justify-center p-8 aspect-video rounded-2xl bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
+									className="border-2 border-dashed flex flex-col items-center justify-center p-8 aspect-video rounded-lg bg-[#F7F7F7] hover:border-black transition-all cursor-pointer"
 								>
 									<ImageIcon className="size-6" />
 									<p className="text-sm text-center mt-2 font-semibold">
@@ -127,7 +127,7 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 					</div>
 				)}
 				{spacePhotos.length === 0 && (
-					<div className="col-span-4 border-2 bg-[#F7F7F7] border-dashed rounded-2xl p-8 flex flex-col items-center justify-center min-h-[400px] hover:border-black transition-all cursor-pointer">
+					<div className="col-span-4 border-2 bg-[#F7F7F7] border-dashed rounded-lg p-8 flex flex-col items-center justify-center min-h-[400px] hover:border-black transition-all cursor-pointer">
 						<Image
 							src={"/assets/icons/camera.avif"}
 							alt={"camera icon"}

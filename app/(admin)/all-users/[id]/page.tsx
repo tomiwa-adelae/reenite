@@ -75,7 +75,7 @@ const page = async ({ params }: { params: any }) => {
 						</Button> */}
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex flex-col md:flex-row items-center justify-start gap-4">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex flex-col md:flex-row items-center justify-start gap-4">
 					<Image
 						src={
 							customer?.customer?.picture ||
@@ -106,7 +106,7 @@ const page = async ({ params }: { params: any }) => {
 						</Badge>
 					</div>
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking history</h3>
 					{customer?.bookings.length !== 0 && (
 						<Bookings bookings={customer?.bookings} />
@@ -128,7 +128,7 @@ const page = async ({ params }: { params: any }) => {
 						</div>
 					)}
 				</div>
-				<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">
 						Customer Information
 					</h3>
@@ -176,7 +176,7 @@ const page = async ({ params }: { params: any }) => {
 								</span>
 							</p>
 						</a>
-						<p>
+						<p className="text-sm md:text-base">
 							<MapPin className="size-4 md:size-5 inline-block mr-2" />
 							<span>
 								{customer?.customer?.address &&
@@ -196,7 +196,7 @@ const page = async ({ params }: { params: any }) => {
 								)}
 							</span>
 						</p>
-						<p>
+						<p className="text-sm md:text-base">
 							<Activity className="size-4 md:size-5 inline-block mr-2" />
 							<span className="capitalize">
 								{customer?.customer?.status ? (
@@ -206,14 +206,14 @@ const page = async ({ params }: { params: any }) => {
 								)}
 							</span>
 						</p>
-						<p>
+						<p className="text-sm md:text-base">
 							<Calendar className="size-4 md:size-5 inline-block mr-2" />
 							<span>
 								Joined:{" "}
 								{formatDate(customer?.customer?.createdAt)}
 							</span>
 						</p>
-						<p>
+						<p className="text-sm md:text-base">
 							<Briefcase className="size-4 md:size-5 inline-block mr-2" />
 							<span>
 								{customer?.customer?.occupation ? (
@@ -225,7 +225,7 @@ const page = async ({ params }: { params: any }) => {
 								)}
 							</span>
 						</p>
-						<p>
+						<p className="text-sm md:text-base">
 							<Building2 className="size-4 md:size-5 inline-block mr-2" />
 							<span>
 								{customer?.customer?.company ? (
@@ -235,7 +235,7 @@ const page = async ({ params }: { params: any }) => {
 								)}
 							</span>
 						</p>
-						<p>
+						<p className="text-sm md:text-base">
 							<Info className="size-4 md:size-5 inline-block mr-2" />
 							<span>
 								{customer?.customer?.bio ? (
@@ -253,11 +253,11 @@ const page = async ({ params }: { params: any }) => {
 						</Button>
 					</div>
 				</div>
-				<div className="border border-destructive p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				<div className="border border-destructive p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg text-destructive">
 						Danger Zone
 					</h3>
-					<div className="grid grid-cols-2 gap-4 mt-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<DeleteCustomerButton
 							customerId={customer?.customer?._id}
 							userId={user?.user?._id}

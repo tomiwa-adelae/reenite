@@ -66,13 +66,14 @@ export const BookingDetails = ({
 	userId,
 }: Props) => {
 	const router = useRouter();
+	const updatedUsers = Number(noOfUsers) === 7 ? "7+" : noOfUsers;
 
 	const [bookingEndDate, setBookingEndDate] = useState<any>(null);
 	const [newHours, setNewHours] = useState(noOfHours || "");
 	const [newDays, setNewDays] = useState(noOfDays || "");
 	const [newWeeks, setNewWeeks] = useState(noOfWeeks || "");
 	const [newMonths, setNewMonths] = useState(noOfMonths || "");
-	const [newUsers, setNewUsers] = useState(noOfUsers || "");
+	const [newUsers, setNewUsers] = useState(updatedUsers || "");
 	const [totalPrice, setTotalPrice] = useState<any>(0);
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -86,8 +87,12 @@ export const BookingDetails = ({
 				? newWeeks
 				: newMonths;
 
+		const cleanedUser = Number(newUsers) >= 7 ? "7+" : String(newUsers);
+
 		let basePrice =
-			(pricing[newUsers] || 0) * Number(numbers) * Number(newUsers);
+			(pricing[cleanedUser] || 0) *
+			Number(numbers) *
+			Number(newUsers === "7+" ? "7" : newUsers);
 		const discountAmount = (basePrice * Number(discount || 0)) / 100;
 
 		setTotalPrice(basePrice - discountAmount);
@@ -196,15 +201,14 @@ export const BookingDetails = ({
 			);
 		} catch (error) {
 			setLoading(false);
-			toast.error("An error occurred! Try again later.");
+			toast.error("An error occurred! Try again later. busola");
 		} finally {
 			setLoading(false);
-			toast.error("An error occurred! Try again later");
 		}
 	};
 
 	const onClose = () => {
-		console.log("Payment closed");
+		toast.error("An error occurred! Try again later shade");
 	};
 
 	const initializePayment = usePaystackPayment(config);
@@ -351,7 +355,7 @@ export const BookingDetails = ({
 			</div>
 
 			<div className="col-span-4 lg:col-span-2">
-				<div className="sticky top-25 rounded-2xl p-4 lg:p-8 border shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+				<div className="sticky top-25 rounded-lg p-4 lg:p-8 border shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
 					<h4 className="text-xl md:text-2xl font-medium">
 						Booking details
 					</h4>
@@ -386,7 +390,7 @@ export const BookingDetails = ({
 						onClick={handleSubmit}
 						className="w-full mt-4"
 						size="lg"
-						disabled={loading}
+						disabled={loading || !totalPrice}
 					>
 						{loading ? "Processing..." : "Confirm & Pay"}
 					</Button>

@@ -17,7 +17,7 @@ export default async function layout({
 		<div>
 			<AppNavbar user={user?.user} />
 			<div className="pt-20 flex items-center justify-start">
-				<Sidebar />
+				<Sidebar user={user?.user} />
 				<div className="flex-1 py-8 lg:ml-96">{children}</div>
 			</div>
 		</div>

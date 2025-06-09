@@ -167,7 +167,7 @@ export const EditAvailabilityComponent = ({
 	return (
 		<div className="relative pt-8">
 			<Header title={"Space availability"} />
-			<div className="lg:h-[calc(100vh-80px)] lg:pb-40 overflow-auto">
+			<div className="lg:h-[calc(100vh-80px)] lg:pb-40 pb-16 overflow-auto">
 				<ScrollArea>
 					<div className="space-y-3 container mt-4">
 						{Object.entries(formData.operatingHours).map(
@@ -177,7 +177,7 @@ export const EditAvailabilityComponent = ({
 									className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-4 lg:p-6 border"
 								>
 									<div className="flex items-center justify-between gap-4 w-full">
-										<div className="text-sm lg:text-base font-medium capitalize">
+										<div className="text-sm md:text-base font-medium capitalize">
 											{day}
 										</div>
 										<div className="flex items-center space-x-1">
@@ -192,11 +192,11 @@ export const EditAvailabilityComponent = ({
 														!e.target.checked
 													)
 												}
-												className="rounded border-gray-300 text-primary"
+												className="rounded border-gray-300 text-primary text-sm md:text-base"
 											/>
 											<label
 												htmlFor={day}
-												className="text-xs lg:text-sm font-medium text-muted-foreground"
+												className="text-xs ms:text-sm font-medium text-muted-foreground"
 											>
 												Open
 											</label>
@@ -204,7 +204,7 @@ export const EditAvailabilityComponent = ({
 									</div>
 
 									{!hours.closed && (
-										<div className="w-full flex items-center justify-between gap-2 mt-4">
+										<div className="w-full flex items-center justify-between gap-2">
 											<Input
 												type="time"
 												value={hours.open}
@@ -215,9 +215,9 @@ export const EditAvailabilityComponent = ({
 														e.target.value
 													)
 												}
-												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
+												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
 											/>
-											<span className="text-xs lg:text-sm text-muted-foreground">
+											<span className="text-xs md:text-sm text-muted-foreground">
 												to
 											</span>
 											<Input
@@ -230,7 +230,7 @@ export const EditAvailabilityComponent = ({
 														e.target.value
 													)
 												}
-												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
+												className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
 											/>
 										</div>
 									)}

@@ -13,18 +13,18 @@ export const UsersLists = ({ customers }: { customers: IUser[] }) => {
 				<Link
 					key={index}
 					href={`/all-users/${customer._id}`}
-					className="hover:bg-[#F7F7F7] transition-all p-2 rounded-2xl flex items-center justify-start gap-4 group cursor-pointer"
+					className="hover:bg-[#F7F7F7] transition-all p-2 rounded-lg flex items-center justify-start gap-4 group cursor-pointer"
 				>
 					<Image
 						src={customer.picture || DEFAULT_PROFILE_PICTURE}
 						alt={`${customer.firstName}'s picture`}
 						width={1000}
 						height={1000}
-						className="size-[70px] object-cover rounded-2xl"
+						className="size-[70px] object-cover rounded-lg"
 					/>
 					<div className="flex-1 flex items-center justify-between gap-2">
 						<div className="flex-1">
-							<h5 className="text-base font-medium">
+							<h5 className="text-base font-medium line-clamp-1">
 								{customer.firstName} {customer.lastName}
 							</h5>
 							<p className="text-sm text-muted-foreground">

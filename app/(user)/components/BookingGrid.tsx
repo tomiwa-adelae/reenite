@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { DEFAULT_PROFILE_PICTURE, DEFAULT_SPACE_IMAGE } from "@/constants";
 import { IBooking } from "@/lib/database/models/booking.model";
@@ -16,7 +17,7 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 					booking.space?.photos[0];
 				return (
 					<Link
-						className="group"
+						className="group relative"
 						href={`/bookings/${booking._id}`}
 						key={index}
 					>
@@ -25,14 +26,38 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 							alt={booking?.space?.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="aspect-video object-cover rounded-2xl"
+							className="aspect-video object-cover rounded-lg"
 						/>
 						<h4 className="text-lg font-medium mt-4">
-							{booking?.space?.title}
+							{booking.bookingId}
 						</h4>
 						<p className="text-sm text-muted-foreground">
-							{booking?.space?.city}, {booking?.space?.state}
+							{booking?.space?.title}
 						</p>
+						<div className="absolute top-3 left-3 flex items-start capitalize justify-start h-full gap-2">
+							<Badge
+								variant={
+									booking?.paymentStatus === "paid"
+										? "success"
+										: booking.paymentStatus === "failed"
+										? "destructive"
+										: "default"
+								}
+							>
+								{booking.paymentStatus}
+							</Badge>
+							<Badge
+								variant={
+									booking?.bookingStatus === "confirmed"
+										? "success"
+										: booking?.bookingStatus === "cancelled"
+										? "destructive"
+										: "default"
+								}
+							>
+								{booking.bookingStatus}
+							</Badge>
+						</div>
 					</Link>
 				);
 			})}

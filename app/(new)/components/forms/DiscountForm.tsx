@@ -200,7 +200,7 @@ export const DiscountForm = ({
 		<div className="mt-8">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
-					<div className="container max-w-3xl space-y-6">
+					<div className="container max-w-3xl space-y-4">
 						{DISCOUNT_TYPES.map(({ key, label }) => (
 							<div
 								key={key}

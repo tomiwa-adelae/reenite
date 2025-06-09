@@ -16,9 +16,9 @@ export const NoAdminData = () => {
 				height={1000}
 				className="size-[250px] object-cover"
 			/>
-			<p className="text-muted-foreground text-base mt-4 mb-6">
+			<p className="text-muted-foreground text-sm md:text-base mt-4 mb-6">
 				It looks like you haven’t created any spaces yet.
-				<br />
+				<br className="hidden md:block" />
 				Let’s get started by adding your first workspace!
 			</p>
 			<Button asChild size="md" variant="secondary">

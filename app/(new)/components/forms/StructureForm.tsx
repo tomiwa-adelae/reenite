@@ -48,12 +48,12 @@ export const StructureForm = ({ categories, userId }: Props) => {
 	return (
 		<div>
 			<div className="container max-w-3xl">
-				<div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+				<div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
 					{categories?.map(({ image, name, _id }, index) => (
 						<div
 							key={index}
 							className={cn(
-								"border-2 rounded-2xl p-6 flex flex-col items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
+								"border-2 rounded-lg p-6 flex flex-row md:flex-col items-center md:items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
 								_id === selectCategory &&
 									"border-black bg-[#F7F7F7]"
 							)}

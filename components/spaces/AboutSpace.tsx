@@ -5,7 +5,7 @@ export const AboutSpace = ({ description }: { description: string }) => {
 		<div>
 			<div>
 				<h4 className="text-xl md:text-2xl font-medium">About space</h4>
-				<p className="text-base text-muted-foreground mt-2">
+				<p className="text-sm md:text-base text-muted-foreground mt-2">
 					{description}
 				</p>
 			</div>

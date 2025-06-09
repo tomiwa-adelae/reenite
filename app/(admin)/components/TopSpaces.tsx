@@ -6,27 +6,28 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export const TopSpaces = ({ spaces }: { spaces: ISpace[] }) => {
+export const TopSpaces = ({ spaces }: { spaces: any }) => {
 	return (
 		<div>
-			{spaces.map((space, index) => {
+			{spaces.map((space: any, index: string) => {
 				const coverPhoto =
 					// @ts-ignore
 					space?.photos.find((photo) => photo.cover) ||
 					// @ts-ignore
 					space?.photos[0];
+
 				return (
 					<Link
-						href={`/all-spaces/${space?._id}`}
+						href={`/all-spaces/${space?.spaceId}`}
 						key={index}
-						className="hover:bg-[#F7F7F7] transition-all p-2 rounded-2xl flex items-center justify-start gap-4 group cursor-pointer"
+						className="hover:bg-[#F7F7F7] transition-all p-2 rounded-lg flex items-center justify-start gap-4 group cursor-pointer"
 					>
 						<Image
 							src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
 							alt={space.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="size-[70px] object-cover rounded-2xl"
+							className="size-[70px] object-cover rounded-lg"
 						/>
 						<div className="flex-1 flex items-center justify-between gap-2">
 							<div className="flex-1">
@@ -34,7 +35,7 @@ export const TopSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 									{space?.title}
 								</h5>
 								<p className="text-sm text-muted-foreground">
-									45 bookings
+									{space?.bookingsCount} bookings
 								</p>
 							</div>
 							<Button variant={"ghost"} size="icon">

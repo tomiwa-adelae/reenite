@@ -223,3 +223,22 @@ declare interface RemoveUrlQueryParams {
 	params: string;
 	keysToRemove: string[];
 }
+
+declare interface GetTopSpaces {
+	userId: string;
+}
+
+declare interface RemoveSpaceParams {
+	userId: string;
+	spaceId: string;
+}
+
+declare interface CancelBookingParams {
+	userId: string;
+	bookingId: string;
+}
+
+declare interface MarkBookingCompletedParams {
+	userId: string;
+	bookingId: string;
+}

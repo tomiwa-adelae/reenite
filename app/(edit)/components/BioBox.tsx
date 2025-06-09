@@ -56,7 +56,7 @@ export const BioBox = ({ userId, bio }: Props) => {
 		<div>
 			<div>
 				<h2 className="font-semibold text-2xl lg:text-3xl">About me</h2>
-				<div className="mt-2 border-2 border-dashed rounded-2xl px-4 py-6">
+				<div className="mt-2 border-2 border-dashed rounded-lg px-4 py-6">
 					<p className="text-sm lg:text-base text-muted-foreground">
 						{bio
 							? bio

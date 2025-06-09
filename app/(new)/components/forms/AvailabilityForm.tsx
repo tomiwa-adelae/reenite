@@ -120,21 +120,21 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 	};
 
 	return (
-		<div className="mt-8">
+		<div className="mt-4">
 			<div className="container max-w-3xl space-y-6">
 				<div className="space-y-3">
 					{Object.entries(formData.operatingHours).map(
 						([day, hours]) => (
 							<div
 								key={day}
-								className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-4 lg:p-6 border"
+								className="flex flex-col items-center space-x-4 rounded-xl bg-[#F7F7F7] p-4 pt-2 lg:p-6 border"
 							>
 								<div className="flex items-center justify-between gap-4 w-full">
-									<div className="text-base lg:text-lg font-medium capitalize">
+									<div className="text-sm md:text-base font-medium capitalize">
 										{day}
 									</div>
 									<div className="flex items-center space-x-1">
-										<input
+										<Input
 											id={day}
 											type="checkbox"
 											checked={!hours.closed}
@@ -145,11 +145,11 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 													!e.target.checked
 												)
 											}
-											className="rounded border-gray-300 text-primary text-sm lg:text-base"
+											className="rounded border-gray-300 text-primary text-sm md:text-base"
 										/>
 										<label
 											htmlFor={day}
-											className="text-sm lg:text-base font-medium text-muted-foreground"
+											className="text-xs md:text-sm font-medium text-muted-foreground"
 										>
 											Open
 										</label>
@@ -157,7 +157,7 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 								</div>
 
 								{!hours.closed && (
-									<div className="w-full flex items-center justify-between gap-2 mt-4">
+									<div className="w-full flex items-center justify-between gap-2">
 										<Input
 											type="time"
 											value={hours.open}
@@ -168,9 +168,9 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 													e.target.value
 												)
 											}
-											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
 										/>
-										<span className="text-sm lg:text-base text-muted-foreground">
+										<span className="text-xs md:text-sm text-muted-foreground">
 											to
 										</span>
 										<Input
@@ -183,7 +183,7 @@ export const AvailabilityForm = ({ spaceId, userId, availability }: Props) => {
 													e.target.value
 												)
 											}
-											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm lg:text-base"
+											className="border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
 										/>
 									</div>
 								)}

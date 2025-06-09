@@ -115,7 +115,7 @@ export const WeeklyPriceForm = ({
 	};
 
 	return (
-		<div className="mt-8">
+		<div className="mt-4">
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className="container max-w-3xl space-y-4">

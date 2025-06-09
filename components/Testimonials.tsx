@@ -28,7 +28,7 @@ export const Testimonials = () => {
 						) => (
 							<div
 								className={cn(
-									"rounded-2xl p-8 hover:rotate-0 transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
+									"rounded-lg p-8 hover:rotate-0 transition-all shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
 									bgColor,
 									rotate
 								)}

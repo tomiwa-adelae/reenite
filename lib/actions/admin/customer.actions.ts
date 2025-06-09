@@ -279,7 +279,7 @@ export const deleteCustomer = async ({
 		revalidatePath("/all-users");
 		revalidatePath("/dashboard");
 
-		return { status: 200, message: "Successfully suspended user" };
+		return { status: 200, message: "Successfully deleted user" };
 	} catch (error) {
 		handleError(error);
 		return {

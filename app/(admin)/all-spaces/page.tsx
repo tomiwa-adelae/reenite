@@ -24,7 +24,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 	return (
 		<div className="py-8">
 			<div className="container">
-				<SpacesDetails spaces={spaces.spaces} query={query} />
+				<SpacesDetails
+					spaces={spaces.spaces}
+					query={query}
+					userId={user?.user?._id}
+				/>
 				{spaces?.totalPages! > 1 && (
 					<Pagination totalPages={spaces?.totalPages} page={page} />
 				)}

@@ -11,7 +11,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { getCustomers } from "@/lib/actions/admin/customer.actions";
 import { NoCustomers } from "../components/NoCustomers";
-import { getSpaces } from "@/lib/actions/admin/space.actions";
+import { getSpaces, getTopSpaces } from "@/lib/actions/admin/space.actions";
 import { getBookings } from "@/lib/actions/admin/booking.actions";
 import { NoBookings } from "../components/NoBookings";
 
@@ -21,6 +21,7 @@ const page = async () => {
 
 	const customers = await getCustomers({ userId: user?.user?._id });
 	const spaces = await getSpaces({ userId: user?.user?._id });
+	const topSpaces = await getTopSpaces({ userId: user?.user?._id });
 	const bookings = await getBookings({ userId: user?.user?._id });
 
 	return (
@@ -37,7 +38,7 @@ const page = async () => {
 							customers={customers?.customers}
 							bookings={bookings?.bookings}
 						/>
-						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Recent bookings
 							</h3>
@@ -50,15 +51,15 @@ const page = async () => {
 								</div>
 							)}
 						</div>
-						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Top performing spaces
 							</h3>
 							<div className="mt-2">
-								<TopSpaces spaces={spaces.spaces} />
+								<TopSpaces spaces={topSpaces.spaces} />
 							</div>
 						</div>
-						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Recent users
 							</h3>
@@ -73,13 +74,13 @@ const page = async () => {
 								</div>
 							)}
 						</div>
-						<div className="p-4 md:p-8 mt-4 rounded-2xl bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
 								Quick actions
 							</h3>
 							<div className="mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 								<Button
-									className="rounded-2xl"
+									className="rounded-lg"
 									size="lg"
 									variant={"outline"}
 									asChild
@@ -93,7 +94,7 @@ const page = async () => {
 									</Link>
 								</Button>
 								<Button
-									className="rounded-2xl"
+									className="rounded-lg"
 									size="lg"
 									variant={"outline"}
 									asChild
@@ -107,7 +108,7 @@ const page = async () => {
 									</Link>
 								</Button>
 								<Button
-									className="rounded-2xl"
+									className="rounded-lg"
 									size="lg"
 									variant={"outline"}
 									asChild

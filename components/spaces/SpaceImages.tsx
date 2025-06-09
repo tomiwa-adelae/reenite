@@ -16,7 +16,7 @@ export const SpaceImages = ({ images }: { images: any }) => {
 	};
 	return (
 		<div className="mt-4 relative">
-			<div className="grid grid-cols-1 md:grid-cols-5 grid-rows-4 gap-2 rounded-2xl overflow-hidden">
+			<div className="grid grid-cols-1 md:grid-cols-5 grid-rows-4 gap-2 rounded-lg overflow-hidden">
 				{/* Large main image */}
 				<div
 					className="relative col-span-3 row-span-4 group overflow-hidden"

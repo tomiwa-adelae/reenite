@@ -8,7 +8,7 @@ export const NoAboutDetails = () => {
 			<h4 className="font-medium text-lg lg:text-xl">
 				Complete your profile
 			</h4>
-			<p className="text-base lg:text-base text-muted-foreground mt-1 mb-4">
+			<p className="text-sm md:text-base text-muted-foreground mt-1 mb-4">
 				Your Reenite profile is an important part of every reservation.
 				Complete yours to help us serve you better.
 			</p>

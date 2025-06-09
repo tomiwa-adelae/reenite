@@ -4,8 +4,14 @@ import { connectToDatabase } from "@/lib/database";
 import Booking from "@/lib/database/models/booking.model";
 import User from "@/lib/database/models/user.model";
 import { handleError } from "@/lib/utils";
-import { GetAllBookingsParams, GetBookingDetailsParams } from "@/types";
+import {
+	CancelBookingParams,
+	GetAllBookingsParams,
+	GetBookingDetailsParams,
+	MarkBookingCompletedParams,
+} from "@/types";
 import "../../database/models";
+import { revalidatePath } from "next/cache";
 
 export const getBookings = async ({
 	query,
@@ -125,6 +131,118 @@ export const getBookingDetails = async ({
 			status: 200,
 			message: "Successful",
 			booking: JSON.parse(JSON.stringify(booking)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+// Cancel booking
+export const cancelBooking = async ({
+	userId,
+	bookingId,
+}: CancelBookingParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !bookingId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		const booking = await Booking.findById(bookingId);
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		booking.bookingStatus = "cancelled";
+
+		const updatedBooking = await booking.save();
+
+		if (!updatedBooking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		revalidatePath(`/all-bookings`);
+		revalidatePath(`/all-bookings/${bookingId}`);
+
+		return {
+			status: 200,
+			message: "Booking successfully cancelled.",
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+// Cancel booking
+export const markBookingCompleted = async ({
+	userId,
+	bookingId,
+}: MarkBookingCompletedParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !bookingId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		const booking = await Booking.findById(bookingId);
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		booking.bookingStatus = "completed";
+
+		const updatedBooking = await booking.save();
+
+		if (!updatedBooking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		revalidatePath(`/all-bookings`);
+		revalidatePath(`/all-bookings/${bookingId}`);
+
+		return {
+			status: 200,
+			message: "Booking successfully completed.",
 		};
 	} catch (error) {
 		handleError(error);

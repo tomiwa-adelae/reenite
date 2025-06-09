@@ -13,7 +13,7 @@ export const SpaceDetailsBox = ({
 	return (
 		<div
 			className={cn(
-				"cursor-pointer hover:bg-[#F7F7F7] transition-all hover:border-black border-2 rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white p-6",
+				"cursor-pointer hover:bg-[#F7F7F7] transition-all hover:border-black border-2 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white p-6",
 				active && "border-black bg-[#F7F7F7]"
 			)}
 		>

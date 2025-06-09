@@ -10,7 +10,7 @@ export default function layout({
 		<div>
 			<Header />
 			<div className="pt-20 flex items-center justify-center">
-				<div className="container flex items-center justify-center max-w-xl md:border-2 md:my-28 rounded-2xl overflow-hidden">
+				<div className="container flex items-center justify-center max-w-xl md:border-2 md:my-28 rounded-lg overflow-hidden">
 					{children}
 				</div>
 			</div>

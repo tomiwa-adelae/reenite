@@ -40,7 +40,7 @@ const BookingSchema = new Schema<IBooking>(
 			required: true,
 		},
 		endDate: {
-			type: Date,
+			type: String,
 		},
 		noOfHours: {
 			type: String,

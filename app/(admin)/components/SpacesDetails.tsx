@@ -12,9 +12,11 @@ import { SearchBar } from "@/components/forms/SearchBar";
 export const SpacesDetails = ({
 	spaces,
 	query,
+	userId,
 }: {
 	spaces: ISpace[];
 	query?: string;
+	userId: string;
 }) => {
 	const [orientation, setOrientation] = useState<"grid" | "list">("grid");
 	const [showSearch, setShowSearch] = useState(false);
@@ -92,9 +94,11 @@ export const SpacesDetails = ({
 
 			{spaces?.length !== 0 && (
 				<div className="mt-4">
-					{orientation === "grid" && <SpacesGrid spaces={spaces} />}
+					{orientation === "grid" && (
+						<SpacesGrid spaces={spaces} userId={userId} />
+					)}
 					{orientation === "list" && (
-						<SpacesListings spaces={spaces} />
+						<SpacesListings spaces={spaces} userId={userId} />
 					)}
 				</div>
 			)}

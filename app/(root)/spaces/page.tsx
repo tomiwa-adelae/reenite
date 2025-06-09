@@ -8,20 +8,16 @@ import { Testimonials } from "@/components/Testimonials";
 import { getSpaces } from "@/lib/actions/customer/space.actions";
 
 const page = async () => {
-	const images = [
-		"/assets/images/space-one.jpg",
-		"/assets/images/space-two.jpg",
-		"/assets/images/space-three.jpg",
-		"/assets/images/space-four.jpg",
-		"/assets/images/space-five.jpg",
-	];
-
 	const spaces = await getSpaces();
+
+	const allPhotoUrls = spaces?.spaces?.flatMap((space: any) =>
+		space?.photos.map((photo: any) => photo.src)
+	);
 
 	return (
 		<div>
 			<SpacesShowcase
-				images={images}
+				images={allPhotoUrls}
 				title={"Find Your Perfect Workspace"}
 				description={
 					"Discover inspiring co-working spaces, private offices, and meeting rooms in your city. Book by the hour, day, or month."

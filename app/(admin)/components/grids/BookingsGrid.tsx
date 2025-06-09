@@ -1,9 +1,9 @@
+import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { DEFAULT_PROFILE_PICTURE, DEFAULT_SPACE_IMAGE } from "@/constants";
 import { IBooking } from "@/lib/database/models/booking.model";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 	return (
@@ -16,7 +16,7 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 					booking.space?.photos[0];
 				return (
 					<Link
-						className="group"
+						className="group relative"
 						href={`/all-bookings/${booking._id}`}
 						key={index}
 					>
@@ -26,7 +26,7 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 								alt={booking?.space?.title || "Space image"}
 								width={1000}
 								height={1000}
-								className="aspect-video object-cover rounded-2xl"
+								className="aspect-video object-cover rounded-lg"
 							/>
 							<Image
 								src={
@@ -40,10 +40,10 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 							/>
 						</div>
 						<h4 className="text-lg font-medium mt-4">
-							{booking?.space?.title}
+							{booking?.bookingId}
 						</h4>
 						<p className="text-sm text-muted-foreground">
-							{booking?.space?.city}, {booking?.space?.state}
+							{booking?.space?.title}
 						</p>
 						<Separator className="my-2" />
 						<h4 className="text-base font-medium group-hover:text-secondary transition-all">
@@ -52,20 +52,18 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 						<p className="text-sm text-muted-foreground">
 							{booking?.user?.email}
 						</p>
-						{/* <div className="flex items-center justify-start gap-2 mt-4">
-							<Image
-								src={"/assets/images/user-one.jpeg"}
-								alt={"User"}
-								width={1000}
-								height={1000}
-								className="size-[30px] object-cover rounded-full"
-							/>
-							<div>
-								<h4 className="text-base font-medium">
-									Adelae Tomiwa
-								</h4>
-							</div>
-						</div> */}
+						<Badge
+							variant={
+								booking?.bookingStatus === "confirmed"
+									? "success"
+									: booking?.bookingStatus === "cancelled"
+									? "destructive"
+									: "default"
+							}
+							className="absolute top-3 left-2 capitalize"
+						>
+							{booking.bookingStatus}
+						</Badge>
 					</Link>
 				);
 			})}

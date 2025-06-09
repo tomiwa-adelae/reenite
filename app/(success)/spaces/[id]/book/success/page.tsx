@@ -24,25 +24,25 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 	const year = new Date().getFullYear();
 
 	return (
-		<div className="bg-[#F5F4F7] py-16 flex flex-col items-center justify-center min-h-screen">
+		<div className="bg-[#F7F7F7] py-16 flex flex-col items-center justify-center min-h-screen">
 			<div className="container grid grid-cols-1 lg:grid-cols-5 gap-8">
-				<div className="text-center md:text-left col-span-3">
+				<div className="text-center md:text-left col-span-3 flex flex-col items-start justify-center">
 					<div className="flex items-center md:justify-start justify-center">
 						<Logo />
 					</div>
 					<h1
-						style={{ fontFamily: "ClashDisplay" }}
+						// style={{ fontFamily: "ClashDisplay" }}
 						className="text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold"
 					>
 						Booking confirmed successfully!
 					</h1>
-					<p className="text-xs md:text-sm text-muted-foreground lg:text-base leading-relaxed font-medium">
+					<p className="text-sm md:text-base text-muted-foreground lg:text-base leading-relaxed font-medium">
 						Thank you for choosing to book with Reenite! Your
 						reservation is confirmed. If there is anything you need
 						before your arrival, please don't hesitate to reach out
 						to us.
 					</p>
-					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-8">
+					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-6 md:mt-8">
 						<Button className="w-full md:w-auto" asChild size="lg">
 							<Link
 								href={`/bookings/${bookingDetails?.booking?._id}`}
@@ -64,7 +64,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-4 md:px-8 flex items-center justify-between gap-4 py-4 md:py-6">
 						<div>
 							<h2
-								style={{ fontFamily: "ClashDisplay" }}
+								// style={{ fontFamily: "ClashDisplay" }}
 								className="font-bold text-2xl md:text-3xl"
 							>
 								₦
@@ -106,7 +106,13 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 							<p className="flex items-center justify-between gap-4">
 								Start date:{" "}
 								<span className="text-black font-semibold">
-										{bookingDetails?.booking.startDate}
+									{bookingDetails?.booking?.startDate}
+								</span>
+							</p>
+							<p className="flex items-center justify-between gap-4">
+								End date:{" "}
+								<span className="text-black font-semibold">
+									{bookingDetails?.booking?.endDate}
 								</span>
 							</p>
 							{bookingDetails?.booking?.bookingType ===

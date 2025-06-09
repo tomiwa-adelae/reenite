@@ -11,7 +11,7 @@ export const NoCustomers = () => {
 				height={1000}
 				className="size-[250px] object-cover"
 			/>
-			<p className="text-muted-foreground text-center text-base mt-4 mb-6">
+			<p className="text-muted-foreground text-center text-sm md:text-base mt-4 mb-6">
 				You’ll find your users here once they sign up on Reenite.
 			</p>
 		</div>

@@ -73,7 +73,7 @@ export const SpaceBooking = ({
 								}}
 								key={index}
 								className={cn(
-									"border-2 rounded-2xl cursor-pointer hover:bg-[#F7F7F7] transition-all p-4 hover:border-black",
+									"border-2 rounded-lg cursor-pointer hover:bg-[#F7F7F7] transition-all p-4 hover:border-black",
 									selectBooking === label &&
 										"border-black bg-[#F7F7F7]"
 								)}
