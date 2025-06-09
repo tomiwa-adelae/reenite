@@ -63,7 +63,7 @@ export const PhoneNumberBox = ({ userId, phoneNumber }: Props) => {
 		<div>
 			<div
 				onClick={() => setOpenModal(true)}
-				className="flex items-center justify-start gap-4 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-pointer transition-all text-muted-foreground"
+				className="flex items-center justify-start gap-2 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-pointer transition-all text-muted-foreground"
 			>
 				<Phone className="size-6 lg:size-7" />{" "}
 				<p className="text-sm lg:text-base line-clamp-1">

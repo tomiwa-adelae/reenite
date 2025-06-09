@@ -47,7 +47,7 @@ const page = async ({ params }: { params: any }) => {
 				<div className="flex items-start md:items-center justify-between gap-4">
 					<div className=" flex items-center justify-start gap-4">
 						<BackButton slug={"/all-users"} />
-						<h2 className="font-semibold text-3xl lg:text-4xl">
+						<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 							{customer?.customer?.userId}
 						</h2>
 					</div>

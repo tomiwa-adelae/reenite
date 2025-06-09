@@ -107,7 +107,7 @@ export const createBooking = async ({
 
 		return {
 			status: 201,
-			message: "Success",
+			message: "Congratulations! Your booking was successful",
 			booking: JSON.parse(JSON.stringify(booking)),
 		};
 	} catch (error) {

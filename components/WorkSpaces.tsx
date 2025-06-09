@@ -9,8 +9,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 		<section className="bg-white py-16">
 			<div className="container">
 				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
-					Redefining the Future{" "}
-					<span className="text-muted-foreground">of Workspaces</span>
+					Redefining the Future of Workspaces{" "}
 				</h2>
 
 				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
@@ -31,12 +30,12 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 									alt={space.title || "Space image"}
 									width={1000}
 									height={1000}
-									className="aspect-video md:aspect-square object-cover rounded-xl"
+									className="aspect-square object-cover rounded-lg group-hover:scale-105 transition-all overflow-hidden"
 								/>
-								<h4 className="text-xl font-medium mt-4 group-hover:text-secondary transition-all">
+								<h4 className="text-lg md:text-xl font-medium mt-4 group-hover:text-secondary transition-all">
 									{space?.title}
 								</h4>
-								<p className="text-base text-muted-foreground mt-1 truncate mb-4">
+								<p className="text-sm md:text-base text-muted-foreground mt-1 truncate mb-4">
 									{space?.description ||
 										`${space.city}, ${space?.state}`}
 								</p>

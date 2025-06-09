@@ -92,7 +92,7 @@ export const getSpaces = async ({
 				message: "Oops! You are not authorized to make this request.",
 			};
 
-		const spaces = await Space.find({ user: userId, ...keyword })
+		const spaces = await Space.find({ ...keyword })
 			.sort({ createdAt: -1 })
 			.skip(skipAmount)
 			.limit(limit)

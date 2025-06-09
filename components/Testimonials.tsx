@@ -9,8 +9,7 @@ export const Testimonials = () => {
 		<div className="bg-white pt-12 pb-16">
 			<div className="container">
 				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl">
-					Real stories by{" "}
-					<span className="text-muted-foreground">Real people</span>
+					Real stories by Real people
 				</h4>
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 mt-8">
 					{testimonials.map(
@@ -34,14 +33,14 @@ export const Testimonials = () => {
 								)}
 								key={index}
 							>
-								<div className="flex items-center justify-start gap-4">
+								<div className="flex items-center justify-start gap-2">
 									<Image
 										src={image}
 										alt={`${name}'s picture`}
 										width={1000}
 										height={1000}
 										className={cn(
-											"rounded-full size-[70px] border-4 object-cover",
+											"rounded-full size-[60px] md:size-[70px] border-4 object-cover",
 											borderColor
 										)}
 									/>

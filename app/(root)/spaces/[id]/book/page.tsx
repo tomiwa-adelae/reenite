@@ -10,6 +10,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import Link from "next/link";
 import { BookingDetails } from "@/components/BookingDetails";
+import { FAQs } from "@/components/shared/FAQs";
 
 const page = async ({
 	params,
@@ -86,7 +87,7 @@ const page = async ({
 							</p>
 						</div>
 					</div>
-					<Button asChild size="md">
+					<Button className="w-full md:w-auto" asChild size="md">
 						<Link href="/spaces">Change space</Link>
 					</Button>
 				</div>

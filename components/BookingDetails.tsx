@@ -227,7 +227,7 @@ export const BookingDetails = ({
 					Contact details
 				</h4>
 				<div className="mt-4 space-y-6">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div>
 							<Label className="mb-2">First name</Label>
 							<Input

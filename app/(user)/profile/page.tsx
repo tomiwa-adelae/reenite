@@ -16,7 +16,7 @@ const page = async () => {
 	return (
 		<div>
 			<div className="container">
-				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl line-clamp-1">
+				<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl line-clamp-1">
 					Welcome back, {user?.user?.firstName}
 				</h2>
 				<div className="mt-4">
@@ -56,7 +56,7 @@ const page = async () => {
 						</h2>
 						{bookings.bookings?.length === 0 && <NoBookings />}
 						{bookings?.bookings?.length !== 0 && (
-							<div className="mt-4">
+							<div>
 								<BookingsGrid bookings={bookings.bookings} />
 							</div>
 						)}

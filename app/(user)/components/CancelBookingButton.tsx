@@ -15,13 +15,14 @@ export const CancelBookingButton = ({
 }) => {
 	const [openCancelBookingModal, setOpenCancelBookingModal] = useState(false);
 	return (
-		<div>
+		<div className="w-full md:w-auto">
 			<Button
 				disabled={
 					bookingStatus === "cancelled" ||
 					bookingStatus === "completed"
 				}
 				size="md"
+				className="w-full md:w-auto"
 				variant={"destructive"}
 				onClick={() => setOpenCancelBookingModal(true)}
 			>

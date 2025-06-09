@@ -30,7 +30,7 @@ const page = async () => {
 				{spaces?.spaces?.length === 0 && <NoAdminData />}
 				{spaces?.spaces?.length !== 0 && (
 					<div>
-						<h2 className="font-semibold text-2xl lg:text-3xl">
+						<h2 className="font-semibold text-2xl md:text-3xl">
 							Welcome back, {user?.user?.firstName}
 						</h2>
 						<DashboardAnalytics

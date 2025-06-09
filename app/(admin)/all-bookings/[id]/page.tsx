@@ -60,7 +60,7 @@ const page = async ({ params }: { params: any }) => {
 					<div className=" flex items-start justify-start gap-4">
 						<BackButton slug={"/all-bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
-							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
+							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 								{booking.booking.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">

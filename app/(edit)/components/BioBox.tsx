@@ -55,7 +55,7 @@ export const BioBox = ({ userId, bio }: Props) => {
 	return (
 		<div>
 			<div>
-				<h2 className="font-semibold text-2xl lg:text-3xl">About me</h2>
+				<h2 className="font-semibold text-lg lg:text-2xl">About me</h2>
 				<div className="mt-2 border-2 border-dashed rounded-lg px-4 py-6">
 					<p className="text-sm lg:text-base text-muted-foreground">
 						{bio
@@ -67,7 +67,7 @@ export const BioBox = ({ userId, bio }: Props) => {
 							onClick={() => setOpenModal(true)}
 							size="md"
 							variant={"outline"}
-							className="mt-1"
+							className="mt-2.5"
 						>
 							Edit intro
 						</Button>

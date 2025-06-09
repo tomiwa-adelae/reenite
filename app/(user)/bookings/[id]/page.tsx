@@ -27,6 +27,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { CancelBookingButton } from "../../components/CancelBookingButton";
+import { BookingId } from "../../components/BookingId";
+import { BackButton } from "@/components/shared/BackButton";
 
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
@@ -51,18 +53,9 @@ const page = async ({ params }: { params: any }) => {
 			<div className="container">
 				<div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
 					<div className=" flex items-start justify-start gap-4">
-						<Button
-							size="icon"
-							className="size-10 lg:size-12 bg-[#F7F7F7]"
-							variant="ghost"
-							asChild
-						>
-							<Link href="/bookings">
-								<ArrowLeft className="size-4 lg:size-6" />
-							</Link>
-						</Button>
+						<BackButton slug={"/bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
-							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
+							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 								{booking.booking.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">
@@ -132,7 +125,7 @@ const page = async ({ params }: { params: any }) => {
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<div className="div">
 						<h3 className="font-medium text-lg">Category</h3>
-						<div className="mt-4 flex items-center justify-start gap-4">
+						<div className="flex items-center justify-start gap-4">
 							<Image
 								src={
 									booking.booking.space.category.image ||
@@ -166,8 +159,8 @@ const page = async ({ params }: { params: any }) => {
 					<Separator className="my-4" />
 					<div>
 						<h3 className="font-medium text-lg">Space location</h3>
-						<div className="mt-4">
-							<p className="text-muted-foreground text-sm md:text-base">
+						<div className="mt-2">
+							<p className="text-sm md:text-base">
 								<MapPin className="size-4 md:size-5 inline-block mr-2" />
 								{booking.booking.space.address},{" "}
 								{booking.booking.space.city},{" "}
@@ -189,53 +182,48 @@ const page = async ({ params }: { params: any }) => {
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking Details</h3>
 					<div className="flex flex-col gap-4 mt-4">
+						<BookingId bookingId={booking.booking.bookingId} />
 						<div className="flex items-center justify-start gap-2">
-							<Hash className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground">
-								Booking ID: {booking.booking.bookingId}
-							</p>
-						</div>
-						<div className="flex items-center justify-start gap-2">
-							<Building className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground capitalize">
+							<Building className="size-5" />
+							<p className="text-sm md:text-base capitalize">
 								Booking status: {booking.booking.bookingStatus}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<CreditCard className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground capitalize">
+							<CreditCard className="size-5" />
+							<p className="text-sm md:text-base capitalize">
 								Payment status: {booking.booking.paymentStatus}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<CalendarDays className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground">
+							<CalendarDays className="size-5" />
+							<p className="text-sm md:text-base">
 								Date booked:{" "}
 								{formatDate(booking.booking.createdAt)}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<CalendarCheck className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground capitalize">
+							<CalendarCheck className="size-5" />
+							<p className="text-sm md:text-base capitalize">
 								Booking type: {booking.booking.bookingType}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<CalendarDays className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground">
+							<CalendarDays className="size-5" />
+							<p className="text-sm md:text-base">
 								Start date: {booking.booking.startDate}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
-							<CalendarDays className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground">
+							<CalendarDays className="size-5" />
+							<p className="text-sm md:text-base">
 								End date: {booking.booking.endDate}
 							</p>
 						</div>
 						{booking.booking.bookingType === "hourly" && (
 							<div className="flex items-center justify-start gap-2">
-								<Hourglass className="size-5 text-muted-foreground" />
-								<p className="text-sm md:text-base text-muted-foreground">
+								<Hourglass className="size-5" />
+								<p className="text-sm md:text-base">
 									Hours: {booking.booking.noOfHours}{" "}
 									{booking.booking.noOfHours === "1"
 										? "hour"
@@ -245,8 +233,8 @@ const page = async ({ params }: { params: any }) => {
 						)}
 						{booking.booking.bookingType === "daily" && (
 							<div className="flex items-center justify-start gap-2">
-								<Hourglass className="size-5 text-muted-foreground" />
-								<p className="text-sm md:text-base text-muted-foreground">
+								<Hourglass className="size-5" />
+								<p className="text-sm md:text-base">
 									Days: {booking.booking.noOfDays}{" "}
 									{booking.booking.noOfDays === "1"
 										? "day"
@@ -256,8 +244,8 @@ const page = async ({ params }: { params: any }) => {
 						)}
 						{booking.booking.bookingType === "weekly" && (
 							<div className="flex items-center justify-start gap-2">
-								<Hourglass className="size-5 text-muted-foreground" />
-								<p className="text-sm md:text-base text-muted-foreground">
+								<Hourglass className="size-5" />
+								<p className="text-sm md:text-base">
 									Days: {booking.booking.noOfWeeks}{" "}
 									{booking.booking.noOfWeeks === "1"
 										? "week"
@@ -267,8 +255,8 @@ const page = async ({ params }: { params: any }) => {
 						)}
 						{booking.booking.bookingType === "monthly" && (
 							<div className="flex items-center justify-start gap-2">
-								<Hourglass className="size-5 text-muted-foreground" />
-								<p className="text-sm md:text-base text-muted-foreground">
+								<Hourglass className="size-5" />
+								<p className="text-sm md:text-base">
 									Days: {booking.booking.noOfMonths}{" "}
 									{booking.booking.noOfMonths === "1"
 										? "month"
@@ -277,8 +265,8 @@ const page = async ({ params }: { params: any }) => {
 							</div>
 						)}
 						<div className="flex items-center justify-start gap-2">
-							<Users className="size-5 text-muted-foreground" />
-							<p className="text-sm md:text-base text-muted-foreground">
+							<Users className="size-5" />
+							<p className="text-sm md:text-base">
 								Users: {booking.booking.noOfUsers}{" "}
 								{booking.booking.noOfUsers === "1"
 									? "user"

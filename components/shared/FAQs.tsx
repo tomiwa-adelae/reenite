@@ -12,8 +12,7 @@ export const FAQs = () => {
 		<div className="text-black bg-white py-16">
 			<div className="container">
 				<h4 className="font-medium text-2xl md:text-3xl lg:text-4xl">
-					Frequently Asked{" "}
-					<span className="text-muted-foreground">Questions</span>
+					Frequently Asked Questions
 				</h4>
 				<div className="mt-8">
 					<Accordion

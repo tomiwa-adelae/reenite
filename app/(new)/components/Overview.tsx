@@ -24,7 +24,7 @@ export const Overview = () => {
 									"border-b"
 								} py-8`}
 							>
-								<div className="flex items-start justify-start gap-4 ">
+								<div className="flex items-start justify-start gap-2 md:gap-4">
 									<h5 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
 										{index + 1}
 									</h5>

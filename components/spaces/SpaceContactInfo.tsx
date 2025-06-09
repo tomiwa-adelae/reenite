@@ -1,3 +1,7 @@
+import {
+	REENITE_CONTACT_PHONE_NUMBER,
+	REENITE_EMAIL_ADDRESS,
+} from "@/constants";
 import React from "react";
 
 export const SpaceContactInfo = () => {
@@ -6,16 +10,18 @@ export const SpaceContactInfo = () => {
 			<h4 className="text-xl md:text-2xl font-medium">
 				Contact information
 			</h4>
-			<div className="grid gap-2 underline mt-2 text-sm md:text-base hover:text-primary transition-all text-muted-foreground">
+			<div className="grid gap-4 underline mt-4 text-sm md:text-base">
 				<a
-					href="/"
+					className="hover:text-secondary transition-all"
+					href={`mailto:${REENITE_EMAIL_ADDRESS}`}
 				>
-					info@reenite.com
+					{REENITE_EMAIL_ADDRESS}
 				</a>
 				<a
-					href="/"
+					className="hover:text-secondary transition-all"
+					href={`tel:${REENITE_CONTACT_PHONE_NUMBER}`}
 				>
-					+234 801 364 7483
+					{REENITE_CONTACT_PHONE_NUMBER}
 				</a>
 			</div>
 		</div>

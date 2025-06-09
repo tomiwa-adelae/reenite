@@ -34,7 +34,7 @@ const page = async () => {
 					</div>
 				</div>
 				<div className="col-span-3 mt-8 lg:mt-0">
-					<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
+					<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
 						My profile
 					</h2>
 					<div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-x-4">
@@ -43,7 +43,7 @@ const page = async () => {
 							firstName={user?.user?.firstName}
 							lastName={user?.user?.lastName}
 						/>
-						<div className="flex items-center justify-start gap-4 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-not-allowed transition-all text-muted-foreground">
+						<div className="flex items-center justify-start gap-2 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-not-allowed transition-all text-muted-foreground">
 							<Mail className="size-6 lg:size-7" />{" "}
 							<p className="text-sm lg:text-base line-clamp-1">
 								My email:{" "}

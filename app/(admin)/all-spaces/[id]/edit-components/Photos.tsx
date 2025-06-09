@@ -110,7 +110,7 @@ export const Photos = ({
 									alt={photo.imageId || "Space image"}
 									width={1000}
 									height={1000}
-									className="rounded-lg object-cover aspect-square hover:scale-[102%] transition-all cursor-pointer"
+									className="rounded-lg object-cover aspect-square hover:scale-105 transition-all cursor-pointer"
 								/>
 								<Button
 									className="text-white hover:text-destructive absolute top-1 right-1"

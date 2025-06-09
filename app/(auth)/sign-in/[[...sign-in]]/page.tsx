@@ -13,12 +13,12 @@ export default function page() {
 				<p className="font-semibold text-lg">Log in</p>
 			</div>
 			<div className="px-[32px] mt-12 hidden md:block">
-				<h2 className="text-2xl font-semibold leading-0">
+				<h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-0">
 					Welcome to reenite
 				</h2>
 			</div>
 			<div className="md:hidden">
-				<h2 className="text-2xl font-semibold leading-0">
+				<h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-0">
 					Log into reenite
 				</h2>
 			</div>

@@ -580,5 +580,6 @@ export const DEFAULT_SPACE_IMAGE =
 	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
+export const REENITE_EMAIL_ADDRESS = "info@reenite.com";
 
 export const DEFAULT_LIMIT = 10;

@@ -1,4 +1,4 @@
-import { SpaceImages } from "@/components/spaces/SpaceImages";
+import { SpacePhotos } from "@/components/spaces/SpacePhotos";
 import { AboutSpace } from "@/components/spaces/AboutSpace";
 import { SpaceBooking } from "@/components/spaces/SpaceBooking";
 import { SpaceAmenities } from "@/components/spaces/SpaceAmenities";
@@ -12,15 +12,6 @@ import { SpaceDetails } from "@/components/spaces/SpaceDetails";
 
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
-	const images = [
-		{ src: "/assets/images/space-one.jpg" },
-		{ src: "/assets/images/space-two.jpg" },
-		{ src: "/assets/images/space-three.jpg" },
-		{ src: "/assets/images/space-four.jpg" },
-		{ src: "/assets/images/space-five.jpg" },
-		{ src: "/assets/images/space-five.jpg" },
-	];
-
 	const spaceDetails = await getSpaceDetails(id);
 
 	if (spaceDetails?.status === 400) return <SpaceNotFound />;
@@ -38,7 +29,7 @@ const page = async ({ params }: { params: any }) => {
 						{spaceDetails?.space?.country}
 					</span>
 				</p>
-				<SpaceImages images={spaceDetails?.space.photos} />
+				<SpacePhotos photos={spaceDetails?.space.photos} />
 				<SpaceDetails
 					description={spaceDetails?.space.description}
 					category={spaceDetails?.space.category}

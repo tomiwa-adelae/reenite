@@ -62,7 +62,7 @@ export const NameBox = ({ userId, firstName, lastName }: Props) => {
 		<div>
 			<div
 				onClick={() => setOpenModal(true)}
-				className="flex items-center justify-start gap-4 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-pointer transition-all text-muted-foreground"
+				className="flex items-center justify-start gap-2 border-b py-6 hover:rounded-lg hover:bg-muted px-4 cursor-pointer transition-all text-muted-foreground"
 			>
 				<CircleUser className="size-6 lg:size-7" />{" "}
 				<p className="text-sm lg:text-base line-clamp-1">

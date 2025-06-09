@@ -8,6 +8,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BookingId } from "./components/BookingId";
 
 const page = async ({ searchParams }: { searchParams: any }) => {
 	const { id } = await searchParams;
@@ -27,13 +28,10 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 		<div className="bg-[#F7F7F7] py-16 flex flex-col items-center justify-center min-h-screen">
 			<div className="container grid grid-cols-1 lg:grid-cols-5 gap-8">
 				<div className="text-center md:text-left col-span-3 flex flex-col items-start justify-center">
-					<div className="flex items-center md:justify-start justify-center">
+					<div className="flex items-center md:justify-start mx-auto md:mx-0 justify-center">
 						<Logo />
 					</div>
-					<h1
-						// style={{ fontFamily: "ClashDisplay" }}
-						className="text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold"
-					>
+					<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold">
 						Booking confirmed successfully!
 					</h1>
 					<p className="text-sm md:text-base text-muted-foreground lg:text-base leading-relaxed font-medium">
@@ -42,7 +40,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 						before your arrival, please don't hesitate to reach out
 						to us.
 					</p>
-					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-6 md:mt-8">
+					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-6 md:mt-8 w-full">
 						<Button className="w-full md:w-auto" asChild size="lg">
 							<Link
 								href={`/bookings/${bookingDetails?.booking?._id}`}
@@ -61,7 +59,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					</div>
 				</div>
 				<div className="col-span-3 lg:col-span-2 grid gap-6">
-					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-4 md:px-8 flex items-center justify-between gap-4 py-4 md:py-6">
+					<div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-xl bg-white p-4 md:px-8 flex items-center justify-between gap-4 py-6">
 						<div>
 							<h2
 								// style={{ fontFamily: "ClashDisplay" }}
@@ -176,12 +174,9 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 										: "users"}
 								</span>
 							</p>
-							<p className="flex items-center justify-between gap-4">
-								Booking ID:{" "}
-								<span className="text-black font-semibold">
-									{bookingDetails?.booking.bookingId}
-								</span>
-							</p>
+							<BookingId
+								bookingId={bookingDetails?.booking.bookingId}
+							/>
 						</div>
 					</div>
 				</div>

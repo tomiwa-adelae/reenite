@@ -45,7 +45,7 @@ export const SpacesGrid = ({
 							alt={space.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="aspect-video lg:aspect-square object-cover rounded-lg transition-all group-hover:scale-[105%]"
+							className="aspect-video lg:aspect-square object-cover rounded-lg transition-all group-hover:scale-105"
 						/>
 						<h4 className="text-xl font-medium mt-4 hover:text-secondary transition-all line-clamp-1">
 							{space.title ? (

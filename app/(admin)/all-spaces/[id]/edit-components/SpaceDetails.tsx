@@ -120,7 +120,7 @@ export const SpaceDetails = ({
 					<div className="lg:container">
 						<div className="container flex items-center justify-start gap-4">
 							<BackButton slug={"/all-spaces"} />
-							<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
+							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 								{title}
 							</h2>
 						</div>

@@ -167,8 +167,6 @@ export function ReservationForm({
 	]);
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast("Event has been created.");
-
 		router.push(
 			`/spaces/${spaceId}/book?booking=${booking}&bookingStartDate=${formatDate(
 				data.bookingStartDate
@@ -352,7 +350,7 @@ export function ReservationForm({
 												size="md"
 												variant={"outline"}
 												className={cn(
-													"w-full text-left font-normal rounded-xl",
+													"w-full text-left text-sm font-normal rounded-lg px-3",
 													!field.value &&
 														"text-muted-foreground"
 												)}

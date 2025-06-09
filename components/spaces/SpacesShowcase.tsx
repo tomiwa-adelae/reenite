@@ -26,12 +26,7 @@ export const SpacesShowcase = ({ images, title, description }: Props) => {
 				}}
 				className="z-50 flex flex-col text-center text-white justify-center items-center container"
 			>
-				<h1
-					style={{ fontFamily: "ClashDisplay" }}
-					className="text-4xl lg:text-7xl mb-6 font-bold"
-				>
-					{title}
-				</h1>
+				<h1 className="text-4xl lg:text-7xl mb-4 font-bold">{title}</h1>
 				{description && (
 					<p className="text-base leading-relaxed font-medium mb-4 md:w-7/12 mx-auto">
 						{description}

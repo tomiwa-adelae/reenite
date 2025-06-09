@@ -22,7 +22,7 @@ const page = async () => {
 	return (
 		<div>
 			<div className="container">
-				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
+				<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl flex items-center justify-start">
 					<span>About me </span>
 					<Button
 						size="sm"

@@ -39,7 +39,7 @@ export const CustomersDetails = ({
 	return (
 		<div>
 			<div className="flex items-center justify-between gap-4">
-				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
+				<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 					Your customers
 				</h2>
 				<div className="flex items-center justify-end gap-4">

@@ -54,14 +54,12 @@ export function ProfileDropdown({ user }: Props) {
 					)}
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-80 py-2">
+			<DropdownMenuContent className="w-80 py-1 text-base font-medium">
 				{user?.isAdmin && (
 					<Link href="/dashboard">
 						<DropdownMenuItem className="cursor-pointer">
 							<LayoutPanelLeft className="size-5" />
-							<span className="text-base font-medium">
-								Admin panel
-							</span>
+							<span>Admin panel</span>
 						</DropdownMenuItem>
 					</Link>
 				)}
@@ -71,9 +69,7 @@ export function ProfileDropdown({ user }: Props) {
 						<Link key={index} href={slug}>
 							<DropdownMenuItem className="cursor-pointer">
 								<Icon className="size-5" />
-								<span className="text-base font-medium">
-									{label}
-								</span>
+								<span>{label}</span>
 							</DropdownMenuItem>
 						</Link>
 					);
@@ -83,7 +79,7 @@ export function ProfileDropdown({ user }: Props) {
 					className="cursor-pointer"
 				>
 					<LogOut className="size-5" />
-					<span className="text-base font-medium">Logout</span>
+					<span>Logout</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

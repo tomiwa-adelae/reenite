@@ -45,7 +45,7 @@ export const SpaceDetails = ({
 
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-4 mt-4">
-			<div className="col-span-4">
+			<div className="col-span-6 lg:col-span-4">
 				<AboutSpace description={description} />
 				<Separator className="my-4 md:my-6" />
 				<SpaceBooking

@@ -38,7 +38,7 @@ export const BookingsDetails = ({
 	return (
 		<div>
 			<div className="flex items-center justify-between gap-4">
-				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
+				<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
 					Past bookings
 				</h2>
 				<div className="flex items-center justify-end gap-4">
@@ -70,7 +70,7 @@ export const BookingsDetails = ({
 			</div>
 			{showSearch && (
 				<SearchBar
-					placeholder="Search booking by id, name, location..."
+					placeholder="Search booking by ID, name, location..."
 					onClose={() => setShowSearch(false)}
 				/>
 			)}

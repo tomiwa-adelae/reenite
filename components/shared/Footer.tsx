@@ -10,8 +10,8 @@ export const Footer = () => {
 	return (
 		<footer className="bg-[#1B1D37] text-white dark:bg-black dark:text-white">
 			<div className="container">
-				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 py-16">
-					<div className="col-span-2 md:col-span-1 lg:col-span-2">
+				<div className="py-16 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
+					<div className="lg:col-span-2">
 						<WhiteLogo />
 						<p className="text-white/80 dark:text-gray-200 text-base mt-4">
 							Connecting people with the perfect workspace for
@@ -40,7 +40,7 @@ export const Footer = () => {
 						</div>
 					</div>
 					{footerDetails.map(({ title, links }, index) => (
-						<div key={index} className="">
+						<div key={index}>
 							<h3 className="text-sm md:text-base font-semibold tracking-wider">
 								{title}
 							</h3>
@@ -60,10 +60,7 @@ export const Footer = () => {
 					))}
 				</div>
 			</div>
-			<div className="container">
-				<Separator className="text-red-400" />
-			</div>
-			<div className="transition-all py-8 text-center font-medium text-sm">
+			<div className="transition-all pb-8 text-center font-medium text-sm">
 				<p className="container">
 					&copy; {year} Reenite. All rights reserved.
 				</p>

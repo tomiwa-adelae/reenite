@@ -17,7 +17,7 @@ export function PhotosCard({ photos }: { photos: IPhoto[] }) {
 						"rounded-lg aspect-square transition-all object-cover shadow-[0_3px_10px_rgb(0,0,0,0.2)]",
 						index === 0 &&
 							"translate-x-10 -rotate-6 hover:scale-105",
-						index === 1 && "z-20 scale-125 hover:scale-[120%]",
+						index === 1 && "z-20 scale-125 hover:scale-105",
 						index === 2 &&
 							"-translate-x-10 rotate-6 hover:scale-105"
 					)}

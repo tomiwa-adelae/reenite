@@ -10,14 +10,14 @@ export const Logo = () => {
 				alt="Reenite full logo in it's blue color"
 				width={1000}
 				height={1000}
-				className="group-hover:hidden w-[150px] md:w-[160px]"
+				className="group-hover:hidden w-[130px] md:w-[160px]"
 			/>
 			<Image
 				src={"/assets/images/logo-full-grey.svg"}
 				alt="Reenite full logo in it's grey color"
 				width={1000}
 				height={1000}
-				className="hidden group-hover:block w-[150px] md:w-[160px]"
+				className="hidden group-hover:block w-[130px] md:w-[160px]"
 			/>
 		</Link>
 	);

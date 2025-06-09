@@ -27,12 +27,9 @@ export const SpaceAvailability = ({
 			<h4 className="text-xl md:text-2xl font-medium">
 				Space Availability
 			</h4>
-			<div className="grid gap-4 mt-4">
+			<div className="grid gap-6 mt-4">
 				{formattedAvailability.map((entry, idx) => (
-					<p
-						className="text-sm lg:text-base text-muted-foreground"
-						key={idx}
-					>
+					<p className="text-sm md:text-base" key={idx}>
 						{entry}
 					</p>
 				))}
