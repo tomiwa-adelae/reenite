@@ -112,8 +112,10 @@ export const EditHourlyPricingComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Hourly pricing successfully updated!");
-			// @ts-ignore
-			closeSmallModal();
+			// ✅ Safely call modal closer
+			if (typeof closeSmallModal === "function") {
+				closeSmallModal();
+			}
 		} catch (error) {
 			toast.error("Something went wrong.");
 		} finally {

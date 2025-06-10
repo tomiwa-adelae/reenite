@@ -56,8 +56,10 @@ export const EditDescriptionComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success("Description successfully updated!");
-			// @ts-ignore
-			closeSmallModal();
+			// ✅ Safely call modal closer
+			if (typeof closeSmallModal === "function") {
+				closeSmallModal();
+			}
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}
