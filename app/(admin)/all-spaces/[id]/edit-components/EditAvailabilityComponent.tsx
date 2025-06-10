@@ -154,9 +154,14 @@ export const EditAvailabilityComponent = ({
 			// toast.success(res.message);
 			setLoading(false);
 			toast.success("Space availability successfully updated!");
-			// @ts-ignore
-			closeSmallModal();
+
+			// ✅ Safely call modal closer
+			if (typeof closeSmallModal === "function") {
+				closeSmallModal();
+			}
 		} catch (error) {
+			console.error("Submit error:", error); // helpful for debugging
+
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
 		} finally {
