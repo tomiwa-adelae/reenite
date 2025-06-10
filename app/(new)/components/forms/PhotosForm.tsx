@@ -38,6 +38,8 @@ export const PhotosForm = ({ spaceId, userId, spacePhotos }: Props) => {
 
 			const uploadedImages = await uploadImages({ spacePhotos, photos });
 
+			console.log(uploadedImages);
+
 			const res = await addSpacePhotos({
 				userId,
 				spaceId,

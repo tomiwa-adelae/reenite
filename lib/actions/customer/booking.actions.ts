@@ -1,5 +1,6 @@
 "use server";
 
+import { SuccessSpaceBooked } from "@/email-templates/success-space-booked";
 import { connectToDatabase } from "@/lib/database";
 import Booking from "@/lib/database/models/booking.model";
 import Space from "@/lib/database/models/space.model";
@@ -12,6 +13,12 @@ import {
 	GetBookingDetailsParams,
 } from "@/types";
 import { revalidatePath } from "next/cache";
+import Mailjet from "node-mailjet";
+
+const mailjet = Mailjet.apiConnect(
+	process.env.MAILJET_API_PUBLIC_KEY!,
+	process.env.MAILJET_API_PRIVATE_KEY!
+);
 
 export const createBooking = async ({
 	spaceId,
@@ -104,6 +111,40 @@ export const createBooking = async ({
 				status: 400,
 				message: "Oops! An error occurred. Booking not created.",
 			};
+
+		await mailjet.post("send", { version: "v3.1" }).request({
+			Messages: [
+				{
+					From: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite",
+					},
+					To: [
+						{
+							Email: user.email,
+							Name: `${user.firstName} ${user.lastName}`,
+						},
+					],
+					Subject: `Booking successfull - Reenite.`,
+					TextPart: `Booking successful - Reenite.`,
+					HTMLPart: SuccessSpaceBooked({
+						bookingId: booking?.bookingId,
+						title: space?.title,
+						name: `${user?.firstName} ${user?.lastName}`,
+						createdAt: booking.createdAt,
+						startDate: booking.startDate,
+						endDate: booking.endDate,
+						totalAmount: booking.totalAmount,
+						address: space.address,
+						city: space.city,
+						state: space.state,
+						country: space.country,
+						id: booking._id,
+						noOfUsers: booking.noOfUsers,
+					}),
+				},
+			],
+		});
 
 		return {
 			status: 201,

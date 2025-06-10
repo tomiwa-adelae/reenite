@@ -576,10 +576,18 @@ export const availableAmenities = [
 export const DEFAULT_PROFILE_PICTURE =
 	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
 
-export const DEFAULT_SPACE_IMAGE =
-	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+export const DEFAULT_SPACE_IMAGE = "/assets/images/space-one.jpg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
 export const REENITE_EMAIL_ADDRESS = "info@reenite.com";
+export const REENITE_WEBSITE_URL = "https://reenite.com";
+export const REENITE_FACEBOOK_URL = "https://reenite.com";
+export const REENITE_TWITTER_URL = "https://reenite.com";
+export const REENITE_INSTAGRAM_URL = "https://reenite.com";
+export const REENITE_LINKEDIN_URL = "https://reenite.com";
+export const REENITE_WIFI_PASSWORD = "1234567890";
+export const REENITE_WIFI_NAME = "reenite_wifi";
+export const REENITE_LOGO =
+	"https://res.cloudinary.com/dh0rc6p1c/image/upload/v1749562302/reenite/logo-full_c3oa7p.png";
 
 export const DEFAULT_LIMIT = 10;

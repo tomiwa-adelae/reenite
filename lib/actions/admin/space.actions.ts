@@ -32,6 +32,14 @@ import { v2 as cloudinary } from "cloudinary";
 import "../../database/models";
 import mongoose from "mongoose";
 import Booking from "@/lib/database/models/booking.model";
+import Mailjet from "node-mailjet";
+import { AccountCreationEmail } from "@/email-templates/account-creation";
+import { NewSpaceEmail } from "@/email-templates/new-space-creation";
+
+const mailjet = Mailjet.apiConnect(
+	process.env.MAILJET_API_PUBLIC_KEY!,
+	process.env.MAILJET_API_PRIVATE_KEY!
+);
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -1214,7 +1222,7 @@ export const addSpaceDiscounts = async ({
 				message: "Oops! You are not authorized to make this request.",
 			};
 
-		const space = await Space.findById(spaceId);
+		const space = await Space.findById(spaceId).populate("category");
 
 		if (!space)
 			return {
@@ -1236,6 +1244,43 @@ export const addSpaceDiscounts = async ({
 				status: 400,
 				message: "Oops! An error occurred! Try again later",
 			};
+
+		await mailjet.post("send", { version: "v3.1" }).request({
+			Messages: [
+				{
+					From: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite",
+					},
+					To: [
+						{
+							Email: user.email,
+							Name: `${user.firstName} ${user.lastName}`,
+						},
+					],
+					Subject: `New space creation - Reenite.`,
+					TextPart: `New space creation - Reenite.`,
+					HTMLPart: NewSpaceEmail({
+						title: updatedSpace.title,
+						spaceId: updatedSpace._id,
+						category: space.category.name,
+						hourlyPricing: updatedSpace.pricing.hourly["1"],
+						dailyPricing: updatedSpace.pricing.daily["1"],
+						weeklyPricing: updatedSpace.pricing.monthly["1"],
+						monthlyPricing: updatedSpace.pricing.monthly["1"],
+						address: updatedSpace.address,
+						city: updatedSpace.city,
+						state: updatedSpace.state,
+						country: updatedSpace.country,
+						createdAt: updatedSpace.createdAt,
+						description: updatedSpace.description,
+						id: updatedSpace._id,
+						status: updatedSpace.status,
+					}),
+				},
+			],
+		});
+
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
 			status: 201,

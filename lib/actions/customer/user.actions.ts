@@ -10,6 +10,13 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
+import Mailjet from "node-mailjet";
+import { AccountCreationEmail } from "@/email-templates/account-creation";
+
+const mailjet = Mailjet.apiConnect(
+	process.env.MAILJET_API_PUBLIC_KEY!,
+	process.env.MAILJET_API_PRIVATE_KEY!
+);
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -64,6 +71,31 @@ export const createUser = async (user: CreateUserParams) => {
 				message:
 					"Your account was not successfully created. Try again later",
 			};
+
+		// await mailjet.post("send", { version: "v3.1" }).request({
+		// 	Messages: [
+		// 		{
+		// 			From: {
+		// 				Email: process.env.SENDER_EMAIL_ADDRESS!,
+		// 				Name: "Reenite",
+		// 			},
+		// 			To: [
+		// 				{
+		// 					Email: newUser.email,
+		// 					Name: `${newUser.firstName} ${newUser.lastName}`,
+		// 				},
+		// 			],
+		// 			Subject: `Account creation - Reenite.`,
+		// 			TextPart: `Account creation - Reenite.`,
+		// 			HTMLPart: AccountCreationEmail({
+		// 				name: `${newUser.firstName} ${newUser.lastName}`,
+		// 				email: newUser?.email,
+		// 				createdAt: newUser?.createdAt,
+		// 				userId: newUser?.userId,
+		// 			}),
+		// 		},
+		// 	],
+		// });
 
 		return JSON.parse(JSON.stringify(newUser));
 	} catch (error) {
