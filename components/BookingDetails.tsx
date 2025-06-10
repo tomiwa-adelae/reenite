@@ -201,14 +201,14 @@ export const BookingDetails = ({
 			);
 		} catch (error) {
 			setLoading(false);
-			toast.error("An error occurred! Try again later. busola");
+			toast.error("An error occurred! Try again later.");
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	const onClose = () => {
-		toast.error("An error occurred! Try again later shade");
+		toast.error("An error occurred! Try again later");
 	};
 
 	const initializePayment = usePaystackPayment(config);
