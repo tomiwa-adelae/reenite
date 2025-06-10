@@ -20,6 +20,7 @@ interface Props {
 export interface AmenitiesOption {
 	name: string;
 	icon: any;
+	iconName: any;
 }
 
 export const AmenitiesForm = ({ spaceId, userId }: Props) => {
@@ -31,8 +32,9 @@ export const AmenitiesForm = ({ spaceId, userId }: Props) => {
 
 	const addAmenity = (amenity: AmenitiesOption) => {
 		const newAmenity = {
-			icon: amenity.icon.render.displayName,
+			icon: amenity.iconName,
 			name: amenity.name,
+			iconName: amenity.iconName,
 		};
 
 		if (!selectedAmenities.some((c) => c.name === amenity.name)) {

@@ -27,6 +27,7 @@ import {
 	Video,
 	Lightbulb,
 } from "lucide-react";
+import * as Icons from "lucide-react";
 
 export const navLinks = [
 	{
@@ -536,40 +537,49 @@ export const nigerianCountries = ["nigeria"] as const;
 
 export const availableAmenities = [
 	{
-		icon: Wifi,
+		icon: Icons.Wifi,
 		name: "High speed wifi",
+		iconName: "Wifi",
 	},
 	{
-		icon: Snowflake,
+		icon: Icons.Snowflake,
 		name: "Air conditioning",
+		iconName: "Snowflake",
 	},
 	{
-		icon: Car,
+		icon: Icons.Car,
 		name: "Parking",
+		iconName: "Car",
 	},
 	{
-		icon: CookingPot,
+		icon: Icons.CookingPot,
 		name: "Kitchen/Pantry",
+		iconName: "CookingPot",
 	},
 	{
-		icon: Lightbulb,
+		icon: Icons.Lightbulb,
 		name: "Natural Light",
+		iconName: "Lightbulb",
 	},
 	{
-		icon: Printer,
+		icon: Icons.Printer,
 		name: "Printer/Scanner",
+		iconName: "Printer",
 	},
 	{
-		icon: Shield,
+		icon: Icons.Shield,
 		name: "24/7 Security",
+		iconName: "Shield",
 	},
 	{
-		icon: Phone,
+		icon: Icons.Phone,
 		name: "Phone Booth",
+		iconName: "Phone",
 	},
 	{
-		icon: Video,
+		icon: Icons.Video,
 		name: "Video Conferencing",
+		iconName: "Video",
 	},
 ];
 

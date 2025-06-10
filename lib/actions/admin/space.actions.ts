@@ -332,6 +332,7 @@ export const addSpaceAmenities = async ({
 		);
 
 		space.amenities = [...space.amenities, ...filteredNewAmenities];
+
 		const updatedSpace = await space.save();
 
 		if (!updatedSpace)
