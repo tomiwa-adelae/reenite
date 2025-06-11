@@ -12,7 +12,7 @@ export const TopSpaces = ({ spaces }: { spaces: any }) => {
 			{spaces.map((space: any, index: string) => {
 				const coverPhoto =
 					// @ts-ignore
-					space?.photos.find((photo) => photo.cover) ||
+					space?.photos?.find((photo) => photo?.cover) ||
 					// @ts-ignore
 					space?.photos[0];
 

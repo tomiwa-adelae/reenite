@@ -8,6 +8,8 @@ import { ISpace } from "@/lib/database/models/space.model";
 import { DEFAULT_SPACE_IMAGE } from "@/constants";
 import { SpaceActionModal } from "./SpaceActionModal";
 import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export const SpacesLists = ({
 	spaces,
@@ -46,7 +48,10 @@ export const SpacesLists = ({
 							alt={space.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="size-[70px] object-cover rounded-lg"
+							className={cn(
+								"size-[70px] mx-auto rounded-lg",
+								coverPhoto && "object-cover"
+							)}
 						/>
 						<div className="flex-1 flex items-center justify-between gap-2">
 							<div className="flex-1">
@@ -65,6 +70,14 @@ export const SpacesLists = ({
 								<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
 							</Button>
 						</div>
+						<Badge
+							variant={
+								space?.status === "active"
+									? "success"
+									: "default"
+							}
+							className="absolute top-3 left-3 capitalize px-1 py-1 rounded-full"
+						/>
 					</div>
 				);
 			})}

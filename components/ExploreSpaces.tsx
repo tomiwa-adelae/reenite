@@ -44,8 +44,7 @@ export const ExploreSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 										{space?.title}
 									</h4>
 									<p className="text-base text-muted-foreground mt-1 truncate mb-4">
-										{space?.description ||
-											`${space.city}, ${space?.state}`}
+										{space.city}, {space?.state}
 									</p>
 									<Button asChild size="md">
 										<Link href={`/spaces/${space?._id}`}>

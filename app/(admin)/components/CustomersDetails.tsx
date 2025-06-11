@@ -16,10 +16,13 @@ export const CustomersDetails = ({
 	customers: ISpace[];
 	query: string;
 }) => {
-	const [orientation, setOrientation] = useState<"grid" | "list">("grid");
+	const [orientation, setOrientation] = useState<"grid" | "list">(() => {
+		const saved = localStorage.getItem("customer-orientation");
+		return saved === "grid" || saved === "list" ? saved : "grid";
+	});
+
 	const [showSearch, setShowSearch] = useState(false);
 
-	// Load orientation from localStorage on mount
 	useEffect(() => {
 		const savedOrientation = localStorage.getItem("customer-orientation");
 		if (savedOrientation === "grid" || savedOrientation === "list") {

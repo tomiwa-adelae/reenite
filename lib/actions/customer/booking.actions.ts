@@ -1,6 +1,10 @@
 "use server";
 
-import { SuccessSpaceBooked } from "@/email-templates/success-space-booked";
+import { REENITE_EMAIL_ADDRESS } from "@/constants";
+import {
+	SuccessSpaceAdminBooking,
+	SuccessUserSpaceBooked,
+} from "@/email-templates/success-space-booked";
 import { connectToDatabase } from "@/lib/database";
 import Booking from "@/lib/database/models/booking.model";
 import Space from "@/lib/database/models/space.model";
@@ -125,11 +129,11 @@ export const createBooking = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
-					Subject: `Booking successfull - Reenite.`,
+					Subject: `Booking successful - Reenite.`,
 					TextPart: `Booking successful - Reenite.`,
-					HTMLPart: SuccessSpaceBooked({
+					HTMLPart: SuccessUserSpaceBooked({
 						bookingId: booking?.bookingId,
-						title: space?.title,
+						spaceTitle: space?.title,
 						name: `${user?.firstName} ${user?.lastName}`,
 						createdAt: booking.createdAt,
 						startDate: booking.startDate,
@@ -141,6 +145,46 @@ export const createBooking = async ({
 						country: space.country,
 						id: booking._id,
 						noOfUsers: booking.noOfUsers,
+					}),
+				},
+			],
+		});
+
+		await mailjet.post("send", { version: "v3.1" }).request({
+			Messages: [
+				{
+					From: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite",
+					},
+					To: [
+						{
+							Email: process.env.ADMIN_EMAIL_ADDRESS!,
+							Name: "Reenite",
+						},
+					],
+					Subject: `New booking received - Reenite.`,
+					TextPart: `New booking received - Reenite.`,
+					HTMLPart: SuccessSpaceAdminBooking({
+						createdAt: booking.createdAt,
+						bookingId: booking._id,
+						bookingStatus: booking.bookingStatus,
+						spaceTitle: space?.title,
+						name: `${user?.firstName} ${user?.lastName}`,
+						email: user.email,
+						phoneNumber: user.phoneNumber,
+						company: user.company,
+						startDate: booking.startDate,
+						endDate: booking.endDate,
+						noOfUsers: booking.noOfUsers,
+						address: space.address,
+						city: space.city,
+						state: space.state,
+						country: space.country,
+						totalAmount: booking.totalAmount,
+						transactionId: booking.transactionId,
+						id: booking._id,
+						customerId: booking.user._id,
 					}),
 				},
 			],

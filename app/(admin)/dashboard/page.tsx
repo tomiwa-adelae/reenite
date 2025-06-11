@@ -14,6 +14,7 @@ import { NoCustomers } from "../components/NoCustomers";
 import { getSpaces, getTopSpaces } from "@/lib/actions/admin/space.actions";
 import { getBookings } from "@/lib/actions/admin/booking.actions";
 import { NoBookings } from "../components/NoBookings";
+import { NoSpaces } from "../components/NoSpaces";
 
 const page = async () => {
 	const clerkUser = await currentUser();
@@ -34,7 +35,7 @@ const page = async () => {
 							Welcome back, {user?.user?.firstName}
 						</h2>
 						<DashboardAnalytics
-							spaces={spaces.spaces}
+							spaces={spaces?.spaces}
 							customers={customers?.customers}
 							bookings={bookings?.bookings}
 						/>
@@ -46,7 +47,7 @@ const page = async () => {
 							{bookings?.bookings?.length !== 0 && (
 								<div className="mt-2">
 									<BookingsListings
-										bookings={bookings.bookings}
+										bookings={bookings?.bookings}
 									/>
 								</div>
 							)}
@@ -55,9 +56,17 @@ const page = async () => {
 							<h3 className="font-medium text-base md:text-lg">
 								Top performing spaces
 							</h3>
-							<div className="mt-2">
-								<TopSpaces spaces={topSpaces.spaces} />
-							</div>
+							{topSpaces?.spaces?.length === 0 && (
+								<NoSpaces
+									description="No spaces to display"
+									showButton={false}
+								/>
+							)}
+							{topSpaces?.spaces?.length !== 0 && (
+								<div className="mt-2">
+									<TopSpaces spaces={topSpaces?.spaces} />
+								</div>
+							)}
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 							<h3 className="font-medium text-base md:text-lg">
@@ -69,7 +78,7 @@ const page = async () => {
 							{customers?.customers.length !== 0 && (
 								<div className="mt-2">
 									<UsersListings
-										customers={customers.customers}
+										customers={customers?.customers}
 									/>
 								</div>
 							)}

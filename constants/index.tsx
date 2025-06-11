@@ -586,7 +586,7 @@ export const availableAmenities = [
 export const DEFAULT_PROFILE_PICTURE =
 	"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
 
-export const DEFAULT_SPACE_IMAGE = "/assets/images/full-logo.png";
+export const DEFAULT_SPACE_IMAGE = "/assets/images/logo-full.svg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
 export const REENITE_EMAIL_ADDRESS = "info@reenite.com";

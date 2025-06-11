@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SpaceActionModal } from "../SpaceActionModal";
+import { cn } from "@/lib/utils";
 
 export const SpacesGrid = ({
 	spaces,
@@ -45,7 +46,10 @@ export const SpacesGrid = ({
 							alt={space.title || "Space image"}
 							width={1000}
 							height={1000}
-							className="aspect-video lg:aspect-square object-cover rounded-lg transition-all group-hover:scale-105"
+							className={cn(
+								"aspect-video lg:aspect-square rounded-lg transition-all group-hover:scale-105",
+								coverPhoto && "object-cover"
+							)}
 						/>
 						<h4 className="text-xl font-medium mt-4 hover:text-secondary transition-all line-clamp-1">
 							{space.title ? (
@@ -55,7 +59,11 @@ export const SpacesGrid = ({
 							)}
 						</h4>
 						<p className="text-base text-muted-foreground mt-1 break-words line-clamp-1">
-							{space?.city}, {space?.state}
+							{!space?.city && (
+								<p className="italic">No location</p>
+							)}
+							{space?.city}
+							{space?.city && ","} {space?.state}
 						</p>
 						<Badge
 							variant={

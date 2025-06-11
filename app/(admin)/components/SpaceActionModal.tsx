@@ -17,7 +17,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { ISpace } from "@/lib/database/models/space.model";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { DEFAULT_SPACE_IMAGE } from "@/constants";
 import { RemoveSpaceModal } from "./RemoveSpaceModal";
 
@@ -97,7 +97,10 @@ export function SpaceActionModal({ open, closeModal, space, userId }: Props) {
 								}
 								width={1000}
 								height={1000}
-								className="size-[100px] mx-auto object-cover rounded-lg"
+								className={cn(
+									"size-[100px] mx-auto rounded-lg",
+									coverPhoto && "object-cover"
+								)}
 							/>
 							<p className="mt-2 text-sm font-medium">
 								Your space started{" "}

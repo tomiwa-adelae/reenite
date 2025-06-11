@@ -14,12 +14,13 @@ import { createNewSpace } from "@/lib/actions/admin/space.actions";
 interface Props {
 	categories: ICategory[];
 	userId: string;
+	category: string;
 }
 
-export const StructureForm = ({ categories, userId }: Props) => {
+export const StructureForm = ({ categories, userId, category }: Props) => {
 	const router = useRouter();
 
-	const [selectCategory, setSelectCategory] = useState("");
+	const [selectCategory, setSelectCategory] = useState(category || "");
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async () => {

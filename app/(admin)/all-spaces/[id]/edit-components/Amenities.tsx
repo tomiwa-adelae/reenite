@@ -24,6 +24,7 @@ interface Props {
 
 export interface AmenitiesOption {
 	name: string;
+	iconName: any;
 	icon: any;
 }
 
@@ -43,8 +44,9 @@ export const Amenities = ({
 
 	const addAmenity = (amenity: AmenitiesOption) => {
 		const newAmenity = {
-			icon: amenity.icon.render.displayName,
+			icon: amenity.iconName,
 			name: amenity.name,
+			iconName: amenity.iconName,
 		};
 
 		if (!newAmenities.some((c: any) => c.name === amenity.name)) {

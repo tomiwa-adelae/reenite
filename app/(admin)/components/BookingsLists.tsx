@@ -23,8 +23,8 @@ export const BookingsLists = ({ bookings }: { bookings: IBooking[] }) => {
 						className="hover:bg-[#F7F7F7] transition-all p-2 rounded-lg flex items-center justify-start gap-4 group cursor-pointer relative"
 					>
 						<Image
-							src={coverPhoto.src || DEFAULT_SPACE_IMAGE}
-							alt={booking.space.title || "Space image"}
+							src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
+							alt={booking?.space?.title || "Space image"}
 							width={1000}
 							height={1000}
 							className="size-[70px] object-cover rounded-lg"
@@ -32,10 +32,10 @@ export const BookingsLists = ({ bookings }: { bookings: IBooking[] }) => {
 						<div className="flex-1 flex items-center justify-between gap-2">
 							<div className="flex-1">
 								<h5 className="text-base font-medium line-clamp-1">
-									{booking.bookingId}
+									{booking?.bookingId}
 								</h5>
 								<p className="text-sm text-muted-foreground">
-									{booking.space.title}
+									{booking?.space?.title}
 								</p>
 							</div>
 							<Button variant={"ghost"} size="icon">
@@ -46,7 +46,7 @@ export const BookingsLists = ({ bookings }: { bookings: IBooking[] }) => {
 							variant={
 								booking?.paymentStatus === "paid"
 									? "success"
-									: booking.paymentStatus === "failed"
+									: booking?.paymentStatus === "failed"
 									? "destructive"
 									: "default"
 							}

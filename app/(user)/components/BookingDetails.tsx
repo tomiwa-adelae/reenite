@@ -15,7 +15,10 @@ export const BookingsDetails = ({
 	bookings: IBooking[];
 	query: string;
 }) => {
-	const [orientation, setOrientation] = useState<"grid" | "list">("grid");
+	const [orientation, setOrientation] = useState<"grid" | "list">(() => {
+		const saved = localStorage.getItem("booking-orientation");
+		return saved === "grid" || saved === "list" ? saved : "grid";
+	});
 	const [showSearch, setShowSearch] = useState(false);
 
 	// Load orientation from localStorage on mount

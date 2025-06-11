@@ -233,7 +233,9 @@ export const LocationForm = ({
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/structure">
+								<Link
+									href={`/all-spaces/new/structure?id=${spaceId}`}
+								>
 									Back
 								</Link>
 							</Button>

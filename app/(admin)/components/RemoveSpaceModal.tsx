@@ -16,7 +16,7 @@ import { deleteCustomer } from "@/lib/actions/admin/customer.actions";
 import { useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { DEFAULT_SPACE_IMAGE } from "@/constants";
 import { removeSpace } from "@/lib/actions/admin/space.actions";
 
@@ -76,7 +76,10 @@ export function RemoveSpaceModal({ open, closeModal, userId, space }: Props) {
 							alt={`${space?.title}'s picture` || "Space picture"}
 							width={1000}
 							height={1000}
-							className="size-[100px] mx-auto object-cover rounded-lg"
+							className={cn(
+								"size-[100px] mx-auto rounded-lg",
+								coverPhoto && "object-cover"
+							)}
 						/>
 						<p className="mt-2 text-sm font-medium">
 							Your space started {formatDate(space?.createdAt)}

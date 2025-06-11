@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { IPhoto, ISpace } from "@/lib/database/models/space.model";
 import { DEFAULT_SPACE_IMAGE } from "@/constants";
-import { formatMoneyInput } from "@/lib/utils";
+import { cn, formatMoneyInput } from "@/lib/utils";
 import { useState } from "react";
 import { DeleteCustomerModal } from "../DeleteCustomerModal";
 import { SpaceActionModal } from "../SpaceActionModal";
@@ -74,7 +74,10 @@ export function SpacesTable({
 										}
 										width={1000}
 										height={1000}
-										className="size-[70px] object-cover rounded-lg"
+										className={cn(
+											"size-[70px] rounded-lg",
+											coverPhoto && "object-cover"
+										)}
 									/>
 									<h5 className="font-medium text-base">
 										{space.title ? (
@@ -89,7 +92,11 @@ export function SpacesTable({
 									{space?.category?.name || "Uncategorized"}
 								</TableCell>
 								<TableCell>
-									{space?.city}, {space?.state}
+									{!space?.city && (
+										<p className="italic">No location</p>
+									)}
+									{space?.city}
+									{space?.city && ","} {space?.state}
 								</TableCell>
 								<TableCell className="text-right">
 									₦

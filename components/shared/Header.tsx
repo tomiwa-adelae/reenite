@@ -30,9 +30,16 @@ export const Header = ({ user }: Props) => {
 				</nav>
 				<div className="flex items-center justify-end gap-4">
 					<div className="hidden md:block">
-						<Button variant="secondary" asChild size="md">
-							<Link href="/spaces">Book a space</Link>
-						</Button>
+						{user?.isAdmin && (
+							<Button variant="secondary" asChild size="md">
+								<Link href="/dashboard">Admin Dashboard</Link>
+							</Button>
+						)}
+						{!user?.isAdmin && (
+							<Button variant="secondary" asChild size="md">
+								<Link href="/spaces">Book a space</Link>
+							</Button>
+						)}
 					</div>
 					<SignedIn>
 						<ProfileDropdown user={user} />
