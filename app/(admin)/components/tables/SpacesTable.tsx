@@ -17,6 +17,7 @@ import { cn, formatMoneyInput } from "@/lib/utils";
 import { useState } from "react";
 import { DeleteCustomerModal } from "../DeleteCustomerModal";
 import { SpaceActionModal } from "../SpaceActionModal";
+import { Badge } from "@/components/ui/badge";
 
 export function SpacesTable({
 	spaces,
@@ -62,7 +63,7 @@ export function SpacesTable({
 								className="group"
 								key={index}
 							>
-								<TableCell className="flex items-center justify-start gap-4">
+								<TableCell className="flex items-center justify-start gap-4 relative">
 									<Image
 										src={
 											coverPhoto?.src ||
@@ -86,6 +87,14 @@ export function SpacesTable({
 											<p className="italic">No title</p>
 										)}
 									</h5>
+									<Badge
+										variant={
+											space?.status === "active"
+												? "success"
+												: "default"
+										}
+										className="absolute top-3 left-3 capitalize px-1 py-1 rounded-full"
+									/>
 								</TableCell>
 								<TableCell>
 									{/* @ts-ignore */}

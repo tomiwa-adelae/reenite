@@ -814,7 +814,7 @@ export const addSpaceHourlyPricing = async ({
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
 			status: 201,
-			message: "Hourly price successfully added.",
+			message: "Hourly pricing successfully added.",
 			space: JSON.parse(JSON.stringify(updatedSpace)),
 		};
 	} catch (error) {

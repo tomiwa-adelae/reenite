@@ -298,10 +298,6 @@ export const SuccessUserSpaceBooked = ({
 				box-shadow: 0 4px 15px rgba(43, 79, 255, 0.3);
 			}
 
-			a{
-				color: #ffffff;
-			}
-
 			.view-booking-btn:hover {
 				transform: translateY(-2px);
 				box-shadow: 0 8px 25px rgba(43, 79, 255, 0.4);

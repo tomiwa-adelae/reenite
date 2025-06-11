@@ -32,7 +32,7 @@ export const SpacesLists = ({
 				return (
 					<div
 						key={index}
-						className="hover:bg-[#F7F7F7] transition-all p-2 rounded-lg flex items-center justify-start gap-4 group cursor-pointer"
+						className="hover:bg-[#F7F7F7] transition-all p-2 rounded-lg flex items-center justify-start gap-4 group cursor-pointer relative"
 						onClick={() => {
 							if (space?.status === "active") {
 								router.push(`/all-spaces/${space._id}`);

@@ -21,7 +21,7 @@ const page = async ({ params }: { params: any }) => {
 		<div className="py-8">
 			<div className="container max-w-3xl">
 				<h2 className="font-semibold text-2xl md:text-3xl lg:text-4xl">
-					Now, set a hourly price
+					Now, set a hourly pricing
 				</h2>
 				<p className="text-base text-muted-foreground mt-2">
 					Tip: ₦5,000. You’ll set a daily price next.

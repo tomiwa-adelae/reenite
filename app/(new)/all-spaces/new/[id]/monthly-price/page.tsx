@@ -20,7 +20,7 @@ const page = async ({ params }: { params: any }) => {
 		<div className="py-8">
 			<div className="container max-w-3xl">
 				<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-					Now, set a monthly price
+					Now, set a monthly pricing
 				</h2>
 				<p className="text-base text-muted-foreground mt-2">
 					Tip: ₦25,000. You’ll set a discount next.

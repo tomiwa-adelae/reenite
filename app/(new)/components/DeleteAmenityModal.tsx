@@ -60,7 +60,12 @@ export function DeleteAmenityModal({
 	};
 
 	return (
-		<Dialog open={open}>
+		<Dialog
+			open={open}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) closeModal();
+			}}
+		>
 			<form>
 				<DialogContent className="sm:max-w-[425px] p-0">
 					<div className="border-b py-4 text-center md:block">
@@ -88,8 +93,9 @@ export function DeleteAmenityModal({
 							disabled={loading}
 							onClick={deletePhoto}
 							size="md"
+							variant={"destructive"}
 						>
-							{loading ? <Loader /> : "Delete it"}
+							{loading ? <Loader /> : "Yes, delete it"}
 						</Button>
 					</div>
 				</DialogContent>
