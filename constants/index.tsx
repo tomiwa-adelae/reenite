@@ -703,15 +703,15 @@ export const DEFAULT_PROFILE_PICTURE =
 
 export const DEFAULT_SPACE_IMAGE = "/assets/images/logo-full.svg";
 
-export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
+export const REENITE_CONTACT_PHONE_NUMBER = "09161231304";
 export const REENITE_EMAIL_ADDRESS = "hello@reenite.com";
 export const REENITE_WEBSITE_URL = "https://reenite.vercel.app";
 export const REENITE_FACEBOOK_URL = "https://facebook.com/share/1EvF1EKb5u";
 export const REENITE_TWITTER_URL = "https://x.com/reenitenig";
 export const REENITE_INSTAGRAM_URL = "https://www.instagram.com/reenitenig";
 export const REENITE_LINKEDIN_URL = "https://www.linkedin.com/company/reenite";
-export const REENITE_WIFI_PASSWORD = "1234567890";
-export const REENITE_WIFI_NAME = "reenite_wifi";
+export const REENITE_WIFI_PASSWORD = "socket01TELLER#";
+export const REENITE_WIFI_NAME = "ReeniteUyo";
 export const REENITE_LOGO =
 	"https://res.cloudinary.com/dh0rc6p1c/image/upload/v1749562302/reenite/logo-full_c3oa7p.png";
 
