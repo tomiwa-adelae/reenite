@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { adminMobileLinks, navLinks, userNavLinks } from "@/constants";
-import { Menu, MenuIcon } from "lucide-react";
+import { LogOut, Menu, MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -16,10 +16,18 @@ import { Logo } from "./Logo";
 import { Separator } from "../ui/separator";
 import { IUser } from "@/lib/database/models/user.model";
 import { ScrollArea } from "../ui/scroll-area";
+import { useClerk } from "@clerk/nextjs";
 
 export function MobileNavbar({ user }: { user: any }) {
 	const [openMobile, setOpenMobile] = useState(false); // <-- add state
 	const pathname = usePathname();
+	const router = useRouter();
+	const { signOut } = useClerk();
+
+	const handleLogout = async () => {
+		await signOut();
+		router.push("/sign-in"); // Redirect to sign-in page after logout
+	};
 
 	const handleClick = () => {
 		if (setOpenMobile) {
@@ -136,6 +144,15 @@ export function MobileNavbar({ user }: { user: any }) {
 									  )}
 							</div>
 						)}
+						<div
+							className={`group flex items-center justify-start gap-2 group/sidebar hover:bg-[#F2F2F2] p-4 rounded-lg
+														`}
+							onClick={handleLogout}
+						>
+							<LogOut className="size-5" />
+
+							<h5 className="text-base font-medium">Logout</h5>
+						</div>
 					</div>
 				</ScrollArea>
 			</SheetContent>

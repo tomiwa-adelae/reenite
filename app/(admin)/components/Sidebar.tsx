@@ -9,17 +9,27 @@ import {
 	SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { MenuIcon } from "lucide-react";
+import { LogOut, MenuIcon } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { adminMobileLinks, adminNavLinks, navLinks } from "@/constants";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export const Sidebar = () => {
 	const [openMobile, setOpenMobile] = useState(false); // <-- add state
 	const pathname = usePathname();
+
+	const router = useRouter();
+	const { signOut } = useClerk();
+
+	const handleLogout = async () => {
+		await signOut();
+		router.push("/sign-in"); // Redirect to sign-in page after logout
+	};
 
 	const handleClick = () => {
 		if (setOpenMobile) {
@@ -90,15 +100,17 @@ export const Sidebar = () => {
 									);
 								})}
 							</div>
-							{/* <div className="flex flex-col mt-4 w-full items-center justify-end gap-4">
-							<Button
-							asChild
-							size="md"
-							className="text-sm w-full"
+							<div
+								className={`group flex items-center justify-start gap-2 group/sidebar hover:bg-[#F2F2F2] p-4 rounded-lg
+																					`}
+								onClick={handleLogout}
 							>
-							<Link href="/book">Book a space</Link>
-							</Button>
-							</div> */}
+								<LogOut className="size-5" />
+
+								<h5 className="text-base font-medium">
+									Logout
+								</h5>
+							</div>
 						</div>
 					</div>
 				</ScrollArea>
