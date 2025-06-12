@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Header } from "./Header";
+import { NoCategories } from "@/app/(admin)/components/NoCategories";
 
 interface Props {
 	categories: ICategory[];
@@ -27,7 +28,7 @@ export const EditCategoryComponent = ({
 	spaceId,
 	closeSmallModal,
 }: Props) => {
-	const [selectCategory, setSelectCategory] = useState(category._id);
+	const [selectCategory, setSelectCategory] = useState(category?._id);
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async () => {
@@ -62,30 +63,44 @@ export const EditCategoryComponent = ({
 			<div className="lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 				<ScrollArea>
 					<div className="py-8 container">
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-							{categories.map(({ image, name, _id }, index) => (
-								<div
-									key={index}
-									className={cn(
-										"border-2 rounded-lg p-6 flex flex-row md:flex-col items-center md:items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
-										_id === selectCategory &&
-											"border-black bg-[#F7F7F7]"
-									)}
-									onClick={() => setSelectCategory(_id)}
-								>
-									<Image
-										src={image}
-										alt={`${name}'s icon`}
-										width={1000}
-										height={1000}
-										className="size-[45px] lg:size-[60px] object-cover"
-									/>
-									<h5 className="font-medium text-base lg:text-lg">
-										{name}
-									</h5>
-								</div>
-							))}
-						</div>
+						{categories?.length === 0 &&
+							categories === undefined && <NoCategories />}
+						{categories?.length !== 0 && (
+							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+								{categories?.map(
+									({ image, name, _id }, index) => (
+										<div
+											key={index}
+											className={cn(
+												"border-2 rounded-lg p-6 flex flex-row md:flex-col items-center md:items-start justify-center gap-2 cursor-pointer hover:bg-[#F7F7F7] hover:border-black hover:border-2 transition-all",
+												_id === selectCategory &&
+													"border-black bg-[#F7F7F7]"
+											)}
+											onClick={() =>
+												setSelectCategory(_id)
+											}
+										>
+											<Image
+												src={
+													image ||
+													"assets/icons/office.svg"
+												}
+												alt={
+													`${name}'s image` ||
+													"Category icon"
+												}
+												width={1000}
+												height={1000}
+												className="size-[45px] lg:size-[60px] object-cover"
+											/>
+											<h5 className="font-medium text-base lg:text-lg">
+												{name}
+											</h5>
+										</div>
+									)
+								)}
+							</div>
+						)}
 					</div>
 				</ScrollArea>
 			</div>

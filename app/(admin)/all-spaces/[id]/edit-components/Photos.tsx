@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { DeleteImageModal } from "@/app/(new)/components/DeleteImageModal";
 import { Button } from "@/components/ui/button";
 import { Header } from "./Header";
+import { NoPhotos } from "@/app/(admin)/components/NoPhotos";
 
 export const Photos = ({
 	photos,
@@ -98,31 +99,40 @@ export const Photos = ({
 
 			<div className="container lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 				<ScrollArea>
+					{photos?.length === 0 && (
+						<div className="mt-8">
+							<NoPhotos />
+						</div>
+					)}
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-						{photos.map((photo: any, index: any) => (
-							<div
-								key={index}
-								onClick={(e: any) => handleOpen(e, index)}
-								className="group overflow-hidden rounded-lg relative"
-							>
-								<Image
-									src={photo.src || DEFAULT_SPACE_IMAGE}
-									alt={photo.imageId || "Space image"}
-									width={1000}
-									height={1000}
-									className="rounded-lg object-cover aspect-square hover:scale-105 transition-all cursor-pointer"
-								/>
-								<Button
-									className="text-white hover:text-destructive absolute top-1 right-1"
-									size="icon"
-									onClick={(e) =>
-										handleDeleteClick(e, photo.imageId!)
-									}
+						{photos?.length !== 0 &&
+							photos?.map((photo: any, index: any) => (
+								<div
+									key={index}
+									onClick={(e: any) => handleOpen(e, index)}
+									className="group overflow-hidden rounded-lg relative"
 								>
-									<Trash2 />
-								</Button>
-							</div>
-						))}
+									<Image
+										src={photo?.src || DEFAULT_SPACE_IMAGE}
+										alt={photo?.imageId || "Space image"}
+										width={1000}
+										height={1000}
+										className="rounded-lg object-cover aspect-square hover:scale-105 transition-all cursor-pointer"
+									/>
+									<Button
+										className="text-white hover:text-destructive absolute top-1 right-1"
+										size="icon"
+										onClick={(e) =>
+											handleDeleteClick(
+												e,
+												photo?.imageId!
+											)
+										}
+									>
+										<Trash2 />
+									</Button>
+								</div>
+							))}
 					</div>
 				</ScrollArea>
 				<footer className="lg:hidden bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">

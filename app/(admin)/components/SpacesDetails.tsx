@@ -18,22 +18,24 @@ export const SpacesDetails = ({
 	query?: string;
 	userId: string;
 }) => {
-	const [orientation, setOrientation] = useState<"grid" | "list">(() => {
-		const saved = localStorage.getItem("spaces-orientation");
-		return saved === "grid" || saved === "list" ? saved : "grid";
-	});
+	const [orientation, setOrientation] = useState<"grid" | "list">("grid");
 	const [showSearch, setShowSearch] = useState(false);
 
+	// Load orientation from localStorage on mount (client-only)
 	useEffect(() => {
-		const savedOrientation = localStorage.getItem("spaces-orientation");
-		if (savedOrientation === "grid" || savedOrientation === "list") {
-			setOrientation(savedOrientation);
+		if (typeof window !== "undefined") {
+			const saved = localStorage.getItem("spaces-orientation");
+			if (saved === "grid" || saved === "list") {
+				setOrientation(saved);
+			}
 		}
 	}, []);
 
 	// Save orientation to localStorage whenever it changes
 	useEffect(() => {
-		localStorage.setItem("spaces-orientation", orientation);
+		if (typeof window !== "undefined") {
+			localStorage.setItem("spaces-orientation", orientation);
+		}
 	}, [orientation]);
 
 	const toggleOrientation = () => {

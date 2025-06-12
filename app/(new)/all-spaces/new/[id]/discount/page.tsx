@@ -5,6 +5,14 @@ import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { getSpaceDetails } from "@/lib/actions/admin/space.actions";
 import SpaceNotFound from "@/components/shared/SpaceNotFound";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Set your discount - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
 	const clerkUser = await currentUser();

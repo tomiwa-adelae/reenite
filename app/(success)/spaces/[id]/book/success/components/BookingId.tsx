@@ -13,19 +13,16 @@ export const BookingId = ({ bookingId }: { bookingId: string }) => {
 		}
 	};
 	return (
-		<p className="flex items-center justify-between gap-4">
-			Booking ID:{" "}
-			<span className="text-black font-semibold">
-				{bookingId}
-				<Copy
-					onClick={() =>
-						copyTextToClipboard({
-							text: bookingId,
-						})
-					}
-					className="size-4 ml-2 inline-block cursor-pointer"
-				/>
-			</span>
-		</p>
+		<span className="text-black font-semibold">
+			{bookingId}
+			<Copy
+				onClick={() =>
+					copyTextToClipboard({
+						text: bookingId,
+					})
+				}
+				className="size-4 ml-2 inline-block cursor-pointer"
+			/>
+		</span>
 	);
 };

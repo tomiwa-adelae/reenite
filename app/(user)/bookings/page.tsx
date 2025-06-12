@@ -5,6 +5,11 @@ import { BookingsDetails } from "../components/BookingDetails";
 import Pagination from "@/components/shared/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "My bookings - Reenite",
+};
+
 const page = async ({ searchParams }: { searchParams: any }) => {
 	const { query, page } = await searchParams;
 	const clerkUser = await currentUser();

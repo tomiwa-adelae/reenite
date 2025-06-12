@@ -3,6 +3,14 @@ import { Footer } from "@/app/(new)/components/Footer";
 import Link from "next/link";
 import { Overview } from "../../components/Overview";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Create a space - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = () => {
 	return (
 		<div>

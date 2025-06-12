@@ -167,6 +167,7 @@ export function ReservationForm({
 	]);
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
+		toast.success("Proceed to checkout.");
 		router.push(
 			`/spaces/${spaceId}/book?booking=${booking}&bookingStartDate=${formatDate(
 				data.bookingStartDate
@@ -202,7 +203,10 @@ export function ReservationForm({
 													key={hour}
 													value={hour}
 												>
-													{hour} hours
+													{hour}{" "}
+													{hour === "1"
+														? "hour"
+														: "hours"}
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -234,7 +238,10 @@ export function ReservationForm({
 													key={day}
 													value={day}
 												>
-													{day} days
+													{day}{" "}
+													{day === "1"
+														? "day"
+														: "days"}
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -266,7 +273,10 @@ export function ReservationForm({
 													key={week}
 													value={week}
 												>
-													{week} weeks
+													{week}{" "}
+													{week === "1"
+														? "week"
+														: "weeks"}
 												</SelectItem>
 											))}
 										</SelectContent>
@@ -298,7 +308,10 @@ export function ReservationForm({
 													key={month}
 													value={month}
 												>
-													{month} months
+													{month}{" "}
+													{month === "1"
+														? "month"
+														: "months"}
 												</SelectItem>
 											))}
 										</SelectContent>

@@ -12,6 +12,7 @@ import {
 	UnsuspendCustomerAccountParams,
 } from "@/types";
 import { revalidatePath } from "next/cache";
+import "../../database/models";
 
 export const getCustomers = async ({
 	query,
@@ -121,7 +122,8 @@ export const getCustomerDetails = async ({
 			.populate({
 				path: "space",
 				populate: { path: "category" },
-			});
+			})
+			.populate("user");
 
 		return {
 			status: 200,
@@ -267,6 +269,29 @@ export const deleteCustomer = async ({
 				status: 400,
 				message: "Oops! You are not authorized to make this request.",
 			};
+
+		const customer = await User.findById(customerId);
+
+		// Step 1: Delete user from Clerk via Admin API
+		const clerkRes = await fetch(
+			`https://api.clerk.com/v1/users/${customer?.clerkId}`,
+			{
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${process.env.CLERK_SECRET_KEY!}`,
+					"Content-Type": "application/json",
+				},
+			}
+		);
+
+		if (!clerkRes.ok) {
+			const errorText = await clerkRes.text();
+			console.error("Clerk error:", errorText);
+			return {
+				status: 500,
+				message: "Failed to delete user from Clerk.",
+			};
+		}
 
 		const deletedCustomer = await User.findByIdAndDelete(customerId);
 

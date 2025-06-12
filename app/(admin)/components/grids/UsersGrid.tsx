@@ -14,12 +14,12 @@ export const UsersGrid = ({ customers }: { customers: any }) => {
 						alt={`${customer.firstName}'s picture`}
 						width={1000}
 						height={1000}
-						className="aspect-square object-cover rounded-lg"
+						className="aspect-square object-cover rounded-full"
 					/>
-					<h4 className="text-xl font-medium mt-4 line-clamp-1">
+					<h4 className="text-lg text-center md:text-xl font-medium mt-4 line-clamp-1">
 						{customer?.firstName} {customer?.lastName}
 					</h4>
-					<p className="text-base text-muted-foreground mt-1 break-words line-clamp-1">
+					<p className="text-sm md:text-base text-muted-foreground mt-1 break-words text-center line-clamp-1">
 						{customer?.email}
 					</p>
 				</Link>

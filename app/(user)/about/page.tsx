@@ -16,6 +16,11 @@ import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "About me - Reenite",
+};
+
 const page = async () => {
 	const clerkUser = await currentUser();
 	const user = await getUserInfo(clerkUser?.id!);

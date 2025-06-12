@@ -5,6 +5,7 @@ import { connectToDatabase } from "@/lib/database";
 import Category from "@/lib/database/models/category.model";
 import User from "@/lib/database/models/user.model";
 import { handleError } from "@/lib/utils";
+import "../../database/models";
 
 export const getCategories = async ({ userId }: { userId: string }) => {
 	try {

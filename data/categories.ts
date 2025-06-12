@@ -2,12 +2,17 @@ export const sampleCategories = [
 	{
 		image: "/assets/icons/office.svg",
 		imageId: "/assets/icons/office.svg",
-		name: "Space Desk",
+		name: "Dedicated Desk",
 	},
 	{
 		image: "/assets/icons/building.svg",
 		imageId: "/assets/icons/building.svg",
-		name: "Private office",
+		name: "Shared Desk",
+	},
+	{
+		image: "/assets/icons/conference-room.svg",
+		imageId: "/assets/icons/conference-room.svg",
+		name: "Conference Room",
 	},
 	{
 		image: "/assets/icons/cafe.svg",

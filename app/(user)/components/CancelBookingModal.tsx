@@ -80,7 +80,7 @@ export function CancelBookingModal({
 							variant={"ghost"}
 							disabled={loading}
 						>
-							Cancel
+							Close
 						</Button>
 						<Button
 							disabled={loading}

@@ -220,4 +220,14 @@ html {
 		flex-direction: column !important;
 		gap: 1.5rem !important;
 	}
+
+	.cl-internal-qo3qk7 {
+		padding: 0 2rem;
+	}
+}
+
+@media (max-width: 680px) {
+	.cl-internal-qo3qk7 {
+		padding: 0 0rem;
+	}
 }

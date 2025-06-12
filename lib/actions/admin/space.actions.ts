@@ -35,6 +35,7 @@ import Booking from "@/lib/database/models/booking.model";
 import Mailjet from "node-mailjet";
 import { AccountCreationEmail } from "@/email-templates/account-creation";
 import { NewSpaceEmail } from "@/email-templates/new-space-creation";
+import "../../database/models";
 
 const mailjet = Mailjet.apiConnect(
 	process.env.MAILJET_API_PUBLIC_KEY!,
@@ -474,6 +475,12 @@ export const deleteSpacePhoto = async ({
 				updatedSpace.photos[0].cover = true;
 				await updatedSpace.save();
 			}
+
+			if (updatedSpace.photos.length === 0) {
+				updatedSpace.status = "draft";
+
+				await updatedSpace.save();
+			}
 		}
 
 		if (!deletedPhoto)
@@ -481,6 +488,12 @@ export const deleteSpacePhoto = async ({
 				status: 400,
 				message: "Oops! An error occurred! Try again later",
 			};
+
+		if (deletedPhoto.photos.length === 0) {
+			deletedPhoto.status = "draft";
+
+			await deletedPhoto.save();
+		}
 
 		revalidatePath(`/all-spaces/new/${space._id}/photos`);
 

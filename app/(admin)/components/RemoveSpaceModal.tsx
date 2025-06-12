@@ -102,7 +102,7 @@ export function RemoveSpaceModal({ open, closeModal, userId, space }: Props) {
 							size="md"
 							variant="destructive"
 						>
-							{loading ? <Loader /> : "Yes, remove"}
+							{loading ? <Loader /> : "Yes, remove it"}
 						</Button>
 					</div>
 				</DialogContent>

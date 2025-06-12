@@ -4,6 +4,14 @@ import { Sidebar } from "./components/Sidebar";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "User - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 export default async function layout({
 	children,
 }: Readonly<{

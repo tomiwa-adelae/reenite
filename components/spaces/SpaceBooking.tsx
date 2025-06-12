@@ -64,7 +64,7 @@ export const SpaceBooking = ({
 			<h4 className="text-xl md:text-2xl font-medium">Select booking</h4>
 			<ScrollArea className="mt-2">
 				<div className="flex w-max pb-8 items-center justify-start gap-4">
-					{bookingOptions.map(
+					{bookingOptions?.map(
 						({ label, description, priceKey }, index) => (
 							<div
 								onClick={() => {
@@ -81,7 +81,7 @@ export const SpaceBooking = ({
 								<div className="flex items-center justify-start gap-4">
 									<Image
 										src={
-											category.image ||
+											category?.image ||
 											"/assets/icons/office.svg"
 										}
 										alt={`${label} icon`}

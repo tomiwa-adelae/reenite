@@ -42,16 +42,28 @@ export const BookingsLists = ({ bookings }: { bookings: IBooking[] }) => {
 								<ChevronRight className="size-6 opacity-0 group-hover:opacity-100 transition-all" />
 							</Button>
 						</div>
-						<Badge
-							variant={
-								booking?.paymentStatus === "paid"
-									? "success"
-									: booking.paymentStatus === "failed"
-									? "destructive"
-									: "default"
-							}
-							className="absolute top-3 left-3 capitalize px-1 py-1 rounded-full"
-						/>
+						<div className="absolute top-3 left-3 flex items-center justify-start gap-2">
+							<Badge
+								variant={
+									booking?.paymentStatus === "paid"
+										? "success"
+										: booking.paymentStatus === "failed"
+										? "destructive"
+										: "default"
+								}
+								className="capitalize px-1 py-1 rounded-full"
+							/>
+							<Badge
+								variant={
+									booking?.bookingStatus === "confirmed"
+										? "success"
+										: booking.bookingStatus === "cancelled"
+										? "destructive"
+										: "default"
+								}
+								className="capitalize px-1 py-1 rounded-full"
+							/>
+						</div>
 					</Link>
 				);
 			})}

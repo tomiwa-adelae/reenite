@@ -7,9 +7,11 @@ import React, { useState } from "react";
 export const DeleteCustomerButton = ({
 	userId,
 	customerId,
+	isAdmin = false,
 }: {
 	userId: string;
 	customerId: string;
+	isAdmin?: boolean;
 }) => {
 	const [openCustomerModal, setOpenCustomerModal] = useState(false);
 	return (
@@ -19,6 +21,7 @@ export const DeleteCustomerButton = ({
 				variant={"destructive"}
 				size="md"
 				className="w-full"
+				disabled={isAdmin}
 			>
 				<X />
 				Delete user account

@@ -45,7 +45,7 @@ export const Header = ({ user }: Props) => {
 						<ProfileDropdown user={user} />
 					</SignedIn>
 					<div className="lg:hidden">
-						<MobileNavbar />
+						<MobileNavbar user={user} />
 					</div>
 				</div>
 			</div>

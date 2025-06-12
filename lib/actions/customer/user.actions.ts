@@ -12,6 +12,7 @@ import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import Mailjet from "node-mailjet";
 import { AccountCreationEmail } from "@/email-templates/account-creation";
+import "../../database/models";
 
 const mailjet = Mailjet.apiConnect(
 	process.env.MAILJET_API_PUBLIC_KEY!,

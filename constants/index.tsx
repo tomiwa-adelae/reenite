@@ -35,7 +35,7 @@ export const navLinks = [
 		label: "Book Space",
 	},
 	{
-		slug: "/blogs",
+		slug: "/",
 		label: "Blogs",
 	},
 	{
@@ -78,7 +78,7 @@ export const footerDetails = [
 				label: "Home",
 			},
 			{
-				slug: "/book",
+				slug: "/spaces",
 				label: "Book a Space",
 			},
 			{
@@ -373,16 +373,16 @@ export const userNavLinks = [
 		slug: "/bookings",
 		label: "Past bookings",
 	},
-	{
-		icon: Settings,
-		slug: "/account-settings",
-		label: "Account settings",
-	},
-	{
-		icon: CircleHelp,
-		slug: "/help-center",
-		label: "Help center",
-	},
+	// {
+	// 	icon: Settings,
+	// 	slug: "/account-settings",
+	// 	label: "Account settings",
+	// },
+	// {
+	// 	icon: CircleHelp,
+	// 	slug: "/help-center",
+	// 	label: "Help center",
+	// },
 ];
 
 export const adminNavLinks = [
@@ -430,11 +430,11 @@ export const adminMobileLinks = [
 		label: "Customers",
 		icon: Users,
 	},
-	{
-		slug: "/account-settings",
-		label: "Account settings",
-		icon: Settings,
-	},
+	// {
+	// 	slug: "/account-settings",
+	// 	label: "Account settings",
+	// 	icon: Settings,
+	// },
 	{
 		slug: "/profile",
 		label: "Your profile",
@@ -547,19 +547,24 @@ export const availableAmenities = [
 		iconName: "Snowflake",
 	},
 	{
-		icon: Icons.Car,
-		name: "Parking",
-		iconName: "Car",
+		icon: Icons.BatteryFull,
+		name: "Power Backup",
+		iconName: "BatteryFull",
 	},
 	{
-		icon: Icons.CookingPot,
-		name: "Kitchen/Pantry",
-		iconName: "CookingPot",
+		icon: Icons.Projector,
+		name: "Projector",
+		iconName: "Projector",
 	},
 	{
-		icon: Icons.Lightbulb,
-		name: "Natural Light",
-		iconName: "Lightbulb",
+		icon: Icons.Presentation,
+		name: "Whiteboard",
+		iconName: "Presentation",
+	},
+	{
+		icon: Icons.Tv,
+		name: "TV / Screen",
+		iconName: "Tv",
 	},
 	{
 		icon: Icons.Printer,
@@ -567,9 +572,9 @@ export const availableAmenities = [
 		iconName: "Printer",
 	},
 	{
-		icon: Icons.Shield,
-		name: "24/7 Security",
-		iconName: "Shield",
+		icon: Icons.Laptop,
+		name: "Laptop Station",
+		iconName: "Laptop",
 	},
 	{
 		icon: Icons.Phone,
@@ -577,9 +582,119 @@ export const availableAmenities = [
 		iconName: "Phone",
 	},
 	{
-		icon: Icons.Video,
-		name: "Video Conferencing",
-		iconName: "Video",
+		icon: Icons.Coffee,
+		name: "Coffee Machine",
+		iconName: "Coffee",
+	},
+	{
+		icon: Icons.GlassWater,
+		name: "Water Dispenser",
+		iconName: "GlassWater",
+	},
+	{
+		icon: Icons.Hamburger,
+		name: "Snack Bar",
+		iconName: "Hamburger",
+	},
+	{
+		icon: Icons.Refrigerator,
+		name: "Mini Fridge",
+		iconName: "Refrigerator",
+	},
+	{
+		icon: Icons.Microwave,
+		name: "Microwave",
+		iconName: "Microwave",
+	},
+	{
+		icon: Icons.Utensils,
+		name: "Kitchen Access",
+		iconName: "Utensils",
+	},
+	{
+		icon: Icons.Toilet,
+		name: "Restrooms",
+		iconName: "Toilet",
+	},
+	{
+		icon: Icons.ShowerHead,
+		name: "Shower",
+		iconName: "ShowerHead",
+	},
+	{
+		icon: Icons.Car,
+		name: "Parking Space",
+		iconName: "Car",
+	},
+	{
+		icon: Icons.Bike,
+		name: "Bike Rack",
+		iconName: "Bike",
+	},
+	{
+		icon: Icons.Accessibility,
+		name: "Wheelchair Access",
+		iconName: "Accessibility",
+	},
+	{
+		icon: Icons.Clock,
+		name: "24/7 Access",
+		iconName: "Clock",
+	},
+	{
+		icon: Icons.Cctv,
+		name: "CCTV",
+		iconName: "Cctv",
+	},
+	{
+		icon: Icons.Shield,
+		name: "Security Guard",
+		iconName: "Shield",
+	},
+	{
+		icon: Icons.KeyRound,
+		name: "Secure Entry",
+		iconName: "KeyRound",
+	},
+	{
+		icon: Icons.FireExtinguisher,
+		name: "Fire Extinguisher",
+		iconName: "FireExtinguisher",
+	},
+	{
+		icon: Icons.Dumbbell,
+		name: "Gym Access",
+		iconName: "Dumbbell",
+	},
+	{
+		icon: Icons.Gamepad2,
+		name: "Game Room",
+		iconName: "Gamepad2",
+	},
+	{
+		icon: Icons.Sun,
+		name: "Rooftop Access",
+		iconName: "Sun",
+	},
+	{
+		icon: Icons.TreeDeciduous,
+		name: "Outdoor Seating",
+		iconName: "TreeDeciduous",
+	},
+	{
+		icon: Icons.Plug,
+		name: "Extension Cords",
+		iconName: "Plug",
+	},
+	{
+		icon: Icons.Usb,
+		name: "USB Charging",
+		iconName: "Usb",
+	},
+	{
+		icon: Icons.HdmiPort,
+		name: "HDMI Cable",
+		iconName: "HdmiPort",
 	},
 ];
 
@@ -589,12 +704,12 @@ export const DEFAULT_PROFILE_PICTURE =
 export const DEFAULT_SPACE_IMAGE = "/assets/images/logo-full.svg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "0802-123-4567";
-export const REENITE_EMAIL_ADDRESS = "info@reenite.com";
-export const REENITE_WEBSITE_URL = "https://reenite.com";
-export const REENITE_FACEBOOK_URL = "https://reenite.com";
-export const REENITE_TWITTER_URL = "https://reenite.com";
-export const REENITE_INSTAGRAM_URL = "https://reenite.com";
-export const REENITE_LINKEDIN_URL = "https://reenite.com";
+export const REENITE_EMAIL_ADDRESS = "hello@reenite.com";
+export const REENITE_WEBSITE_URL = "https://reenite.vercel.app";
+export const REENITE_FACEBOOK_URL = "https://facebook.com/share/1EvF1EKb5u";
+export const REENITE_TWITTER_URL = "https://x.com/reenitenig";
+export const REENITE_INSTAGRAM_URL = "https://www.instagram.com/reenitenig";
+export const REENITE_LINKEDIN_URL = "https://www.linkedin.com/company/reenite";
 export const REENITE_WIFI_PASSWORD = "1234567890";
 export const REENITE_WIFI_NAME = "reenite_wifi";
 export const REENITE_LOGO =

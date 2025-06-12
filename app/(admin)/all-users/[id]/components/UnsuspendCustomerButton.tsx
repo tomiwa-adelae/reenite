@@ -7,9 +7,11 @@ import React, { useState } from "react";
 export const UnsuspendCustomerButton = ({
 	userId,
 	customerId,
+	isAdmin = false,
 }: {
 	userId: string;
 	customerId: string;
+	isAdmin?: boolean;
 }) => {
 	const [openCustomerModal, setOpenCustomerModal] = useState(false);
 	return (
@@ -19,6 +21,7 @@ export const UnsuspendCustomerButton = ({
 				variant={"warning"}
 				size="md"
 				className="w-full"
+				disabled={isAdmin}
 			>
 				<X />
 				Unsuspend user account

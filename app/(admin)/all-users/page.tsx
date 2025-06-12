@@ -8,6 +8,14 @@ import { CustomersDetails } from "../components/CustomersDetails";
 import Pagination from "@/components/shared/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "All customers - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async ({ searchParams }: { searchParams: any }) => {
 	const { query, page } = await searchParams;
 

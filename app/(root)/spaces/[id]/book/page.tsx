@@ -12,6 +12,28 @@ import Link from "next/link";
 import { BookingDetails } from "@/components/BookingDetails";
 import { FAQs } from "@/components/shared/FAQs";
 
+import type { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+	{ params }: any,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const { id } = await params;
+	try {
+		const spaceDetails = await getSpaceDetails(id);
+		return {
+			title: `${spaceDetails?.space?.title} - Booking - Reenite`,
+			description: spaceDetails?.space?.description,
+		};
+	} catch (error) {
+		return {
+			title: "Book a space at Reenite - Coworking space in Uyo",
+			description:
+				"Hey friends, A space where skills are honed, ideas are born, and careers thrive. Join us at Reenite and be part of a community driving innovation in Uyo and beyond. Learn more See our services What we do Our mission is to bridge the gap between talent and opportunity, creating a space where skills are",
+		};
+	}
+}
+
 const page = async ({
 	params,
 	searchParams,
@@ -26,7 +48,8 @@ const page = async ({
 	const user = await getUserInfo(clerkUser?.id!);
 	const spaceDetails = await getSpaceDetails(id);
 
-	if (spaceDetails?.status === 400) return <SpaceNotFound />;
+	if (spaceDetails?.status === 400 || spaceDetails?.space.status !== "active")
+		return <SpaceNotFound />;
 
 	// Determine the correct discount based on booking type
 	const discount =
@@ -73,7 +96,7 @@ const page = async ({
 						<div>
 							<Link
 								href={`/spaces/${spaceDetails?.space?._id}`}
-								className="hover:text-secondary transition-all font-medium text-lg md:text-2xl lg:text-3xl"
+								className="hover:text-secondary transition-all font-medium text-lg md:text-2xl lg:text-3xl line-clamp-2"
 							>
 								{spaceDetails?.space.title}
 							</Link>

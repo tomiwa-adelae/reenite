@@ -16,6 +16,14 @@ import { getBookings } from "@/lib/actions/admin/booking.actions";
 import { NoBookings } from "../components/NoBookings";
 import { NoSpaces } from "../components/NoSpaces";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Dashboard - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async () => {
 	const clerkUser = await currentUser();
 	const user = await getUserInfo(clerkUser?.id!);
@@ -47,9 +55,23 @@ const page = async () => {
 							{bookings?.bookings?.length !== 0 && (
 								<div className="mt-2">
 									<BookingsListings
-										bookings={bookings?.bookings}
+										bookings={bookings?.bookings.slice(
+											0,
+											5
+										)}
 									/>
 								</div>
+							)}
+							{bookings?.bookings.length > 5 && (
+								<Button
+									asChild
+									size="md"
+									className="mt-4 w-full md:w-auto"
+								>
+									<Link href="/all-bookings">
+										View all bookings
+									</Link>
+								</Button>
 							)}
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -78,9 +100,23 @@ const page = async () => {
 							{customers?.customers.length !== 0 && (
 								<div className="mt-2">
 									<UsersListings
-										customers={customers?.customers}
+										customers={customers?.customers.slice(
+											0,
+											5
+										)}
 									/>
 								</div>
+							)}
+							{customers?.customers.length > 5 && (
+								<Button
+									asChild
+									size="md"
+									className="mt-4 w-full md:w-auto"
+								>
+									<Link href="/all-users">
+										View all customers
+									</Link>
+								</Button>
 							)}
 						</div>
 						<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">

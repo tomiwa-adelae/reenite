@@ -361,13 +361,28 @@ export const SpaceDetails = ({
 											>
 												<div className="flex items-center justify-start gap-4 mt-2 text-muted-foreground font-semibold text-sm lg:text-base">
 													<Image
-														src={category?.image}
-														alt={`${category?.name}'s icon`}
+														src={
+															category?.image ||
+															"/assets/icons/office.svg"
+														}
+														alt={
+															`${category?.name}'s icon` ||
+															"Category icon"
+														}
 														width={1000}
 														height={1000}
 														className="size-[50px] lg:size-[60px] object-cover"
 													/>
-													<h5>{category?.name}</h5>
+													<h5>
+														{category?.name ? (
+															category?.name
+														) : (
+															<p className="italic">
+																No category
+																selected
+															</p>
+														)}
+													</h5>
 												</div>
 											</SpaceDetailsBox>
 										</div>

@@ -84,7 +84,7 @@ export function DeleteCustomerModal({
 							size="md"
 							variant="destructive"
 						>
-							{loading ? <Loader /> : "Delete user"}
+							{loading ? <Loader /> : "Yes, delete user"}
 						</Button>
 					</div>
 				</DialogContent>

@@ -33,7 +33,10 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 									booking?.user?.picture! ||
 									DEFAULT_PROFILE_PICTURE
 								}
-								alt={``}
+								alt={
+									`${booking?.user?.firstName}'s` ||
+									"User profile picture"
+								}
 								width={1000}
 								height={1000}
 								className="aspect-auto shadow-[0_3px_10px_rgb(0,0,0,0.2)] absolute bottom-[2%] right-[2%] size-[60px] object-cover rounded-full"
@@ -47,23 +50,42 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 						</p>
 						<Separator className="my-2" />
 						<h4 className="text-base font-medium group-hover:text-secondary transition-all">
-							{booking?.user?.firstName} {booking?.user?.lastName}
+							{booking?.user?.firstName ? (
+								booking?.user?.firstName
+							) : (
+								<p className="italic">Deleted user</p>
+							)}{" "}
+							{booking?.user?.lastName}
 						</h4>
 						<p className="text-sm text-muted-foreground">
 							{booking?.user?.email}
 						</p>
-						<Badge
-							variant={
-								booking?.bookingStatus === "confirmed"
-									? "success"
-									: booking?.bookingStatus === "cancelled"
-									? "destructive"
-									: "default"
-							}
-							className="absolute top-3 left-2 capitalize"
-						>
-							{booking.bookingStatus}
-						</Badge>
+						<div className="absolute top-3 left-2 flex items-center justify-start gap-2">
+							<Badge
+								variant={
+									booking?.paymentStatus === "paid"
+										? "success"
+										: booking?.paymentStatus === "failed"
+										? "destructive"
+										: "default"
+								}
+								className=" capitalize"
+							>
+								{booking?.paymentStatus}
+							</Badge>
+							<Badge
+								variant={
+									booking?.bookingStatus === "confirmed"
+										? "success"
+										: booking?.bookingStatus === "cancelled"
+										? "destructive"
+										: "default"
+								}
+								className="capitalize"
+							>
+								{booking?.bookingStatus}
+							</Badge>
+						</div>
 					</Link>
 				);
 			})}

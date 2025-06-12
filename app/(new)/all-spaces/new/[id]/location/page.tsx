@@ -4,6 +4,14 @@ import { getSpaceDetails } from "@/lib/actions/admin/space.actions";
 import { LocationForm } from "@/app/(new)/components/forms/LocationForm";
 import SpaceNotFound from "@/components/shared/SpaceNotFound";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Enter the location - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
 	const clerkUser = await currentUser();

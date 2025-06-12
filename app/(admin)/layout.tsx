@@ -3,6 +3,14 @@ import { AppNavbar } from "./components/AppNavbar";
 import Footer from "./components/Footer";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Admin dashboard - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
 
 export default async function layout({
 	children,

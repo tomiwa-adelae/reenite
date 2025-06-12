@@ -1,6 +1,7 @@
 "use server";
 
 import { REENITE_EMAIL_ADDRESS } from "@/constants";
+import { CancelBooking } from "@/email-templates/cancel-booking";
 import {
 	SuccessSpaceAdminBooking,
 	SuccessUserSpaceBooked,
@@ -18,6 +19,7 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import Mailjet from "node-mailjet";
+import "../../database/models";
 
 const mailjet = Mailjet.apiConnect(
 	process.env.MAILJET_API_PUBLIC_KEY!,
@@ -354,7 +356,10 @@ export const cancelBooking = async ({
 				message: "Oops! An error occurred. Try again later",
 			};
 
-		const booking = await Booking.findOne({ user: userId, _id: bookingId });
+		const booking = await Booking.findOne({
+			user: userId,
+			_id: bookingId,
+		}).populate("space");
 
 		if (!booking)
 			return {
@@ -374,6 +379,40 @@ export const cancelBooking = async ({
 
 		revalidatePath(`/bookings`);
 		revalidatePath(`/bookings/${bookingId}`);
+
+		await mailjet.post("send", { version: "v3.1" }).request({
+			Messages: [
+				{
+					From: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite",
+					},
+					To: [
+						{
+							Email: user.email,
+							Name: `${user.firstName} ${user.lastName}`,
+						},
+					],
+					Subject: `Booking cancelled - Reenite.`,
+					TextPart: `Booking cancelled - Reenite.`,
+					HTMLPart: CancelBooking({
+						bookingId: booking?.bookingId,
+						spaceTitle: booking?.space?.title,
+						name: `${user?.firstName} ${user?.lastName}`,
+						createdAt: booking.createdAt,
+						startDate: booking.startDate,
+						endDate: booking.endDate,
+						totalAmount: booking.totalAmount,
+						address: booking?.space.address,
+						city: booking?.space.city,
+						state: booking?.space.state,
+						country: booking?.space.country,
+						id: booking._id,
+						noOfUsers: booking.noOfUsers,
+					}),
+				},
+			],
+		});
 
 		return {
 			status: 200,

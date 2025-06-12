@@ -12,6 +12,14 @@ import { LocationBox } from "../../components/LocationBox";
 import { CompanyBox } from "../../components/CompanyBox";
 import { BioBox } from "../../components/BioBox";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Edit profile - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async () => {
 	const clerkUser = await currentUser();
 	const user = await getUserInfo(clerkUser?.id!);

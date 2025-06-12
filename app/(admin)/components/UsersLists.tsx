@@ -20,7 +20,7 @@ export const UsersLists = ({ customers }: { customers: IUser[] }) => {
 						alt={`${customer.firstName}'s picture`}
 						width={1000}
 						height={1000}
-						className="size-[70px] object-cover rounded-lg"
+						className="size-[70px] object-cover rounded-full"
 					/>
 					<div className="flex-1 flex items-center justify-between gap-2">
 						<div className="flex-1">

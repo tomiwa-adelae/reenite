@@ -5,6 +5,34 @@ import { getSpaceDetails } from "@/lib/actions/admin/space.actions";
 import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { getCategories } from "@/lib/actions/admin/category.actions";
 
+import type { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+	{ params }: any,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	try {
+		const { id } = await params;
+		const clerkUser = await currentUser();
+		const user = await getUserInfo(clerkUser?.id!);
+
+		const spaceDetails = await getSpaceDetails({
+			userId: user?.user?._id,
+			spaceId: id,
+		});
+		return {
+			title: `${spaceDetails?.space?.title} - All spaces - Reenite`,
+			description: spaceDetails?.space?.description,
+		};
+	} catch (error) {
+		return {
+			title: "Book a space at Reenite - Coworking space in Uyo",
+			description:
+				"Hey friends, A space where skills are honed, ideas are born, and careers thrive. Join us at Reenite and be part of a community driving innovation in Uyo and beyond. Learn more See our services What we do Our mission is to bridge the gap between talent and opportunity, creating a space where skills are",
+		};
+	}
+}
+
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
 	const clerkUser = await currentUser();

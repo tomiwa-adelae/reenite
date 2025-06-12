@@ -92,7 +92,11 @@ export const TitleForm = ({ spaceId, userId, title }: Props) => {
 								asChild
 								size="lg"
 							>
-								<Link href="/all-spaces/new/photos">Back</Link>
+								<Link
+									href={`/all-spaces/new/${spaceId}/photos`}
+								>
+									Back
+								</Link>
 							</Button>
 							<Button
 								type="submit"

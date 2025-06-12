@@ -1,6 +1,7 @@
 "use server";
 import { v2 as cloudinary } from "cloudinary";
 import { handleError } from "../utils";
+import "../database/models";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

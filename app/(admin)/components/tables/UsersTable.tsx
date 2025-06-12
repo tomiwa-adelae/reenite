@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
 	Table,
@@ -11,8 +12,11 @@ import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/lib/database/models/user.model";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { useRouter } from "next/navigation";
 
 export function UsersTable({ customers }: { customers: IUser[] }) {
+	const router = useRouter();
+
 	return (
 		<div className="hidden md:block">
 			<Table>
@@ -26,7 +30,13 @@ export function UsersTable({ customers }: { customers: IUser[] }) {
 				</TableHeader>
 				<TableBody>
 					{customers.map((customer, index) => (
-						<TableRow className="group" key={index}>
+						<TableRow
+							onClick={() =>
+								router.push(`/all-users/${customer._id}`)
+							}
+							className="group"
+							key={index}
+						>
 							<TableCell className="flex items-center justify-start gap-4">
 								<Image
 									src={
@@ -36,7 +46,7 @@ export function UsersTable({ customers }: { customers: IUser[] }) {
 									alt={`${customer.firstName}'s picture`}
 									width={1000}
 									height={1000}
-									className="size-[70px] object-cover rounded-lg"
+									className="size-[70px] object-cover rounded-full"
 								/>
 								<h5 className="font-medium text-base">
 									{customer.firstName} {customer.lastName}

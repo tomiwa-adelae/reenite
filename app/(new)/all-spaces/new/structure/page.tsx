@@ -5,6 +5,14 @@ import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Choose a category - Admin - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async ({ searchParams }: { searchParams: any }) => {
 	const { id } = await searchParams;
 	const clerkUser = await currentUser();

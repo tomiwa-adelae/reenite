@@ -1,6 +1,6 @@
 "use client";
 import { CircleX, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
@@ -16,12 +16,19 @@ export function SearchBar({
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
+	const inputRef = useRef<HTMLInputElement>(null); // Create ref
+
 	const [query, setQuery] = useState("");
 
 	useEffect(() => {
 		const urlQuery = searchParams.get("query") || "";
 		setQuery(urlQuery);
 	}, [searchParams]);
+
+	// Autofocus input when component mounts
+	useEffect(() => {
+		inputRef.current?.focus();
+	}, []);
 
 	// Debounced update to URL when query changes
 	useEffect(() => {
@@ -46,6 +53,7 @@ export function SearchBar({
 		<div className="relative w-full mt-4">
 			<Search className="absolute top-[50%] left-3 translate-y-[-50%] text-muted-foreground size-5" />
 			<Input
+				ref={inputRef}
 				className="pl-8 rounded-full dark:border-white border-2"
 				placeholder={placeholder}
 				onChange={(e) => setQuery(e.target.value)}

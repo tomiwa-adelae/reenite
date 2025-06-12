@@ -5,6 +5,7 @@ import React, { useRef, useState } from "react";
 import { IconUpload } from "@tabler/icons-react";
 import Image from "next/image";
 import { Button } from "./button";
+import { toast } from "sonner";
 
 const mainVariant = {
 	initial: {
@@ -35,9 +36,26 @@ export const FileUpload = ({
 	const [files, setFiles] = useState<File[]>([]);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
+	const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
 	const handleFileChange = (newFiles: File[]) => {
-		setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-		onChange && onChange(newFiles);
+		const validFiles = newFiles.filter((file) => {
+			const isImage = file.type.startsWith("image/");
+			const isValidSize = file.size <= MAX_FILE_SIZE;
+
+			if (!isImage) {
+				toast.error(`File "${file.name}" is not an image.`);
+			} else if (!isValidSize) {
+				toast.error(`File "${file.name}" is larger than 5MB.`);
+			}
+
+			return isImage && isValidSize;
+		});
+
+		if (validFiles.length) {
+			setFiles((prevFiles) => [...prevFiles, ...validFiles]);
+			onChange && onChange(validFiles);
+		}
 	};
 
 	const handleClick = () => {
@@ -45,11 +63,14 @@ export const FileUpload = ({
 	};
 
 	const { getRootProps, isDragActive } = useDropzone({
-		multiple: false,
+		multiple: true,
+		accept: {
+			"image/*": [],
+		},
 		noClick: true,
 		onDrop: handleFileChange,
 		onDropRejected: (error) => {
-			console.log(error);
+			toast.error(error[0]?.errors[0]?.message);
 		},
 	});
 
@@ -64,6 +85,8 @@ export const FileUpload = ({
 					ref={fileInputRef}
 					id="file-upload-handle"
 					type="file"
+					multiple
+					accept="image/*"
 					onChange={(e) =>
 						handleFileChange(Array.from(e.target.files || []))
 					}
@@ -74,66 +97,6 @@ export const FileUpload = ({
 				</div>
 				<div className="flex flex-col items-center justify-center">
 					<div className="relative w-full mt-10 max-w-xl mx-auto">
-						{/* {files.length > 0 &&
-							files.map((file, idx) => (
-								<motion.div
-									key={"file" + idx}
-									layoutId={
-										idx === 0
-											? "file-upload"
-											: "file-upload-" + idx
-									}
-									className={cn(
-										"relative overflow-hidden z-40 dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
-										"shadow-sm"
-									)}
-								>
-									<div className="flex justify-between w-full items-center gap-4">
-										<motion.p
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											layout
-											className="text-base text-neutral-700 dark:text-neutral-300 truncate max-w-xs"
-										>
-											{file.name}
-										</motion.p>
-										<motion.p
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											layout
-											className="rounded-lg px-2 py-1 w-fit shrink-0 text-sm text-neutral-600 dark:bg-neutral-800 dark:text-white shadow-input"
-										>
-											{(
-												file.size /
-												(1024 * 1024)
-											).toFixed(2)}{" "}
-											MB
-										</motion.p>
-									</div>
-
-									<div className="flex text-sm md:flex-row flex-col items-start md:items-center w-full mt-2 justify-between text-neutral-600 dark:text-neutral-400">
-										<motion.p
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											layout
-											className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 "
-										>
-											{file.type}
-										</motion.p>
-
-										<motion.p
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											layout
-										>
-											modified{" "}
-											{new Date(
-												file.lastModified
-											).toLocaleDateString()}
-										</motion.p>
-									</div>
-								</motion.div>
-							))} */}
 						<motion.div
 							layoutId="file-upload"
 							variants={mainVariant}
@@ -171,7 +134,7 @@ export const FileUpload = ({
 								Drag and drop
 							</h4>
 							<p className="text-xs lg:text sm text-center mb-3">
-								or browse for photos
+								or browse for photos less than 5MB
 							</p>
 							<Button size="md">Browse</Button>
 						</div>

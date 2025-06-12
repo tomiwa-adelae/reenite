@@ -30,6 +30,33 @@ import { SuspendCustomerButton } from "./components/SuspendCustomerButton";
 import { UnsuspendCustomerButton } from "./components/UnsuspendCustomerButton";
 import { BackButton } from "@/components/shared/BackButton";
 
+import type { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+	{ params }: any,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	try {
+		const { id } = await params;
+		const clerkUser = await currentUser();
+		const user = await getUserInfo(clerkUser?.id!);
+
+		const customer = await getCustomerDetails({
+			userId: user?.user?._id,
+			customerId: id,
+		});
+		return {
+			title: `${customer?.customer?.firstName} ${customer?.customer?.lastName} - All customers - Reenite`,
+		};
+	} catch (error) {
+		return {
+			title: "Book a space at Reenite - Coworking space in Uyo",
+			description:
+				"Hey friends, A space where skills are honed, ideas are born, and careers thrive. Join us at Reenite and be part of a community driving innovation in Uyo and beyond. Learn more See our services What we do Our mission is to bridge the gap between talent and opportunity, creating a space where skills are",
+		};
+	}
+}
+
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
 
@@ -63,16 +90,6 @@ const page = async ({ params }: { params: any }) => {
 								</span>
 							</Link>
 						</Button>
-						{/* <Button
-							className="w-full md:w-auto"
-							size="md"
-							variant="black"
-						>
-							<Pen />{" "}
-							<span className="hidden md:inline-block">
-								Edit profile
-							</span>
-						</Button> */}
 					</div>
 				</div>
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] flex flex-col md:flex-row items-center justify-start gap-4">
@@ -94,24 +111,38 @@ const page = async ({ params }: { params: any }) => {
 							{customer?.customer?.firstName}{" "}
 							{customer?.customer?.lastName}
 						</h4>
-						<Badge
-							variant={
-								customer?.customer?.status === "active"
-									? "success"
-									: "destructive"
-							}
-							className="capitalize"
-						>
-							{customer?.customer?.status}
-						</Badge>
+						<div className="flex items-center md:items-start justify-center md:justify-start gap-2">
+							<Badge
+								variant={
+									customer?.customer?.status === "active"
+										? "success"
+										: "destructive"
+								}
+								className="capitalize"
+							>
+								{customer?.customer?.status}
+							</Badge>
+							<Badge
+								variant={
+									customer?.customer?.isAdmin
+										? "success"
+										: "default"
+								}
+								className="capitalize"
+							>
+								{customer?.customer?.isAdmin
+									? "Admin"
+									: "Customer"}
+							</Badge>
+						</div>
 					</div>
 				</div>
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Booking history</h3>
-					{customer?.bookings.length !== 0 && (
+					{customer?.bookings?.length !== 0 && (
 						<Bookings bookings={customer?.bookings} />
 					)}
-					{customer?.bookings.length === 0 && (
+					{customer?.bookings?.length === 0 && (
 						<div className="mt-4 flex flex-col items-center justify-center">
 							<Image
 								src={"/assets/icons/folder.svg"}
@@ -148,7 +179,10 @@ const page = async ({ params }: { params: any }) => {
 							</p>
 						</div>
 						<div className="text-sm md:text-base">
-							<a href={`mailto:${customer?.customer?.email}`}>
+							<a
+								className="hover:underline hover:text-secondary transition-all"
+								href={`mailto:${customer?.customer?.email}`}
+							>
 								<Mail className="size-4 md:size-5 inline-block mr-2" />
 								<span>
 									{customer?.customer?.email ? (
@@ -253,7 +287,7 @@ const page = async ({ params }: { params: any }) => {
 						</Button>
 					</div>
 				</div>
-				<div className="border border-destructive p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+				{/* <div className="border-2 border-destructive p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg text-destructive">
 						Danger Zone
 					</h3>
@@ -261,21 +295,24 @@ const page = async ({ params }: { params: any }) => {
 						<DeleteCustomerButton
 							customerId={customer?.customer?._id}
 							userId={user?.user?._id}
+							isAdmin={customer?.customer?.isAdmin}
 						/>
 						{customer?.customer?.status === "active" && (
 							<SuspendCustomerButton
 								customerId={customer?.customer?._id}
 								userId={user?.user?._id}
+								isAdmin={customer?.customer?.isAdmin}
 							/>
 						)}
 						{customer?.customer?.status === "suspended" && (
 							<UnsuspendCustomerButton
 								customerId={customer?.customer?._id}
 								userId={user?.user?._id}
+								isAdmin={customer?.customer?.isAdmin}
 							/>
 						)}
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

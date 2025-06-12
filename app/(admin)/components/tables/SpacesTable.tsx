@@ -91,6 +91,8 @@ export function SpacesTable({
 										variant={
 											space?.status === "active"
 												? "success"
+												: space?.status === "draft"
+												? "warning"
 												: "default"
 										}
 										className="absolute top-3 left-3 capitalize px-1 py-1 rounded-full"

@@ -83,7 +83,7 @@ export function UnsuspendCustomerModal({
 							onClick={suspendUser}
 							size="md"
 						>
-							{loading ? <Loader /> : "Unsuspend user"}
+							{loading ? <Loader /> : "Yes, unsuspend user"}
 						</Button>
 					</div>
 				</DialogContent>

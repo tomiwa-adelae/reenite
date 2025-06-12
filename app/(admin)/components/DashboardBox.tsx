@@ -35,7 +35,7 @@ export const DashboardBox = ({
 				</div>
 				<p className="text-primary font-medium text-sm">
 					<Icon className="size-5 inline-block mr-1" />
-					<span>5.2%</span>
+					{/* <span>5.2%</span> */}
 				</p>
 			</div>
 		</Link>

@@ -36,6 +36,34 @@ import React from "react";
 import { CancelBookingButton } from "../../components/CancelBookingButton";
 import { MarkBookingMarkButton } from "../../components/MarkBookingCompletedButton";
 
+import type { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+	{ params }: any,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	try {
+		const { id } = await params;
+		const clerkUser = await currentUser();
+		const user = await getUserInfo(clerkUser?.id!);
+
+		const booking = await getBookingDetails({
+			userId: user?.user?._id,
+			bookingId: id,
+		});
+		return {
+			title: `${booking?.booking?.bookingId} - All bookings - Reenite`,
+			description: booking?.booking?.space?.description,
+		};
+	} catch (error) {
+		return {
+			title: "Book a space at Reenite - Coworking space in Uyo",
+			description:
+				"Hey friends, A space where skills are honed, ideas are born, and careers thrive. Join us at Reenite and be part of a community driving innovation in Uyo and beyond. Learn more See our services What we do Our mission is to bridge the gap between talent and opportunity, creating a space where skills are",
+		};
+	}
+}
+
 const page = async ({ params }: { params: any }) => {
 	const { id } = await params;
 	const clerkUser = await currentUser();
@@ -61,7 +89,7 @@ const page = async ({ params }: { params: any }) => {
 						<BackButton slug={"/all-bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
 							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-								{booking.booking.bookingId}
+								{booking?.booking?.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">
 								<Badge
@@ -75,7 +103,7 @@ const page = async ({ params }: { params: any }) => {
 											: "default"
 									}
 								>
-									{booking.booking.paymentStatus}
+									{booking?.booking?.paymentStatus}
 								</Badge>
 								<Badge
 									variant={
@@ -89,7 +117,7 @@ const page = async ({ params }: { params: any }) => {
 											: "default"
 									}
 								>
-									{booking.booking.bookingStatus}
+									{booking?.booking?.bookingStatus}
 								</Badge>
 							</div>
 						</div>
@@ -104,16 +132,16 @@ const page = async ({ params }: { params: any }) => {
 					<div className="absolute bottom-0 left-0 w-full py-4 text-white ">
 						<div className="container">
 							<Link
-								href={`/all-spaces/${booking.booking.space._id}`}
+								href={`/all-spaces/${booking?.booking?.space?._id}`}
 								className="font-semibold text-xl md:text-2xl lg:text-3xl"
 							>
-								{booking.booking.space.title}
+								{booking?.booking?.space?.title}
 							</Link>
 							<p className="text-sm md:text-base mt-1">
 								<MapPin className="size-4 inline-block mr-2" />
 								<span>
-									{booking.booking.space.city},{" "}
-									{booking.booking.space.state}
+									{booking?.booking?.space?.city},{" "}
+									{booking?.booking?.space?.state}
 								</span>
 							</p>
 						</div>
@@ -122,18 +150,20 @@ const page = async ({ params }: { params: any }) => {
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Space amenities</h3>
 					<div className="flex flex-wrap gap-4 mt-4">
-						{booking.booking.space.amenities.map(
+						{booking?.booking?.space?.amenities?.map(
 							(amenity: IAmenity, index: string) => (
 								<AmenityBox
 									key={index}
-									name={amenity.name!}
-									icon={amenity.icon}
+									name={amenity?.name!}
+									icon={amenity?.icon}
 								/>
 							)
 						)}
 					</div>
 					<Button asChild size="md" className="w-full mt-4">
-						<Link href={`/all-spaces/${booking.booking.space._id}`}>
+						<Link
+							href={`/all-spaces/${booking?.booking?.space?._id}`}
+						>
 							<Eye className="size-5 mr-2" />
 							View space
 						</Link>
@@ -145,26 +175,28 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex items-center justify-start gap-2">
 							<Hash className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Booking ID: {booking.booking.bookingId}
+								Booking ID: {booking?.booking?.bookingId}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<Building className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground capitalize">
-								Booking status: {booking.booking.bookingStatus}
+								Booking status:{" "}
+								{booking?.booking?.bookingStatus}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CreditCard className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground capitalize">
-								Payment status: {booking.booking.paymentStatus}
+								Payment status:{" "}
+								{booking?.booking?.paymentStatus}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
 								Date booked:{" "}
-								{formatDate(booking.booking.createdAt)}
+								{formatDate(booking?.booking?.createdAt)}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
@@ -172,28 +204,28 @@ const page = async ({ params }: { params: any }) => {
 							<p className="text-sm md:text-base text-muted-foreground">
 								Booking type:{" "}
 								<span className="capitalize">
-									{booking.booking.bookingType}
+									{booking?.booking?.bookingType}
 								</span>
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Start date: {booking.booking.startDate}
+								Start date: {booking?.booking?.startDate}
 							</p>
 						</div>
 						<div className="flex items-center justify-start gap-2">
 							<CalendarDays className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								End date: {booking.booking.endDate}
+								End date: {booking?.booking?.endDate}
 							</p>
 						</div>
-						{booking.booking.bookingType === "hourly" && (
+						{booking?.booking?.bookingType === "hourly" && (
 							<div className="flex items-center justify-start gap-2">
 								<Hourglass className="size-5 text-muted-foreground" />
 								<p className="text-sm md:text-base text-muted-foreground">
-									Hours: {booking.booking.noOfHours}{" "}
-									{booking.booking.noOfHours === "1"
+									Hours: {booking?.booking?.noOfHours}{" "}
+									{booking?.booking?.noOfHours === "1"
 										? "hour"
 										: "hours"}
 								</p>
@@ -203,19 +235,19 @@ const page = async ({ params }: { params: any }) => {
 							<div className="flex items-center justify-start gap-2">
 								<Hourglass className="size-5 text-muted-foreground" />
 								<p className="text-sm md:text-base text-muted-foreground">
-									Days: {booking.booking.noOfDays}{" "}
-									{booking.booking.noOfDays === "1"
+									Days: {booking?.booking?.noOfDays}{" "}
+									{booking?.booking?.noOfDays === "1"
 										? "day"
 										: "days"}
 								</p>
 							</div>
 						)}
-						{booking.booking.bookingType === "weekly" && (
+						{booking?.booking?.bookingType === "weekly" && (
 							<div className="flex items-center justify-start gap-2">
 								<Hourglass className="size-5 text-muted-foreground" />
 								<p className="text-sm md:text-base text-muted-foreground">
-									Days: {booking.booking.noOfWeeks}{" "}
-									{booking.booking.noOfWeeks === "1"
+									Weeks: {booking?.booking?.noOfWeeks}{" "}
+									{booking?.booking?.noOfWeeks === "1"
 										? "week"
 										: "weeks"}
 								</p>
@@ -225,8 +257,8 @@ const page = async ({ params }: { params: any }) => {
 							<div className="flex items-center justify-start gap-2">
 								<Hourglass className="size-5 text-muted-foreground" />
 								<p className="text-sm md:text-base text-muted-foreground">
-									Days: {booking.booking.noOfMonths}{" "}
-									{booking.booking.noOfMonths === "1"
+									Months: {booking?.booking?.noOfMonths}{" "}
+									{booking?.booking?.noOfMonths === "1"
 										? "month"
 										: "months"}
 								</p>
@@ -235,7 +267,10 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex items-center justify-start gap-2">
 							<Users className="size-5 text-muted-foreground" />
 							<p className="text-sm md:text-base text-muted-foreground">
-								Users: {booking.booking.noOfUsers} users
+								Users: {booking.booking?.noOfUsers}{" "}
+								{booking?.booking?.noOfUsers === "1"
+									? "user"
+									: "users"}
 							</p>
 						</div>
 					</div>
@@ -248,11 +283,11 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex items-center justify-start gap-2">
 							<Image
 								src={
-									booking?.booking.user.picture ||
+									booking?.booking?.user?.picture ||
 									DEFAULT_PROFILE_PICTURE
 								}
 								alt={
-									`${booking.booking.user.firstName}'s` ||
+									`${booking?.booking?.user?.firstName}'s` ||
 									"User profile picture"
 								}
 								width={1000}
@@ -260,40 +295,56 @@ const page = async ({ params }: { params: any }) => {
 								className="size-[40px] lg:size-[50px] object-cover rounded-full"
 							/>
 							<h4 className="font-medium text-base lg:text-lg">
-								{booking.booking.user.firstName}{" "}
-								{booking.booking.user.lastName}
+								{booking?.booking?.user?.firstName ? (
+									booking?.booking?.user?.firstName
+								) : (
+									<p className="italic">Deleted customer</p>
+								)}{" "}
+								{booking?.booking?.user?.lastName}
 							</h4>
 						</div>
-						<Link
-							href={`mailto:${booking.booking.user.email}`}
-							className="text-sm md:text-base hover:text-secondary hover:underline transition-all"
-						>
-							<p>
-								<Mail className="size-4 md:size-5 inline-block mr-2" />
-								<span>{booking.booking.user.email}</span>
-							</p>
-						</Link>
-						{booking.booking.user.phoneNumber && (
+						{booking?.booking?.user?.email && (
 							<Link
-								href={`tel:${booking.booking.user.phoneNumber}`}
+								href={`mailto:${booking?.booking?.user?.email}`}
+								className="text-sm md:text-base hover:text-secondary hover:underline transition-all"
+							>
+								<p>
+									<Mail className="size-4 md:size-5 inline-block mr-2" />
+									<span>
+										{booking?.booking?.user?.email ? (
+											booking?.booking?.user?.email
+										) : (
+											<span className="italic">
+												Deleted customer
+											</span>
+										)}
+									</span>
+								</p>
+							</Link>
+						)}
+						{booking?.booking?.user?.phoneNumber && (
+							<Link
+								href={`tel:${booking?.booking?.user?.phoneNumber}`}
 								className="text-sm md:text-base"
 							>
 								<p>
 									<Phone className="size-4 md:size-5 inline-block mr-2" />
 									<span>
-										{booking.booking.user.phoneNumber}
+										{booking?.booking?.user?.phoneNumber}
 									</span>
 								</p>
 							</Link>
 						)}
-						<Button asChild size="md" className="w-full">
-							<Link
-								href={`/all-users/${booking.booking.user._id}`}
-							>
-								<Eye className="size-5 mr-2" />
-								View customer
-							</Link>
-						</Button>
+						{booking?.booking?.user?._id && (
+							<Button asChild size="md" className="w-full">
+								<Link
+									href={`/all-users/${booking?.booking?.user?._id}`}
+								>
+									<Eye className="size-5 mr-2" />
+									View customer
+								</Link>
+							</Button>
+						)}
 					</div>
 				</div>
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -302,32 +353,35 @@ const page = async ({ params }: { params: any }) => {
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Amount</p>
 							<p>
-								₦{formatMoneyInput(booking.booking.totalAmount)}
+								₦
+								{formatMoneyInput(
+									booking?.booking?.totalAmount
+								)}
 							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Transaction Reference
 							</p>
-							<p>TXN_{booking.booking.transactionId}</p>
+							<p>TXN_{booking?.booking?.transactionId}</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Internal Ref
 							</p>
-							<p>TRX_{booking.booking.trxref}</p>
+							<p>TRX_{booking?.booking?.trxref}</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Payment date
 							</p>
-							<p>{formatDate(booking.booking.createdAt)}</p>
+							<p>{formatDate(booking?.booking?.createdAt)}</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Status</p>
 							<p className="text-green-400 capitalize">
 								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
-								{booking.booking.paymentStatus}
+								{booking?.booking?.paymentStatus}
 							</p>
 						</div>
 					</div>
@@ -336,18 +390,18 @@ const page = async ({ params }: { params: any }) => {
 					<h3 className="font-medium text-lg">Actions</h3>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						{booking?.booking?.bookingStatus !== "completed" &&
-							booking?.booking.bookingStatus !== "cancelled" && (
+							booking?.booking?.bookingStatus !== "cancelled" && (
 								<>
 									<MarkBookingMarkButton
 										userId={user?.user?._id}
-										bookingId={booking?.booking._id}
+										bookingId={booking?.booking?._id}
 										bookingStatus={
 											booking?.booking?.bookingStatus
 										}
 									/>
 									<CancelBookingButton
 										userId={user?.user?._id}
-										bookingId={booking?.booking._id}
+										bookingId={booking?.booking?._id}
 										bookingStatus={
 											booking?.booking?.bookingStatus
 										}

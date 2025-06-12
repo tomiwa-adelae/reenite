@@ -31,16 +31,23 @@ export const UploadModal = ({
 			<div className="pb-16 mb-24 md:mb-20 px-6 flex flex-col items-center justify-center">
 				<FileUpload
 					onChange={(files) => {
-						const reader = new FileReader();
-						reader.readAsDataURL(files[0]);
-						reader.onload = () => {
-							try {
-								const previewImage = reader.result as string;
-								setPhotos((prev) => [previewImage, ...prev]);
-							} catch (error) {
-								toast.error("An error occurred!");
-							}
-						};
+						files.forEach((file) => {
+							const reader = new FileReader();
+							reader.readAsDataURL(file);
+							reader.onload = () => {
+								try {
+									const previewImage =
+										reader.result as string;
+									setPhotos((prev) => [
+										previewImage,
+										...prev,
+									]);
+								} catch (error) {
+									console.log(error);
+									toast.error("An error occurred!");
+								}
+							};
+						});
 					}}
 				/>
 				<div className="grid grid-cols-2 gap-4">

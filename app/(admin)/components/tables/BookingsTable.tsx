@@ -92,7 +92,11 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 						>
 							<TableCell>{booking?.bookingId}</TableCell>
 							<TableCell>
-								{booking?.user?.firstName}{" "}
+								{booking?.user?.firstName ? (
+									booking?.user?.firstName
+								) : (
+									<p className="italic">Deleted customer</p>
+								)}{" "}
 								{booking?.user?.lastName}
 							</TableCell>
 							<TableCell>{booking?.space?.title}</TableCell>
@@ -100,29 +104,31 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 								{booking?.startDate} - {booking?.endDate}{" "}
 								{booking?.bookingType === "hourly" &&
 									`(${booking.noOfHours} ${
-										booking.noOfHours === 1
+										booking.noOfHours === "1"
 											? "hour"
 											: "hours"
 									})`}
 								{booking.bookingType === "daily" &&
 									`(${booking.noOfDays} ${
-										booking.noOfDays === 1 ? "day" : "days"
+										booking.noOfDays === "1"
+											? "day"
+											: "days"
 									})`}
 								{booking.bookingType === "weekly" &&
 									`(${booking?.noOfWeeks} ${
-										booking?.noOfWeeks === 1
+										booking?.noOfWeeks === "1"
 											? "week"
 											: "weeks"
 									})`}
 								{booking.bookingType === "monthly" &&
 									`(${booking?.noOfMonths} ${
-										booking?.noOfMonths === 1
+										booking?.noOfMonths === "1"
 											? "month"
 											: "months"
 									})`}
 							</TableCell>
 							<TableCell>
-								<div className="flex items-center capitalize justify-start h-full gap-2">
+								<div className="flex flex-col items-start capitalize justify-start h-full gap-2">
 									<Badge
 										variant={
 											booking?.paymentStatus === "paid"

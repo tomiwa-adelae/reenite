@@ -8,6 +8,11 @@ import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { BookingsGrid } from "../components/BookingGrid";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "My profile - Reenite",
+};
+
 const page = async () => {
 	const clerkUser = await currentUser();
 	const user = await getUserInfo(clerkUser?.id!);

@@ -81,7 +81,7 @@ export function SuspendCustomerModal({
 							size="md"
 							variant="warning"
 						>
-							{loading ? <Loader /> : "Suspend user"}
+							{loading ? <Loader /> : "Yes, suspend user"}
 						</Button>
 					</div>
 				</DialogContent>

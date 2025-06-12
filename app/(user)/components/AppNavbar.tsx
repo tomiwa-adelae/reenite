@@ -12,7 +12,7 @@ export const AppNavbar = ({ user }: { user: IUser }) => {
 				<div className="flex-1 w-full flex items-center justify-end gap-4">
 					<ProfileDropdown user={user} />
 					<div className="lg:hidden">
-						<MobileNavbar />
+						<MobileNavbar user={user} />
 					</div>
 				</div>
 			</div>

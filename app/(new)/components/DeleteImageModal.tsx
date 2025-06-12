@@ -85,7 +85,7 @@ export function DeleteImageModal({
 							size="md"
 							variant="destructive"
 						>
-							{loading ? <Loader /> : "Delete it"}
+							{loading ? <Loader /> : "Yes, delete it"}
 						</Button>
 					</div>
 				</DialogContent>

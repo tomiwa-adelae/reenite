@@ -7,6 +7,14 @@ import { Marquee } from "@/components/Marquee";
 import { Testimonials } from "@/components/Testimonials";
 import { getSpaces } from "@/lib/actions/customer/space.actions";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Our spaces - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async () => {
 	const spaces = await getSpaces();
 

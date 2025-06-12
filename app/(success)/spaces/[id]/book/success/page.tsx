@@ -10,6 +10,14 @@ import Link from "next/link";
 import React from "react";
 import { BookingId } from "./components/BookingId";
 
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Successful booking - Reenite",
+	description:
+		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
+	keywords: "Reenite, spaces, space, our spaces, all spaces",
+};
+
 const page = async ({ searchParams }: { searchParams: any }) => {
 	const { id } = await searchParams;
 	const clerkUser = await currentUser();
@@ -36,9 +44,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					</h1>
 					<p className="text-sm md:text-base text-muted-foreground lg:text-base leading-relaxed font-medium">
 						Thank you for choosing to book with Reenite! Your
-						reservation is confirmed. If there is anything you need
-						before your arrival, please don't hesitate to reach out
-						to us.
+						reservation is confirmed. Please keep your booking ID
+						safe. You will need it for access. Booking ID:{" "}
+						<BookingId
+							bookingId={bookingDetails?.booking.bookingId}
+						/>
 					</p>
 					<div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-6 md:mt-8 w-full">
 						<Button className="w-full md:w-auto" asChild size="lg">
@@ -174,9 +184,14 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 										: "users"}
 								</span>
 							</p>
-							<BookingId
-								bookingId={bookingDetails?.booking.bookingId}
-							/>
+							<p className="flex items-center justify-between gap-4">
+								Booking ID:{" "}
+								<BookingId
+									bookingId={
+										bookingDetails?.booking.bookingId
+									}
+								/>
+							</p>
 						</div>
 					</div>
 				</div>
