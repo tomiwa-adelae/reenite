@@ -21,6 +21,7 @@ import { addSpaceHourlyPricing } from "@/lib/actions/admin/space.actions";
 import { formatMoneyInput, handleKeyDown, removeCommas } from "@/lib/utils";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
 
 const FormSchema = z.object({
 	pricing: z.record(
@@ -128,7 +129,8 @@ export const HourlyPriceForm = ({
 									<FormItem>
 										<FormLabel>
 											Price for {count} user
-											{count !== "1" ? "s" : ""}
+											{count !== "1" ? "s" : ""}{" "}
+											<RequiredAsterisk />
 										</FormLabel>
 										<FormControl>
 											<div className="relative">

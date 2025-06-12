@@ -76,7 +76,7 @@ export function ProfileDropdown({ user }: Props) {
 				})}
 				<DropdownMenuItem
 					onClick={handleLogout}
-					className="cursor-pointer"
+					className="cursor-pointer text-base font-medium"
 				>
 					<LogOut className="size-5" />
 					<span>Logout</span>
