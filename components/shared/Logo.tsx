@@ -4,7 +4,7 @@ import React from "react";
 
 export const Logo = () => {
 	return (
-		<Link href="/" className="group">
+		<Link href="/spaces" className="group">
 			<Image
 				src={"/assets/images/logo-full.svg"}
 				alt="Reenite full logo in it's blue color"
