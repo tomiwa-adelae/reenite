@@ -3,7 +3,7 @@ import SpaceNotFound from "@/components/shared/SpaceNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { REENITE_CONTACT_PHONE_NUMBER } from "@/constants";
+import { REENITE_CONTACT_PHONE_NUMBER, REENITE_EMAIL_ADDRESS } from "@/constants";
 import { getBookingDetails } from "@/lib/actions/customer/booking.actions";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { IAmenity } from "@/lib/database/models/space.model";
@@ -133,7 +133,7 @@ const page = async ({ params }: { params: any }) => {
 									}
 								/>
 							)}
-						{booking?.booking?.paymentStatus !== "paid" && (
+						{booking?.booking?.bookingStatus !== 'cancelled' && booking?.booking?.paymentStatus !== "paid" && (
 							<RetryPaymentButton
 								userId={user?.user?._id}
 								bookingId={booking?.booking?._id}
@@ -402,9 +402,9 @@ const page = async ({ params }: { params: any }) => {
 					<div className="grid gap-4 mt-2">
 						<p className="text-sm md:text-base items-center justify-between gap-4">
 							Contact our support team{" "}
-							<Link
+							<a
 								className="text-secondary underline font-medium"
-								href="/contact"
+								href={`mailto:${REENITE_EMAIL_ADDRESS}`}
 							>
 								here
 							</Link>{" "}

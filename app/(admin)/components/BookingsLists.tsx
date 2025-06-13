@@ -55,12 +55,14 @@ export const BookingsLists = ({ bookings }: { bookings: IBooking[] }) => {
 							/>
 							<Badge
 								variant={
-									booking?.bookingStatus === "confirmed"
-										? "success"
-										: booking.bookingStatus === "cancelled"
-										? "destructive"
-										: "default"
-								}
+											booking?.bookingStatus ===
+											"confirmed"
+												? "success"
+												: booking?.bookingStatus ===
+												  "cancelled"
+												? "destructive" : booking?.bookingStatus === 'pending' ? 'warning'
+												: "default"
+										}
 								className="capitalize px-1 py-1 rounded-full"
 							/>
 						</div>

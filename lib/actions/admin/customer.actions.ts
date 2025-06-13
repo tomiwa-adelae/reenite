@@ -69,7 +69,7 @@ export const getCustomers = async ({
 			.sort({
 				createdAt: -1,
 			})
-			.skip(skipAmount);
+			.skip(skipAmount).limit(limit)
 
 		const customersCount = await User.countDocuments({ ...keyword });
 

@@ -143,13 +143,13 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 										{booking?.paymentStatus}
 									</Badge>
 									<Badge
-										variant={
+											variant={
 											booking?.bookingStatus ===
 											"confirmed"
 												? "success"
 												: booking?.bookingStatus ===
 												  "cancelled"
-												? "destructive"
+												? "destructive" : booking?.bookingStatus === 'pending' ? 'warning'
 												: "default"
 										}
 									>

@@ -95,7 +95,7 @@ export function BookingsTable({ bookings }: { bookings: IBooking[] }) {
 												? "success"
 												: booking?.bookingStatus ===
 												  "cancelled"
-												? "destructive"
+												? "destructive" : booking?.bookingStatus === 'pending' ? 'warning'
 												: "default"
 										}
 									>

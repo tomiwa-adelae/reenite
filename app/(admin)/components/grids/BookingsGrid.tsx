@@ -78,7 +78,7 @@ export const BookingsGrid = ({ bookings }: { bookings: IBooking[] }) => {
 									booking?.bookingStatus === "confirmed"
 										? "success"
 										: booking?.bookingStatus === "cancelled"
-										? "destructive"
+										? "destructive" : booking?.bookingStatus === 'pending' ? 'warning'
 										: "default"
 								}
 								className="capitalize"
