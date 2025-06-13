@@ -21,6 +21,7 @@ export const SuccessUserSpaceBooked = ({
 	country,
 	name,
 	id,
+	paymentStatus,
 }: {
 	bookingId: string;
 	spaceTitle: string;
@@ -35,6 +36,7 @@ export const SuccessUserSpaceBooked = ({
 	country: string;
 	id: string;
 	name: string;
+	paymentStatus: string;
 }) => {
 	const year = new Date().getFullYear();
 	return `
@@ -404,6 +406,9 @@ export const SuccessUserSpaceBooked = ({
 						</div>
 						<div class="detail-item">
 							<span class="detail-value">Location: ${address}, ${city}, ${state}, ${country}</span>
+						</div>
+						<div class="detail-item">
+							<span class="detail-value">Payment status: ${paymentStatus}</span>
 						</div>
 					</div>
 

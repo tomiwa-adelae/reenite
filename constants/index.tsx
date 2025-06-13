@@ -716,3 +716,6 @@ export const REENITE_LOGO =
 	"https://res.cloudinary.com/dh0rc6p1c/image/upload/v1749562302/reenite/logo-full_c3oa7p.png";
 
 export const DEFAULT_LIMIT = 10;
+
+export const MONGODB =
+	"mongodb+srv://thetommedia:BH5glRZRGpXRkXtH@cluster0.i9kyzgu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";

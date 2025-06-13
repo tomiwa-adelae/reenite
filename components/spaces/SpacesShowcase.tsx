@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { ImagesSlider } from "../ui/images-slider";
+import { REENITE_LOGO } from "@/constants";
 
 interface Props {
 	images: any;
@@ -11,7 +12,10 @@ interface Props {
 
 export const SpacesShowcase = ({ images, title, description }: Props) => {
 	return (
-		<ImagesSlider className="min-h-[80vh]" images={images}>
+		<ImagesSlider
+			className="min-h-[80vh]"
+			images={images.length !== 0 ? images : [REENITE_LOGO]}
+		>
 			<motion.div
 				initial={{
 					opacity: 0,

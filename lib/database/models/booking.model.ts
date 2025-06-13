@@ -16,8 +16,8 @@ export interface IBooking {
 	totalAmount: string;
 	paymentStatus?: string;
 	bookingStatus?: string;
-	trxref: string;
-	transactionId: string;
+	trxref?: string;
+	transactionId?: string;
 	bookingType: string;
 	createdAt?: Date;
 	updatedAt?: Date;
@@ -71,11 +71,9 @@ const BookingSchema = new Schema<IBooking>(
 		},
 		trxref: {
 			type: String,
-			required: true,
 		},
 		transactionId: {
 			type: String,
-			required: true,
 		},
 		bookingType: {
 			type: String,

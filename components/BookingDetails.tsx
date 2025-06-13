@@ -24,7 +24,10 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { createBooking } from "@/lib/actions/customer/booking.actions";
+import {
+	createBooking,
+	updateBooking,
+} from "@/lib/actions/customer/booking.actions";
 
 interface PricingObject {
 	[key: string]: number;
@@ -76,6 +79,7 @@ export const BookingDetails = ({
 	const [newUsers, setNewUsers] = useState(updatedUsers || "");
 	const [totalPrice, setTotalPrice] = useState<any>(0);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [bookingId, setBookingId] = useState<string>("");
 
 	useEffect(() => {
 		const numbers =
@@ -171,13 +175,57 @@ export const BookingDetails = ({
 		try {
 			setLoading(true);
 			const details = {
-				spaceId,
+				bookingId,
 				userId,
 				trxref: reference.trxref,
 				transactionId: reference.transaction,
 				paymentStatus:
 					reference.status === "success" ? "paid" : "failed",
 				bookingStatus: "confirmed",
+			};
+
+			const res = await updateBooking({ ...details });
+
+			// if (res.status === 400) return toast.error(res.message);
+
+			if (res?.status === 200) {
+				toast.success(res.message);
+				setLoading(false);
+				router.push(
+					`/spaces/${spaceId}/book/success?id=${res?.booking?._id}`
+				);
+			} else if (res?.status === 400) {
+				toast.error("Payment was not successful. Try again later");
+				setLoading(false);
+				router.push(
+					`/spaces/${spaceId}/book/failed?id=${res?.booking._id}`
+				);
+			} else {
+				setLoading(false);
+				toast.error("An error occurred! Try again later");
+			}
+		} catch (error) {
+			setLoading(false);
+			toast.error("An error occurred! Try again later.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const onClose = () => {
+		toast.error("Payment not successful.! Try again later");
+	};
+
+	const initializePayment = usePaystackPayment(config);
+
+	const handleSubmit = async () => {
+		try {
+			setLoading(true);
+			const details = {
+				spaceId,
+				userId,
+				paymentStatus: "pending",
+				bookingStatus: "pending",
 				noOfHours,
 				noOfWeeks,
 				noOfDays,
@@ -191,33 +239,20 @@ export const BookingDetails = ({
 
 			const res = await createBooking({ ...details });
 
-			if (res.status === 400) return toast.error(res.message);
-
-			toast.success(res.message);
-			setLoading(false);
-
-			router.push(
-				`/spaces/${spaceId}/book/success?id=${res?.booking?._id}`
-			);
+			if (res?.status === 200) {
+				initializePayment({
+					onSuccess,
+					onClose,
+				});
+				setBookingId(res?.booking?._id);
+				toast.success(res.message);
+			} else {
+				toast.error("An error occurred!. Booking not created.");
+			}
 		} catch (error) {
-			setLoading(false);
-			toast.error("An error occurred! Try again later.");
-		} finally {
-			setLoading(false);
+			toast.error("Oops! An error occurred!. Try again.");
+			console.log(error);
 		}
-	};
-
-	const onClose = () => {
-		toast.error("An error occurred! Try again later");
-	};
-
-	const initializePayment = usePaystackPayment(config);
-
-	const handleSubmit = () => {
-		initializePayment({
-			onSuccess,
-			onClose,
-		});
 	};
 
 	return (

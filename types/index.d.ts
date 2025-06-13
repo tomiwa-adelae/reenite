@@ -193,8 +193,6 @@ declare interface DeleteSpaceAmenityParams {
 declare interface CreateBookingParams {
 	userId: string;
 	spaceId: string;
-	trxref: string;
-	transactionId: string;
 	totalAmount: string;
 	noOfUsers: string;
 	noOfHours: string;
@@ -206,6 +204,15 @@ declare interface CreateBookingParams {
 	bookingStartDate: string;
 	bookingEndDate: string;
 	bookingType: string;
+}
+
+declare interface UpdateBookingParams {
+	userId: string;
+	bookingId: string;
+	paymentStatus: string;
+	bookingStatus: string;
+	trxref: string;
+	transactionId: string;
 }
 
 declare interface GetBookingDetailsParams {

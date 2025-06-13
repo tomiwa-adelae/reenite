@@ -16,6 +16,7 @@ import {
 	CreateBookingParams,
 	GetAllBookingsParams,
 	GetBookingDetailsParams,
+	UpdateBookingParams,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import Mailjet from "node-mailjet";
@@ -29,8 +30,6 @@ const mailjet = Mailjet.apiConnect(
 export const createBooking = async ({
 	spaceId,
 	userId,
-	trxref,
-	transactionId,
 	bookingStartDate,
 	bookingEndDate,
 	noOfHours,
@@ -104,8 +103,6 @@ export const createBooking = async ({
 			totalAmount,
 			paymentStatus,
 			bookingStatus,
-			trxref,
-			transactionId,
 			bookingType,
 			bookingId,
 		};
@@ -115,7 +112,8 @@ export const createBooking = async ({
 		if (!booking)
 			return {
 				status: 400,
-				message: "Oops! An error occurred. Booking not created.",
+				message:
+					"Oops! An error occurred. Booking not successfully created.",
 			};
 
 		await mailjet.post("send", { version: "v3.1" }).request({
@@ -147,6 +145,7 @@ export const createBooking = async ({
 						country: space.country,
 						id: booking._id,
 						noOfUsers: booking.noOfUsers,
+						paymentStatus: "Pending",
 					}),
 				},
 			],
@@ -194,14 +193,71 @@ export const createBooking = async ({
 
 		return {
 			status: 201,
-			message: "Congratulations! Your booking was successful",
+			message: "Congratulations! Your booking was successfully created",
 			booking: JSON.parse(JSON.stringify(booking)),
 		};
 	} catch (error) {
 		handleError(error);
 		return {
 			status: 400,
-			message: "Oops! An error occurred. Try again later.",
+			message: "Oops! Booking was not created. Try again later.",
+		};
+	}
+};
+
+export const updateBooking = async ({
+	bookingId,
+	userId,
+	transactionId,
+	trxref,
+	paymentStatus,
+	bookingStatus,
+}: UpdateBookingParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !bookingId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const booking = await Booking.findById(bookingId);
+
+		if (!booking)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+
+		booking.trxref = trxref;
+		booking.transactionId = transactionId;
+		booking.paymentStatus = paymentStatus;
+		booking.bookingStatus = bookingStatus;
+
+		const updatedBooking = await booking.save();
+
+		if (!updatedBooking)
+			return { status: 400, message: "An error occurred!" };
+
+		return {
+			status: 201,
+			message: "Congratulations! Your payment was successful",
+			booking: JSON.parse(JSON.stringify(booking)),
+		};
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! Payment was not successful. Try again later.",
 		};
 	}
 };

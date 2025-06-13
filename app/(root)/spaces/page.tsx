@@ -19,7 +19,7 @@ const page = async () => {
 	const spaces = await getSpaces();
 
 	const allPhotoUrls = spaces?.spaces?.flatMap((space: any) =>
-		space?.photos.map((photo: any) => photo.src)
+		space?.photos?.map((photo: any) => photo?.src)
 	);
 
 	return (
