@@ -8,7 +8,7 @@ const SpaceNotFound = () => {
 			<h1 className="font-bold text-7xl md:text-8xl lg:text-9xl text-primary">
 				404
 			</h1>
-			<p className="text-base">Space not found.</p>
+			<p className="text-base">Page not found.</p>
 			<Button asChild size="lg" variant="secondary">
 				<Link href="/">Go back home</Link>
 			</Button>
