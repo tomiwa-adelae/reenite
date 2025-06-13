@@ -43,7 +43,6 @@ export const UploadModal = ({
 										...prev,
 									]);
 								} catch (error) {
-									console.log(error);
 									toast.error("An error occurred!");
 								}
 							};

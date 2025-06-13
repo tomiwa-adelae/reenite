@@ -4,38 +4,41 @@ import { Ban, Check } from "lucide-react";
 import React, { useState } from "react";
 import { CancelBookingModal } from "./CancelBookingModal";
 import { MarkBookingCompletedModal } from "./MarkBookingCompletedModal";
+import { MarkBookingAsPaidModal } from "./MarkBookingAsPaidModal";
 
-export const MarkBookingMarkButton = ({
+export const MarkBookingAsPaid = ({
 	userId,
 	bookingId,
+	paymentStatus,
 	bookingStatus,
 }: {
 	userId: string;
 	bookingId: string;
+	paymentStatus: string;
 	bookingStatus: string;
 }) => {
-	const [openMarkBookingCompletedModal, setOpenMarkBookingCompletedModal] =
+	const [openMarkBookingAsPaidModal, setOpenMarkBookingAsPaidModal] =
 		useState(false);
 	return (
 		<div className='w-full'>
 			<Button
 				disabled={
+					paymentStatus === "paid" ||
 					bookingStatus === "cancelled" ||
 					bookingStatus === "completed"
 				}
 				className="w-full"
 				size="lg"
-				onClick={() => setOpenMarkBookingCompletedModal(true)}
+				variant='success'
+				onClick={() => setOpenMarkBookingAsPaidModal(true)}
 			>
 				<Check className="size-5" />
-				{bookingStatus === "cancelled"
-					? "Cancelled"
-					: "Mark as completed"}
+				{paymentStatus === "paid" ? "paid" : "Mark as paid"}
 			</Button>
-			{openMarkBookingCompletedModal && (
-				<MarkBookingCompletedModal
-					open={openMarkBookingCompletedModal}
-					closeModal={() => setOpenMarkBookingCompletedModal(false)}
+			{openMarkBookingAsPaidModal && (
+				<MarkBookingAsPaidModal
+					open={openMarkBookingAsPaidModal}
+					closeModal={() => setOpenMarkBookingAsPaidModal(false)}
 					userId={userId}
 					bookingId={bookingId!}
 				/>

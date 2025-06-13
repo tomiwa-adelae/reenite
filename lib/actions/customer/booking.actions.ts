@@ -248,9 +248,14 @@ export const updateBooking = async ({
 		if (!updatedBooking)
 			return { status: 400, message: "An error occurred!" };
 
+		revalidatePath(`/bookings/${bookingId}`);
+		revalidatePath(`/all-bookings/${bookingId}`);
+		revalidatePath(`/all-bookings`);
+		revalidatePath(`/bookings`);
+
 		return {
-			status: 201,
-			message: "Congratulations! Your payment was successful",
+			status: 200,
+			message: "Congratulations! Your booking & payment was successful",
 			booking: JSON.parse(JSON.stringify(booking)),
 		};
 	} catch (error) {
@@ -366,7 +371,7 @@ export const getBookings = async ({
 			.sort({
 				createdAt: -1,
 			})
-			.skip(skipAmount)
+			.skip(skipAmount).limit(limit)
 			.populate("user")
 			.populate({
 				path: "space",

@@ -7,7 +7,7 @@ import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { getBookingDetails } from "@/lib/actions/admin/booking.actions";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { IAmenity } from "@/lib/database/models/space.model";
-import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import {
 	ArrowLeft,
@@ -37,6 +37,7 @@ import { CancelBookingButton } from "../../components/CancelBookingButton";
 import { MarkBookingMarkButton } from "../../components/MarkBookingCompletedButton";
 
 import type { Metadata, ResolvingMetadata } from "next";
+import { MarkBookingAsPaid } from "../../components/MarkBookingAsPaid";
 
 export async function generateMetadata(
 	{ params }: any,
@@ -114,10 +115,14 @@ const page = async ({ params }: { params: any }) => {
 													?.bookingStatus ===
 											  "cancelled"
 											? "destructive"
+											: booking?.booking
+													?.bookingStatus ===
+											  "pending"
+											? "warning"
 											: "default"
 									}
 								>
-									{booking?.booking?.bookingStatus}
+									{booking.booking.bookingStatus}
 								</Badge>
 							</div>
 						</div>
@@ -363,32 +368,69 @@ const page = async ({ params }: { params: any }) => {
 							<p className="text-muted-foreground">
 								Transaction Reference
 							</p>
-							<p>TXN_{booking?.booking?.transactionId}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									`TXN_${booking.booking.transactionId}`
+								) : (
+									<span className="text-destructive italic">
+										No Transaction ID
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Internal Ref
 							</p>
-							<p>TRX_{booking?.booking?.trxref}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									`TRX_${booking.booking.trxref}`
+								) : (
+									<span className="text-destructive italic">
+										No TRX Number
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Payment date
 							</p>
-							<p>{formatDate(booking?.booking?.createdAt)}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									formatDate(booking.booking.updatedAt)
+								) : (
+									<span className="text-destructive italic">
+										No payment
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Status</p>
-							<p className="text-green-400 capitalize">
+							<p
+								className={cn(
+									"capitalize",
+									booking?.booking?.paymentStatus === "paid"
+										? "text-green-400"
+										: booking?.booking?.paymentStatus ===
+										  "failed"
+										? "text-destructive"
+										: booking?.booking?.paymentStatus ===
+										  "pending"
+										? "text-orange-400"
+										: "text-black"
+								)}
+							>
 								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
-								{booking?.booking?.paymentStatus}
+								{booking.booking.paymentStatus}
 							</p>
 						</div>
 					</div>
 				</div>
 				<div className="p-4 md:p-8 mt-4 rounded-lg bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 					<h3 className="font-medium text-lg">Actions</h3>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-4">
 						{booking?.booking?.bookingStatus !== "completed" &&
 							booking?.booking?.bookingStatus !== "cancelled" && (
 								<>
@@ -406,6 +448,18 @@ const page = async ({ params }: { params: any }) => {
 											booking?.booking?.bookingStatus
 										}
 									/>
+									{booking?.booking?.paymentStatus !== 'paid' &&
+									<MarkBookingAsPaid
+									userId={user?.user?._id}
+									bookingId={booking?.booking?._id}
+									paymentStatus={
+										booking?.booking?.paymentStatus
+									}
+									bookingStatus={
+										booking?.booking?.bookingStatus
+									}
+									/>
+								}
 								</>
 							)}
 						{booking?.booking?.bookingStatus === "completed" && (

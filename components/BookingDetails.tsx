@@ -171,7 +171,7 @@ export const BookingDetails = ({
 		},
 	};
 
-	const onSuccess = async (reference: any) => {
+	const onSuccess = async (reference: any, bookingId: string) => {
 		try {
 			setLoading(true);
 			const details = {
@@ -186,24 +186,14 @@ export const BookingDetails = ({
 
 			const res = await updateBooking({ ...details });
 
-			// if (res.status === 400) return toast.error(res.message);
+			if (res.status === 400) return toast.error(res.message);
 
-			if (res?.status === 200) {
-				toast.success(res.message);
-				setLoading(false);
-				router.push(
-					`/spaces/${spaceId}/book/success?id=${res?.booking?._id}`
-				);
-			} else if (res?.status === 400) {
-				toast.error("Payment was not successful. Try again later");
-				setLoading(false);
-				router.push(
-					`/spaces/${spaceId}/book/failed?id=${res?.booking._id}`
-				);
-			} else {
-				setLoading(false);
-				toast.error("An error occurred! Try again later");
-			}
+			toast.success(res?.message);
+
+			setLoading(false);
+			router.push(
+				`/spaces/${spaceId}/book/success?id=${res?.booking?._id}`
+			);
 		} catch (error) {
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
@@ -212,8 +202,35 @@ export const BookingDetails = ({
 		}
 	};
 
-	const onClose = () => {
-		toast.error("Payment not successful.! Try again later");
+	const onClose = async (bookingId: string) => {
+		try {
+			setLoading(true);
+			const details = {
+				bookingId,
+				userId,
+				trxref: "",
+				transactionId: "",
+				paymentStatus: "failed",
+				bookingStatus: "pending",
+			};
+
+			const res = await updateBooking({ ...details });
+
+			if (res.status === 400) return toast.error(res.message);
+
+			toast.error(
+				"Oops! Your payment was not successful. Try again later"
+			);
+			setLoading(false);
+			router.push(
+				`/spaces/${spaceId}/book/failed?id=${res?.booking?._id}`
+			);
+		} catch (error) {
+			setLoading(false);
+			toast.error("An error occurred! Try again later.");
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const initializePayment = usePaystackPayment(config);
@@ -239,19 +256,18 @@ export const BookingDetails = ({
 
 			const res = await createBooking({ ...details });
 
-			if (res?.status === 200) {
-				initializePayment({
-					onSuccess,
-					onClose,
-				});
-				setBookingId(res?.booking?._id);
-				toast.success(res.message);
-			} else {
-				toast.error("An error occurred!. Booking not created.");
-			}
+			if (res.status == 400)
+				return toast.error("Oops! An error occurred! Try again later");
+
+			initializePayment({
+				onSuccess: (reference: any) =>
+					onSuccess(reference, res.booking._id),
+				onClose: () => onClose(res.booking._id),
+			});
 		} catch (error) {
-			toast.error("Oops! An error occurred!. Try again.");
-			console.log(error);
+			toast.error("Oops! An error occurred!. Try again later");
+		} finally {
+			setLoading(false);
 		}
 	};
 

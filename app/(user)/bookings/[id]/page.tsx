@@ -7,7 +7,7 @@ import { REENITE_CONTACT_PHONE_NUMBER } from "@/constants";
 import { getBookingDetails } from "@/lib/actions/customer/booking.actions";
 import { getUserInfo } from "@/lib/actions/customer/user.actions";
 import { IAmenity } from "@/lib/database/models/space.model";
-import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import {
 	ArrowLeft,
@@ -31,6 +31,7 @@ import { BookingId } from "../../components/BookingId";
 import { BackButton } from "@/components/shared/BackButton";
 
 import type { Metadata, ResolvingMetadata } from "next";
+import { RetryPaymentButton } from "../../components/RetryPaymentButton";
 
 export async function generateMetadata(
 	{ params }: any,
@@ -72,19 +73,19 @@ const page = async ({ params }: { params: any }) => {
 
 	const coverPhoto =
 		// @ts-ignore
-		booking.booking.space?.photos.find((photo) => photo.cover) ||
+		booking?.booking?.space?.photos?.find((photo) => photo?.cover) ||
 		// @ts-ignore
-		booking.booking.space?.photos[0];
+		booking?.booking?.space?.photos[0];
 
 	return (
 		<div>
 			<div className="container">
-				<div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+				<div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
 					<div className=" flex items-start justify-start gap-4">
 						<BackButton slug={"/bookings"} />
 						<div className="flex flex-col items-start justify-start gap-1">
 							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-								{booking.booking.bookingId}
+								{booking?.booking?.bookingId}
 							</h2>
 							<div className="flex items-center justify-start gap-2 capitalize">
 								<Badge
@@ -98,7 +99,7 @@ const page = async ({ params }: { params: any }) => {
 											: "default"
 									}
 								>
-									{booking.booking.paymentStatus}
+									{booking?.booking?.paymentStatus}
 								</Badge>
 								<Badge
 									variant={
@@ -109,27 +110,45 @@ const page = async ({ params }: { params: any }) => {
 													?.bookingStatus ===
 											  "cancelled"
 											? "destructive"
+											: booking?.booking
+													?.bookingStatus ===
+											  "pending"
+											? "warning"
 											: "default"
 									}
 								>
-									{booking.booking.bookingStatus}
+									{booking?.booking?.bookingStatus}
 								</Badge>
 							</div>
 						</div>
 					</div>
-					{booking?.booking?.bookingStatus !== "completed" &&
-						booking?.booking.bookingStatus !== "cancelled" && (
-							<CancelBookingButton
+					<div className="flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto">
+						{booking?.booking?.bookingStatus !== "completed" &&
+							booking?.booking.bookingStatus !== "cancelled" && (
+								<CancelBookingButton
+									userId={user?.user?._id}
+									bookingId={booking?.booking._id}
+									bookingStatus={
+										booking?.booking?.bookingStatus
+									}
+								/>
+							)}
+						{booking?.booking?.paymentStatus !== "paid" && (
+							<RetryPaymentButton
 								userId={user?.user?._id}
-								bookingId={booking?.booking._id}
-								bookingStatus={booking?.booking?.bookingStatus}
+								bookingId={booking?.booking?._id}
+								email={user?.user?.email}
+								totalPrice={booking?.booking?.totalAmount}
+								firstName={user?.user?.firstName}
+								lastName={user?.user?.lastName}
 							/>
 						)}
+					</div>
 				</div>
 				<div
 					className="bg-blend-darken bg-black/60 bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-lg mt-4"
 					style={{
-						backgroundImage: `url(${coverPhoto.src})`,
+						backgroundImage: `url(${coverPhoto?.src})`,
 					}}
 				>
 					<div className="absolute bottom-0 left-0 w-full py-4 text-white ">
@@ -143,8 +162,8 @@ const page = async ({ params }: { params: any }) => {
 							<p className="text-sm md:text-base mt-1">
 								<MapPin className="size-4 inline-block mr-2" />
 								<span>
-									{booking.booking.space.city},{" "}
-									{booking.booking.space.state}
+									{booking?.booking?.space?.city},{" "}
+									{booking?.booking?.space?.state}
 								</span>
 							</p>
 						</div>
@@ -316,23 +335,60 @@ const page = async ({ params }: { params: any }) => {
 							<p className="text-muted-foreground">
 								Transaction Reference
 							</p>
-							<p>TXN_{booking.booking.transactionId}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									`TXN_${booking.booking.transactionId}`
+								) : (
+									<span className="text-destructive italic">
+										No Transaction ID
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Internal Ref
 							</p>
-							<p>TRX_{booking.booking.trxref}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									`TRX_${booking.booking.trxref}`
+								) : (
+									<span className="text-destructive italic">
+										No TRX Number
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">
 								Payment date
 							</p>
-							<p>{formatDate(booking.booking.createdAt)}</p>
+							<p>
+								{booking?.booking?.paymentStatus === "paid" ? (
+									formatDate(booking.booking.updatedAt)
+								) : (
+									<span className="text-destructive italic">
+										No payment
+									</span>
+								)}
+							</p>
 						</div>
 						<div className="flex text-sm md:text-base items-center justify-between gap-4">
 							<p className="text-muted-foreground">Status</p>
-							<p className="text-green-400 capitalize">
+							<p
+								className={cn(
+									"capitalize",
+									booking?.booking?.paymentStatus === "paid"
+										? "text-green-400"
+										: booking?.booking?.paymentStatus ===
+										  "failed"
+										? "text-destructive"
+										: booking?.booking?.paymentStatus ===
+										  "pending"
+										? "text-orange-400"
+										: "text-black"
+								)}
+							>
 								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
 								{booking.booking.paymentStatus}
 							</p>

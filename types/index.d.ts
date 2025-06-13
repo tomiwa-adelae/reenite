@@ -249,3 +249,8 @@ declare interface MarkBookingCompletedParams {
 	userId: string;
 	bookingId: string;
 }
+
+declare interface MarkBookingAsPaidParams {
+	userId: string;
+	bookingId: string;
+}

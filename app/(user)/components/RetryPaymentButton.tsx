@@ -9,7 +9,6 @@ import { toast } from "sonner";
 export const RetryPaymentButton = ({
 	userId,
 	bookingId,
-	spaceId,
 	email,
 	totalPrice,
 	firstName,
@@ -21,9 +20,7 @@ export const RetryPaymentButton = ({
 	lastName: string;
 	firstName: string;
 	bookingId: string;
-	spaceId: string;
 }) => {
-	const router = useRouter();
 	const [loading, setLoading] = useState<boolean>(false);
 
 	// Move this hook out of the handleSubmit function
@@ -63,9 +60,6 @@ export const RetryPaymentButton = ({
 
 			toast.success(`Your payment was successful.`);
 			setLoading(false);
-			router.push(
-				`/spaces/${spaceId}/book/success?id=${res?.booking?._id}`
-			);
 		} catch (error) {
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
@@ -105,7 +99,7 @@ export const RetryPaymentButton = ({
 	const initializePayment = usePaystackPayment(config);
 
 	return (
-		<div>
+		<div className="w-full lg:w-auto">
 			<Button
 				onClick={() => {
 					initializePayment({
@@ -113,10 +107,9 @@ export const RetryPaymentButton = ({
 						onClose,
 					});
 				}}
-				variant={"ghost"}
-				className="underline hover:bg-white w-full md:w-auto"
-				size="lg"
+				size="md"
 				disabled={loading}
+				className="w-full lg:w-auto"
 			>
 				{loading ? "Processing..." : "Retry payment"}
 			</Button>

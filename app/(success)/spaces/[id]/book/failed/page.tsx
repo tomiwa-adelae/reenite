@@ -13,8 +13,9 @@ import type { Metadata } from "next";
 import { REENITE_EMAIL_ADDRESS } from "@/constants";
 import { RetryPaymentButton } from "./components/RetryPaymentButton";
 import { BookingId } from "../success/components/BookingId";
+import { redirect } from "next/navigation";
 export const metadata: Metadata = {
-	title: "Payment failed - Reenite",
+	title: "Payment not successful - Reenite",
 	description:
 		"Browse our wide collection of workspaces for ease and comfort. Quality guaranteed.",
 	keywords: "Reenite, spaces, space, our spaces, all spaces",
@@ -31,6 +32,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 	});
 
 	if (bookingDetails?.status === 400) return <SpaceNotFound />;
+
+	if (bookingDetails?.booking?.paymentStatus === "paid")
+		redirect(
+			`/spaces/${bookingDetails?.booking?.space?._id}/book/success?id=${bookingDetails?.booking?._id}`
+		);
 
 	const year = new Date().getFullYear();
 
@@ -71,7 +77,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 						Need help?{" "}
 						<a
 							href={`mailto:${REENITE_EMAIL_ADDRESS}`}
-							className="underline text-white"
+							className="underline text-secondary"
 						>
 							Contact support
 						</a>
@@ -86,11 +92,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 									bookingDetails?.booking.totalAmount
 								)}
 							</h2>
-							<p className="text-sm md:text-base text-muted-foreground">
+							<p className="text-sm md:text-base text-destructive">
 								Payment failed!
 							</p>
 						</div>
-						<div className="bg-primary rounded-full p-4">
+						<div className="bg-destructive rounded-full p-4">
 							<Image
 								src={"/assets/icons/error.svg"}
 								alt={"Error icon"}
@@ -185,7 +191,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 								Number of users:{" "}
 								<span className="text-black font-semibold">
 									{bookingDetails?.booking?.noOfUsers}{" "}
-									{bookingDetails?.booking?.noOfUsers === 1
+									{bookingDetails?.booking?.noOfUsers === "1"
 										? "user"
 										: "users"}
 								</span>

@@ -11,6 +11,7 @@ import React from "react";
 import { BookingId } from "./components/BookingId";
 
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 export const metadata: Metadata = {
 	title: "Successful booking - Reenite",
 	description:
@@ -29,6 +30,11 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 	});
 
 	if (bookingDetails?.status === 400) return <SpaceNotFound />;
+
+	if (bookingDetails?.booking?.paymentStatus !== "paid")
+		redirect(
+			`/spaces/${bookingDetails?.booking?.space?._id}/book/failed?id=${bookingDetails?.booking?._id}`
+		);
 
 	const year = new Date().getFullYear();
 
@@ -179,7 +185,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 								Number of users:{" "}
 								<span className="text-black font-semibold">
 									{bookingDetails?.booking?.noOfUsers}{" "}
-									{bookingDetails?.booking?.noOfUsers === 1
+									{bookingDetails?.booking?.noOfUsers === "1"
 										? "user"
 										: "users"}
 								</span>
