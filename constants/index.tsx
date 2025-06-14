@@ -35,35 +35,17 @@ export const navLinks = [
 		label: "Book Space",
 	},
 	{
-		slug: "/",
+		slug: "https://reenite.com/blog/",
 		label: "Blogs",
 	},
 	{
-		slug: "/about",
+		slug: "https://reenite.com/about/",
 		label: "About us",
 	},
-	{
-		slug: "/support",
-		label: "Support",
-	},
-];
-
-export const socialLinks = [
-	{
-		name: "X",
-		icon: Twitter,
-		slug: "www.twitter.com",
-	},
-	{
-		name: "Instagram",
-		icon: Facebook,
-		slug: "www.facebook.com",
-	},
-	{
-		name: "Instagram",
-		icon: Instagram,
-		slug: "www.instagram.com",
-	},
+	// {
+	// 	slug: "/support",
+	// 	label: "Support",
+	// },
 ];
 
 export const SHOWCASE_VIDEO_URL =
@@ -74,7 +56,7 @@ export const footerDetails = [
 		title: "Quick links",
 		links: [
 			{
-				slug: "/",
+				slug: "https://reenite.com",
 				label: "Home",
 			},
 			{
@@ -82,11 +64,11 @@ export const footerDetails = [
 				label: "Book a Space",
 			},
 			{
-				slug: "/about",
+				slug: "https://reenite.com/about/",
 				label: "About us",
 			},
 			{
-				slug: "/contact",
+				slug: "https://reenite.com/contact",
 				label: "Contact",
 			},
 		],
@@ -95,15 +77,15 @@ export const footerDetails = [
 		title: "Legal",
 		links: [
 			{
-				slug: "/terms-of-use",
+				slug: "https://reenite.com/term-of-use",
 				label: "Terms of Use",
 			},
 			{
-				slug: "/privacy-policy",
+				slug: "https://reenite.com/privacy-policy",
 				label: "Privacy Policy",
 			},
 			{
-				slug: "/cancellation-policy",
+				slug: "https://reenite.com/cancellation-policy",
 				label: "Cancellation Policy",
 			},
 		],
@@ -705,7 +687,7 @@ export const DEFAULT_SPACE_IMAGE = "/assets/images/logo-full.svg";
 
 export const REENITE_CONTACT_PHONE_NUMBER = "09161231304";
 export const REENITE_EMAIL_ADDRESS = "hello@reenite.com";
-export const REENITE_WEBSITE_URL = "https://reenite.vercel.app";
+export const REENITE_WEBSITE_URL = "https://app.reenite.com";
 export const REENITE_FACEBOOK_URL = "https://facebook.com/share/1EvF1EKb5u";
 export const REENITE_TWITTER_URL = "https://x.com/reenitenig";
 export const REENITE_INSTAGRAM_URL = "https://www.instagram.com/reenitenig";
@@ -717,5 +699,20 @@ export const REENITE_LOGO =
 
 export const DEFAULT_LIMIT = 10;
 
-export const MONGODB =
-	"mongodb+srv://thetommedia:BH5glRZRGpXRkXtH@cluster0.i9kyzgu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+export const socialLinks = [
+	{
+		name: "X",
+		icon: Twitter,
+		slug: REENITE_TWITTER_URL,
+	},
+	{
+		name: "Instagram",
+		icon: Facebook,
+		slug: REENITE_FACEBOOK_URL,
+	},
+	{
+		name: "Instagram",
+		icon: Instagram,
+		slug: REENITE_INSTAGRAM_URL,
+	},
+];

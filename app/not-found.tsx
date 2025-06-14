@@ -14,7 +14,7 @@ const page = () => {
 				</h1>
 				<p className="text-base">Page not found.</p>
 				<Button asChild size="lg" variant="secondary">
-					<Link href="/">Go back home</Link>
+					<Link href="/spaces">Go back home</Link>
 				</Button>
 			</div>
 			<Footer />

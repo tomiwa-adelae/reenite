@@ -14,7 +14,7 @@ export const SpacesShowcase = ({ images, title, description }: Props) => {
 	return (
 		<ImagesSlider
 			className="min-h-[80vh]"
-			images={images.length !== 0 ? images : [REENITE_LOGO]}
+			images={images?.length !== 0 ? images : [REENITE_LOGO]}
 		>
 			<motion.div
 				initial={{

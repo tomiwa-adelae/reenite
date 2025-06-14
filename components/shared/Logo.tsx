@@ -25,7 +25,7 @@ export const Logo = () => {
 
 export const WhiteLogo = () => {
 	return (
-		<Link href="/" className="group">
+		<Link href="/spaces" className="group">
 			<Image
 				src={"/assets/images/logo-full-white.svg"}
 				alt="Reenite full logo in it's blue color"

@@ -70,7 +70,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 							className="underline hover:bg-white w-full md:w-auto"
 							size="lg"
 						>
-							<Link href="/">Go back to home</Link>
+							<Link href="/spaces">Go back to home</Link>
 						</Button>
 					</div>
 				</div>

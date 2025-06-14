@@ -7,7 +7,7 @@ export const NoSpaces = ({
 	description = "You’ll find your spaces here after you’ve created your first space on Reenite.",
 	showButton = true,
 }: {
-	description?: string;
+	description?: any;
 	showButton?: boolean;
 }) => {
 	return (

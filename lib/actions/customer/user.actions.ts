@@ -181,7 +181,6 @@ export const updateProfilePicture = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		revalidatePath("/");
 		revalidatePath("/spaces");
 		revalidatePath("/profile");
 		revalidatePath("/about");
@@ -251,7 +250,6 @@ export const updateUserProfile = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		revalidatePath("/");
 		revalidatePath("/spaces");
 		revalidatePath("/profile");
 		revalidatePath("/about");

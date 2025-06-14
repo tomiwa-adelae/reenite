@@ -58,9 +58,9 @@ export function MobileNavbar({ user }: { user: any }) {
 							</SheetClose>
 							<div className="mt-8 flex flex-col gap-1">
 								<Link
-									href={"/"}
+									href={"/spaces"}
 									className={`group flex items-center justify-start gap-2 group/sidebar                             ${
-										isActive("/") && "bg-[#F2F2F2]"
+										isActive("/spaces") && "bg-[#F2F2F2]"
 									} hover:bg-[#F2F2F2] p-4 rounded-lg
                             `}
 									onClick={handleClick}
