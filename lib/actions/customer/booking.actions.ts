@@ -129,6 +129,10 @@ export const createBooking = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
+					ReplyTo: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite Support",
+					},
 					Subject: `Booking successful - Reenite`,
 					TextPart: `Booking successful - Reenite`,
 					HTMLPart: SuccessUserSpaceBooked({
@@ -147,6 +151,7 @@ export const createBooking = async ({
 						noOfUsers: booking.noOfUsers,
 						paymentStatus: "Pending",
 					}),
+					CustomID: `booking-confirmation-${booking.bookingId}`,
 				},
 			],
 		});
@@ -164,6 +169,10 @@ export const createBooking = async ({
 							Name: "Reenite",
 						},
 					],
+					ReplyTo: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite Support",
+					},
 					Subject: `New booking received - Reenite`,
 					TextPart: `New booking received - Reenite`,
 					HTMLPart: SuccessSpaceAdminBooking({
@@ -187,6 +196,7 @@ export const createBooking = async ({
 						id: booking._id,
 						customerId: booking.user._id,
 					}),
+					CustomID: `booking-confirmation-${booking.bookingId}`,
 				},
 			],
 		});
@@ -455,6 +465,10 @@ export const cancelBooking = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
+					ReplyTo: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite Support",
+					},
 					Subject: `Booking cancelled - Reenite`,
 					TextPart: `Booking cancelled - Reenite`,
 					HTMLPart: CancelBooking({
@@ -472,6 +486,7 @@ export const cancelBooking = async ({
 						id: booking._id,
 						noOfUsers: booking.noOfUsers,
 					}),
+					CustomID: `booking-cancellation-${booking.bookingId}`,
 				},
 			],
 		});

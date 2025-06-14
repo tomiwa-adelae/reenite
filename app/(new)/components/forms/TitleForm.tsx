@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { addSpaceTitle } from "@/lib/actions/admin/space.actions";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/components/shared/Loader";
+import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
 	title: z
@@ -72,7 +73,7 @@ export const TitleForm = ({ spaceId, userId, title }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Textarea
+										<Input
 											placeholder=""
 											className="resize-none min-h-40 text-lg md:text-2xl"
 											{...field}

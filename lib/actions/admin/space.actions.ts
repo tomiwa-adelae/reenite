@@ -1272,6 +1272,10 @@ export const addSpaceDiscounts = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
+					ReplyTo: {
+						Email: process.env.SENDER_EMAIL_ADDRESS!,
+						Name: "Reenite Support",
+					},
 					Subject: `New space creation - Reenite`,
 					TextPart: `New space creation - Reenite`,
 					HTMLPart: NewSpaceEmail({
@@ -1291,6 +1295,7 @@ export const addSpaceDiscounts = async ({
 						id: updatedSpace._id,
 						status: updatedSpace.status,
 					}),
+					CustomID: `space-creation-${updatedSpace._id}`,
 				},
 			],
 		});

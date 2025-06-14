@@ -39,7 +39,7 @@ export function SpaceActionModal({ open, closeModal, space, userId }: Props) {
 				return router.push(`/all-spaces/new/${space?._id}/location`);
 			if (space?.amenities.length === 0)
 				return router.push(`/all-spaces/new/${space?._id}/amenities`);
-			if (space?.photos.length !== 5)
+			if (space?.photos.length < 5)
 				return router.push(`/all-spaces/new/${space?._id}/photos`);
 			if (!space?.title)
 				return router.push(`/all-spaces/new/${space?._id}/title`);
