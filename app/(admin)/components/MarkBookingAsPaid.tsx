@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Ban, Check, RotateCcw } from "lucide-react";
+import { Ban, Check, CheckCircleIcon, RotateCcw } from "lucide-react";
 import React, { useState } from "react";
 import { CancelBookingModal } from "./CancelBookingModal";
 import { MarkBookingCompletedModal } from "./MarkBookingCompletedModal";
@@ -32,7 +32,7 @@ export const MarkBookingAsPaid = ({
 				variant="success"
 				onClick={() => setOpenMarkBookingAsPaidModal(true)}
 			>
-				<RotateCcw className="size-5" />
+				<CheckCircleIcon className="size-5" />
 				{paymentStatus === "paid" ? "paid" : "Mark as paid"}
 			</Button>
 			{openMarkBookingAsPaidModal && (

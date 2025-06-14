@@ -144,15 +144,19 @@ export function MobileNavbar({ user }: { user: any }) {
 									  )}
 							</div>
 						)}
-						<div
-							className={`group flex items-center justify-start gap-2 group/sidebar hover:bg-[#F2F2F2] p-4 rounded-lg
+						{user && (
+							<div
+								className={`group flex items-center justify-start gap-2 group/sidebar hover:bg-[#F2F2F2] p-4 rounded-lg
 														`}
-							onClick={handleLogout}
-						>
-							<LogOut className="size-5" />
+								onClick={handleLogout}
+							>
+								<LogOut className="size-5" />
 
-							<h5 className="text-base font-medium">Logout</h5>
-						</div>
+								<h5 className="text-base font-medium">
+									Logout
+								</h5>
+							</div>
+						)}
 					</div>
 				</ScrollArea>
 			</SheetContent>
