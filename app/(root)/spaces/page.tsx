@@ -5,6 +5,7 @@ import { WorkSpaces } from "@/components/WorkSpaces";
 import {
 	firstMarquee,
 	REENITE_EMAIL_ADDRESS,
+	REENITE_LOGO,
 	secondMarquee,
 } from "@/constants";
 import { Marquee } from "@/components/Marquee";
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 const page = async () => {
 	const spaces = await getSpaces();
 
-	if (spaces?.spaces?.length === 0)
+	if (spaces?.spaces?.length === 0 || spaces === undefined)
 		return (
 			<div className="min-h-[80vh] flex items-center justify-center">
 				<NoSpaces
@@ -51,7 +52,11 @@ const page = async () => {
 	return (
 		<div>
 			<SpacesShowcase
-				images={allPhotoUrls}
+				image={
+					spaces?.spaces[0]?.photos[0]?.src
+						? spaces?.spaces[0]?.photos[0]?.src
+						: REENITE_LOGO
+				}
 				title={"Find Your Perfect Workspace"}
 				description={
 					"Discover inspiring co-working spaces, private offices, and meeting rooms in your city. Book by the hour, day, or month."
