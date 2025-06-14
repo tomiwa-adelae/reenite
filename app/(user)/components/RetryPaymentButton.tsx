@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { updateBooking } from "@/lib/actions/customer/booking.actions";
+import { RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { usePaystackPayment } from "react-paystack";
@@ -111,6 +112,7 @@ export const RetryPaymentButton = ({
 				disabled={loading}
 				className="w-full lg:w-auto"
 			>
+				<RotateCcw className="size-5" />
 				{loading ? "Processing..." : "Retry payment"}
 			</Button>
 		</div>

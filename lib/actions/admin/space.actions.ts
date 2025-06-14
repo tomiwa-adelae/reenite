@@ -1272,8 +1272,8 @@ export const addSpaceDiscounts = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
-					Subject: `New space creation - Reenite.`,
-					TextPart: `New space creation - Reenite.`,
+					Subject: `New space creation - Reenite`,
+					TextPart: `New space creation - Reenite`,
 					HTMLPart: NewSpaceEmail({
 						title: updatedSpace.title,
 						spaceId: updatedSpace._id,

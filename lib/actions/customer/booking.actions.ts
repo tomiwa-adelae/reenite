@@ -129,8 +129,8 @@ export const createBooking = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
-					Subject: `Booking successful - Reenite.`,
-					TextPart: `Booking successful - Reenite.`,
+					Subject: `Booking successful - Reenite`,
+					TextPart: `Booking successful - Reenite`,
 					HTMLPart: SuccessUserSpaceBooked({
 						bookingId: booking?.bookingId,
 						spaceTitle: space?.title,
@@ -164,8 +164,8 @@ export const createBooking = async ({
 							Name: "Reenite",
 						},
 					],
-					Subject: `New booking received - Reenite.`,
-					TextPart: `New booking received - Reenite.`,
+					Subject: `New booking received - Reenite`,
+					TextPart: `New booking received - Reenite`,
 					HTMLPart: SuccessSpaceAdminBooking({
 						createdAt: booking.createdAt,
 						bookingId: booking._id,
@@ -371,7 +371,8 @@ export const getBookings = async ({
 			.sort({
 				createdAt: -1,
 			})
-			.skip(skipAmount).limit(limit)
+			.skip(skipAmount)
+			.limit(limit)
 			.populate("user")
 			.populate({
 				path: "space",
@@ -454,8 +455,8 @@ export const cancelBooking = async ({
 							Name: `${user.firstName} ${user.lastName}`,
 						},
 					],
-					Subject: `Booking cancelled - Reenite.`,
-					TextPart: `Booking cancelled - Reenite.`,
+					Subject: `Booking cancelled - Reenite`,
+					TextPart: `Booking cancelled - Reenite`,
 					HTMLPart: CancelBooking({
 						bookingId: booking?.bookingId,
 						spaceTitle: booking?.space?.title,
