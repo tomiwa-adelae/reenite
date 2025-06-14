@@ -1259,46 +1259,46 @@ export const addSpaceDiscounts = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
-		await mailjet.post("send", { version: "v3.1" }).request({
-			Messages: [
-				{
-					From: {
-						Email: process.env.SENDER_EMAIL_ADDRESS!,
-						Name: "Reenite",
-					},
-					To: [
-						{
-							Email: user.email,
-							Name: `${user.firstName} ${user.lastName}`,
-						},
-					],
-					ReplyTo: {
-						Email: process.env.SENDER_EMAIL_ADDRESS!,
-						Name: "Reenite Support",
-					},
-					Subject: `New space creation - Reenite`,
-					TextPart: `New space creation - Reenite`,
-					HTMLPart: NewSpaceEmail({
-						title: updatedSpace.title,
-						spaceId: updatedSpace._id,
-						category: space.category.name,
-						hourlyPricing: updatedSpace.pricing.hourly["1"],
-						dailyPricing: updatedSpace.pricing.daily["1"],
-						weeklyPricing: updatedSpace.pricing.monthly["1"],
-						monthlyPricing: updatedSpace.pricing.monthly["1"],
-						address: updatedSpace.address,
-						city: updatedSpace.city,
-						state: updatedSpace.state,
-						country: updatedSpace.country,
-						createdAt: updatedSpace.createdAt,
-						description: updatedSpace.description,
-						id: updatedSpace._id,
-						status: updatedSpace.status,
-					}),
-					CustomID: `space-creation-${updatedSpace._id}`,
-				},
-			],
-		});
+		// await mailjet.post("send", { version: "v3.1" }).request({
+		// 	Messages: [
+		// 		{
+		// 			From: {
+		// 				Email: process.env.SENDER_EMAIL_ADDRESS!,
+		// 				Name: "Reenite",
+		// 			},
+		// 			To: [
+		// 				{
+		// 					Email: user.email,
+		// 					Name: `${user.firstName} ${user.lastName}`,
+		// 				},
+		// 			],
+		// 			ReplyTo: {
+		// 				Email: process.env.SENDER_EMAIL_ADDRESS!,
+		// 				Name: "Reenite Support",
+		// 			},
+		// 			Subject: `New space creation - Reenite`,
+		// 			TextPart: `New space creation - Reenite`,
+		// 			HTMLPart: NewSpaceEmail({
+		// 				title: updatedSpace.title,
+		// 				spaceId: updatedSpace._id,
+		// 				category: space.category.name,
+		// 				hourlyPricing: updatedSpace.pricing.hourly["1"],
+		// 				dailyPricing: updatedSpace.pricing.daily["1"],
+		// 				weeklyPricing: updatedSpace.pricing.monthly["1"],
+		// 				monthlyPricing: updatedSpace.pricing.monthly["1"],
+		// 				address: updatedSpace.address,
+		// 				city: updatedSpace.city,
+		// 				state: updatedSpace.state,
+		// 				country: updatedSpace.country,
+		// 				createdAt: updatedSpace.createdAt,
+		// 				description: updatedSpace.description,
+		// 				id: updatedSpace._id,
+		// 				status: updatedSpace.status,
+		// 			}),
+		// 			CustomID: `space-creation-${updatedSpace._id}`,
+		// 		},
+		// 	],
+		// });
 
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {

@@ -87,13 +87,15 @@ export function MobileNavbar({ user }: { user: any }) {
 								))}
 							</div>
 							<div className="flex flex-col mt-4 w-full items-center justify-end gap-4">
-								<Button
-									asChild
-									size="md"
-									className="text-sm w-full"
-								>
-									<Link href="/spaces">Book a space</Link>
-								</Button>
+								<SheetClose asChild>
+									<Button
+										asChild
+										size="md"
+										className="text-sm w-full"
+									>
+										<Link href="/spaces">Book a space</Link>
+									</Button>
+								</SheetClose>
 							</div>
 						</div>
 						{user && (

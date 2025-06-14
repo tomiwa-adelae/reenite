@@ -45,7 +45,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 					<div className="flex items-center md:justify-start mx-auto md:mx-0 justify-center">
 						<Logo />
 					</div>
-					<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold">
+					<h1 className="text-2xl text-center md:text-left sm:text-3xl md:text-4xl lg:text-6xl mt-6 mb-4 font-bold">
 						Booking confirmed successfully!
 					</h1>
 					<p className="text-sm md:text-base text-muted-foreground lg:text-base leading-relaxed font-medium">

@@ -77,7 +77,7 @@ export const footerDetails = [
 		title: "Legal",
 		links: [
 			{
-				slug: "https://reenite.com/term-of-use",
+				slug: "https://reenite.com/terms-of-use",
 				label: "Terms of Use",
 			},
 			{

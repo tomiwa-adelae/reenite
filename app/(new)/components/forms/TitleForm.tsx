@@ -73,7 +73,7 @@ export const TitleForm = ({ spaceId, userId, title }: Props) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input
+										<Textarea
 											placeholder=""
 											className="resize-none min-h-40 text-lg md:text-2xl"
 											{...field}
