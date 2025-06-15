@@ -67,6 +67,13 @@ export const createBooking = async ({
 				message: "Oops! An error occurred! Try again later",
 			};
 
+		if (space.status !== "active")
+			return {
+				status: 400,
+				message:
+					"Oops! You cannot book this space. The space is not active",
+			};
+
 		function generateSuffix(length = 4): string {
 			const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 			let result = "";

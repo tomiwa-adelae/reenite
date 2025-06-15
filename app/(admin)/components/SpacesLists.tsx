@@ -76,6 +76,8 @@ export const SpacesLists = ({
 									? "success"
 									: space?.status === "draft"
 									? "warning"
+									: space?.status === "hidden"
+									? "destructive"
 									: "default"
 							}
 							className="absolute top-3 left-3 capitalize px-1 py-1 rounded-full"

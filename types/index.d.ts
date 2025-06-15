@@ -254,3 +254,9 @@ declare interface MarkBookingAsPaidParams {
 	userId: string;
 	bookingId: string;
 }
+
+declare interface UpdateVisibilityParams {
+	userId: string;
+	spaceId: string;
+	status: string;
+}

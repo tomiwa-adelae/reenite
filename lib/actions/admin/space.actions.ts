@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToDatabase } from "@/lib/database";
-import Space, { IPhoto } from "@/lib/database/models/space.model";
+import Space, { IPhoto, IPricing } from "@/lib/database/models/space.model";
 import User from "@/lib/database/models/user.model";
 import { handleError } from "@/lib/utils";
 import {
@@ -26,6 +26,7 @@ import {
 	UpdateSpaceCategoryParams,
 	UpdateSpaceCoverPhotoParams,
 	UpdateSpacePricingParams,
+	UpdateVisibilityParams,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
@@ -1249,7 +1250,23 @@ export const addSpaceDiscounts = async ({
 		space.hourlyDiscount = hourlyDiscount || space.dailyDiscount;
 		space.weeklyDiscount = weeklyDiscount || space.weeklyDiscount;
 		space.monthlyDiscount = monthlyDiscount || space.monthlyDiscount;
-		space.status = "active";
+
+		if (
+			space.title &&
+			space.description &&
+			space.user &&
+			space.category &&
+			space.address &&
+			space.city &&
+			space.state &&
+			space.country &&
+			space.amenities.length !== 0 &&
+			space.photos.length >= 5
+		) {
+			space.status = "active";
+		} else {
+			space.status = "draft";
+		}
 
 		const updatedSpace = await space.save();
 
@@ -1258,47 +1275,6 @@ export const addSpaceDiscounts = async ({
 				status: 400,
 				message: "Oops! An error occurred! Try again later",
 			};
-
-		// await mailjet.post("send", { version: "v3.1" }).request({
-		// 	Messages: [
-		// 		{
-		// 			From: {
-		// 				Email: process.env.SENDER_EMAIL_ADDRESS!,
-		// 				Name: "Reenite",
-		// 			},
-		// 			To: [
-		// 				{
-		// 					Email: user.email,
-		// 					Name: `${user.firstName} ${user.lastName}`,
-		// 				},
-		// 			],
-		// 			ReplyTo: {
-		// 				Email: process.env.SENDER_EMAIL_ADDRESS!,
-		// 				Name: "Reenite Support",
-		// 			},
-		// 			Subject: `New space creation - Reenite`,
-		// 			TextPart: `New space creation - Reenite`,
-		// 			HTMLPart: NewSpaceEmail({
-		// 				title: updatedSpace.title,
-		// 				spaceId: updatedSpace._id,
-		// 				category: space.category.name,
-		// 				hourlyPricing: updatedSpace.pricing.hourly["1"],
-		// 				dailyPricing: updatedSpace.pricing.daily["1"],
-		// 				weeklyPricing: updatedSpace.pricing.monthly["1"],
-		// 				monthlyPricing: updatedSpace.pricing.monthly["1"],
-		// 				address: updatedSpace.address,
-		// 				city: updatedSpace.city,
-		// 				state: updatedSpace.state,
-		// 				country: updatedSpace.country,
-		// 				createdAt: updatedSpace.createdAt,
-		// 				description: updatedSpace.description,
-		// 				id: updatedSpace._id,
-		// 				status: updatedSpace.status,
-		// 			}),
-		// 			CustomID: `space-creation-${updatedSpace._id}`,
-		// 		},
-		// 	],
-		// });
 
 		revalidatePath(`/all-spaces/${space._id}`);
 		return {
@@ -1528,6 +1504,129 @@ export const removeSpace = async ({ userId, spaceId }: RemoveSpaceParams) => {
 		revalidatePath("/dashboard");
 
 		return { status: 200, message: "Successfully deleted space" };
+	} catch (error) {
+		handleError(error);
+		return {
+			status: 400,
+			message: "Oops! An error occurred. Try again later.",
+		};
+	}
+};
+
+export const updateVisibility = async ({
+	userId,
+	spaceId,
+	status,
+}: UpdateVisibilityParams) => {
+	try {
+		await connectToDatabase();
+
+		if (!userId || !spaceId)
+			return {
+				status: 400,
+				message: "Oops! An error occurred. Try again later",
+			};
+
+		const user = await User.findById(userId);
+
+		if (!user || !user?.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to make this request.",
+			};
+
+		const space = await Space.findById(spaceId);
+
+		if (!space)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+		// Check all necessary fields if activating the space
+		if (status === "active") {
+			const validations = [
+				{
+					valid: !!space.title,
+					message: "Title is required before the space can be active",
+				},
+				{
+					valid: !!space.description,
+					message:
+						"Description is required before the space can be active",
+				},
+				{
+					valid: !!space.address,
+					message:
+						"Address is required before the space can be active",
+				},
+				{
+					valid: !!space.city,
+					message: "City is required before the space can be active",
+				},
+				{
+					valid: !!space.state,
+					message: "State is required before the space can be active",
+				},
+				{
+					valid: !!space.country,
+					message:
+						"Country is required before the space can be active",
+				},
+				{
+					valid:
+						Array.isArray(space.photos) && space.photos.length >= 5,
+					message: "Space requires at least 5 photos to be active",
+				},
+				{
+					valid:
+						Array.isArray(space.amenities) &&
+						space.amenities.length > 0,
+					message: "Space requires at least 1 amenity to be active",
+				},
+				{
+					valid: (() => {
+						const pricing = space.pricing;
+						if (!pricing) return false;
+
+						const tiers = ["hourly", "daily", "weekly", "monthly"];
+						for (const tier of tiers) {
+							const tierMap = pricing[tier as keyof IPricing];
+							if (!tierMap || Object.keys(tierMap).length === 0) {
+								return false;
+							}
+						}
+
+						return true;
+					})(),
+					message:
+						"All pricing tiers (hourly, daily, weekly, and monthly) must have at least one user pricing defined before the space can be active.",
+				},
+			];
+
+			for (const check of validations) {
+				if (!check.valid) {
+					return {
+						status: 400,
+						message: check.message,
+					};
+				}
+			}
+		}
+
+		space.status = status || space.status;
+		const updatedSpace = await space.save();
+
+		if (!updatedSpace)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
+		revalidatePath(`/all-spaces/${space._id}`);
+		return {
+			status: 201,
+			message: "Visibility status successfully updated.",
+			space: JSON.parse(JSON.stringify(updatedSpace)),
+		};
 	} catch (error) {
 		handleError(error);
 		return {

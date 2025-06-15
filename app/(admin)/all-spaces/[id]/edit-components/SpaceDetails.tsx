@@ -33,6 +33,8 @@ import { EditWeeklyPricingComponent } from "./EditWeeklyPricingComponent";
 import { ResponsiveModal } from "@/components/modals/ResponsiveModal";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { BackButton } from "@/components/shared/BackButton";
+import { Badge } from "@/components/ui/badge";
+import { EditVisibilityComponent } from "./EditVisibilityComponent";
 
 interface Props {
 	title: string;
@@ -49,6 +51,7 @@ interface Props {
 	hourlyDiscount: string;
 	weeklyDiscount: string;
 	dailyDiscount: string;
+	status: string;
 	hourlyPricing: IPriceTier;
 	dailyPricing: IPriceTier;
 	monthlyPricing: IPriceTier;
@@ -82,6 +85,7 @@ export const SpaceDetails = ({
 	amenities,
 	categories,
 	availability,
+	status,
 }: Props) => {
 	const [activeSection, setActiveSection] = useState("photos"); // default is photos
 	const [openModal, setOpenModal] = useState(false); // default is photos
@@ -120,8 +124,12 @@ export const SpaceDetails = ({
 					<div className="lg:container">
 						<div className="container flex items-center justify-start gap-4">
 							<BackButton slug={"/all-spaces"} />
-							<h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-								{title}
+							<h2 className="font-semibold line-clamp-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+								{title ? (
+									title
+								) : (
+									<p className="italic">No title</p>
+								)}
 							</h2>
 						</div>
 						<div className="h-[calc(100vh-80px)] pb-32 overflow-auto">
@@ -143,6 +151,7 @@ export const SpaceDetails = ({
 												<PhotosCard photos={photos} />
 											</SpaceDetailsBox>
 										</div>
+
 										<div
 											onClick={() => {
 												setActiveSection("title");
@@ -156,7 +165,13 @@ export const SpaceDetails = ({
 												name="Title"
 											>
 												<h2 className="font-semibold text-muted-foreground text-xl lg:text-2xl mt-2">
-													{title}
+													{title ? (
+														title
+													) : (
+														<p className="italic">
+															No title
+														</p>
+													)}
 												</h2>
 											</SpaceDetailsBox>
 										</div>
@@ -174,7 +189,13 @@ export const SpaceDetails = ({
 												name="Description"
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
-													{description}
+													{description ? (
+														description
+													) : (
+														<p className="italic">
+															No description
+														</p>
+													)}
 												</h2>
 											</SpaceDetailsBox>
 										</div>
@@ -201,8 +222,15 @@ export const SpaceDetails = ({
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
 													Hourly pricing starts at ₦
-													{formatMoneyInput(
-														hourlyPricing[1]
+													{hourlyPricing?.[1] !=
+													null ? (
+														formatMoneyInput(
+															hourlyPricing[1]
+														)
+													) : (
+														<span className="italic">
+															0
+														</span>
 													)}
 												</h2>
 											</div>
@@ -217,8 +245,15 @@ export const SpaceDetails = ({
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
 													Daily pricing starts at ₦
-													{formatMoneyInput(
-														dailyPricing[1]
+													{dailyPricing?.[1] !=
+													null ? (
+														formatMoneyInput(
+															dailyPricing[1]
+														)
+													) : (
+														<span className="italic">
+															0
+														</span>
 													)}
 												</h2>
 											</div>
@@ -233,8 +268,15 @@ export const SpaceDetails = ({
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
 													Weekly pricing starts at ₦
-													{formatMoneyInput(
-														weeklyPricing[1]
+													{weeklyPricing?.[1] !=
+													null ? (
+														formatMoneyInput(
+															weeklyPricing[1]
+														)
+													) : (
+														<span className="italic">
+															0
+														</span>
 													)}
 												</h2>
 											</div>
@@ -249,8 +291,15 @@ export const SpaceDetails = ({
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2 line-clamp-4">
 													Monthly pricing starts at ₦
-													{formatMoneyInput(
-														monthlyPricing[1]
+													{monthlyPricing?.[1] !=
+													null ? (
+														formatMoneyInput(
+															monthlyPricing[1]
+														)
+													) : (
+														<span className="italic">
+															0
+														</span>
 													)}
 												</h2>
 											</div>
@@ -309,10 +358,19 @@ export const SpaceDetails = ({
 												name="Location"
 											>
 												<h2 className="font-semibold text-muted-foreground text-sm lg:text-base mt-2">
-													{address}, {city}, {state},{" "}
-													<span className="capitalize">
-														{country}
-													</span>
+													{address && city ? (
+														<>
+															{address}, {city},{" "}
+															{state},{" "}
+															<span className="capitalize">
+																{country}
+															</span>
+														</>
+													) : (
+														<p className="italic">
+															No location
+														</p>
+													)}
 												</h2>
 											</SpaceDetailsBox>
 										</div>
@@ -331,7 +389,7 @@ export const SpaceDetails = ({
 											>
 												<div className="mt-2 grid gap-4 text-muted-foreground font-semibold">
 													{amenities
-														.slice(0, 3)
+														?.slice(0, 3)
 														.map(
 															(
 																{ name, icon },
@@ -344,6 +402,12 @@ export const SpaceDetails = ({
 																/>
 															)
 														)}
+													{amenities?.length ===
+														0 && (
+														<p className="italic">
+															No amenities
+														</p>
+													)}
 												</div>
 											</SpaceDetailsBox>
 										</div>
@@ -402,18 +466,68 @@ export const SpaceDetails = ({
 												name="Availability"
 											>
 												<div className="mt-2 grid gap-2 text-muted-foreground font-semibold text-sm lg:text-base">
-													{formattedAvailability.map(
+													{formattedAvailability?.map(
 														(entry, idx) => (
 															<p key={idx}>
 																{entry}
 															</p>
 														)
 													)}
+													{formattedAvailability?.length ===
+														0 && (
+														<p className="italic">
+															No days available
+														</p>
+													)}
+												</div>
+											</SpaceDetailsBox>
+										</div>
+										<div
+											onClick={() => {
+												setActiveSection("visibility");
+												setOpenModal(true);
+											}}
+										>
+											<SpaceDetailsBox
+												active={
+													activeSection ===
+													"visibility"
+												}
+												name="Visibility"
+											>
+												<div className="mt-2 text-muted-foreground font-semibold text-sm lg:text-base">
+													<Badge
+														variant={
+															status === "draft"
+																? "warning"
+																: status ===
+																  "active"
+																? "success"
+																: status ===
+																  "hidden"
+																? "destructive"
+																: "default"
+														}
+														className="capitalize mr-2"
+													>
+														{status}
+													</Badge>
+													<span>
+														This space is{" "}
+														{status === "draft"
+															? "drafted and not visible"
+															: status ===
+															  "active"
+															? "active"
+															: status ===
+															  "hidden"
+															? "hidden"
+															: "uncategorized"}
+													</span>
 												</div>
 											</SpaceDetailsBox>
 										</div>
 									</div>
-									{/* <ResponsiveModal /> */}
 								</ScrollArea>
 							</div>
 						</div>
@@ -427,6 +541,7 @@ export const SpaceDetails = ({
 							spaceId={spaceId}
 						/>
 					)}
+
 					{activeSection === "title" && (
 						<EditTitleComponent
 							userId={userId}
@@ -510,6 +625,13 @@ export const SpaceDetails = ({
 							userId={userId}
 							spaceId={spaceId}
 							initialPricing={monthlyPricing}
+						/>
+					)}
+					{activeSection === "visibility" && (
+						<EditVisibilityComponent
+							userId={userId}
+							spaceId={spaceId}
+							status={status}
 						/>
 					)}
 				</div>
@@ -623,6 +745,13 @@ export const SpaceDetails = ({
 									spaceId={spaceId}
 									initialPricing={monthlyPricing}
 									closeSmallModal={() => setOpenModal(false)}
+								/>
+							)}
+							{activeSection === "visibility" && (
+								<EditVisibilityComponent
+									userId={userId}
+									spaceId={spaceId}
+									status={status}
 								/>
 							)}
 						</ScrollArea>

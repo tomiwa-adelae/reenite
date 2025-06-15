@@ -147,10 +147,10 @@ export const DiscountForm = ({
 	const form = useForm<FormValues>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			hourlyDiscount: Number(hourlyDiscount) || 20,
-			dailyDiscount: Number(dailyDiscount) || 20,
-			weeklyDiscount: Number(weeklyDiscount) || 20,
-			monthlyDiscount: Number(monthlyDiscount) || 20,
+			hourlyDiscount: Number(hourlyDiscount) || 10,
+			dailyDiscount: Number(dailyDiscount) || 10,
+			weeklyDiscount: Number(weeklyDiscount) || 10,
+			monthlyDiscount: Number(monthlyDiscount) || 10,
 		},
 	});
 
@@ -158,7 +158,7 @@ export const DiscountForm = ({
 	const toggleDiscount = (key: DiscountKey) => {
 		setEnabledDiscounts((prev) => {
 			const updated = { ...prev, [key]: !prev[key] };
-			form.setValue(key, updated[key] ? 20 : 0); // reset to 20% or 0%
+			form.setValue(key, updated[key] ? 10 : 0); // reset to 20% or 0%
 			return updated;
 		});
 	};
@@ -176,22 +176,32 @@ export const DiscountForm = ({
 
 	const onSubmit = async (data: FormValues) => {
 		try {
-			const activeDiscounts = Object.entries(data).reduce(
-				(acc: any, [key, value]) => {
-					if (enabledDiscounts[key as DiscountKey]) acc[key] = value;
+			// const activeDiscounts = Object.entries(data).reduce(
+			// 	(acc: any, [key, value]) => {
+			// 		if (enabledDiscounts[key as DiscountKey]) acc[key] = value;
+			// 		return acc;
+			// 	},
+			// 	{} as Partial<FormValues>
+			// );
+			const allDiscounts = Object.entries(data).reduce(
+				(acc, [key, value]) => {
+					acc[key as DiscountKey] = String(
+						enabledDiscounts[key as DiscountKey] ? value : 0
+					);
 					return acc;
 				},
-				{} as Partial<FormValues>
+				{} as Record<DiscountKey, string>
 			);
 			const res = await addSpaceDiscounts({
 				userId,
 				spaceId,
-				...activeDiscounts,
+				...allDiscounts,
 			});
 
 			if (res.status === 400) return toast.error(res.message);
 			toast.success(res.message);
 			return router.push(`/all-spaces/${res?.space?._id}?success=true`);
+			console.log(allDiscounts);
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}

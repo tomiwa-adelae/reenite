@@ -14,6 +14,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Header } from "./Header";
+import { NoAmenities } from "@/app/(admin)/components/NoAmenities";
 
 interface Props {
 	userId: string;
@@ -112,7 +113,7 @@ export const Amenities = ({
 				<div className="lg:h-[calc(100vh-80px)] lg:pb-32 pb-12 overflow-auto">
 					<ScrollArea>
 						<div className="mt-8 grid grid-cols-1 gap-1">
-							{amenities.map((amenity: any, index) => {
+							{amenities?.map((amenity: any, index) => {
 								const Icon = iconMap[amenity.icon!];
 								return (
 									<div
@@ -142,6 +143,7 @@ export const Amenities = ({
 								);
 							})}
 						</div>
+						{amenities?.length === 0 && <NoAmenities />}
 					</ScrollArea>
 					<footer className="lg:hidden bg-white fixed left-0 lg:left-auto flex items-center justify-center w-full lg:w-1/2 bottom-0  border-t h-20 py-4">
 						<div className="container flex items-center justify-end">

@@ -55,14 +55,14 @@ const page = async () => {
 							{bookings?.bookings?.length !== 0 && (
 								<div className="mt-2">
 									<BookingsListings
-										bookings={bookings?.bookings.slice(
+										bookings={bookings?.bookings?.slice(
 											0,
 											5
 										)}
 									/>
 								</div>
 							)}
-							{bookings?.bookings.length > 5 && (
+							{bookings?.bookings?.length > 5 && (
 								<Button
 									asChild
 									size="md"
@@ -94,20 +94,20 @@ const page = async () => {
 							<h3 className="font-medium text-base md:text-lg">
 								Recent users
 							</h3>
-							{customers?.customers.length === 0 && (
+							{customers?.customers?.length === 0 && (
 								<NoCustomers />
 							)}
-							{customers?.customers.length !== 0 && (
+							{customers?.customers?.length !== 0 && (
 								<div className="mt-2">
 									<UsersListings
-										customers={customers?.customers.slice(
+										customers={customers?.customers?.slice(
 											0,
 											5
 										)}
 									/>
 								</div>
 							)}
-							{customers?.customers.length > 5 && (
+							{customers?.customers?.length > 5 && (
 								<Button
 									asChild
 									size="md"

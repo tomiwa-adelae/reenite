@@ -69,8 +69,10 @@ export const SpacesGrid = ({
 							variant={
 								space?.status === "active"
 									? "success"
-									: space?.status == "draft"
+									: space?.status === "draft"
 									? "warning"
+									: space?.status === "hidden"
+									? "destructive"
 									: "default"
 							}
 							className="absolute top-3 left-2 capitalize"

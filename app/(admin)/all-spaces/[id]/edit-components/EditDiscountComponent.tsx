@@ -97,7 +97,7 @@ export const EditDiscountComponent = ({
 	const toggleDiscount = (key: DiscountKey) => {
 		setEnabledDiscounts((prev) => {
 			const updated = { ...prev, [key]: !prev[key] };
-			form.setValue(key, updated[key] ? 20 : 0); // reset to 20% or 0%
+			form.setValue(key, updated[key] ? 10 : 0); // reset to 10% or 0%
 			return updated;
 		});
 	};
@@ -115,17 +115,26 @@ export const EditDiscountComponent = ({
 
 	const onSubmit = async (data: FormValues) => {
 		try {
-			const activeDiscounts = Object.entries(data).reduce(
-				(acc: any, [key, value]) => {
-					if (enabledDiscounts[key as DiscountKey]) acc[key] = value;
+			// const activeDiscounts = Object.entries(data).reduce(
+			// 	(acc: any, [key, value]) => {
+			// 		if (enabledDiscounts[key as DiscountKey]) acc[key] = value;
+			// 		return acc;
+			// 	},
+			// 	{} as Partial<FormValues>
+			// );
+			const allDiscounts = Object.entries(data).reduce(
+				(acc, [key, value]) => {
+					acc[key as DiscountKey] = String(
+						enabledDiscounts[key as DiscountKey] ? value : 0
+					);
 					return acc;
 				},
-				{} as Partial<FormValues>
+				{} as Record<DiscountKey, string>
 			);
 			const res = await addSpaceDiscounts({
 				userId,
 				spaceId,
-				...activeDiscounts,
+				...allDiscounts,
 			});
 
 			if (res.status === 400) return toast.error(res.message);

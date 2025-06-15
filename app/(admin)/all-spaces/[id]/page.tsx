@@ -70,6 +70,7 @@ const page = async ({ params }: { params: any }) => {
 			availability={spaceDetails?.space?.availability}
 			userId={user?.user?._id}
 			categories={categories?.categories}
+			status={spaceDetails?.space?.status}
 		/>
 	);
 };
