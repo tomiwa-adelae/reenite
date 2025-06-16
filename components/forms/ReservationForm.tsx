@@ -68,6 +68,7 @@ interface Props {
 	monthlyDiscount: string;
 	spaceId: string;
 	booking: string;
+	category: string;
 }
 
 export function ReservationForm({
@@ -81,6 +82,7 @@ export function ReservationForm({
 	monthlyDiscount,
 	spaceId,
 	booking,
+	category,
 }: Props) {
 	const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
 	const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -144,7 +146,15 @@ export function ReservationForm({
 		}
 
 		if (!isNaN(numberOfUsers)) {
-			const total = numberOfUsers * discountedPricePerUser;
+			let total: number;
+
+			if (category === "Meeting Room") {
+				// Price already includes number of users
+				total = discountedPricePerUser;
+			} else {
+				total = numberOfUsers * discountedPricePerUser;
+			}
+
 			setTotalPrice(total);
 		} else {
 			setTotalPrice(0); // Fallback
@@ -164,6 +174,7 @@ export function ReservationForm({
 		dailyDiscount,
 		weeklyDiscount,
 		monthlyDiscount,
+		category,
 	]);
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {

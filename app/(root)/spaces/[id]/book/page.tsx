@@ -131,6 +131,7 @@ const page = async ({
 					pricing={pricing}
 					spaceId={spaceDetails?.space?._id}
 					userId={user?.user?._id}
+					category={spaceDetails?.space.category}
 				/>
 			</div>
 		</div>

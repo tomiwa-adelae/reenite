@@ -49,11 +49,13 @@ interface Props {
 	pricing: PricingObject;
 	spaceId: string;
 	userId: string;
+	category: string;
 }
 
 export const BookingDetails = ({
 	firstName,
 	lastName,
+	category,
 	discount,
 	email,
 	phoneNumber,
@@ -93,14 +95,29 @@ export const BookingDetails = ({
 
 		const cleanedUser = Number(newUsers) >= 7 ? "7+" : String(newUsers);
 
-		let basePrice =
-			(pricing[cleanedUser] || 0) *
-			Number(numbers) *
-			Number(newUsers === "7+" ? "7" : newUsers);
-		const discountAmount = (basePrice * Number(discount || 0)) / 100;
+		let basePricePerUnit = (pricing[cleanedUser] || 0) * Number(numbers);
+		let basePrice: number;
 
+		if (category === "meeting room") {
+			// Price already includes users
+			basePrice = basePricePerUnit;
+		} else {
+			const userCount = newUsers === "7+" ? 7 : Number(newUsers);
+			basePrice = basePricePerUnit * userCount;
+		}
+
+		const discountAmount = (basePrice * Number(discount || 0)) / 100;
 		setTotalPrice(basePrice - discountAmount);
-	}, [booking, discount, newUsers, newWeeks, newDays, newMonths, newHours]);
+	}, [
+		booking,
+		discount,
+		newUsers,
+		newWeeks,
+		newDays,
+		newMonths,
+		newHours,
+		category,
+	]);
 
 	useEffect(() => {
 		if (!bookingStartDate) return;

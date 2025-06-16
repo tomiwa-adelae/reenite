@@ -86,6 +86,7 @@ export const SpaceDetails = ({
 						monthlyDiscount={monthlyDiscount}
 						booking={booking}
 						spaceId={spaceId}
+						category={category?.name}
 					/>
 				</div>
 			</div>
