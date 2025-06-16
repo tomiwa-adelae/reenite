@@ -12,7 +12,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 					Redefining the Future of Workspaces{" "}
 				</h2>
 
-				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+				<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
 					{spaces?.map((space, index) => {
 						const coverPhoto =
 							// @ts-ignore
@@ -23,27 +23,29 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 							<Link
 								href={`/spaces/${space?._id}`}
 								key={index}
-								className="relative group overflow-hidden rounded-lg"
+								className="relative group overflow-hidden rounded-lg space-box"
 							>
 								<Image
 									src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
 									alt={space.title || "Space image"}
 									width={1000}
 									height={1000}
-									className="aspect-square object-cover rounded-lg group-hover:scale-105 transition-all overflow-hidden"
+									className="aspect-square object-cover rounded-t-lg group-hover:scale-105 transition-all overflow-hidden"
 								/>
-								<h4 className="text-lg md:text-xl font-medium mt-4 group-hover:text-secondary transition-all">
-									{space?.title}
-								</h4>
-								<p className="text-sm md:text-base text-muted-foreground mt-1 truncate mb-4">
-									{space?.description ||
-										`${space.city}, ${space?.state}`}
-								</p>
-								<Button asChild size="md">
-									<Link href={`/spaces/${space?._id}`}>
-										Book space
-									</Link>
-								</Button>
+								<div className="p-[30px]">
+									<h4 className="text-lg md:text-xl font-medium group-hover:text-secondary transition-all">
+										{space?.title}
+									</h4>
+									<p className="text-sm md:text-base text-muted-foreground mt-1 truncate mb-4">
+										{space?.description ||
+											`${space.city}, ${space?.state}`}
+									</p>
+									<Button asChild size="md">
+										<Link href={`/spaces/${space?._id}`}>
+											Book space
+										</Link>
+									</Button>
+								</div>
 							</Link>
 						);
 					})}

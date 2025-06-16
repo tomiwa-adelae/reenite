@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { formatMoneyInput, handleKeyDown } from "@/lib/utils";
+import { handleKeyDown } from "@/lib/utils";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addSpaceDiscounts } from "@/lib/actions/admin/space.actions";
@@ -37,86 +37,6 @@ const DISCOUNT_TYPES = [
 
 type DiscountKey = (typeof DISCOUNT_TYPES)[number]["key"];
 type FormValues = z.infer<typeof FormSchema>;
-
-// const DiscountInput = ({
-// 	label,
-// 	name,
-// 	form,
-// 	price,
-// 	setPrice,
-// }: {
-// 	label: string;
-// 	name: keyof FormData;
-// 	form: any;
-// 	price: string;
-// 	setPrice: (val: string) => void;
-// }) => {
-// 	return (
-// 		<div className="rounded-xl bg-[#F7F7F7] p-6 flex items-center justify-between gap-2 border">
-// 			<FormField
-// 				control={form.control}
-// 				name={name}
-// 				render={({ field }) => (
-// 					<FormItem>
-// 						<FormControl>
-// 							<div className="relative">
-// 								<Input
-// 									onKeyDown={handleKeyDown}
-// 									inputMode="decimal"
-// 									value={price}
-// 									maxLength={100}
-// 									onChange={(e) => {
-// 										let val = e.target.value.replace(
-// 											/[^0-9.]/g,
-// 											""
-// 										);
-// 										if (
-// 											val.startsWith("0") &&
-// 											val.length > 1 &&
-// 											val[1] !== "."
-// 										)
-// 											val = val.slice(1);
-// 										if (val.startsWith(".")) return;
-// 										const parts = val.split(".");
-// 										if (parts.length > 2)
-// 											val =
-// 												parts[0] +
-// 												"." +
-// 												parts.slice(1).join("");
-// 										if (parts[1])
-// 											val =
-// 												parts[0] +
-// 												"." +
-// 												parts[1].substring(0, 2);
-
-// 										if (/^[0-9,]*\.?[0-9]*$/.test(val)) {
-// 											const formatted =
-// 												formatMoneyInput(val);
-// 											setPrice(formatted);
-// 											field.onChange(parseFloat(val));
-// 										}
-// 									}}
-// 									placeholder="20"
-// 									className="text-base md:text-xl max-w-[70px] focus:outline-0"
-// 								/>
-// 								<p className="font-medium text-lg text-muted-foreground absolute top-[50%] translate-y-[-50%] right-[8%] ">
-// 									%
-// 								</p>
-// 							</div>
-// 						</FormControl>
-// 						<FormMessage />
-// 					</FormItem>
-// 				)}
-// 			/>
-// 			<h5 className="flex-1 text-base lg:text-lg">{label}</h5>
-// 			<Checkbox
-// 				className="size-6"
-// 				id={`checkbox-${name}`}
-// 				defaultChecked
-// 			/>
-// 		</div>
-// 	);
-// };
 
 interface Props {
 	spaceId: string;
@@ -176,13 +96,6 @@ export const DiscountForm = ({
 
 	const onSubmit = async (data: FormValues) => {
 		try {
-			// const activeDiscounts = Object.entries(data).reduce(
-			// 	(acc: any, [key, value]) => {
-			// 		if (enabledDiscounts[key as DiscountKey]) acc[key] = value;
-			// 		return acc;
-			// 	},
-			// 	{} as Partial<FormValues>
-			// );
 			const allDiscounts = Object.entries(data).reduce(
 				(acc, [key, value]) => {
 					acc[key as DiscountKey] = String(
@@ -201,7 +114,6 @@ export const DiscountForm = ({
 			if (res.status === 400) return toast.error(res.message);
 			toast.success(res.message);
 			return router.push(`/all-spaces/${res?.space?._id}?success=true`);
-			console.log(allDiscounts);
 		} catch (error) {
 			toast.error("An error occurred! Try again later.");
 		}

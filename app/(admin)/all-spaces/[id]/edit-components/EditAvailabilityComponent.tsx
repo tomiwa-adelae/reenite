@@ -1,35 +1,14 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { nigerianCountries, nigerianStates } from "@/constants";
-import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
-import { Input } from "@/components/ui/input";
+import { Header } from "./Header";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/shared/Loader";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { IAvailability } from "@/lib/database/models/space.model";
 import { addSpaceAvailability } from "@/lib/actions/admin/space.actions";
-import { useRouter } from "next/navigation";
-import { Loader } from "@/components/shared/Loader";
-import { Header } from "./Header";
 
 type Day =
 	| "monday"
@@ -90,7 +69,6 @@ export const EditAvailabilityComponent = ({
 		return availabilityMap as OperatingHours;
 	};
 	const [loading, setLoading] = useState(false);
-	const router = useRouter();
 	const [formData, setFormData] = useState<{
 		operatingHours: OperatingHours;
 	}>({
@@ -151,7 +129,6 @@ export const EditAvailabilityComponent = ({
 
 			if (res.status === 400) return toast.error(res.message);
 
-			// toast.success(res.message);
 			setLoading(false);
 			toast.success("Space availability successfully updated!");
 
@@ -160,8 +137,6 @@ export const EditAvailabilityComponent = ({
 				closeSmallModal();
 			}
 		} catch (error) {
-			console.error("Submit error:", error); // helpful for debugging
-
 			setLoading(false);
 			toast.error("An error occurred! Try again later.");
 		} finally {

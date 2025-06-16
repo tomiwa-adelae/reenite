@@ -1,24 +1,25 @@
-import { AmenityBox } from "@/components/shared/AmenityBox";
-import { BackButton } from "@/components/shared/BackButton";
-import SpaceNotFound from "@/components/shared/SpaceNotFound";
+import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { getBookingDetails } from "@/lib/actions/admin/booking.actions";
-import { getUserInfo } from "@/lib/actions/customer/user.actions";
-import { IAmenity } from "@/lib/database/models/space.model";
-import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import type { Metadata, ResolvingMetadata } from "next";
+import { BackButton } from "@/components/shared/BackButton";
+import { AmenityBox } from "@/components/shared/AmenityBox";
+import { IAmenity } from "@/lib/database/models/space.model";
+import SpaceNotFound from "@/components/shared/SpaceNotFound";
+import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
+import { MarkBookingAsPaid } from "../../components/MarkBookingAsPaid";
+import { getBookingDetails } from "@/lib/actions/admin/booking.actions";
+import { CancelBookingButton } from "../../components/CancelBookingButton";
+import { MarkBookingMarkButton } from "../../components/MarkBookingCompletedButton";
 import {
-	ArrowLeft,
-	Ban,
 	Building,
 	CalendarCheck,
 	CalendarDays,
-	Car,
-	Check,
 	CircleCheckBig,
-	Clock,
 	CreditCard,
 	Eye,
 	Hash,
@@ -26,18 +27,8 @@ import {
 	Mail,
 	MapPin,
 	Phone,
-	Repeat2,
 	Users,
-	Wifi,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { CancelBookingButton } from "../../components/CancelBookingButton";
-import { MarkBookingMarkButton } from "../../components/MarkBookingCompletedButton";
-
-import type { Metadata, ResolvingMetadata } from "next";
-import { MarkBookingAsPaid } from "../../components/MarkBookingAsPaid";
 
 export async function generateMetadata(
 	{ params }: any,
@@ -448,18 +439,19 @@ const page = async ({ params }: { params: any }) => {
 											booking?.booking?.bookingStatus
 										}
 									/>
-									{booking?.booking?.paymentStatus !== 'paid' &&
-									<MarkBookingAsPaid
-									userId={user?.user?._id}
-									bookingId={booking?.booking?._id}
-									paymentStatus={
-										booking?.booking?.paymentStatus
-									}
-									bookingStatus={
-										booking?.booking?.bookingStatus
-									}
-									/>
-								}
+									{booking?.booking?.paymentStatus !==
+										"paid" && (
+										<MarkBookingAsPaid
+											userId={user?.user?._id}
+											bookingId={booking?.booking?._id}
+											paymentStatus={
+												booking?.booking?.paymentStatus
+											}
+											bookingStatus={
+												booking?.booking?.bookingStatus
+											}
+										/>
+									)}
 								</>
 							)}
 						{booking?.booking?.bookingStatus === "completed" && (

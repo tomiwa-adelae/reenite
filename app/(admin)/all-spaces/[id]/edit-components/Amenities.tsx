@@ -1,20 +1,20 @@
 "use client";
-import { DeleteAmenityModal } from "@/app/(new)/components/DeleteAmenityModal";
-import { ResponsiveModal } from "@/components/modals/ResponsiveModal";
-import { Loader } from "@/components/shared/Loader";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { availableAmenities } from "@/constants";
-import { addSpaceAmenities } from "@/lib/actions/admin/space.actions";
-import { IAmenity } from "@/lib/database/models/space.model";
-import { iconMap } from "@/lib/lucide-icons";
-import { cn } from "@/lib/utils";
-import { Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import { Header } from "./Header";
+import React, { useState } from "react";
+import { iconMap } from "@/lib/lucide-icons";
+import { Plus, Trash2, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { availableAmenities } from "@/constants";
+import { Loader } from "@/components/shared/Loader";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { IAmenity } from "@/lib/database/models/space.model";
 import { NoAmenities } from "@/app/(admin)/components/NoAmenities";
+import { addSpaceAmenities } from "@/lib/actions/admin/space.actions";
+import { ResponsiveModal } from "@/components/modals/ResponsiveModal";
+import { DeleteAmenityModal } from "@/app/(new)/components/DeleteAmenityModal";
 
 interface Props {
 	userId: string;

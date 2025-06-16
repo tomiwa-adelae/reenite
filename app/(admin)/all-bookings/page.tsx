@@ -1,9 +1,9 @@
-import { getUserInfo } from "@/lib/actions/customer/user.actions";
-import { currentUser } from "@clerk/nextjs/server";
-import { getBookings } from "@/lib/actions/admin/booking.actions";
-import { BookingsDetails } from "../components/BookingsDetails";
-import Pagination from "@/components/shared/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
+import { currentUser } from "@clerk/nextjs/server";
+import Pagination from "@/components/shared/Pagination";
+import { BookingsDetails } from "../components/BookingsDetails";
+import { getBookings } from "@/lib/actions/admin/booking.actions";
+import { getUserInfo } from "@/lib/actions/customer/user.actions";
 
 import type { Metadata } from "next";
 export const metadata: Metadata = {
