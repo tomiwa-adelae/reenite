@@ -130,8 +130,8 @@ export const BookingDetails = ({
 		const startDate = new Date(sanitizedDateStr);
 
 		if (isNaN(startDate.getTime())) {
-			console.error("Invalid start date format:", bookingStartDate);
 			setBookingEndDate(null);
+			toast.error("Invalid start date format"!);
 			return;
 		}
 
