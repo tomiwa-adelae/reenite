@@ -36,7 +36,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 									<h4 className="text-lg md:text-xl font-medium group-hover:text-secondary transition-all">
 										{space?.title}
 									</h4>
-									<p className="text-sm md:text-base text-muted-foreground mt-1 truncate mb-4">
+									<p className="text-sm md:text-base text-muted-foreground mt-2.5 line-clamp-3 mb-4">
 										{space?.description ||
 											`${space.city}, ${space?.state}`}
 									</p>
