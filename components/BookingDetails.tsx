@@ -98,7 +98,7 @@ export const BookingDetails = ({
 		let basePricePerUnit = (pricing[cleanedUser] || 0) * Number(numbers);
 		let basePrice: number;
 
-		if (category === "meeting room") {
+		if (category === "Meeting Room") {
 			// Price already includes users
 			basePrice = basePricePerUnit;
 		} else {
