@@ -43,12 +43,12 @@ export const SpacesShowcase = ({ image, title, description }: Props) => {
 							</p>
 						)}
 					</motion.div>
-					<div
-						className={`absolute inset-0 ${
-							title ? "bg-black/70" : "bg-black/20"
-						}`}
-					/>
 				</div>
+				<div
+					className={`absolute inset-0 ${
+						title ? "bg-black/70" : "bg-black/20"
+					}`}
+				/>
 			</div>
 		</div>
 	);
