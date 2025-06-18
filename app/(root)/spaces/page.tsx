@@ -65,8 +65,8 @@ const page = async () => {
 			<WorkSpaces spaces={spaces?.spaces} />
 			<Marquee texts={firstMarquee} />
 			<FAQs />
-			<Marquee texts={secondMarquee} />
-			<Testimonials />
+			{/*<Marquee texts={secondMarquee} />
+			<Testimonials /> */}
 		</div>
 	);
 };
