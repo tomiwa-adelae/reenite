@@ -19,7 +19,7 @@ export const SpacesShowcase = ({ image, title, description }: Props) => {
 			}}
 		>
 			<div className="grid container h-full text-white">
-				<div className="z-20 container">
+				<div className="z-20">
 					<motion.div
 						initial={{
 							opacity: 0,
@@ -32,7 +32,7 @@ export const SpacesShowcase = ({ image, title, description }: Props) => {
 						transition={{
 							duration: 0.6,
 						}}
-						className="z-50 flex flex-col text-center text-white justify-center items-center container"
+						className="z-50 flex flex-col text-center text-white justify-center items-center"
 					>
 						<h1 className="text-4xl lg:text-7xl mb-4 font-bold">
 							{title}
