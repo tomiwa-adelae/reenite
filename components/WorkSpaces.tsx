@@ -37,7 +37,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 								<div className="py-4 px-4 ">
 									<h4 className="font-semibold text-lg text-secondary mt-1.5">
 										{/* @ts-ignore */}
-										{space?.category?.name!}
+										{space?.title}
 									</h4>
 									<p className="mt-2 text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-2">
 										{space?.description}
