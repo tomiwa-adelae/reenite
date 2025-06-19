@@ -6,7 +6,7 @@ import { ISpace } from "@/lib/database/models/space.model";
 
 export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 	return (
-		<section className="bg-white py-16">
+		<section className="bg-[#F7F7F7] py-16">
 			<div className="container">
 				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
 					Redefining the Future of Workspaces{" "}
@@ -18,7 +18,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 							key={index}
 							// @ts-ignore
 							href={space?._id!}
-							className="shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-6 rounded-xl hover:bg-[#F7F7F7] transition-all hover:border-secondary border-2 border-transparent"
+							className="shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-6 bg-white rounded-xl hover:bg-[#F7F7F7] transition-all hover:border-secondary border-2 border-transparent"
 						>
 							<Image
 								src={
