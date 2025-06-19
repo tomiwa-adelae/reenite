@@ -35,7 +35,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 									className="aspect-video rounded-t-xl h-[200px]  object-cover"
 								/>
 								<div className="py-4 px-4 ">
-									<h4 className="font-semibold text-lg text-secondary mt-2.5">
+									<h4 className="font-semibold text-lg text-secondary mt-1.5">
 										{/* @ts-ignore */}
 										{space?.category?.name!}
 									</h4>
