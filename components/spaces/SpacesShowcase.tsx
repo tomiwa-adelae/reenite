@@ -15,7 +15,7 @@ export const SpacesShowcase = ({ image, title, description }: Props) => {
 		<div
 			className="bg-scroll bg-no-repeat bg-cover bg-center min-h-[50vh] lg:min-h-[70vh] py-24 flex items-center justify-center relative"
 			style={{
-				backgroundImage: `url(${image})`,
+				backgroundImage: `url(/assets/images/spaces-showcase-img.jpg)`,
 			}}
 		>
 			<div className="grid container h-full text-white">
@@ -44,11 +44,11 @@ export const SpacesShowcase = ({ image, title, description }: Props) => {
 						)}
 					</motion.div>
 				</div>
-				<div
+				{/* <div
 					className={`absolute inset-0 ${
 						title ? "bg-black/70" : "bg-black/20"
 					}`}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

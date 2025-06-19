@@ -57,10 +57,10 @@ const page = async () => {
 						? spaces?.spaces[0]?.photos[0]?.src
 						: REENITE_LOGO
 				}
-				title={"Find Your Perfect Workspace"}
-				description={
-					"Discover inspiring co-working spaces, private offices, and meeting rooms in your city. Book by the hour, day, or month."
-				}
+				title={"Book A Space at Reenite"}
+				// description={
+				// 	"Discover inspiring co-working spaces, private offices, and meeting rooms in your city. Book by the hour, day, or month."
+				// }
 			/>
 			<WorkSpaces spaces={spaces?.spaces} />
 			<Marquee texts={firstMarquee} />
