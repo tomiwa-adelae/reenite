@@ -1,17 +1,12 @@
-import Image from "next/image";
-import { Button } from "./ui/button";
-import { DEFAULT_SPACE_IMAGE, spaces } from "@/constants";
 import Link from "next/link";
+import Image from "next/image";
+import { DEFAULT_SPACE_IMAGE } from "@/constants";
 import { ISpace } from "@/lib/database/models/space.model";
 
 export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 	return (
 		<section className="bg-[#F1F1F1] py-16">
 			<div className="container">
-				{/* <h2 className="font-medium text-2xl md:text-3xl lg:text-4xl text-center">
-					Redefining the Future of Workspaces{" "}
-				</h2> */}
-
 				<div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-8">
 					{spaces?.map((space, index) => {
 						const coverPhoto =
@@ -47,91 +42,7 @@ export const WorkSpaces = ({ spaces }: { spaces: ISpace[] }) => {
 						);
 					})}
 				</div>
-
-				{/* <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
-					{spaces?.map((space, index) => {
-						const coverPhoto =
-							// @ts-ignore
-							space?.photos.find((photo) => photo.cover) ||
-							// @ts-ignore
-							space?.photos[0];
-						return (
-							<Link
-								href={`/spaces/${space?._id}`}
-								key={index}
-								className="relative group overflow-hidden rounded-lg space-box"
-							>
-								<Image
-									src={coverPhoto?.src || DEFAULT_SPACE_IMAGE}
-									alt={space.title || "Space image"}
-									width={1000}
-									height={1000}
-									className="aspect-square object-cover rounded-t-lg group-hover:scale-105 transition-all overflow-hidden"
-								/>
-								<div className="p-[30px]">
-									<h4 className="text-lg md:text-xl font-medium group-hover:text-secondary transition-all">
-										{space?.title}
-									</h4>
-									<p className="text-sm md:text-base text-muted-foreground mt-2.5 line-clamp-3 mb-4">
-										{space?.description ||
-											`${space.city}, ${space?.state}`}
-									</p>
-									<Button asChild size="md">
-										<Link href={`/spaces/${space?._id}`}>
-											Book space
-										</Link>
-									</Button>
-								</div>
-							</Link>
-						);
-					})}
-				</div> */}
 			</div>
-
-			{/* <div className="mt-8">
-				{workspaces.map((space, index) => (
-					<div
-						key={index}
-						className="grid grid-cols-1 md:grid-cols-2"
-					>
-						<div
-							className={`${
-								space.bg
-							} py-16 text-white flex items-start justify-center ${
-								index % 2 === 1
-									? "order-1 md:order-2"
-									: "order-1"
-							}`}
-						>
-							<div className="container h-full flex flex-col items-start justify-center">
-								<h2 className="font-semibold text-xl md:text-2xl lg:text-3xl">
-									{space.title}
-								</h2>
-								<p className="text-sm lg:text-base mt-3">
-									{space.description}
-								</p>
-								<p className="text-sm lg:text-base mt-2 mb-6">
-									Amenities: {space.amenities}
-								</p>
-								<Button size="lg" variant={space.buttonVariant}>
-									Book Now
-								</Button>
-							</div>
-						</div>
-						<Image
-							src={space.image}
-							alt={space.title}
-							width={1000}
-							height={1000}
-							className={`aspect-square object-cover ${
-								index % 2 === 1
-									? "order-2 md:order-1"
-									: "order-2"
-							}`}
-						/>
-					</div>
-				))}
-			</div> */}
 		</section>
 	);
 };

@@ -1,7 +1,6 @@
 "use client";
 import { toast } from "sonner";
 import { Header } from "./Header";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -56,8 +55,8 @@ export const EditAvailabilityComponent = ({
 		const availabilityMap: Partial<OperatingHours> = {};
 
 		for (const day of days) {
-			const match = availability.find(
-				(item: any) => item.day.toLowerCase() === day
+			const match = availability?.find(
+				(item: any) => item?.day.toLowerCase() === day
 			);
 			availabilityMap[day] = {
 				open: match?.openingHour || "",
@@ -76,7 +75,7 @@ export const EditAvailabilityComponent = ({
 	});
 
 	useEffect(() => {
-		if (availability && availability.length) {
+		if (availability && availability?.length) {
 			setFormData({
 				operatingHours: mapAvailabilityToFormData(availability),
 			});
@@ -127,7 +126,7 @@ export const EditAvailabilityComponent = ({
 				availability: availabilityPayload,
 			});
 
-			if (res.status === 400) return toast.error(res.message);
+			if (res?.status === 400) return toast.error(res?.message);
 
 			setLoading(false);
 			toast.success("Space availability successfully updated!");
@@ -150,7 +149,7 @@ export const EditAvailabilityComponent = ({
 			<div className="lg:h-[calc(100vh-80px)] lg:pb-40 pb-16 overflow-auto">
 				<ScrollArea>
 					<div className="space-y-3 container mt-4">
-						{Object.entries(formData.operatingHours).map(
+						{Object.entries(formData?.operatingHours)?.map(
 							([day, hours]) => (
 								<div
 									key={day}
@@ -164,7 +163,7 @@ export const EditAvailabilityComponent = ({
 											<input
 												id={day}
 												type="checkbox"
-												checked={!hours.closed}
+												checked={!hours?.closed}
 												onChange={(e) =>
 													handleOperatingHoursChange(
 														day as Day,
@@ -183,11 +182,11 @@ export const EditAvailabilityComponent = ({
 										</div>
 									</div>
 
-									{!hours.closed && (
+									{!hours?.closed && (
 										<div className="w-full flex items-center justify-between gap-2">
 											<Input
 												type="time"
-												value={hours.open}
+												value={hours?.open}
 												onChange={(e) =>
 													handleOperatingHoursChange(
 														day as Day,
@@ -202,7 +201,7 @@ export const EditAvailabilityComponent = ({
 											</span>
 											<Input
 												type="time"
-												value={hours.close}
+												value={hours?.close}
 												onChange={(e) =>
 													handleOperatingHoursChange(
 														day as Day,
@@ -234,8 +233,8 @@ export const EditAvailabilityComponent = ({
 					<Button
 						onClick={handleSubmit}
 						disabled={
-							Object.values(formData.operatingHours).every(
-								(day) => day.closed
+							Object.values(formData?.operatingHours).every(
+								(day) => day?.closed
 							) || loading
 						}
 						size="lg"

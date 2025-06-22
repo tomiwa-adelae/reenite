@@ -70,9 +70,9 @@ const page = async ({ params }: { params: any }) => {
 
 	const coverPhoto =
 		// @ts-ignore
-		booking.booking.space?.photos.find((photo) => photo.cover) ||
+		booking?.booking?.space?.photos?.find((photo) => photo?.cover) ||
 		// @ts-ignore
-		booking.booking.space?.photos[0];
+		booking?.booking?.space?.photos[0];
 	return (
 		<div className="py-8">
 			<div className="container">
@@ -113,7 +113,7 @@ const page = async ({ params }: { params: any }) => {
 											: "default"
 									}
 								>
-									{booking.booking.bookingStatus}
+									{booking?.booking?.bookingStatus}
 								</Badge>
 							</div>
 						</div>
@@ -122,7 +122,7 @@ const page = async ({ params }: { params: any }) => {
 				<div
 					className="bg-blend-darken bg-black/60 bg-scroll bg-no-repeat bg-cover bg-center py-16 flex items-center justify-center relative h-[50vh] rounded-lg mt-4"
 					style={{
-						backgroundImage: `url(${coverPhoto.src})`,
+						backgroundImage: `url(${coverPhoto?.src})`,
 					}}
 				>
 					<div className="absolute bottom-0 left-0 w-full py-4 text-white ">
@@ -414,7 +414,7 @@ const page = async ({ params }: { params: any }) => {
 								)}
 							>
 								<CircleCheckBig className="size-3 lg:size-5 inline-block mr-2" />
-								{booking.booking.paymentStatus}
+								{booking?.booking?.paymentStatus}
 							</p>
 						</div>
 					</div>

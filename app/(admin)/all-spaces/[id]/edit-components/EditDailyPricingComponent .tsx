@@ -1,14 +1,14 @@
 "use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Header } from "./Header";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Header } from "./Header";
+import { Loader } from "@/components/shared/Loader";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	Form,
 	FormField,
@@ -18,15 +18,8 @@ import {
 	FormControl,
 } from "@/components/ui/form";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { RequiredAsterisk } from "@/components/shared/RequiredAsterisk";
-
+import { addSpaceDailyPricing } from "@/lib/actions/admin/space.actions";
 import { formatMoneyInput, handleKeyDown, removeCommas } from "@/lib/utils";
-import {
-	addSpaceDailyPricing,
-	updateSpacePricing,
-} from "@/lib/actions/admin/space.actions";
-import { Loader } from "@/components/shared/Loader";
-import { useState } from "react";
 
 const FormSchema = z.object({
 	pricing: z.record(
@@ -132,7 +125,7 @@ export const EditDailyPricingComponent = ({
 					<div className="lg:h-[calc(100vh-80px)] lg:pb-40 pb-12 overflow-auto">
 						<ScrollArea>
 							<div className="container py-8 space-y-4">
-								{["1", "2", "3", "4", "5", "6", "7+"].map(
+								{["1", "2", "3", "4", "5", "6", "7+"]?.map(
 									(count) => (
 										<FormField
 											key={count}

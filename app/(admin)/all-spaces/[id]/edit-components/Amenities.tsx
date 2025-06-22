@@ -45,19 +45,19 @@ export const Amenities = ({
 
 	const addAmenity = (amenity: AmenitiesOption) => {
 		const newAmenity = {
-			icon: amenity.iconName,
-			name: amenity.name,
-			iconName: amenity.iconName,
+			icon: amenity?.iconName,
+			name: amenity?.name,
+			iconName: amenity?.iconName,
 		};
 
-		if (!newAmenities.some((c: any) => c.name === amenity.name)) {
+		if (!newAmenities?.some((c: any) => c?.name === amenity?.name)) {
 			setNewAmenities([...newAmenities, newAmenity]);
 		}
 	};
 
 	const removeAmenity = (amenity: AmenitiesOption) => {
 		setNewAmenities(
-			newAmenities.filter((a: any) => a.name !== amenity.name)
+			newAmenities?.filter((a: any) => a?.name !== amenity?.name)
 		);
 	};
 
@@ -73,7 +73,7 @@ export const Amenities = ({
 	const handleSubmit = async () => {
 		try {
 			setLoading(true);
-			if (newAmenities.length === 0)
+			if (newAmenities?.length === 0)
 				return toast.error("Please select at least one amenity!");
 
 			const res = await addSpaceAmenities({
@@ -82,7 +82,7 @@ export const Amenities = ({
 				amenities: newAmenities,
 			});
 
-			if (res.status === 400) return toast.error(res.message);
+			if (res?.status === 400) return toast.error(res?.message);
 
 			toast.success("Amenities successfully added!");
 			setOpenAmenitiesModal(false);
@@ -114,7 +114,7 @@ export const Amenities = ({
 					<ScrollArea>
 						<div className="mt-8 grid grid-cols-1 gap-1">
 							{amenities?.map((amenity: any, index) => {
-								const Icon = iconMap[amenity.icon!];
+								const Icon = iconMap[amenity?.icon!];
 								return (
 									<div
 										key={index}
@@ -123,7 +123,7 @@ export const Amenities = ({
 										<div className="flex items-start justify-center gap-2">
 											<Icon className="size-4 lg:size-6" />
 											<h5 className="font-medium text-sm lg:text-base">
-												{amenity.name}
+												{amenity?.name}
 											</h5>
 										</div>
 										<Button
@@ -133,7 +133,7 @@ export const Amenities = ({
 											onClick={(e) =>
 												handleDeleteClick(
 													e,
-													amenity._id!
+													amenity?._id!
 												)
 											}
 										>
@@ -178,10 +178,10 @@ export const Amenities = ({
 					<div>
 						{availableAmenities.filter(
 							(a) =>
-								!amenities.some(
-									(existing) => existing.name === a.name
+								!amenities?.some(
+									(existing) => existing?.name === a?.name
 								)
-						).length === 0 && (
+						)?.length === 0 && (
 							<div className="mt-8 px-6 flex flex-col items-center justify-center">
 								<Image
 									src={"/assets/icons/folder.svg"}
@@ -197,18 +197,18 @@ export const Amenities = ({
 						)}
 						<div className="mt-8 mb-32 pb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-6 gap-4">
 							{availableAmenities
-								.filter(
+								?.filter(
 									(a) =>
-										!amenities.some(
+										!amenities?.some(
 											(existing) =>
-												existing.name === a.name
+												existing?.name === a?.name
 										)
 								)
 								.map((amenity, index) => {
-									const Icon = amenity.icon;
+									const Icon = amenity?.icon;
 
-									const isSelected = newAmenities.some(
-										(a: any) => a.name === amenity.name
+									const isSelected = newAmenities?.some(
+										(a: any) => a?.name === amenity?.name
 									);
 
 									return (
@@ -227,7 +227,7 @@ export const Amenities = ({
 										>
 											<Icon className="size-6 lg:size-7" />
 											<h5 className="font-medium text-base lg:text-lg">
-												{amenity.name}
+												{amenity?.name}
 											</h5>
 										</div>
 									);
@@ -238,21 +238,21 @@ export const Amenities = ({
 						<div
 							className={cn(
 								"px-6 flex items-center justify-between gap-4",
-								availableAmenities.filter(
+								availableAmenities?.filter(
 									(a) =>
 										!amenities.some(
 											(existing) =>
-												existing.name === a.name
+												existing?.name === a?.name
 										)
-								).length === 0 && "justify-end"
+								)?.length === 0 && "justify-end"
 							)}
 						>
-							{availableAmenities.filter(
+							{availableAmenities?.filter(
 								(a) =>
-									!amenities.some(
-										(existing) => existing.name === a.name
+									!amenities?.some(
+										(existing) => existing?.name === a?.name
 									)
-							).length !== 0 && (
+							)?.length !== 0 && (
 								<Button
 									onClick={() => {
 										setOpenAmenitiesModal(false);
@@ -265,12 +265,12 @@ export const Amenities = ({
 									Cancel
 								</Button>
 							)}
-							{availableAmenities.filter(
+							{availableAmenities?.filter(
 								(a) =>
-									!amenities.some(
-										(existing) => existing.name === a.name
+									!amenities?.some(
+										(existing) => existing?.name === a?.name
 									)
-							).length === 0 ? (
+							)?.length === 0 ? (
 								<Button
 									onClick={() => {
 										setOpenAmenitiesModal(false);
@@ -284,7 +284,7 @@ export const Amenities = ({
 							) : (
 								<Button
 									disabled={
-										loading || newAmenities.length === 0
+										loading || newAmenities?.length === 0
 									}
 									onClick={handleSubmit}
 									size="md"

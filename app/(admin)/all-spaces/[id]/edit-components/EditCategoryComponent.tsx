@@ -1,17 +1,15 @@
 "use client";
-import { Loader } from "@/components/shared/Loader";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-
-import { spaceCategories } from "@/constants";
-import { updateSpaceCategory } from "@/lib/actions/admin/space.actions";
-import { ICategory } from "@/lib/database/models/category.model";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useState } from "react";
 import { toast } from "sonner";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { Header } from "./Header";
+import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/shared/Loader";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ICategory } from "@/lib/database/models/category.model";
 import { NoCategories } from "@/app/(admin)/components/NoCategories";
+import { updateSpaceCategory } from "@/lib/actions/admin/space.actions";
 
 interface Props {
 	categories: ICategory[];
@@ -43,7 +41,7 @@ export const EditCategoryComponent = ({
 				category: selectCategory,
 			});
 
-			if (res.status === 400) return toast.error(res.message);
+			if (res.status === 400) return toast.error(res?.message);
 			toast.success("Category successfully updated!");
 			// ✅ Safely call modal closer
 			if (typeof closeSmallModal === "function") {
