@@ -117,7 +117,7 @@ const page = async () => {
 									<div className="col-span-3 lg:col-span-5 py-6 md:py-8 lg:py-10 h-full flex flex-col lg:flex-row items-start lg:items-center justify-center gap-4 pr-4">
 										<div className="space-y-1">
 											<Link
-												href={space._id}
+												href={`/spaces/${space._id}`}
 												className="font-medium text-lg group-hover:text-secondary hover:underline"
 											>
 												{space.title}
