@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { REENITE_WEBSITE_URL } from "@/constants";
+import "leaflet/dist/leaflet.css";
 
 const dmsans = DM_Sans({
 	subsets: ["latin"],
