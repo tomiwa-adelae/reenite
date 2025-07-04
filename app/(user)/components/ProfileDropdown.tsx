@@ -54,7 +54,10 @@ export function ProfileDropdown({ user }: Props) {
 					)}
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-80 py-1 text-base font-medium">
+			<DropdownMenuContent
+				align="end"
+				className="w-80 py-1 text-base font-medium"
+			>
 				{user?.isAdmin && (
 					<Link href="/dashboard">
 						<DropdownMenuItem className="cursor-pointer">

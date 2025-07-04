@@ -48,7 +48,7 @@ export function ProfileDropdown({ user }: Props) {
 					/>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-80 py-2">
+			<DropdownMenuContent align="end" className="w-80 py-2">
 				{userNavLinks.map(({ label, icon, slug }, index) => {
 					const Icon = icon;
 					return (

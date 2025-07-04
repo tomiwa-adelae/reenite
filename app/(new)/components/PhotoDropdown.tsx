@@ -78,7 +78,7 @@ export function PhotoDropdown({ photo, userId, spaceId }: Props) {
 						<Ellipsis />
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="py-2">
+				<DropdownMenuContent align="end" className="py-2">
 					{!photo.cover && (
 						<div onClick={handleCoverChange}>
 							<DropdownMenuItem className="cursor-pointer">
