@@ -89,8 +89,8 @@ const page = async () => {
 				<h1 className="font-medium text-2xl md:text-3xl lg:text-4xl">
 					Find a location
 				</h1>
-				<div className="grid mt-4 grid-cols-1 lg:grid-cols-2 gap-8">
-					<div className="grid gap-4">
+				<div className="grid mt-4 grid-cols-1 lg:grid-cols-5 gap-8">
+					<div className="grid gap-4 lg:col-span-3">
 						{spaces?.spaces.map((space: any, index: string) => {
 							const coverPhoto =
 								// @ts-ignore
@@ -99,10 +99,10 @@ const page = async () => {
 								space?.photos[0];
 							return (
 								<div
-									className="border overflow-hidden rounded-lg border-border grid gap-4 grid-cols-5 lg:grid-cols-4 group"
+									className="border overflow-hidden rounded-lg border-border grid gap-4 grid-cols-5 lg:grid-cols-7 group"
 									key={index}
 								>
-									<div className="col-span-2 lg:col-span-1">
+									<div className="col-span-2">
 										<Image
 											src={
 												coverPhoto?.src ||
@@ -114,7 +114,7 @@ const page = async () => {
 											className="object-cover aspect-square size-full"
 										/>
 									</div>
-									<div className="col-span-3 py-6 md:py-8 lg:py-10 h-full flex flex-col lg:flex-row items-start lg:items-center justify-center gap-4 pr-4">
+									<div className="col-span-3 lg:col-span-5 py-6 md:py-8 lg:py-10 h-full flex flex-col lg:flex-row items-start lg:items-center justify-center gap-4 pr-4">
 										<div className="space-y-1">
 											<Link
 												href={space._id}
@@ -157,7 +157,9 @@ const page = async () => {
 							);
 						})}
 					</div>
-					<ReeniteMap />
+					<div className="lg:col-span-2">
+						<ReeniteMap />
+					</div>
 				</div>
 			</div>
 		</div>
